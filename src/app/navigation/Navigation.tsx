@@ -8,19 +8,19 @@ export const Navigation = React.memo(function Navigation() {
   return (
     <div className={css.navigation}>
       <NavigationItem
-        to={Route.Home}
+        to={Route.ProposalList}
         icon={<Icon.Navigation.Home />}
         label="Home"
       />
       <NavigationItem
-        to={Route.Earn}
-        icon={<Icon.Navigation.Earn />}
-        label="Earn"
+        to={Route.DaoList}
+        icon={<Icon.Navigation.DAOs />}
+        label="DAOs"
       />
       <NavigationItem
-        to={Route.Friends}
-        icon={<Icon.Navigation.Friends />}
-        label="Friends"
+        to={Route.Profile}
+        icon={<Icon.Navigation.Profile />}
+        label="Profile"
       />
     </div>
   );
