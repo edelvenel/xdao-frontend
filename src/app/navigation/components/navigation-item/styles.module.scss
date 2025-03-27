@@ -1,0 +1,24 @@
+.navigationItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 66px;
+  color: #888888;
+
+  &.active {
+    color: #ffffff;
+  }
+
+  .icon {
+    > svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .label {
+    font-size: 10px;
+    font-weight: 500;
+  }
+}
