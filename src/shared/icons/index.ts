@@ -1,13 +1,13 @@
-import { EarnIcon } from "./navigation/Earn";
-import { FriendsIcon } from "./navigation/Friends";
+import { DAOsIcon } from "./navigation/DAOs";
 import { HomeIcon } from "./navigation/Home";
+import { ProfileIcon } from "./navigation/Profile";
 
 export const Icon = {
   Common: {},
   Crypto: {},
   Navigation: {
-    Earn: EarnIcon,
-    Friends: FriendsIcon,
+    DAOs: DAOsIcon,
+    Profile: ProfileIcon,
     Home: HomeIcon,
   },
   Social: {},

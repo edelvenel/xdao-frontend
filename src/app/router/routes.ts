@@ -1,16 +1,31 @@
 export enum Route {
   Root = "root",
-  Home = "home",
-  Earn = "earn",
-  Friends = "friends",
+  Proposal = "proposal",
+  CreateProposal = "createProposal",
+  ProposalList = "proposalList",
+  Profile = "profile",
+  Nft = "nft",
+  Dao = "dao",
+  DaoList = "daoList",
+  CreateDao = "createDao",
 }
 
 export const routes = {
   [Route.Root]: "/",
 
-  [Route.Home]: "/home",
+  [Route.Proposal]: "/proposals/:id",
 
-  [Route.Earn]: "/earn",
+  [Route.CreateProposal]: "/proposals/create",
 
-  [Route.Friends]: "/friends",
+  [Route.ProposalList]: "/proposals",
+
+  [Route.Profile]: "/profile",
+
+  [Route.Nft]: "/nft",
+
+  [Route.Dao]: "/daos/:id",
+
+  [Route.DaoList]: "/daos",
+
+  [Route.CreateDao]: "/daos/create",
 } as const;
