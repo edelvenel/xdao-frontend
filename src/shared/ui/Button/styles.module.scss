@@ -1,0 +1,25 @@
+.button {
+  text-align: center;
+  padding: 13px 46px;
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 109px;
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+
+  &.primary {
+    background-color: #003bb9;
+  }
+
+  &.secondary {
+    background-color: #2e2e2e;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
