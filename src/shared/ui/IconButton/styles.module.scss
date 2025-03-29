@@ -1,0 +1,25 @@
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 100px;
+  cursor: pointer;
+  user-select: none;
+
+  &.primary {
+    background-color: #ddf600;
+    color: #000000;
+  }
+
+  &.secondary {
+    background-color: #272727;
+    color: #b5b5b5;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: initial;
+  }
+}
