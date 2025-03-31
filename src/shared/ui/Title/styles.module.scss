@@ -1,0 +1,16 @@
+.title {
+  font-family: var(--font-regular);
+  color: #ffffff;
+  text-align: center;
+  line-height: 32px;
+
+  &.large {
+    font-size: 25px;
+    font-weight: 800;
+  }
+
+  &.medium {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
