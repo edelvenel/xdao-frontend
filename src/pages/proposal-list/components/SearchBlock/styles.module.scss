@@ -1,0 +1,22 @@
+.searchBlock {
+  position: absolute;
+  bottom: -50px;
+  padding-top: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 62px;
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  background-color: #000000;
+  border-radius: 30px 30px 0 0;
+
+  .input {
+    flex: 1;
+  }
+
+  .icon > * {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+
+  .info {
+    display: flex;
+    gap: 8px;
+
+    .infoButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 37px;
+      height: 37px;
+      border-radius: 32px;
+      background-color: #272727;
+      color: #b5b5b5;
+    }
+
+    .user {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      height: 37px;
+      border-radius: 32px;
+      padding: 6px 22px;
+      background-color: #272727;
+      font-size: 17px;
+      font-weight: 400;
+      color: #f3f3f3;
+
+      .icon {
+        color: #b5b5b5;
+      }
+    }
+  }
+}
