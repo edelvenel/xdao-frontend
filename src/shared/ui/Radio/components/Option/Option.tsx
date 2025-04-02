@@ -12,7 +12,7 @@ export function Option({ selected, value, onClick }: IOptionProps) {
   return (
     <div className={cn(css.option)} onClick={onClick}>
       <div className={css.icon}>
-        {selected ? <Icon.Special.RadioFilled /> : <Icon.Special.RadioEmpty />}
+        {selected ? <Icon.Special.FilledRadio /> : <Icon.Special.EmptyRadio />}
       </div>
       {value}
     </div>
