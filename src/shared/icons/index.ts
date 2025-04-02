@@ -1,4 +1,6 @@
 import { AgreeIcon } from "./common/Agree";
+import { CancelIcon } from "./common/Cancel";
+import { CheckIcon } from "./common/Check";
 import { ChevronDownIcon } from "./common/ChevronDown";
 import { DisagreeIcon } from "./common/Disagree";
 import { FilterIcon } from "./common/Filter";
@@ -9,6 +11,8 @@ import { UserIcon } from "./common/User";
 import { DAOsIcon } from "./navigation/DAOs";
 import { HomeIcon } from "./navigation/Home";
 import { ProfileIcon } from "./navigation/Profile";
+import { EmptyRadioIcon } from "./special/EmptyRadio";
+import { FilledRadioIcon } from "./special/FilledRadio";
 import { LogoIcon } from "./special/Logo";
 
 export const Icon = {
@@ -21,6 +25,8 @@ export const Icon = {
     Filter: FilterIcon,
     Question: QuestionIcon,
     User: UserIcon,
+    Cancel: CancelIcon,
+    Check: CheckIcon,
   },
   Crypto: {},
   Navigation: {
@@ -31,5 +37,7 @@ export const Icon = {
   Social: {},
   Special: {
     Logo: LogoIcon,
+    FilledRadio: FilledRadioIcon,
+    EmptyRadio: EmptyRadioIcon,
   },
 };

@@ -3,20 +3,44 @@
   flex-direction: column;
   gap: 12px;
   padding: 12px;
-  background-color: #000000;
-  border-radius: 37px;
-  width: 100%;
+  border: 1px solid var(--semantic-card-edge);
+  border-radius: 32px;
+  background-color: var(--semantic-card-background);
+  color: var(--semantic-text-primary);
 
-  .label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #8e8e8e;
+  .block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 32px;
+    border: 1px solid var(--semantic-background-tetriary);
+    padding: 12px 20px;
+    min-height: 64px;
+    background-color: var(--semantic-background-tetriary);
+
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      color: var(--semantic-text-non-active);
+    }
+
+    .name {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 21px;
+    }
+
+    .value {
+      font-size: 15px;
+      font-weight: 500;
+    }
   }
 
   .column {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
   .row {
@@ -26,69 +50,37 @@
     gap: 4px;
   }
 
-  .block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #272727;
-    border-radius: 30px;
-    padding: 10px 24px;
-    min-height: 64px;
-
-    .name {
-      font-size: 17px;
-      font-weight: 500;
-    }
-
-    .description {
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .badge {
-    }
-  }
-
-  .blockConsensus {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #272727;
-    border-radius: 30px;
-    padding: 20px 24px;
-
-    .value {
-      font-size: 15px;
-      font-weight: 500;
-    }
+  .description {
+    font-size: 15px;
+    font-weight: 500;
   }
 
   .blockVote {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
+    gap: 12px;
+
+    .button {
+      display: flex;
+      flex: 1;
+    }
 
     .vote {
       display: flex;
       gap: 10px;
       padding: 5px 12px;
-      border-radius: 50px;
-      background-color: #272727;
+      border-radius: 32px;
+      background-color: var(--semantic-background-tetriary);
       align-items: center;
 
-      .icon > * {
-        width: 20px;
-        height: 20px;
-      }
-
       &.agree {
-        color: #e6ff00;
+        color: var(--semantic-text-accent);
       }
 
       &.disagree {
-        color: #0c5aff;
+        color: var(--semantic-text-accent-2);
       }
     }
   }

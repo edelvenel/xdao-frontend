@@ -2,24 +2,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 100px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 32px;
   cursor: pointer;
   user-select: none;
 
   &.primary {
-    background-color: #ddf600;
-    color: #000000;
+    background-color: var(--semantic-button-notifications);
+    color: var(--semantic-text-dark);
   }
 
   &.secondary {
-    background-color: #272727;
-    color: #b5b5b5;
+    background-color: var(--semantic-button-secondary);
+    color: var(--semantic-text-secondary);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: initial;
   }
 }

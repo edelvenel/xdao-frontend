@@ -22,6 +22,7 @@ interface IDropdownProps<T> {
   label?: string;
   placeholder?: string;
   className?: string;
+  optionLogo?: (option: T) => string;
   matcher?: (a: T, b: T) => boolean;
   optionLabel?: (option: T) => string;
   onSelect: (option: T) => void;
@@ -33,6 +34,7 @@ export function Dropdown<T>({
   label,
   placeholder,
   className,
+  optionLogo,
   matcher = DEFAULT_DROPDOWN_MATCHER,
   optionLabel = DEFAULT_DROPDOWN_OPTION_LABEL,
   onSelect,
@@ -41,7 +43,7 @@ export function Dropdown<T>({
 
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
-      offset(4),
+      offset(8),
       size({
         apply({ rects, elements }) {
           Object.assign(elements.floating.style, {
@@ -49,7 +51,7 @@ export function Dropdown<T>({
           });
         },
       }),
-      autoPlacement({ alignment: "start" }),
+      autoPlacement({ alignment: "end" }),
     ],
     open: isOpen,
     onOpenChange: setIsOpen,
@@ -76,8 +78,14 @@ export function Dropdown<T>({
         onClick={() => setIsOpen(!isOpen)}
         {...getReferenceProps()}
       >
-        <span className={css.option}>
+        <span className={cn(css.option, !selected && css.placeholder)}>
           {!selected && placeholder && <span>{placeholder}</span>}
+          {optionLogo && selected && (
+            <div
+              className={css.logo}
+              style={{ backgroundImage: `url(${optionLogo(selected)})` }}
+            />
+          )}
           {label && <span>{label}: </span>}
           {selected && <span>{optionLabel(selected)}</span>}
         </span>
@@ -101,7 +109,16 @@ export function Dropdown<T>({
                 )}
                 onClick={() => handleOnClick(option)}
               >
-                <span className={css.label}>{optionLabel(option)}</span>
+                <div className={css.optionInfo}>
+                  {optionLogo && (
+                    <div
+                      className={css.logo}
+                      style={{ backgroundImage: `url(${optionLogo(option)})` }}
+                    />
+                  )}
+                  <span className={css.label}>{optionLabel(option)}</span>
+                </div>
+                {selected && matcher(option, selected) && <Icon.Common.Check />}
               </div>
             );
           })}

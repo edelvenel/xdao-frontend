@@ -4,10 +4,10 @@
   align-items: center;
   gap: 6px;
   min-width: 66px;
-  color: #888888;
+  color: var(--semantic-text-non-active);
 
   &.active {
-    color: #ffffff;
+    color: var(--semantic-text-primary);
   }
 
   .icon {

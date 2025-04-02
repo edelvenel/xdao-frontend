@@ -8,8 +8,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #ffffff;
-  background-color: #0f0f0f;
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-background-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

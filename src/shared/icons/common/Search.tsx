@@ -3,24 +3,17 @@ import { IIconProps } from "shared/types";
 export function SearchIcon({ ...props }: IIconProps) {
   return (
     <svg
-      width="28"
-      height="28"
-      viewBox="0 0 28 28"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
-        d="M12.6667 23.3334C18.5578 23.3334 23.3334 18.5578 23.3334 12.6667C23.3334 6.77565 18.5578 2 12.6667 2C6.77565 2 2 6.77565 2 12.6667C2 18.5578 6.77565 23.3334 12.6667 23.3334Z"
+        d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
         stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M26.0002 26L20.2001 20.2"
-        stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

@@ -3,26 +3,30 @@ import { IconButton } from "shared/ui/IconButton";
 import { Search } from "shared/ui/Search";
 import css from "./styles.module.scss";
 
-export function SearchBlock() {
+interface ISearchBlockProps {
+  onChange: (value: string) => void;
+  onFilter: () => void;
+  onCreate: () => void;
+}
+
+export function SearchBlock({
+  onChange,
+  onFilter,
+  onCreate,
+}: ISearchBlockProps) {
   return (
     <div className={css.searchBlock}>
       <div className={css.input}>
-        <Search />
+        <Search
+          placeholder="Search proposals"
+          onChange={(e) => onChange(e.target.value)}
+        />
       </div>
-      <IconButton variant="secondary">
-        <div className={css.icon}>
-          <Icon.Common.Filter />
-        </div>
+      <IconButton variant="secondary" onClick={onFilter}>
+        <Icon.Common.Filter />
       </IconButton>
-      <IconButton variant="secondary">
-        <div className={css.icon}>
-          <Icon.Common.Plus />
-        </div>
-      </IconButton>
-      <IconButton>
-        <div className={css.icon}>
-          <Icon.Common.Plus />
-        </div>
+      <IconButton onClick={onCreate}>
+        <Icon.Common.Plus />
       </IconButton>
     </div>
   );

@@ -1,2 +1,30 @@
 .page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 20px;
+  overflow: auto;
+  background-image: url("../../assets/images/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .title {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 }

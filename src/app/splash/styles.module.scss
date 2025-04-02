@@ -1,0 +1,31 @@
+.splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .figures {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1225px;
+    height: 1092px;
+    background-image: url("../../assets/images/splash-back.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .button {
+      display: flex;
+      align-items: center;
+      width: 115px;
+      height: 115px;
+      font-size: 16px;
+      font-weight: 900;
+      border-radius: 100px;
+      background-color: var(--semantic-button-primary);
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}

@@ -12,9 +12,7 @@ export function Proposal() {
           <div className={css.label}>Proposal name:</div>
           <div className={css.name}>Add new GP - Bob</div>
         </div>
-        <div className={css.badge}>
-          <Badge status={"active"} />
-        </div>
+        <Badge status={"active"} />
       </div>
       <div className={css.block}>
         <div className={css.column}>
@@ -24,7 +22,7 @@ export function Proposal() {
           </div>
         </div>
       </div>
-      <div className={css.blockConsensus}>
+      <div className={css.block}>
         <div className={css.row}>
           <div className={css.label}>Consensus:</div>
           <div className={css.value}>51%</div>
@@ -38,18 +36,16 @@ export function Proposal() {
 
       <div className={css.blockVote}>
         <div className={cn(css.agree, css.vote)}>
-          <div className={css.icon}>
-            <Icon.Common.Agree />
-          </div>
+          <Icon.Common.Agree />
           <span>45%</span>
         </div>
         <div className={cn(css.disagree, css.vote)}>
-          <div className={css.icon}>
-            <Icon.Common.Disagree />
-          </div>
+          <Icon.Common.Disagree />
           <span>25%</span>
         </div>
-        <Button onClick={() => {}}>Vote</Button>
+        <div className={css.button}>
+          <Button onClick={() => {}}>Vote</Button>
+        </div>
       </div>
     </div>
   );
