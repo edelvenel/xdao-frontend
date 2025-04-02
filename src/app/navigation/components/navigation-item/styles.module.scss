@@ -4,21 +4,21 @@
   align-items: center;
   gap: 6px;
   min-width: 66px;
-  color: #888888;
+  color: var(--semantic-text-non-active);
 
   &.active {
-    color: #ffffff;
+    color: var(--semantic-text-primary);
   }
 
   .icon {
     > svg {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
     }
   }
 
   .label {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
   }
 }

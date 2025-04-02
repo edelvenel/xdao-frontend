@@ -1,22 +1,16 @@
 .search {
   display: flex;
   gap: 10px;
-  padding: 13px 14px;
+  padding: 12px 14px;
   border: none;
-  border-radius: 100px;
-  color: #ffffff;
-  background-color: #272727;
+  border-radius: 32px;
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-background-tetriary);
 
   .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b5b5b5;
-
-    & > * {
-      width: 17px;
-      height: 17px;
-    }
+    width: 20px;
+    height: 20px;
+    color: var(--semantic-text-secondary);
   }
 
   .input {
@@ -27,5 +21,9 @@
     padding: 0;
     background: none;
     outline: none;
+
+    &::placeholder {
+      color: var(--semantic-text-secondary);
+    }
   }
 }

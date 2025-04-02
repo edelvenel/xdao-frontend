@@ -1,25 +1,38 @@
 .dropdown {
-  padding: 15px 22px;
-  background-color: #272727;
-  border-radius: 32px;
+  .logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
   .selected {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
+    padding: 15px 22px;
+    background-color: var(--semantic-background-tetriary);
+    border-radius: 32px;
+    position: relative;
 
     .option {
       display: flex;
       align-items: center;
+      gap: 10px;
       font-size: 15px;
       font-weight: 600;
-      line-height: 1.4;
+      line-height: 33px;
       letter-spacing: -0.15px;
-      color: var(--color-dark-blue);
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
+      &.placeholder {
+        color: var(--semantic-text-secondary);
+      }
 
       .icon {
         width: 20px;
@@ -29,8 +42,7 @@
   }
 
   .icon {
-    color: var(--color-main-accent);
-
+    color: var(--semantic-text-primary);
     &.reversed {
       transform: rotate(180deg);
     }
@@ -40,10 +52,10 @@
     display: flex;
     flex-direction: column;
     max-height: 300px;
-    padding: 5px 7px;
+    padding: 8px;
     border-radius: 32px;
-    background-color: #272727;
-    box-shadow: 0px 0px 8px 0px rgba(34, 38, 45, 0.15);
+    background-color: var(--semantic-background-tetriary);
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
     overflow: auto;
     z-index: 1;
 
@@ -51,16 +63,25 @@
       flex-shrink: 0;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
-      padding: 8px 10px;
+      padding: 6px 16px 6px 8px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
 
+      .optionInfo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 10px;
+      }
+
       &.active {
-        background-color: #383838;
+        background-color: #383838; //TODO: replace with library color
         border-radius: 32px;
-        color: #ddf600;
+        color: var(--semantic-text-accent);
       }
 
       .icon {

@@ -1,11 +1,11 @@
 .title {
   font-family: var(--font-regular);
-  color: #ffffff;
+  color: var(--semantic-text-primary);
   text-align: center;
   line-height: 32px;
 
   &.large {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 800;
   }
 

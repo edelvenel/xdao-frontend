@@ -1,25 +1,24 @@
 .button {
+  flex: 1;
   text-align: center;
-  padding: 13px 46px;
-  font-family: var(--font-secondary);
+  padding: 12px 20px;
   font-size: 16px;
   font-weight: 500;
-  border: none;
-  border-radius: 109px;
-  color: #ffffff;
+  border-radius: 32px;
+  color: var(--semantic-text-primary);
   cursor: pointer;
   user-select: none;
 
   &.primary {
-    background-color: #003bb9;
+    background-color: var(--semantic-button-primary);
   }
 
   &.secondary {
-    background-color: #2e2e2e;
+    background-color: var(--semantic-button-secondary);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: initial;
   }
 }

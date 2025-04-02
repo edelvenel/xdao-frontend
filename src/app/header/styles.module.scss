@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+
+  .info {
+    display: flex;
+    gap: 8px;
+
+    .infoButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 37px;
+      height: 37px;
+      border-radius: 32px;
+      background-color: var(--semantic-background-tetriary);
+      color: var(--semantic-text-secondary);
+    }
+
+    .user {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      height: 37px;
+      border-radius: 32px;
+      padding: 6px 22px;
+      background-color: var(--semantic-background-tetriary);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--semantic-text-primary);
+
+      .icon {
+        color: var(--semantic-text-secondary);
+      }
+    }
+  }
+}

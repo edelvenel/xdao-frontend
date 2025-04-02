@@ -1,0 +1,87 @@
+.proposal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--semantic-card-edge);
+  border-radius: 32px;
+  background-color: var(--semantic-card-background);
+  color: var(--semantic-text-primary);
+
+  .block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 32px;
+    border: 1px solid var(--semantic-background-tetriary);
+    padding: 12px 20px;
+    min-height: 64px;
+    background-color: var(--semantic-background-tetriary);
+
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      color: var(--semantic-text-non-active);
+    }
+
+    .name {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 21px;
+    }
+
+    .value {
+      font-size: 15px;
+      font-weight: 500;
+    }
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .row {
+    display: flex;
+    align-items: first baseline;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .description {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .blockVote {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: 600;
+    gap: 12px;
+
+    .button {
+      display: flex;
+      flex: 1;
+    }
+
+    .vote {
+      display: flex;
+      gap: 10px;
+      padding: 5px 12px;
+      border-radius: 32px;
+      background-color: var(--semantic-background-tetriary);
+      align-items: center;
+
+      &.agree {
+        color: var(--semantic-text-accent);
+      }
+
+      &.disagree {
+        color: var(--semantic-text-accent-2);
+      }
+    }
+  }
+}

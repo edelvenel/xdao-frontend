@@ -4,6 +4,10 @@
   border-radius: 50px;
   font-weight: 600;
   font-size: 15px;
-  color: #ffffff;
-  background-color: #272727;
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-background-tetriary);
+
+  &::placeholder {
+    color: var(--semantic-text-secondary);
+  }
 }
