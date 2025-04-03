@@ -1,6 +1,14 @@
+import { NAVIGATION_HEIGHT } from "shared/constants";
 import { create } from "zustand";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface IAppStore {}
+export interface IAppStore {
+  navigationHeight: number;
+  setNavigationHeight: (height: number) => void;
+}
 
-export const useApp = create<IAppStore>(() => ({}));
+export const useApp = create<IAppStore>((set) => ({
+  navigationHeight: NAVIGATION_HEIGHT,
+  setNavigationHeight: (height) => {
+    set({ navigationHeight: height });
+  },
+}));

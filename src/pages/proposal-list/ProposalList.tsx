@@ -1,3 +1,4 @@
+import { TopContent } from "app/navigation/components/top-content";
 import { routes } from "app/router/routes";
 import React from "react";
 import { useNavigate } from "react-router";
@@ -31,12 +32,18 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 
   return (
     <div className={css.page}>
-      <Proposal />
-      <SearchBlock
-        onChange={setSearchText}
-        onFilter={() => setIsFilterOpen(true)}
-        onCreate={handleOnCreate}
-      />
+      <div className={css.list}>
+        <Proposal key={1} />
+        <Proposal key={2} />
+        <Proposal key={3} />
+      </div>
+      <TopContent>
+        <SearchBlock
+          onChange={setSearchText}
+          onFilter={() => setIsFilterOpen(true)}
+          onCreate={handleOnCreate}
+        />
+      </TopContent>
       {isFilterOpen && (
         <Modal title="Filter" onClose={() => setIsFilterOpen(false)}>
           <Filter

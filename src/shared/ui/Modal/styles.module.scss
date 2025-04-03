@@ -16,8 +16,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    min-height: 70%;
-    max-height: 100%;
+    min-height: 60%;
+    max-height: 80%;
     padding: 16px;
     border-radius: 32px 32px 0 0;
     background-color: var(--semantic-background-secondary);
@@ -43,6 +43,7 @@
     .content {
       flex: 1;
       overflow: auto;
+      padding-bottom: 22px;
     }
   }
 }
