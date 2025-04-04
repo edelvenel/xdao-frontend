@@ -1,14 +1,31 @@
-import { NAVIGATION_HEIGHT } from "shared/constants";
 import { create } from "zustand";
 
 export interface IAppStore {
-  navigationHeight: number;
-  setNavigationHeight: (height: number) => void;
+  topContentElement: HTMLDivElement | null;
+  isMenuShown: boolean;
+  isHeaderShown: boolean;
+  isBackground: boolean;
+  setIsBackground: (value: boolean) => void;
+  setTopContentElement: (element: HTMLDivElement | null) => void;
+  setIsMenuShown: (isShown: boolean) => void;
+  setIsHeaderShown: (isShown: boolean) => void;
 }
 
 export const useApp = create<IAppStore>((set) => ({
-  navigationHeight: NAVIGATION_HEIGHT,
-  setNavigationHeight: (height) => {
-    set({ navigationHeight: height });
+  topContentElement: null,
+  isMenuShown: true,
+  isHeaderShown: true,
+  isBackground: false,
+  setIsBackground: (value) => {
+    set({ isBackground: value });
+  },
+  setTopContentElement: (element) => {
+    set({ topContentElement: element });
+  },
+  setIsMenuShown(isShown) {
+    set({ isMenuShown: isShown });
+  },
+  setIsHeaderShown(isShown) {
+    set({ isHeaderShown: isShown });
   },
 }));

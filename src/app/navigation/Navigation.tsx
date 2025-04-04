@@ -2,14 +2,32 @@ import WebApp from "@twa-dev/sdk";
 import { Route } from "app/router/routes";
 import React from "react";
 import { Icon } from "shared/icons";
+import { store } from "shared/store";
 import { NavigationItem } from "./components/navigation-item";
 import css from "./styles.module.scss";
 
 export const Navigation = React.memo(function Navigation() {
-  const marginBottom = WebApp.safeAreaInset.bottom;
+  const paddingBottom = WebApp.safeAreaInset.bottom;
+
+  React.useEffect(() => {
+    return () => {
+      const { setTopContentElement } = store.useApp.getState();
+      setTopContentElement(null);
+    };
+  }, []);
+
   return (
-    <div className={css.navigation} style={{ bottom: `${marginBottom}px` }}>
-      <div id="top-content" />
+    <div
+      id="navigation-block"
+      className={css.navigation}
+      style={{ paddingBottom: `${paddingBottom}px` }}
+    >
+      <div
+        ref={(element) => {
+          const { setTopContentElement } = store.useApp.getState();
+          setTopContentElement(element);
+        }}
+      />
       <div className={css.menu}>
         <NavigationItem
           to={Route.ProposalList}

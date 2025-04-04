@@ -16,7 +16,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    min-height: 60%;
     max-height: 80%;
     padding: 16px;
     border-radius: 32px 32px 0 0;
@@ -27,9 +26,18 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+
+      .title {
+        flex: 1;
+        display: flex;
+        min-height: 40px;
+      }
     }
 
     .closeButton {
+      position: absolute;
+      right: 16px;
+      top: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -41,9 +49,10 @@
     }
 
     .content {
+      display: flex;
       flex: 1;
-      overflow: auto;
       padding-bottom: 22px;
+      overflow: hidden;
     }
   }
 }

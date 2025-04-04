@@ -2,6 +2,7 @@ import { TopContent } from "app/navigation/components/top-content";
 import { routes } from "app/router/routes";
 import React from "react";
 import { useNavigate } from "react-router";
+import { store } from "shared/store";
 import { Modal } from "shared/ui/Modal";
 import { Filter } from "./components/Filter";
 import { Proposal } from "./components/Proposal";
@@ -24,11 +25,20 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 
   const navigate = useNavigate();
 
+  const { setIsMenuShown, setIsHeaderShown, setIsBackground } = store.useApp();
+  //TODO: if proposal list is empty change isBackground = true, else - isBackground = false
+
   const handleOnCreate = React.useCallback(() => {
     navigate(routes.createProposal);
   }, [navigate]);
 
   console.log(searchText);
+
+  React.useEffect(() => {
+    setIsBackground(false);
+    setIsHeaderShown(true);
+    setIsMenuShown(true);
+  }, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 
   return (
     <div className={css.page}>

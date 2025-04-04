@@ -1,10 +1,11 @@
-.page {
+.createProposalOpen {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 16px;
   gap: 20px;
   overflow: auto;
+  margin-bottom: 100px;
 
   .title {
     display: flex;
@@ -16,20 +17,16 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    overflow: auto;
   }
 
   .actions {
     position: fixed;
-    bottom: 0;
+    bottom: 40px;
+    left: 16px;
+    right: 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
-}
-
-.success {
-  background-image: url("/src/assets/images/background.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }

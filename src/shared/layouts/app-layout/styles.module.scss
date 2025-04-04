@@ -4,4 +4,11 @@
   height: 100vh;
   gap: 20px;
   padding-top: 20px;
+
+  &.background {
+    background-image: url("/src/assets/images/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }

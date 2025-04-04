@@ -100,9 +100,10 @@ export function Dropdown<T>({
           style={floatingStyles}
           {...getFloatingProps()}
         >
-          {options.map((option) => {
+          {options.map((option, index) => {
             return (
               <div
+                key={index}
                 className={cn(
                   css.option,
                   selected && matcher(option, selected) && css.active
