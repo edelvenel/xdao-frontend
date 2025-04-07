@@ -1,0 +1,34 @@
+.inputStep {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  .button {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    border-radius: 32px;
+    align-items: center;
+    justify-content: center;
+
+    &.decrement {
+      color: var(--semantic-text-secondary);
+      background-color: var(--semantic-background-tetriary);
+    }
+
+    &.increment {
+      color: var(--semantic-text-dark);
+      background-color: var(--semantic-button-notifications);
+    }
+  }
+
+  .label {
+    text-align: center;
+    line-height: 32px;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--semantic-text-primary);
+    min-width: 65px;
+  }
+}

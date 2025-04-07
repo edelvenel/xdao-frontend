@@ -1,4 +1,5 @@
 import cn from "classnames";
+import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
 import { Button } from "shared/ui/Button";
 import { Badge } from "../Badge";
@@ -12,7 +13,7 @@ export function Proposal() {
           <div className={css.label}>Proposal name:</div>
           <div className={css.name}>Add new GP - Bob</div>
         </div>
-        <Badge status={"active"} />
+        <Badge text="active" variant="yellow" />
       </div>
       <div className={css.block}>
         <div className={css.column}>
@@ -44,7 +45,7 @@ export function Proposal() {
           <span>25%</span>
         </div>
         <div className={css.button}>
-          <Button onClick={() => {}}>Vote</Button>
+          <Button onClick={() => toast.error("Uniplemented")}>Vote</Button>
         </div>
       </div>
     </div>

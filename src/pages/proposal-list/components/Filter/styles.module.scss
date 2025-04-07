@@ -1,15 +1,25 @@
 .filter {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-bottom: 60px;
+  width: 100%;
 
   .button {
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px 16px 40px;
+    bottom: 0px;
+    left: 0;
+    right: 0;
   }
 
   .filterList {
+    flex: 1;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;

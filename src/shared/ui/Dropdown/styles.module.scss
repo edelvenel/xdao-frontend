@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    padding: 15px 22px;
+    padding: 9px 20px;
     background-color: var(--semantic-background-tetriary);
     border-radius: 32px;
     position: relative;
@@ -25,13 +25,14 @@
       font-size: 15px;
       font-weight: 600;
       line-height: 33px;
+      max-height: 51px;
       letter-spacing: -0.15px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
 
       &.placeholder {
-        color: var(--semantic-text-secondary);
+        color: var(--semantic-text-primary);
       }
 
       .icon {
@@ -64,6 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      line-height: 33px;
       gap: 8px;
       padding: 6px 16px 6px 8px;
       text-overflow: ellipsis;
@@ -79,7 +81,7 @@
       }
 
       &.active {
-        background-color: #383838; //TODO: replace with library color
+        background-color: var(--color-base-neutral-7);
         border-radius: 32px;
         color: var(--semantic-text-accent);
       }

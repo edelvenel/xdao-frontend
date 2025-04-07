@@ -1,0 +1,30 @@
+.proposalCreateResult {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    justify-content: center;
+
+    .text {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      color: var(--semantic-text-secondary);
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .button {
+    display: flex;
+  }
+}

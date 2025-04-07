@@ -4,12 +4,12 @@
   font-weight: 500;
   border-radius: 20px;
 
-  &.active {
+  &.yellow {
     background-color: var(--semantic-button-notifications);
     color: var(--semantic-text-dark);
   }
 
-  &.pending {
+  &.blue {
     background-color: var(--semantic-button-primary);
     color: var(--semantic-text-primary);
   }

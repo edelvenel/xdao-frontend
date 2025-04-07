@@ -13,9 +13,9 @@ export function CheckIcon({ ...props }: IIconProps) {
       <path
         d="M16.6666 5.5L7.49992 14.6667L3.33325 10.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

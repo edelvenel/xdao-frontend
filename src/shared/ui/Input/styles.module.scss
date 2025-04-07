@@ -4,10 +4,11 @@
   border-radius: 50px;
   font-weight: 600;
   font-size: 15px;
+  line-height: 20px;
   color: var(--semantic-text-primary);
   background-color: var(--semantic-background-tetriary);
 
   &::placeholder {
-    color: var(--semantic-text-secondary);
+    color: var(--semantic-text-placeholder);
   }
 }

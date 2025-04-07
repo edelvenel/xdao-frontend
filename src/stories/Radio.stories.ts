@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { Radio } from "shared/ui/Radio";
 
 const meta = {
@@ -9,7 +10,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {},
-  args: {},
+  args: { onSelect: fn(), renderLabel: fn() },
 } satisfies Meta<typeof Radio>;
 
 export default meta;
@@ -17,8 +18,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    selectedIdx: 0,
-    options: ["Option 1", "Option 2", "Option 3"],
-    onSelect: (idx) => console.log(idx),
+    selected: { id: 0, value: "Option 1" },
+    options: [
+      { id: 0, value: "Option 1" },
+      { id: 1, value: "Option 2" },
+      { id: 2, value: "Option 3" },
+    ],
   },
 };
