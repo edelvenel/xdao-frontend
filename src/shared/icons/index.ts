@@ -5,8 +5,11 @@ import { CheckIcon } from "./common/Check";
 import { ChevronDownIcon } from "./common/ChevronDown";
 import { DisagreeIcon } from "./common/Disagree";
 import { FilterIcon } from "./common/Filter";
+import { LinkIcon } from "./common/Link";
+import { MinusIcon } from "./common/Minus";
 import { PlusIcon } from "./common/Plus";
 import { QuestionIcon } from "./common/Question";
+import { QuestionSmallIcon } from "./common/QuestionSmall";
 import { SearchIcon } from "./common/Search";
 import { UserIcon } from "./common/User";
 import { DAOsIcon } from "./navigation/DAOs";
@@ -15,6 +18,7 @@ import { ProfileIcon } from "./navigation/Profile";
 import { EmptyRadioIcon } from "./special/EmptyRadio";
 import { ErrorIcon } from "./special/Error";
 import { FilledRadioIcon } from "./special/FilledRadio";
+import { FilledRadioCheckIcon } from "./special/FilledRadioCheck";
 import { LogoIcon } from "./special/Logo";
 import { SuccessIcon } from "./special/Success";
 
@@ -31,6 +35,9 @@ export const Icon = {
     Cancel: CancelIcon,
     Check: CheckIcon,
     Arrow: ArrowIcon,
+    Minus: MinusIcon,
+    QuestionSmall: QuestionSmallIcon,
+    Link: LinkIcon,
   },
   Crypto: {},
   Navigation: {
@@ -45,5 +52,6 @@ export const Icon = {
     EmptyRadio: EmptyRadioIcon,
     Success: SuccessIcon,
     Error: ErrorIcon,
+    FilledRadioCheck: FilledRadioCheckIcon,
   },
 };

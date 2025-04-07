@@ -13,7 +13,7 @@ export function Proposal() {
           <div className={css.label}>Proposal name:</div>
           <div className={css.name}>Add new GP - Bob</div>
         </div>
-        <Badge status={"active"} />
+        <Badge text="active" variant="yellow" />
       </div>
       <div className={css.block}>
         <div className={css.column}>

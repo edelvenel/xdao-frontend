@@ -22,12 +22,20 @@ export const ProposalTypes = [
   { id: 1, logo: LOGO_URL, name: "Add GP" },
   { id: 2, logo: LOGO_URL, name: "Remove GP" },
   { id: 3, logo: LOGO_URL, name: "Transfer GP Tokens" },
-  { id: 4, logo: LOGO_URL, name: "Change General Consensus" },
-  { id: 5, logo: LOGO_URL, name: "Send DAO Funds" },
-  { id: 6, logo: LOGO_URL, name: "Transfer GP Tokens" },
+  { id: 4, logo: LOGO_URL, name: "Change GP Transfer Status" },
+  { id: 5, logo: LOGO_URL, name: "Change General Consensus" },
+  { id: 6, logo: LOGO_URL, name: "Send DAO Funds" },
   { id: 7, logo: LOGO_URL, name: "Change DAO Name" },
   { id: 8, logo: LOGO_URL, name: "Create On-Chain Poll" },
 ];
+
+export type IToken = {
+  id: string;
+  name: string;
+  imgUrl: string;
+  amount: number;
+  rate: number;
+};
 
 // export interface IProposal {
 //   id: string;

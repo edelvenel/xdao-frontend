@@ -19,7 +19,7 @@ const FILTER_OPTIONS: string[] = [
 ];
 
 export const ProposalListPage = React.memo(function ProposalListPage() {
-  const [searchText, setSearchText] = React.useState<string>("");
+  // const [searchText, setSearchText] = React.useState<string>("");
   const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
   const [filter, setFilter] = React.useState<number>(0);
 
@@ -31,8 +31,6 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
   const handleOnCreate = React.useCallback(() => {
     navigate(routes.createProposal);
   }, [navigate]);
-
-  console.log(searchText);
 
   React.useEffect(() => {
     setIsBackground(false);
@@ -49,7 +47,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
       </div>
       <TopContent>
         <SearchBlock
-          onChange={setSearchText}
+          onChange={() => {}}
           onFilter={() => setIsFilterOpen(true)}
           onCreate={handleOnCreate}
         />

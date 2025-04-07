@@ -1,3 +1,4 @@
+import { backButton } from "@telegram-apps/sdk";
 import cn from "classnames";
 import React from "react";
 import { useNavigate } from "react-router";
@@ -21,12 +22,16 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 
   const navigate = useNavigate();
 
+  if (backButton.mount.isAvailable()) {
+    backButton.mount();
+    backButton.isMounted(); // true
+  }
+
   const handleGetFormType = React.useCallback(() => {
     if (proposalType) {
       const currentType = ProposalTypes.find(
         (type) => type.id === proposalType.id
       );
-      console.log(currentType?.id);
       setFormType(currentType?.id || null);
     }
   }, [proposalType]);

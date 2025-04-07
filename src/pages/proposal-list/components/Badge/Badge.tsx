@@ -2,9 +2,10 @@ import cn from "classnames";
 import css from "./styles.module.scss";
 
 interface IBadgeProps {
-  status: "active" | "pending";
+  text: string;
+  variant: "yellow" | "blue";
 }
 
-export function Badge({ status }: IBadgeProps) {
-  return <div className={cn(css.badge, css[status])}>{status}</div>;
+export function Badge({ text, variant }: IBadgeProps) {
+  return <div className={cn(css.badge, css[variant])}>{text}</div>;
 }

@@ -2,4 +2,9 @@
   display: flex;
   align-items: center;
   gap: 30px;
+  color: var(--semantic-text-secondary);
+
+  &.selected {
+    color: var(--semantic-text-primary);
+  }
 }
