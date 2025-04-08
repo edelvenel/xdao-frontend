@@ -32,12 +32,13 @@
       overflow: hidden;
 
       &.placeholder {
-        color: var(--semantic-text-primary);
+        color: var(--semantic-text-secondary);
       }
 
       .icon {
         width: 20px;
         height: 20px;
+        color: var(--semantic-text-primary);
       }
     }
   }
@@ -67,10 +68,17 @@
       justify-content: space-between;
       line-height: 33px;
       gap: 8px;
-      padding: 6px 16px 6px 8px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
+      &.paddingWithLogo {
+        padding: 6px 16px 6px 8px;
+      }
+
+      &.paddingWithoutLogo {
+        padding: 6px 16px;
+      }
 
       .optionInfo {
         display: flex;

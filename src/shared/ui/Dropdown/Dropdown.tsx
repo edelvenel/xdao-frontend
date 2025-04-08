@@ -106,7 +106,8 @@ export function Dropdown<T>({
                 key={index}
                 className={cn(
                   css.option,
-                  selected && matcher(option, selected) && css.active
+                  selected && matcher(option, selected) && css.active,
+                  optionLogo ? css.paddingWithLogo : css.paddingWithoutLogo
                 )}
                 onClick={() => handleOnClick(option)}
               >

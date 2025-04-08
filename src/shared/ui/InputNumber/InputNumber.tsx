@@ -13,6 +13,8 @@ interface IInputAmountProps
 export function InputNumber({
   onMaxAmount,
   onUpdate,
+  max,
+  min,
   ...props
 }: IInputAmountProps) {
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> =
@@ -39,9 +41,19 @@ export function InputNumber({
 
         const result = chars.join("");
 
+        if (max && Number(result) > Number(max)) {
+          onUpdate(String(max));
+          return;
+        }
+
+        if (min && Number(result) < Number(min)) {
+          onUpdate(String(min));
+          return;
+        }
+
         onUpdate(result);
       },
-      [onUpdate]
+      [max, min, onUpdate]
     );
 
   return (

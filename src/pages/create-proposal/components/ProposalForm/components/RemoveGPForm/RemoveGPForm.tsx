@@ -1,3 +1,4 @@
+import cn from "classnames";
 import React from "react";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
@@ -58,18 +59,18 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
           <div className={css.block}>
             <Title variant={"medium"} value="Update GP distribution" />
             <div className={css.distributionRule}>
-              <div className={css.item}>0x...123</div>
-              <div className={css.item}>GP tokens</div>
-              <div className={css.item}>30%</div>
+              <div className={cn(css.item, css.wallet)}>0x...123</div>
+              <div className={cn(css.item, css.gpTokens)}>GP tokens</div>
+              <div className={cn(css.item, css.percent)}>30%</div>
               <Icon.Common.Arrow />
-              <div className={css.item}>25%</div>
+              <div className={cn(css.item, css.percent)}>25%</div>
             </div>
             <div className={css.distributionRule}>
-              <div className={css.item}>0x...123</div>
-              <div className={css.item}>GP tokens</div>
-              <div className={css.item}>30%</div>
+              <div className={cn(css.item, css.wallet)}>0x...123</div>
+              <div className={cn(css.item, css.gpTokens)}>GP tokens</div>
+              <div className={cn(css.item, css.percent)}>30%</div>
               <Icon.Common.Arrow />
-              <div className={css.item}>25%</div>
+              <div className={cn(css.item, css.percent)}>25%</div>
             </div>
           </div>
         </div>

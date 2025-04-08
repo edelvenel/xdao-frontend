@@ -4,7 +4,9 @@ import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
+import { InputNumber } from "shared/ui/InputNumber";
 import { InputStep } from "shared/ui/InputStep";
+import { Modal } from "shared/ui/Modal";
 import { Title } from "shared/ui/Title";
 import css from "./styles.module.scss";
 
@@ -24,6 +26,7 @@ export function ChangeGeneralConsensusForm({
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
   const [currentConsensus, setCurrentConsensus] = React.useState<number>(51);
+  const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
 
   const handleOnClick = React.useCallback(() => {
     onResponse(true);
@@ -61,7 +64,10 @@ export function ChangeGeneralConsensusForm({
               <div className={css.title}>
                 <div className={css.header}>
                   <Title variant={"medium"} value="Current consensus" />
-                  <div className={css.infoButton}>
+                  <div
+                    className={css.infoButton}
+                    onClick={() => setIsInfoOpen(true)}
+                  >
                     <Icon.Common.QuestionSmall />
                   </div>
                 </div>
@@ -72,19 +78,31 @@ export function ChangeGeneralConsensusForm({
                 renderLabel={handleRenderLabel}
               />
 
-              <Input
-                value={currentConsensus}
+              <InputNumber
+                max={100}
+                min={0}
+                onUpdate={(value) => setCurrentConsensus(Number(value))}
+                value={currentConsensus > 0 ? currentConsensus : ""}
                 placeholder="Enter amount manual"
-                onChange={(e) =>
-                  setCurrentConsensus(
-                    isNaN(Number(e.target.value)) ? 0 : Number(e.target.value)
-                  )
-                }
               />
             </div>
           </div>
         </div>
       </div>
+      {isInfoOpen && (
+        <Modal title="Current consensus" onClose={() => setIsInfoOpen(false)}>
+          <div className={css.infoBlock}>
+            <div className={css.textBlock}>
+              This is the minimum percentage of GP token votes needed to approve
+              a proposal.
+            </div>
+            <div className={css.textBlock}>
+              Increasing the consensus makes decisions harder to pass, while
+              lowering it makes them easier.
+            </div>
+          </div>
+        </Modal>
+      )}
     </ProposalCreateLayout>
   );
 }

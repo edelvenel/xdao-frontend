@@ -14,7 +14,7 @@ export function ChevronDownIcon({ ...props }: IIconProps) {
         opacity="0.8"
         d="M18 12.5L13.5 16.5L9 12.5"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

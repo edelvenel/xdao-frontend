@@ -55,7 +55,6 @@ export function CreateProposalOpen({
           selected={proposalType}
           options={ProposalTypes}
           optionLabel={(option) => option.name}
-          optionLogo={(option) => option.logo}
           matcher={objectIdMatcher}
           onSelect={onSelectProposalType}
           placeholder="Select proposal type"

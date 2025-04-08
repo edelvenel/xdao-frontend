@@ -20,7 +20,7 @@ export function ChangeGPTransferStatusForm({
   const [newStatus, setNewStatus] = React.useState<string>("");
 
   const handleOnClick = React.useCallback(() => {
-    onResponse(true);
+    onResponse(false);
   }, [onResponse]);
 
   return (

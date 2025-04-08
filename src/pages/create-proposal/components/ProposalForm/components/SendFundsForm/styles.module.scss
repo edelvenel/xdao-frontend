@@ -22,8 +22,8 @@
       .tokenBlock {
         display: flex;
         flex-direction: column;
-        gap: 41px;
-        padding: 15px 46px;
+        gap: 20px;
+        padding: 12px;
 
         .amountBlock {
           display: flex;
@@ -34,10 +34,11 @@
           .link {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 16px;
             color: var(--semantic-text-placeholder);
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 500;
             height: 53px;
             padding: 15px;
             padding-right: 0;
@@ -46,11 +47,11 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 42px;
-              height: 42px;
+              width: 44px;
+              height: 44px;
               border-radius: 32px;
               background-color: var(--semantic-background-tetriary);
-              color: var(--semantic-text-accent);
+              color: var(--semantic-text-secondary);
             }
           }
         }
