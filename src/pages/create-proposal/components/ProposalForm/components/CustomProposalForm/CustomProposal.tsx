@@ -36,6 +36,8 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
   const [newName, setNewName] = React.useState<string>("");
   const [votingType, setVotingType] = React.useState<string>(VOTING_TYPES[0]);
   const [token, setToken] = React.useState<IOptionWithNote>(TOKENS[0]);
+  const [lpPool, setLpPool] = React.useState<string>("");
+  const [minTokens, setMinTokens] = React.useState<string>("");
 
   const handleOnClick = React.useCallback(() => {
     onResponse(true);
@@ -102,6 +104,22 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
                 )}
               />
             </div>
+            {token.id === 2 && (
+              <Dropdown
+                placeholder="Select LP pool"
+                onSelect={setLpPool}
+                options={["100", "500", "1000", "Custom"]}
+                selected={lpPool}
+              />
+            )}
+            {(token.id === 1 || token.id === 2) && (
+              <Dropdown
+                placeholder="Min. tokens required to vote"
+                onSelect={setMinTokens}
+                options={["10", "100", "500", "Custom"]}
+                selected={minTokens}
+              />
+            )}
           </div>
         </div>
       </div>

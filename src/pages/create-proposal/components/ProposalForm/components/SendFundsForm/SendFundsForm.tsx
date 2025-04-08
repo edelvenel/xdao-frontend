@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
 import { IDao, IToken, LOGO_URL } from "shared/types";
@@ -112,7 +113,10 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
                 />
                 <div className={css.link}>
                   <span>Open link for more info</span>
-                  <div className={css.linkButton}>
+                  <div
+                    className={css.linkButton}
+                    onClick={() => toast.error("Unimplemented")}
+                  >
                     <Icon.Common.Link />
                   </div>
                 </div>

@@ -28,7 +28,9 @@ export function ProposalCreateResult({
           </div>
         </div>
         <div className={css.button}>
-          <Button onClick={onDone}>Done</Button>
+          <Button variant="accent" onClick={onDone}>
+            Done
+          </Button>
         </div>
       </div>
     );

@@ -6,7 +6,7 @@ interface IButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "accent";
 }
 
 export function Button({

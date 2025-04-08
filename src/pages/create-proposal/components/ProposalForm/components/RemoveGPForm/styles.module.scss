@@ -36,6 +36,18 @@
           font-size: 15px;
           font-weight: 500;
           color: var(--semantic-text-primary);
+
+          &.wallet {
+            max-width: 82px;
+          }
+
+          &.gpTokens {
+            max-width: 104px;
+          }
+
+          &.percent {
+            max-width: 64px;
+          }
         }
       }
     }

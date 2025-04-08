@@ -19,7 +19,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
 
   const handleOnClick = React.useCallback(() => {
-    onResponse(true);
+    onResponse(false);
   }, [onResponse]);
 
   return (
@@ -50,8 +50,8 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
               options={[
                 "ox12345...wejnr3r",
                 "ox...123456789",
-                "ox...123456789",
-                "ox...123456789",
+                "ox...123456790",
+                "ox...123456791",
               ]}
               selected={fromWalletAddress}
             />
@@ -60,9 +60,9 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
               onSelect={setToWalletAddress}
               options={[
                 "ox12345...wejnr3r",
-                "ox...123456789",
-                "ox...123456789",
-                "ox...123456789",
+                "ox...123456790",
+                "ox...123456791",
+                "ox...123456799",
               ]}
               selected={toWalletAddress}
             />
