@@ -1,14 +1,25 @@
+import { useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import React from "react";
+import { store } from "shared/store";
 import css from "./styles.module.scss";
 
-interface ISplashScreenProps {
-  onClick: () => void; //TODO: rewrite with store
-}
+export function SplashScreen() {
+  const { connectWallet } = store.useWallet();
+  const [tonConnectUI] = useTonConnectUI();
+  const wallet = useTonWallet();
 
-export function SplashScreen({ onClick }: ISplashScreenProps) {
+  const handleOnWalletConnect = React.useCallback(async () => {
+    await tonConnectUI.openSingleWalletModal("telegram-wallet");
+  }, [tonConnectUI]);
+
+  if (wallet) {
+    connectWallet(wallet);
+  }
+
   return (
     <div className={css.splash}>
       <div className={css.figures}>
-        <div className={css.button} onClick={onClick}>
+        <div className={css.button} onClick={handleOnWalletConnect}>
           <span>Connect Wallet</span>
         </div>
       </div>
