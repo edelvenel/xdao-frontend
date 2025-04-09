@@ -13,13 +13,27 @@ import "./styles/root.scss";
 
 export function App() {
   const { setToken, token } = store.useAuth();
-  const { isWalletConnected } = store.useWallet();
+  const { isWalletConnected, setWalletAddress } = store.useWallet();
+  const { me, fetchMe } = store.useMe();
 
   React.useEffect(() => {
     if (WebApp.isVersionAtLeast("7.7")) {
       WebApp.disableVerticalSwipes();
     }
   }, []);
+
+  React.useEffect(() => {
+    fetchMe();
+  }, [fetchMe]);
+
+  const walletAddress = React.useMemo(
+    () => (me ? me.walletAddress : null),
+    [me]
+  );
+
+  React.useEffect(() => {
+    setWalletAddress(walletAddress);
+  }, [setWalletAddress, walletAddress]);
 
   React.useEffect(() => {
     const auth = async () => {
@@ -38,7 +52,19 @@ export function App() {
     auth();
   }, [setToken]);
 
-  if (!token) {
+  const isLoading = React.useMemo(() => {
+    if (!token) {
+      return true;
+    }
+
+    if (!me) {
+      return true;
+    }
+
+    return false;
+  }, [me, token]);
+
+  if (isLoading) {
     return (
       <AppErrorBoundary>
         <ScreenLoader />

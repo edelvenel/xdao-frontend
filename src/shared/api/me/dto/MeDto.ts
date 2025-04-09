@@ -1,5 +1,6 @@
 export interface MeDto {
   id: number;
+  walletAddress: string | null;
   firstName: string;
   lastName: string | null;
   languageCode: string;

@@ -7,17 +7,21 @@ interface IWalletProps {
   connectWallet: (
     wallet: Wallet | (Wallet & WalletInfoWithOpenMethod)
   ) => Promise<void>;
+  setWalletAddress: (walletAddress: string | null) => void;
 }
 
-export const useWallet = create<IWalletProps>((set) => ({
+export const useWallet = create<IWalletProps>((set, get) => ({
   walletAddress: null,
   isWalletConnected: false,
   connectWallet: async (wallet) => {
+    const { setWalletAddress } = get();
     await API.Me.linkWallet({
       walletAddress: wallet.account.address,
     });
-
-    set({ walletAddress: wallet.account.address });
-    set({ isWalletConnected: true });
+    setWalletAddress(wallet.account.address);
+  },
+  setWalletAddress: (walletAddress) => {
+    set({ walletAddress });
+    set({ isWalletConnected: !!walletAddress });
   },
 }));
