@@ -18,10 +18,6 @@ if (WebApp.isVersionAtLeast("6.1")) {
   WebApp.setBackgroundColor("#000000");
 }
 
-if (WebApp.isVersionAtLeast("8.0")) {
-  WebApp.requestFullscreen();
-}
-
 WebApp.expand();
 
 enableMocking().then(() =>
