@@ -1,8 +1,11 @@
 import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
+import { store } from "shared/store";
 import css from "./styles.module.scss";
 
 export function Header() {
+  const { walletAddress } = store.useWallet();
+
   return (
     <div className={css.header}>
       <Icon.Special.Logo />
@@ -14,7 +17,7 @@ export function Header() {
           <Icon.Common.Question />
         </div>
         <div className={css.user} onClick={() => toast.error("Unimplemented")}>
-          <span>UQD4...7CA</span>
+          <div className={css.text}>{walletAddress}</div>
           <div className={css.icon}>
             <Icon.Common.User />
           </div>

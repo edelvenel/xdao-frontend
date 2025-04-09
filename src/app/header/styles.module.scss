@@ -29,9 +29,15 @@
       border-radius: 32px;
       padding: 6px 22px;
       background-color: var(--semantic-background-tetriary);
-      font-size: 17px;
-      font-weight: 400;
-      color: var(--semantic-text-primary);
+
+      .text {
+        font-size: 17px;
+        font-weight: 400;
+        color: var(--semantic-text-primary);
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       .icon {
         color: var(--semantic-text-secondary);

@@ -1,5 +1,11 @@
 import { useApp } from "./useApp";
+import { useAuth } from "./useAuth";
+import { useMe } from "./useMe";
+import { useWallet } from "./useWallet";
 
 export const store = {
   useApp,
+  useAuth,
+  useMe,
+  useWallet,
 };
