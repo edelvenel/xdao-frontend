@@ -13,16 +13,11 @@ export const useWallet = create<IWalletProps>((set) => ({
   walletAddress: null,
   isWalletConnected: false,
   connectWallet: async (wallet) => {
-    const response = await API.Me.linkWallet({
+    await API.Me.linkWallet({
       walletAddress: wallet.account.address,
     });
 
-    if (response) {
-      set({ walletAddress: wallet.account.address });
-    } else {
-      set({ walletAddress: null });
-    }
-
-    set({ isWalletConnected: response });
+    set({ walletAddress: wallet.account.address });
+    set({ isWalletConnected: true });
   },
 }));
