@@ -49,7 +49,7 @@ export function App() {
 
   return (
     <TonConnectUIProvider
-      manifestUrl={`${window.location.origin}/tonconnect-manifest.json`}
+      manifestUrl={`https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json`}
       walletsListConfiguration={{
         includeWallets: [
           {
