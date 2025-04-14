@@ -8,6 +8,7 @@ export enum Route {
   Dao = "dao",
   DaoList = "daoList",
   CreateDao = "createDao",
+  NotFound = "notfound",
 }
 
 export const routes = {
@@ -28,4 +29,6 @@ export const routes = {
   [Route.DaoList]: "/daos",
 
   [Route.CreateDao]: "/daos/create",
+
+  [Route.NotFound]: "/notfound",
 } as const;

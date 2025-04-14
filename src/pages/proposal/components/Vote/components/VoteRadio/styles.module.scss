@@ -1,0 +1,37 @@
+.voteRadio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 96px;
+  border-radius: 32px;
+  background-color: var(--semantic-background-tetriary);
+
+  .option {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--semantic-text-primary);
+
+    &.disabled {
+      opacity: 0.5;
+    }
+
+    .checkbox {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .divider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--semantic-text-placeholder);
+  }
+}

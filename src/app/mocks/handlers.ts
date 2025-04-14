@@ -17,6 +17,7 @@ export const handlers = [
   http.get(`${API_URL}/user/me`, () => {
     return HttpResponse.json({
       id: "3234214",
+      walletAddress: "1111",
       firstName: "Alex",
       lastName: null,
       languageCode: "ru",

@@ -1,0 +1,14 @@
+.copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  color: var(--semantic-text-secondary);
+  cursor: pointer;
+  user-select: none;
+
+  &.copied {
+    color: var(--semantic-text-accent);
+  }
+}
