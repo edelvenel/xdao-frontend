@@ -21,7 +21,10 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
   const { setIsMenuShown, setIsHeaderShown } = store.useApp();
 
   const navigate = useNavigate();
-
+  React.useEffect(() => {
+    setIsMenuShown(false);
+    setIsHeaderShown(true);
+  }, [setIsHeaderShown, setIsMenuShown]);
   if (backButton.mount.isAvailable()) {
     backButton.mount();
     backButton.isMounted(); // true
@@ -35,11 +38,6 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
       setFormType(currentType?.id || null);
     }
   }, [proposalType]);
-
-  React.useEffect(() => {
-    setIsMenuShown(false);
-    setIsHeaderShown(true);
-  }, [setIsHeaderShown, setIsMenuShown]);
 
   return (
     <div className={css.page}>
