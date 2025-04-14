@@ -3,6 +3,7 @@ import { routes } from "app/router/routes";
 import React from "react";
 import { useNavigate } from "react-router";
 import { store } from "shared/store";
+import { PROPOSALS } from "shared/types";
 import { Modal } from "shared/ui/Modal";
 import { Filter } from "./components/Filter";
 import { Proposal } from "./components/Proposal";
@@ -41,9 +42,9 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
   return (
     <div className={css.page}>
       <div className={css.list}>
-        <Proposal key={1} />
-        <Proposal key={2} />
-        <Proposal key={3} />
+        {PROPOSALS.map((proposal, index) => (
+          <Proposal data={proposal} key={index} />
+        ))}
       </div>
       <TopContent>
         <SearchBlock

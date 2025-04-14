@@ -1,6 +1,6 @@
-import { Badge } from "pages/proposal-list/components/Badge";
 import React from "react";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { Badge } from "shared/ui/Badge";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Radio } from "shared/ui/Radio";

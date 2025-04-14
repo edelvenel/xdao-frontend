@@ -3,6 +3,9 @@ import { ArrowIcon } from "./common/Arrow";
 import { CancelIcon } from "./common/Cancel";
 import { CheckIcon } from "./common/Check";
 import { ChevronDownIcon } from "./common/ChevronDown";
+import { ChevronRightIcon } from "./common/ChevronRight";
+import { ConfirmIcon } from "./common/Confirm";
+import { CopyIcon } from "./common/Copy";
 import { DisagreeIcon } from "./common/Disagree";
 import { FilterIcon } from "./common/Filter";
 import { LinkIcon } from "./common/Link";
@@ -38,6 +41,9 @@ export const Icon = {
     Minus: MinusIcon,
     QuestionSmall: QuestionSmallIcon,
     Link: LinkIcon,
+    Copy: CopyIcon,
+    ChevronRight: ChevronRightIcon,
+    Confirm: ConfirmIcon,
   },
   Crypto: {},
   Navigation: {
