@@ -2,6 +2,7 @@ import { routes } from "app/router/routes";
 import cn from "classnames";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
+import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
 import { PROPOSALS } from "shared/types";
 import { Modal } from "shared/ui/Modal";
@@ -18,6 +19,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
   const [isOnVote, setIsOnVote] = React.useState<boolean>(false);
   const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean | null>(null);
+  useBackButton();
 
   React.useEffect(() => {
     setIsMenuShown(false);

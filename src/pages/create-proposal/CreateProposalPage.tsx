@@ -2,6 +2,7 @@ import { backButton } from "@telegram-apps/sdk";
 import cn from "classnames";
 import React from "react";
 import { useNavigate } from "react-router";
+import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
 import { IDao, IProposalType, ProposalTypes } from "shared/types";
 import { Modal } from "shared/ui/Modal";
@@ -19,6 +20,7 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
   const [isSuccess, setIsSuccess] = React.useState<boolean | null>(null);
 
   const { setIsMenuShown, setIsHeaderShown } = store.useApp();
+  useBackButton();
 
   const navigate = useNavigate();
   React.useEffect(() => {
