@@ -1,3 +1,4 @@
+import WebApp from "@twa-dev/sdk";
 import cn from "classnames";
 import { animate, AnimatePresence, motion, useMotionValue } from "motion/react";
 import React from "react";
@@ -20,14 +21,20 @@ export function Slider({ disabled = false, onDone }: ISliderProps) {
 
   const x = useMotionValue(0);
 
-  const handleOnDragEnd = React.useCallback(() => {
+  const handleOnDragEnd = React.useCallback(async () => {
     setIsDragging(false);
 
     if (x.get() >= maxX - MAX_X_COMPENSATION) {
       setIsConfirmed(true);
+      if (WebApp.isVersionAtLeast("6.1")) {
+        WebApp.HapticFeedback.notificationOccurred("success");
+      }
       onDone();
     } else {
-      animate(x, 0, { duration: 0.2 });
+      animate(x, 0, { duration: 0.25, ease: "backOut" });
+      if (WebApp.isVersionAtLeast("6.1")) {
+        WebApp.HapticFeedback.notificationOccurred("error");
+      }
     }
   }, [maxX, onDone, x]);
 
