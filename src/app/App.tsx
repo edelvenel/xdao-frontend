@@ -1,6 +1,5 @@
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import WebApp from "@twa-dev/sdk";
-import { ScreenLoader } from "pages/tech/sceen-loader";
 import React from "react";
 import { BrowserRouter } from "react-router";
 import { API } from "shared/api";
@@ -12,9 +11,9 @@ import { SplashScreen } from "./splash";
 import "./styles/root.scss";
 
 export function App() {
-  const { setToken, token } = store.useAuth();
-  const { isWalletConnected, setWalletAddress } = store.useWallet();
-  const { me, fetchMe } = store.useMe();
+  const { setToken } = store.useAuth();
+  const { isWalletConnected } = store.useWallet();
+  const { fetchMe } = store.useMe();
 
   React.useEffect(() => {
     if (WebApp.isVersionAtLeast("7.7")) {
@@ -25,15 +24,6 @@ export function App() {
   React.useEffect(() => {
     fetchMe();
   }, [fetchMe]);
-
-  const walletAddress = React.useMemo(
-    () => (me ? me.walletAddress : null),
-    [me]
-  );
-
-  React.useEffect(() => {
-    setWalletAddress(walletAddress);
-  }, [setWalletAddress, walletAddress]);
 
   React.useEffect(() => {
     const auth = async () => {
@@ -52,26 +42,26 @@ export function App() {
     auth();
   }, [setToken]);
 
-  const isLoading = React.useMemo(() => {
-    if (!token) {
-      return true;
-    }
+  // const isLoading = React.useMemo(() => {
+  //   if (!token) {
+  //     return true;
+  //   }
 
-    if (!me) {
-      return true;
-    }
+  //   if (!me) {
+  //     return true;
+  //   }
 
-    return false;
-  }, [me, token]);
+  //   return false;
+  // }, [me, token]);
 
-  if (isLoading) {
-    return (
-      <AppErrorBoundary>
-        <ScreenLoader />
-        <NotificationLayer />
-      </AppErrorBoundary>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <AppErrorBoundary>
+  //       <ScreenLoader />
+  //       <NotificationLayer />
+  //     </AppErrorBoundary>
+  //   );
+  // }
 
   return (
     <TonConnectUIProvider

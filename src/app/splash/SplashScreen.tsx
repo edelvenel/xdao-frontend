@@ -4,7 +4,7 @@ import { store } from "shared/store";
 import css from "./styles.module.scss";
 
 export function SplashScreen() {
-  const { connectWallet } = store.useWallet();
+  const { isWalletConnected, connectWallet } = store.useWallet();
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
 
@@ -13,7 +13,10 @@ export function SplashScreen() {
   }, [tonConnectUI]);
 
   if (wallet) {
-    connectWallet(wallet);
+    if (!isWalletConnected) {
+      connectWallet(wallet);
+    }
+    return null;
   }
 
   return (

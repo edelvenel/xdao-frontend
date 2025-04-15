@@ -15,10 +15,10 @@ export const useWallet = create<IWalletProps>((set, get) => ({
   isWalletConnected: false,
   connectWallet: async (wallet) => {
     const { setWalletAddress } = get();
-    await API.Me.linkWallet({
+    setWalletAddress(wallet.account.address);
+    API.Me.linkWallet({
       walletAddress: wallet.account.address,
     });
-    setWalletAddress(wallet.account.address);
   },
   setWalletAddress: (walletAddress) => {
     set({ walletAddress });
