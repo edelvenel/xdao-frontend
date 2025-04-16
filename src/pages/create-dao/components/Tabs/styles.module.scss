@@ -1,0 +1,25 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  .tabButtonList {
+    display: flex;
+    gap: 13px;
+
+    .tabButton {
+      height: 44px;
+      line-height: 32px;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 6px 30px;
+      border-bottom: 2px solid transparent;
+      color: var(--semantic-text-secondary);
+
+      &.selected {
+        color: var(--semantic-text-primary);
+        border-bottom-color: var(--semantic-button-notifications);
+      }
+    }
+  }
+}

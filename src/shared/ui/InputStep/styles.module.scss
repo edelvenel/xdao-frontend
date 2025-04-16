@@ -12,6 +12,10 @@
     align-items: center;
     justify-content: center;
 
+    &.disabled {
+      opacity: 0.5;
+    }
+
     &.decrement {
       color: var(--semantic-text-secondary);
       background-color: var(--semantic-background-tetriary);

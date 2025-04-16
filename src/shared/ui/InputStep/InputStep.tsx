@@ -35,7 +35,11 @@ export function InputStep({
   return (
     <div className={css.inputStep}>
       <button
-        className={cn(css.button, css.decrement)}
+        className={cn(
+          css.button,
+          css.decrement,
+          isDecrementDisabled && css.disabled
+        )}
         disabled={isDecrementDisabled}
         onClick={() => onChange(current - step)}
       >
@@ -43,7 +47,11 @@ export function InputStep({
       </button>
       <div className={css.label}>{renderLabel(current)}</div>
       <button
-        className={cn(css.button, css.increment)}
+        className={cn(
+          css.button,
+          css.increment,
+          isIncrementDisabled && css.disabled
+        )}
         disabled={isIncrementDisabled}
         onClick={() => onChange(current + step)}
       >
