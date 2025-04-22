@@ -1,6 +1,6 @@
 import React from "react";
 import { IToken } from "shared/types";
-import { hapticFeedback } from "shared/utils/hapticFeedBack";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import { Option } from "./components/Option";
 import css from "./styles.module.scss";
 

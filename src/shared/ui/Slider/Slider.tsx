@@ -2,7 +2,7 @@ import cn from "classnames";
 import { animate, AnimatePresence, motion, useMotionValue } from "motion/react";
 import React from "react";
 import { Icon } from "shared/icons";
-import { hapticFeedback } from "shared/utils/hapticFeedBack";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 const SLIDER_BUTTON_SIZE = 50;

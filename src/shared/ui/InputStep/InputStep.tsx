@@ -1,7 +1,7 @@
 import cn from "classnames";
 import React from "react";
 import { Icon } from "shared/icons";
-import { hapticFeedback } from "shared/utils/hapticFeedBack";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 const setLabel = (value: number): string => {

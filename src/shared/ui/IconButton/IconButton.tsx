@@ -1,6 +1,6 @@
 import cn from "classnames";
 import React from "react";
-import { hapticFeedback } from "shared/utils/hapticFeedBack";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 interface IIconButtonProps

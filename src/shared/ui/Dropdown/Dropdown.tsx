@@ -10,7 +10,7 @@ import {
 import cn from "classnames";
 import React from "react";
 import { Icon } from "shared/icons";
-import { hapticFeedback } from "shared/utils/hapticFeedBack";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 const DEFAULT_DROPDOWN_MATCHER = (a: unknown, b: unknown) => a === b;
