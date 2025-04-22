@@ -1,4 +1,5 @@
 import React from "react";
+import { hapticFeedback } from "shared/utils/haptic";
 import css from "./styles.module.scss";
 
 interface IInputAmountProps
@@ -56,6 +57,13 @@ export function InputNumber({
       [max, min, onUpdate]
     );
 
+  const handleOnMaxAmount = React.useCallback(() => {
+    if (onMaxAmount) {
+      hapticFeedback("press");
+      onMaxAmount();
+    }
+  }, [onMaxAmount]);
+
   return (
     <div className={css.inputNumber}>
       <input
@@ -65,7 +73,7 @@ export function InputNumber({
         onChange={handleOnChange}
       />
       {onMaxAmount && (
-        <div className={css.maxButton} onClick={onMaxAmount}>
+        <div className={css.maxButton} onClick={handleOnMaxAmount}>
           MAX
         </div>
       )}

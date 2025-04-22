@@ -72,12 +72,17 @@ export function Dropdown<T>({
     [onSelect]
   );
 
+  const handleOnOpen = React.useCallback(() => {
+    hapticFeedback("press");
+    setIsOpen(!isOpen);
+  }, [isOpen]);
+
   return (
     <div className={cn(css.dropdown, className)}>
       <div
         ref={refs.setReference}
         className={css.selected}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleOnOpen}
         {...getReferenceProps()}
       >
         <span className={cn(css.option, !selected && css.placeholder)}>

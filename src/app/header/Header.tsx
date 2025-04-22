@@ -5,6 +5,7 @@ import { Icon } from "shared/icons";
 import { store } from "shared/store";
 import { Button } from "shared/ui/Button";
 import { Modal } from "shared/ui/Modal";
+import { hapticFeedback } from "shared/utils/haptic";
 import css from "./styles.module.scss";
 
 export function Header() {
@@ -12,6 +13,11 @@ export function Header() {
   const { walletAddress } = store.useWallet();
 
   const [tonConnectUI] = useTonConnectUI();
+
+  const handleOnAddressClick = React.useCallback(() => {
+    hapticFeedback("press");
+    setOnConnectWallet(true);
+  }, []);
 
   const handleOnWalletConnectTON = React.useCallback(async () => {
     await tonConnectUI.disconnect();
@@ -33,7 +39,7 @@ export function Header() {
         >
           <Icon.Common.Question />
         </div>
-        <div className={css.user} onClick={() => setOnConnectWallet(true)}>
+        <div className={css.user} onClick={handleOnAddressClick}>
           <div className={css.text}>{walletAddress}</div>
           <div className={css.icon}>
             <Icon.Common.User />

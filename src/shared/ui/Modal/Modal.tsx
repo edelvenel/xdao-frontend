@@ -1,6 +1,8 @@
 import cn from "classnames";
+import React from "react";
 import { createPortal } from "react-dom";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/haptic";
 import { Title } from "../Title";
 import css from "./styles.module.scss";
 
@@ -10,10 +12,15 @@ interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Modal({ children, title, className, onClose }: IModalProps) {
+  const handleOnClose = React.useCallback(() => {
+    hapticFeedback("press");
+    onClose();
+  }, [onClose]);
+
   return createPortal(
     <div className={css.overlay}>
       <div className={cn(css.modal, className)}>
-        <div className={css.closeButton} onClick={onClose}>
+        <div className={css.closeButton} onClick={handleOnClose}>
           <Icon.Common.Cancel />
         </div>
         <div className={css.header}>

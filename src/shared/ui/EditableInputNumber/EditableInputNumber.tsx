@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/haptic";
 import { InputNumber } from "../InputNumber";
 import css from "./styles.module.scss";
 
@@ -21,6 +22,7 @@ export function EditableInputNumber({
 }: IEditableInputNumberProps) {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const handleOnClick = React.useCallback(() => {
+    hapticFeedback("press");
     if (isEdit) {
       onSave();
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/haptic";
 import { Textarea } from "../Textarea";
 import css from "./styles.module.scss";
 
@@ -19,6 +20,7 @@ export function EditableTextarea({
 }: IEditableTextareaProps) {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const handleOnClick = React.useCallback(() => {
+    hapticFeedback("press");
     if (isEdit) {
       onSave();
     }

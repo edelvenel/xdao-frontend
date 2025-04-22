@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/haptic";
 import { Input } from "../Input";
 import css from "./styles.module.scss";
 
@@ -14,6 +15,7 @@ interface IEditableInputProps
 export function EditableInput({ onSave, ...props }: IEditableInputProps) {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const handleOnClick = React.useCallback(() => {
+    hapticFeedback("press");
     if (isEdit) {
       onSave();
     }
