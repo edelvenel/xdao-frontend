@@ -1,4 +1,6 @@
+import React from "react";
 import { IToken } from "shared/types";
+import { hapticFeedback } from "shared/utils/hapticFeedBack";
 import { Option } from "./components/Option";
 import css from "./styles.module.scss";
 
@@ -9,13 +11,21 @@ interface IRadioTokenProps {
 }
 
 export function RadioToken({ selected, options, onSelect }: IRadioTokenProps) {
+  const handleOnSelect = React.useCallback(
+    (option: IToken) => {
+      hapticFeedback("select");
+      onSelect(option);
+    },
+    [onSelect]
+  );
+
   return (
     <div className={css.radio}>
       {options.map((option, index) => (
         <Option
           key={index}
           selected={selected.id === option.id}
-          onClick={() => onSelect(option)}
+          onClick={() => handleOnSelect(option)}
           value={option}
         />
       ))}

@@ -1,6 +1,7 @@
 import { routes } from "app/router/routes";
 import React from "react";
 import { generatePath, useNavigate, useParams } from "react-router";
+import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
 import { DAOS_MOCK, IDao } from "shared/types";
 import { CrowdfundingTab } from "./components/CrowdfundingTab";
@@ -18,6 +19,7 @@ export const DAOPage = React.memo(function DAOPage() {
   const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 
   const navigate = useNavigate();
+  useBackButton();
 
   const dao: IDao | undefined = React.useMemo(
     () => DAOS_MOCK.find((dao) => dao.id === id),

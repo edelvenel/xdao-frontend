@@ -10,6 +10,7 @@ import {
 import cn from "classnames";
 import React from "react";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/hapticFeedBack";
 import css from "./styles.module.scss";
 
 const DEFAULT_DROPDOWN_MATCHER = (a: unknown, b: unknown) => a === b;
@@ -64,6 +65,7 @@ export function Dropdown<T>({
 
   const handleOnClick = React.useCallback(
     (option: T) => {
+      hapticFeedback("select");
       setIsOpen(false);
       onSelect(option);
     },

@@ -1,4 +1,5 @@
-import { JSX } from "react";
+import React, { JSX } from "react";
+import { hapticFeedback } from "shared/utils/hapticFeedBack";
 import { Option } from "./components/Option";
 import css from "./styles.module.scss";
 
@@ -19,13 +20,21 @@ export function Radio<T>({
   renderLabel,
   matcher = DEFAULT_RADIO_MATCHER,
 }: IRadioProps<T>) {
+  const handleOnSelect = React.useCallback(
+    (option: T) => {
+      hapticFeedback("select");
+      onSelect(option);
+    },
+    [onSelect]
+  );
+
   return (
     <div className={css.radio}>
       {options.map((option, index) => (
         <Option
           key={index}
           selected={matcher(selected, option)}
-          onClick={() => onSelect(option)}
+          onClick={() => handleOnSelect(option)}
         >
           {renderLabel(option)}
         </Option>
