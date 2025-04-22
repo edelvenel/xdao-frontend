@@ -1,0 +1,35 @@
+.editableTextarea {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+  border-radius: 32px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-background-tetriary);
+
+  .textarea {
+    background: none;
+    height: 100%;
+    width: auto;
+    padding: 15px;
+    outline: none;
+    width: 100%;
+  }
+
+  .modeButton {
+    color: var(--semantic-text-secondary);
+    align-self: flex-start;
+    margin-top: 15px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  &::placeholder {
+    color: var(--semantic-text-placeholder);
+  }
+}

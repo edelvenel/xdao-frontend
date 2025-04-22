@@ -3,6 +3,13 @@
   flex-direction: column;
   gap: 25px;
 
+  .tabContent {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+  }
+
   .tabButtonList {
     display: flex;
     gap: 13px;

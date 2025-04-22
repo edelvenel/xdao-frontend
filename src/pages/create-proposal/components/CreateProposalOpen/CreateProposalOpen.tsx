@@ -1,17 +1,11 @@
 import React from "react";
 import { store } from "shared/store";
-import { IDao, IProposalType, LOGO_URL, ProposalTypes } from "shared/types";
+import { DAOS_MOCK, IDao, IProposalType, ProposalTypes } from "shared/types";
 import { Button } from "shared/ui/Button";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Title } from "shared/ui/Title";
 import { objectIdMatcher } from "shared/utils/Mathcer";
 import css from "./styles.module.scss";
-
-const DAOS_MOCK: IDao[] = [
-  { id: 1, logo: LOGO_URL, name: "Example DAO 1" },
-  { id: 2, logo: LOGO_URL, name: "Example DAO 2" },
-  { id: 3, logo: LOGO_URL, name: "Example DAO 3" },
-];
 
 interface ICreateProposalOpen {
   dao: IDao | null;

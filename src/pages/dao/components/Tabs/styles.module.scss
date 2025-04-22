@@ -1,0 +1,39 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  overflow: hidden;
+  flex: 1;
+
+  .tabContent {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .tabButtonList {
+    display: flex;
+    gap: 13px;
+    overflow: auto;
+
+    .tabButton {
+      display: flex;
+      flex-shrink: 0;
+      height: 40px;
+      background-color: transparent;
+      line-height: 32px;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 32px;
+      color: var(--semantic-text-secondary);
+      cursor: pointer;
+      user-select: none;
+
+      &.selected {
+        color: var(--semantic-text-accent);
+        background-color: var(--semantic-background-tetriary);
+      }
+    }
+  }
+}

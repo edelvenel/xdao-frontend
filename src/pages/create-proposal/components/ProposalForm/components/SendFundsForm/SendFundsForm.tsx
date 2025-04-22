@@ -2,7 +2,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
-import { IDao, IToken, LOGO_URL } from "shared/types";
+import { DAOS_MOCK, IDao, IToken } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { InputNumber } from "shared/ui/InputNumber";
@@ -10,12 +10,6 @@ import { RadioToken } from "shared/ui/RadioToken";
 import { Title } from "shared/ui/Title";
 import { objectIdMatcher } from "shared/utils/Mathcer";
 import css from "./styles.module.scss";
-
-const DAOS_MOCK: IDao[] = [
-  { id: 1, logo: LOGO_URL, name: "Example DAO 1" },
-  { id: 2, logo: LOGO_URL, name: "Example DAO 2" },
-  { id: 3, logo: LOGO_URL, name: "Example DAO 3" },
-];
 
 const TOKENS: IToken[] = [
   {
