@@ -1,0 +1,34 @@
+.editableInput {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  height: 50px;
+  padding-right: 15px;
+  overflow: hidden;
+  border-radius: 32px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-background-tetriary);
+
+  .input {
+    background: none;
+    height: 100%;
+    width: auto;
+    padding: 15px;
+    outline: none;
+    width: 100%;
+  }
+
+  .modeButton {
+    color: var(--semantic-text-secondary);
+    align-self: center;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  &::placeholder {
+    color: var(--semantic-text-placeholder);
+  }
+}

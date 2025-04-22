@@ -1,6 +1,56 @@
 import React from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { store } from "shared/store";
+import { INft, LOGO_URL } from "shared/types";
+import { Button } from "shared/ui/Button";
+import { Title } from "shared/ui/Title";
+import { NFTCard } from "./components/NFTCard";
 import css from "./styles.module.scss";
 
+const NFTS: INft[] = [
+  {
+    id: "ABC12345",
+    hash: "123456",
+    imgUrl: LOGO_URL,
+  },
+  {
+    id: "DEF12345",
+    hash: "324323234",
+    imgUrl: LOGO_URL,
+  },
+];
+
 export const NftPage = React.memo(function NftPage() {
-  return <div className={css.page}>Nft Page</div>;
+  // const { id } = useParams();
+  const { setIsBackground, setIsHeaderShown, setIsMenuShown } = store.useApp();
+
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    setIsBackground(true);
+    setIsHeaderShown(true);
+    setIsMenuShown(false);
+  }, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
+
+  return (
+    <div className={css.page}>
+      <Title value="NFT collection" variant="large" />
+      <div className={css.info}>
+        <div className={css.currency}>Total NFTs:</div>
+        <div className={css.amount}>2</div>
+      </div>
+      {NFTS.map((nft) => (
+        <NFTCard nft={nft} />
+      ))}
+      <div className={css.actions}>
+        <Button variant="primary" onClick={() => toast.error("Unimplemented")}>
+          Receive QR
+        </Button>
+        <Button variant="secondary" onClick={() => navigate(-1)}>
+          Back
+        </Button>
+      </div>
+    </div>
+  );
 });

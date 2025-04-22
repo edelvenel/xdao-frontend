@@ -4,9 +4,25 @@ export type IIconProps = React.SVGProps<SVGSVGElement>;
 export type IIconComponent = JSX.Element;
 
 export type IDao = {
-  id: number;
+  id: string;
   logo: string;
   name: string;
+  activeProposals: number;
+  LPTokens: number;
+  description?: string;
+  email?: string;
+  social: ISocial[];
+};
+
+export type ISocial = {
+  type: Social;
+  url: string;
+};
+
+export type INft = {
+  id: string;
+  hash: string;
+  imgUrl: string;
 };
 
 export type IProposalType = {
@@ -14,6 +30,12 @@ export type IProposalType = {
   logo: string;
   name: string;
 };
+
+export enum Social {
+  Telegram = "telegram",
+  Youtube = "youtube",
+  Instagram = "instagram",
+}
 
 export const LOGO_URL =
   "https://s3-alpha-sig.figma.com/img/42ae/6ec1/60426ed7c2345cb0f3fa82362c4448c6?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=FP2xA~duxcKvBndxlZshuwejmfv2HCx870FkWLQEFtLghUqURStu727g9JfMKmssLHH9zgeuPBXuJR5Ezg6a7EC1tFMuJToC3Orumoi9BJwOSbA7YPhmevC4-knkwzFpeybPEAq9yIFuyr78og6X6NP5XA~z7Ci-EAiYDWyL32rlP8JojRL8PvVl5g03KJQhp0TU5tAlT-Mw-73jLVeAK3DMVMghFpqBcPS73Ewf6OcMSCxRQgSPV266ShogW4wP1u3u-0DnOaRISt75RhILpD~eO32EYUQ4dwI2RwsTAd7OBJiYI7P8RHsinn1FgxNmUPT86RkWmAahPOelmqJHGA__";
@@ -30,9 +52,40 @@ export const ProposalTypes = [
 ];
 
 export const DAOS_MOCK: IDao[] = [
-  { id: 1, logo: LOGO_URL, name: "Example DAO 1" },
-  { id: 2, logo: LOGO_URL, name: "Example DAO 2" },
-  { id: 3, logo: LOGO_URL, name: "Example DAO 3" },
+  {
+    id: "1",
+    logo: LOGO_URL,
+    name: "Example DAO 1",
+    activeProposals: 2,
+    LPTokens: 500,
+    email: "email@mail.com",
+    description: "Some description",
+    social: [
+      { type: Social.Telegram, url: "http://t.me/" },
+      { type: Social.Youtube, url: "http://youtube.com/" },
+    ],
+  },
+  {
+    id: "2",
+    logo: LOGO_URL,
+    name: "Example DAO 2",
+    activeProposals: 1,
+    LPTokens: 300,
+    email: "xdao@mail.com",
+    social: [
+      { type: Social.Telegram, url: "http://t.me/" },
+      { type: Social.Youtube, url: "http://youtube.com/" },
+    ],
+  },
+  {
+    id: "3",
+    logo: LOGO_URL,
+    name: "Example DAO 3",
+    activeProposals: 4,
+    LPTokens: 1000,
+    email: "example@mail.com",
+    social: [{ type: Social.Telegram, url: "http://t.me/" }],
+  },
 ];
 
 export const VOTING_TYPE: IVotingType[] = [

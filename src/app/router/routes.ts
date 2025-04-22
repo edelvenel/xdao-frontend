@@ -22,9 +22,9 @@ export const routes = {
 
   [Route.Profile]: "/profile",
 
-  [Route.Nft]: "/nft",
+  [Route.Nft]: "/nft/:id",
 
-  [Route.Dao]: "/daos/:id",
+  [Route.Dao]: "/daos/:id/:tab",
 
   [Route.DaoList]: "/daos",
 

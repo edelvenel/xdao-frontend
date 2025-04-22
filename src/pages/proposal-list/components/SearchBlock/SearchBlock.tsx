@@ -4,12 +4,14 @@ import { Search } from "shared/ui/Search";
 import css from "./styles.module.scss";
 
 interface ISearchBlockProps {
+  searchText: string;
   onChange: (value: string) => void;
   onFilter: () => void;
   onCreate: () => void;
 }
 
 export function SearchBlock({
+  searchText,
   onChange,
   onFilter,
   onCreate,
@@ -18,6 +20,7 @@ export function SearchBlock({
     <div className={css.searchBlock}>
       <div className={css.input}>
         <Search
+          value={searchText}
           placeholder="Search proposals"
           onChange={(e) => onChange(e.target.value)}
         />
