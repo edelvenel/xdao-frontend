@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import React from "react";
 import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 interface ICopyProps {
@@ -13,6 +14,7 @@ export function Copy({ text }: ICopyProps) {
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   const handleOnClick = React.useCallback(async () => {
+    hapticFeedback("press");
     try {
       await navigator.clipboard.writeText(text);
       setIsCopied(true);

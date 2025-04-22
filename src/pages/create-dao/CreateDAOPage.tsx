@@ -1,5 +1,6 @@
 import React from "react";
 import toast from "react-hot-toast";
+import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
 import { Button } from "shared/ui/Button";
 import { Input } from "shared/ui/Input";
@@ -23,6 +24,8 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
   const [consensus, setConsensus] = React.useState<number>(1);
   const [consensusPercent, setConsensusPercent] = React.useState<number>(50);
   const { setIsHeaderShown, setIsMenuShown } = store.useApp();
+
+  useBackButton();
 
   const tabs: ITab[] = React.useMemo(() => {
     return [

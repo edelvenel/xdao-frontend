@@ -1,6 +1,7 @@
 import cn from "classnames";
 import React from "react";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 const setLabel = (value: number): string => {
@@ -32,6 +33,15 @@ export function InputStep({
     () => current + step > max,
     [current, max, step]
   );
+
+  const handleOnChange = React.useCallback(
+    (value: number) => {
+      hapticFeedback("press");
+      onChange(value);
+    },
+    [onChange]
+  );
+
   return (
     <div className={css.inputStep}>
       <button
@@ -41,7 +51,7 @@ export function InputStep({
           isDecrementDisabled && css.disabled
         )}
         disabled={isDecrementDisabled}
-        onClick={() => onChange(current - step)}
+        onClick={() => handleOnChange(current - step)}
       >
         <Icon.Common.Minus />
       </button>
@@ -53,7 +63,7 @@ export function InputStep({
           isIncrementDisabled && css.disabled
         )}
         disabled={isIncrementDisabled}
-        onClick={() => onChange(current + step)}
+        onClick={() => handleOnChange(current + step)}
       >
         <Icon.Common.Plus />
       </button>

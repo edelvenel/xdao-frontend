@@ -1,6 +1,7 @@
 import React from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
 import { INft, LOGO_URL } from "shared/types";
 import { Button } from "shared/ui/Button";
@@ -26,6 +27,7 @@ export const NftPage = React.memo(function NftPage() {
   const { setIsBackground, setIsHeaderShown, setIsMenuShown } = store.useApp();
 
   const navigate = useNavigate();
+  useBackButton();
 
   React.useEffect(() => {
     setIsBackground(true);

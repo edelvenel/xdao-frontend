@@ -1,8 +1,8 @@
-import WebApp from "@twa-dev/sdk";
 import cn from "classnames";
 import { animate, AnimatePresence, motion, useMotionValue } from "motion/react";
 import React from "react";
 import { Icon } from "shared/icons";
+import { hapticFeedback } from "shared/utils/hapticFeedback";
 import css from "./styles.module.scss";
 
 const SLIDER_BUTTON_SIZE = 50;
@@ -26,15 +26,11 @@ export function Slider({ disabled = false, onDone }: ISliderProps) {
 
     if (x.get() >= maxX - MAX_X_COMPENSATION) {
       setIsConfirmed(true);
-      if (WebApp.isVersionAtLeast("6.1")) {
-        WebApp.HapticFeedback.notificationOccurred("success");
-      }
+      hapticFeedback("success");
       onDone();
     } else {
       animate(x, 0, { duration: 0.25, ease: "backOut" });
-      if (WebApp.isVersionAtLeast("6.1")) {
-        WebApp.HapticFeedback.notificationOccurred("error");
-      }
+      hapticFeedback("error");
     }
   }, [maxX, onDone, x]);
 
