@@ -12,14 +12,29 @@ interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Modal({ children, title, className, onClose }: IModalProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
   const handleOnClose = React.useCallback(() => {
     hapticFeedback("press");
     onClose();
   }, [onClose]);
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
   return createPortal(
     <div className={css.overlay}>
-      <div className={cn(css.modal, className)}>
+      <div ref={ref} className={cn(css.modal, className)}>
         <div className={css.closeButton} onClick={handleOnClose}>
           <Icon.Common.Cancel />
         </div>
