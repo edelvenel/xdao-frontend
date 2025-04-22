@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
 import { INft } from "shared/types";
 import css from "./styles.module.scss";
@@ -19,13 +20,19 @@ export function NFTCard({ nft }: INFTCardProps) {
         </div>
         <div className={css.rightColumn}>
           <div className={css.id}>ID:{nft.id}</div>
-          <div className={css.block}>
+          <div
+            className={css.block}
+            onClick={() => toast.error("Unimplemented")}
+          >
             TON Scan
             <div className={css.icon}>
               <Icon.Common.Chain />
             </div>
           </div>
-          <div className={css.block}>
+          <div
+            className={css.block}
+            onClick={() => toast.error("Unimplemented")}
+          >
             Send NFT
             <div className={css.icon}>
               <Icon.Common.TinyLink />

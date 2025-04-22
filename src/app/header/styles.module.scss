@@ -37,6 +37,8 @@
         max-width: 120px;
         overflow: hidden;
         text-overflow: ellipsis;
+        user-select: none;
+        cursor: pointer;
       }
 
       .icon {
