@@ -1,5 +1,5 @@
 import React, { JSX } from "react";
-import { hapticFeedback } from "shared/utils/hapticFeedback";
+import { hapticFeedback } from "shared/utils/haptic";
 import { Option } from "./components/Option";
 import css from "./styles.module.scss";
 
