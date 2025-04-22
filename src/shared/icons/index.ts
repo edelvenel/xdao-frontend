@@ -8,6 +8,7 @@ import { ChevronDownIcon } from "./common/ChevronDown";
 import { ChevronRightIcon } from "./common/ChevronRight";
 import { ConfirmIcon } from "./common/Confirm";
 import { CopyIcon } from "./common/Copy";
+import { DAOIcon } from "./common/DAO";
 import { DisagreeIcon } from "./common/Disagree";
 import { EditIcon } from "./common/Edit";
 import { FilterIcon } from "./common/Filter";
@@ -16,6 +17,7 @@ import { LinkIcon } from "./common/Link";
 import { LittleLinkIcon } from "./common/LittleLink";
 import { MinusIcon } from "./common/Minus";
 import { PlusIcon } from "./common/Plus";
+import { ProposalIcon } from "./common/Proposal";
 import { QuestionIcon } from "./common/Question";
 import { QuestionSmallIcon } from "./common/QuestionSmall";
 import { QuestionTinyIcon } from "./common/QuestionTiny";
@@ -63,6 +65,8 @@ export const Icon = {
     Eye: EyeIcon,
     Chain: ChainIcon,
     TinyLink: TinyLinkIcon,
+    Proposal: ProposalIcon,
+    DAO: DAOIcon,
   },
   Crypto: {},
   Navigation: {

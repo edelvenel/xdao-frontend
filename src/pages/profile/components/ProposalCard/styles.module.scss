@@ -1,0 +1,29 @@
+.proposalCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 32px;
+  border: 1px solid var(--semantic-background-tetriary);
+  padding: 12px 20px;
+  min-height: 64px;
+  background-color: var(--semantic-background-tetriary);
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      color: var(--semantic-text-non-active);
+    }
+
+    .name {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 21px;
+    }
+  }
+}
