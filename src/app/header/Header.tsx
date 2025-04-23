@@ -1,6 +1,8 @@
 import { useTonConnectUI } from "@tonconnect/ui-react";
+import { routes } from "app/router/routes";
 import React from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router";
 import { Icon } from "shared/icons";
 import { store } from "shared/store";
 import { Button } from "shared/ui/Button";
@@ -31,7 +33,9 @@ export function Header() {
 
   return (
     <div className={css.header}>
-      <Icon.Special.Logo />
+      <Link className={css.logo} to={routes.root}>
+        <Icon.Special.Logo />
+      </Link>
       <div className={css.info}>
         <div
           className={css.infoButton}
