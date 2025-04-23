@@ -60,7 +60,10 @@ export const ProfilePage = React.memo(function ProfilePage() {
           className={css.avatar}
           style={{ backgroundImage: `url(${me?.photoUrl})` }}
         />
-        <div className={css.name}>{me?.username}</div>
+        <div className={css.name}>
+          {me?.firstName ?? ""}
+          {me?.lastName ?? ""}
+        </div>
         <div
           className={css.editButton}
           onClick={() => toast.error("Unimplemented")}
