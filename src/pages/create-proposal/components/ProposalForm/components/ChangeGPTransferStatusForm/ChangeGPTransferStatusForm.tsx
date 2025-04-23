@@ -31,11 +31,13 @@ export function ChangeGPTransferStatusForm({
             <Title variant={"medium"} value="Change GP transfer status" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />

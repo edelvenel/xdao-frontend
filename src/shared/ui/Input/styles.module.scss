@@ -1,14 +1,47 @@
-.input {
-  padding: 15px;
-  border: none;
+.inputField {
+  flex: 1;
+  min-height: 52px;
   border-radius: 50px;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 20px;
-  color: var(--semantic-text-primary);
   background-color: var(--semantic-background-tetriary);
+
+  .input {
+    flex: 1;
+    width: 100%;
+    padding: 15px 20px;
+    background: none;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: var(--semantic-text-primary);
+
+    &:disabled {
+      color: var(--semantic-text-secondary);
+    }
+
+    &.withName {
+      padding: 0;
+    }
+  }
 
   &::placeholder {
     color: var(--semantic-text-placeholder);
+  }
+
+  &.withName {
+    display: flex;
+    padding: 7px 20px;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .fieldName {
+    flex: 1;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--semantic-text-secondary);
+    user-select: none;
   }
 }

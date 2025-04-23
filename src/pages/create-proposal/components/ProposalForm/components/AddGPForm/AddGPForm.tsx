@@ -31,11 +31,13 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
             <Title variant={"medium"} value="Add general partner" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -47,11 +49,13 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
             />
             <Input
               value={walletAddress}
+              fieldName="Wallet address"
               placeholder="Add wallet address"
               onChange={(e) => setWalletAddress(e.target.value)}
             />
             <Input
               value={tokenAmount}
+              fieldName="Token amount"
               placeholder="Add token amount"
               onChange={(e) => setTokenAmount(e.target.value)}
             />

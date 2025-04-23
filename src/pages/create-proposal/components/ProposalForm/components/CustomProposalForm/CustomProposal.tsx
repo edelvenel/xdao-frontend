@@ -51,11 +51,13 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
             <Title variant={"medium"} value="Custom proposal" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -71,6 +73,7 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
             </div>
             <Input
               value={newName}
+              fieldName="New name"
               placeholder="New name"
               onChange={(e) => setNewName(e.target.value)}
             />

@@ -7,6 +7,7 @@ interface IInputAmountProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
+  fieldName?: string;
   onMaxAmount?: () => void;
   onUpdate: (value: string) => void;
 }

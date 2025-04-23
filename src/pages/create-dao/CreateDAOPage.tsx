@@ -64,16 +64,19 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
         <Title value="Create DAO" variant="medium" />
         <Input
           value={daoName}
+          fieldName="DAO name"
           placeholder="Create DAO name"
           onChange={(e) => setDaoName(e.target.value)}
         />
         <Input
           value={daoTokenName}
-          placeholder="Create DAO name"
+          fieldName="DAO token name"
+          placeholder="Create DAO token name"
           onChange={(e) => setDaoTokenName(e.target.value)}
         />
         <Input
           value={daoTokenSymbol}
+          fieldName="DAO token symbol"
           placeholder="Create DAO token symbol"
           onChange={(e) => setDaoTokenSymbol(e.target.value)}
         />

@@ -30,11 +30,13 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
             <Title variant={"medium"} value="Transfer general partner" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -68,6 +70,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
             />
             <Input
               value={tokenAmount}
+              fieldName="Token amount"
               placeholder="Token Amount"
               onChange={(e) => setTokenAmount(e.target.value)}
             />

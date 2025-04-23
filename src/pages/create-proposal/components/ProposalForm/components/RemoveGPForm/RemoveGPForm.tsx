@@ -30,11 +30,13 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
             <Title variant={"medium"} value="Remove general partner" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />

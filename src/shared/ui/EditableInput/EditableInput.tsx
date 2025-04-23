@@ -26,7 +26,6 @@ export function EditableInput({ onSave, ...props }: IEditableInputProps) {
     <div className={css.editableInput}>
       <Input
         value={props.value}
-        className={css.input}
         disabled={!isEdit}
         onChange={props.onChange}
         {...props}
