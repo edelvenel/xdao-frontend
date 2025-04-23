@@ -3,7 +3,7 @@ import { App } from "app/App";
 import { createRoot } from "react-dom/client";
 
 async function enableMocking() {
-  // return; //TODO: remove in production
+  return; //TODO: remove in production
   if (!import.meta.env.DEV) {
     return;
   }
