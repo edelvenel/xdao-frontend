@@ -33,6 +33,7 @@ export function Input({
       <AnimatePresence initial={false} mode={"popLayout"}>
         {isNameShown && fieldName && (
           <motion.div
+            layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1 }}
