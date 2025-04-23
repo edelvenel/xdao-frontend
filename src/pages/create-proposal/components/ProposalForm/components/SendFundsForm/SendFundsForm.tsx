@@ -61,11 +61,13 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
             <Title variant={"medium"} value="Send DAO funds" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -86,6 +88,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
             />
             <Input
               value={recipientAddress}
+              fieldName="Recipient address"
               placeholder="Enter recipient address"
               onChange={(e) => setRecipientAddress(e.target.value)}
             />

@@ -9,12 +9,14 @@ interface IEditableInputNumberProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
+  fieldName?: string;
   onMaxAmount?: () => void;
   onUpdate: (value: string) => void;
   onSave: () => void;
 }
 
 export function EditableInputNumber({
+  fieldName,
   onMaxAmount,
   onUpdate,
   onSave,
@@ -32,6 +34,7 @@ export function EditableInputNumber({
   return (
     <div className={css.editableInputNumber}>
       <InputNumber
+        fieldName={fieldName}
         value={props.value}
         onMaxAmount={onMaxAmount}
         onUpdate={onUpdate}

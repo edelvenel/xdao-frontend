@@ -29,11 +29,13 @@ export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
             <Title variant={"medium"} value="Change DAO name" />
             <Input
               value={name}
+              fieldName="Proposal name"
               placeholder="Create proposal name"
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               value={description}
+              fieldName="Description"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -49,6 +51,7 @@ export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
             </div>
             <Input
               value={newName}
+              fieldName="New name"
               placeholder="New name"
               onChange={(e) => setNewName(e.target.value)}
             />

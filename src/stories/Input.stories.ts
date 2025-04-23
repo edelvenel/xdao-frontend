@@ -16,8 +16,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Empty: Story = {
   args: {
-    placeholder: "Enter any text",
+    placeholder: "Select DAO name",
+    fieldName: "DAO Name",
+  },
+};
+
+export const Filled: Story = {
+  args: {
+    placeholder: "Select DAO name",
+    fieldName: "DAO Name",
+    value: "Example Dao 1",
   },
 };
