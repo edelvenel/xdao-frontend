@@ -19,33 +19,29 @@ export function Input({
 }: IInputProps) {
   const [isFocused, setIsFocused] = React.useState<boolean>(false);
 
-  const isNameShown = React.useMemo(() => {
-    if (!fieldName) {
-      return false;
-    }
-    if (value || isFocused) {
-      return true;
-    }
-    return false;
-  }, [fieldName, isFocused, value]);
-
   return (
     <div className={cn(css.inputField, fieldName && css.withName)}>
       <AnimatePresence initial={true}>
-        {!isNameShown && (
+        {!isFocused && !value && (
           <motion.div
             key={"placeholder"}
+            className={css.placeholder}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
-            className={css.placeholder}
+            transition={{ type: "tween", ease: "anticipate" }}
           >
             {placeholder}
           </motion.div>
         )}
       </AnimatePresence>
-      <div className={css.field}>
-        {!!fieldName && <div className={css.fieldName}>{fieldName}</div>}
+      <motion.div
+        className={css.field}
+        animate={{ opacity: isFocused || value ? 1 : 0 }}
+      >
+        {(isFocused || value) && !!fieldName && (
+          <div className={css.fieldName}>{fieldName}</div>
+        )}
         <input
           className={cn(css.input, !!fieldName && css.withName)}
           onBlur={() => setIsFocused(false)}
@@ -53,7 +49,7 @@ export function Input({
           value={value}
           {...props}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }

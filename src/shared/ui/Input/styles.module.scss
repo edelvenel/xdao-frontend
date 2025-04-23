@@ -18,25 +18,44 @@
     font-weight: 600;
     font-size: 15px;
     line-height: 20px;
-    background-color: var(--semantic-background-tetriary);
     color: var(--semantic-text-placeholder);
     pointer-events: none;
   }
 
-  .input {
-    flex: 1;
-    width: 100%;
-    padding: 0;
-    background: none;
-    outline: none;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 20px;
-    color: var(--semantic-text-primary);
+  .field {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 7px 20px;
 
-    &:disabled {
+    .fieldName {
+      flex: 1;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
       color: var(--semantic-text-secondary);
+      user-select: none;
+    }
+
+    .input {
+      flex: 1;
+      width: 100%;
+      padding: 0;
+      background: none;
+      outline: none;
+      border: none;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 20px;
+      color: var(--semantic-text-primary);
+
+      &:disabled {
+        color: var(--semantic-text-secondary);
+      }
     }
   }
 
@@ -45,14 +64,5 @@
     padding: 7px 20px;
     flex-direction: column;
     gap: 0;
-  }
-
-  .fieldName {
-    flex: 1;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 500;
-    color: var(--semantic-text-secondary);
-    user-select: none;
   }
 }
