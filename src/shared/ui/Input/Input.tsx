@@ -21,7 +21,7 @@ export function Input({
 
   return (
     <div className={cn(css.inputField, fieldName && css.withName)}>
-      <AnimatePresence initial={true}>
+      <AnimatePresence initial={false}>
         {!isFocused && !value && (
           <motion.div
             key={"placeholder"}
