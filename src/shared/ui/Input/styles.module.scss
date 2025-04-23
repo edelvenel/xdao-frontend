@@ -4,11 +4,29 @@
   border-radius: 50px;
   background-color: var(--semantic-background-tetriary);
   overflow: hidden;
+  position: relative;
+
+  .placeholder {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    position: absolute;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    background-color: var(--semantic-background-tetriary);
+    color: var(--semantic-text-placeholder);
+    pointer-events: none;
+  }
 
   .input {
     flex: 1;
     width: 100%;
-    padding: 15px 20px;
+    padding: 0;
     background: none;
     outline: none;
     border: none;
@@ -20,14 +38,6 @@
     &:disabled {
       color: var(--semantic-text-secondary);
     }
-
-    &.withName {
-      padding: 0;
-    }
-  }
-
-  &::placeholder {
-    color: var(--semantic-text-placeholder);
   }
 
   &.withName {
