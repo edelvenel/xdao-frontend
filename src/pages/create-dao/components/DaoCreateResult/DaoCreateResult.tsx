@@ -3,29 +3,26 @@ import { Button } from "shared/ui/Button";
 import { Title } from "shared/ui/Title";
 import css from "./styles.module.scss";
 
-interface IProposalCreateResultProps {
+interface IDaoCreateResultProps {
   success: boolean;
   onDone: () => void;
   onRetry: () => void;
 }
 
-export function ProposalCreateResult({
+export function DaoCreateResult({
   success,
   onDone,
   onRetry,
-}: IProposalCreateResultProps) {
+}: IDaoCreateResultProps) {
   if (success) {
     return (
-      <div className={css.proposalCreateResult}>
+      <div className={css.daoCreateResult}>
         <div className={css.content}>
           <div className={css.icon}>
             <Icon.Special.Success />
           </div>
-          <Title variant={"large"} value="Proposal created" />
-          <div className={css.text}>
-            Your proposal has been successfully submitted and is now awaiting
-            votes
-          </div>
+          <Title variant={"large"} value="DAO created" />
+          <div className={css.text}>Your DAO has been successfully created</div>
         </div>
         <div className={css.button}>
           <Button variant="accent" onClick={onDone}>
@@ -36,15 +33,14 @@ export function ProposalCreateResult({
     );
   } else {
     return (
-      <div className={css.proposalCreateResult}>
+      <div className={css.daoCreateResult}>
         <div className={css.content}>
           <div className={css.icon}>
             <Icon.Special.Error />
           </div>
-          <Title variant={"large"} value="Proposal creation failed" />
+          <Title variant={"large"} value="DAO creation failed" />
           <div className={css.text}>
-            Something went wrong while submitting your proposal. Please try
-            again
+            Something went wrong while creating your DAO. Please try again
           </div>
         </div>
         <div className={css.button}>

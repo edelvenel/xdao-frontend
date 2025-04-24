@@ -1,10 +1,20 @@
+import cn from "classnames";
 import React from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { useDaos } from "shared/api/daos";
+import {
+  ICreateDaoEqualPayload,
+  ICreateDaoProportionalPayload,
+} from "shared/api/daos/payloads";
 import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
+import { DaoType } from "shared/types";
 import { Button } from "shared/ui/Button";
 import { Input } from "shared/ui/Input";
+import { Modal } from "shared/ui/Modal";
 import { Title } from "shared/ui/Title";
+import { DaoCreateResult } from "./components/DaoCreateResult";
 import { TabEqual } from "./components/TabEqual";
 import { TabProportional } from "./components/TabProportional";
 import { Tabs } from "./components/Tabs";
@@ -23,7 +33,11 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
   ]);
   const [consensus, setConsensus] = React.useState<number>(1);
   const [consensusPercent, setConsensusPercent] = React.useState<number>(50);
+  const [isSuccess, setIsSuccess] = React.useState<boolean | null>(null);
   const { setIsHeaderShown, setIsMenuShown } = store.useApp();
+  const { createDao } = useDaos();
+
+  const navigate = useNavigate();
 
   useBackButton();
 
@@ -52,6 +66,48 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
       },
     ];
   }, [consensus, consensusPercent, walletAddresses]);
+
+  const handleOnCreate = React.useCallback(async () => {
+    if (selectedTabIdx === 0) {
+      const payload: ICreateDaoEqualPayload = {
+        type: DaoType.Equal,
+        daoName,
+        daoTokenName,
+        daoTokenSymbol,
+        consensus,
+        walletAddresses,
+      };
+      try {
+        await createDao(payload);
+        setIsSuccess(true);
+      } catch {
+        setIsSuccess(false);
+      }
+    } else if (selectedTabIdx === 1) {
+      const payload: ICreateDaoProportionalPayload = {
+        type: DaoType.Proportional,
+        daoName,
+        daoTokenName,
+        daoTokenSymbol,
+        consensusPercent,
+      };
+      try {
+        await createDao(payload);
+        setIsSuccess(true);
+      } catch {
+        setIsSuccess(false);
+      }
+    }
+  }, [
+    consensus,
+    consensusPercent,
+    createDao,
+    daoName,
+    daoTokenName,
+    daoTokenSymbol,
+    selectedTabIdx,
+    walletAddresses,
+  ]);
 
   React.useEffect(() => {
     setIsHeaderShown(true);
@@ -89,8 +145,21 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
       />
 
       <div className={css.createButton}>
-        <Button onClick={() => toast.error("Unimplemented")}>Create</Button>
+        <Button onClick={handleOnCreate}>Create</Button>
       </div>
+
+      {isSuccess !== null && (
+        <Modal
+          onClose={() => navigate(-1)}
+          className={cn(isSuccess && css.success)}
+        >
+          <DaoCreateResult
+            success={isSuccess}
+            onDone={() => navigate(-1)}
+            onRetry={() => setIsSuccess(null)}
+          />
+        </Modal>
+      )}
     </div>
   );
 });
