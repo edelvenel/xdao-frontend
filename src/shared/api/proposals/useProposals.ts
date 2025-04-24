@@ -1,5 +1,7 @@
+import { PROPOSALS } from "app/mocks/constants";
 import React from "react";
-import { IProposal, PROPOSALS } from "shared/types";
+import { IProposal, ProposalType } from "shared/types";
+import { ICreateProposalPayload } from "./payloads";
 
 export function useProposals() {
   const [proposals, setProposals] = React.useState<IProposal[]>([]);
@@ -20,10 +22,46 @@ export function useProposals() {
   }, [mapper]);
 
   const createProposal = React.useCallback(
-    async (proposal: IProposal): Promise<void> => {
+    async (payload: ICreateProposalPayload): Promise<void> => {
       // create proposal or throw error
       try {
-        console.log("Proposal successfully created", proposal); // TODO: replace with real implementation
+        switch (payload.type) {
+          case ProposalType.AddGP: {
+            console.log("Proposal successfully created", payload); // TODO: replace with real implementation
+            break;
+          }
+
+          case ProposalType.RemoveGP: {
+            break;
+          }
+
+          case ProposalType.ChangeDAOName: {
+            break;
+          }
+
+          case ProposalType.ChangeGPTransferStatus: {
+            break;
+          }
+
+          case ProposalType.ChangeGeneralConsensus: {
+            break;
+          }
+
+          case ProposalType.CreateOnChainPoll: {
+            break;
+          }
+
+          case ProposalType.SendDAOFunds: {
+            break;
+          }
+
+          case ProposalType.TransferGPTokens: {
+            break;
+          }
+
+          default:
+            break;
+        }
       } catch (error) {
         console.error("Unable to create proposal", error);
         throw error;
@@ -33,10 +71,10 @@ export function useProposals() {
   );
 
   const updateProposal = React.useCallback(
-    async (id: string, proposal: IProposal): Promise<void> => {
+    async (id: string, payload: unknown): Promise<void> => {
       // update proposal or throw error
       try {
-        console.log("Proposal successfully updated", id, proposal); // TODO: replace with real implementation
+        console.log("Proposal successfully updated", id, payload); // TODO: replace with real implementation
       } catch (error) {
         console.error("Unable to update proposal", error);
         throw error;

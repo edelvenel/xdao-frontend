@@ -1,29 +1,15 @@
+import { NFTS } from "app/mocks/constants";
 import React from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
-import { INft, LOGO_URL } from "shared/types";
 import { Button } from "shared/ui/Button";
 import { Title } from "shared/ui/Title";
 import { NFTCard } from "./components/NFTCard";
 import css from "./styles.module.scss";
 
-const NFTS: INft[] = [
-  {
-    id: "ABC12345",
-    hash: "123456",
-    imgUrl: LOGO_URL,
-  },
-  {
-    id: "DEF12345",
-    hash: "324323234",
-    imgUrl: LOGO_URL,
-  },
-];
-
 export const NftPage = React.memo(function NftPage() {
-  // const { id } = useParams();
   const { setIsBackground, setIsHeaderShown, setIsMenuShown } = store.useApp();
 
   const navigate = useNavigate();

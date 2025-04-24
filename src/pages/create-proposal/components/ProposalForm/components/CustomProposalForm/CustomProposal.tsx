@@ -1,5 +1,9 @@
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateCustomProposalPayload } from "shared/api/proposals/payloads";
+import { TOKENS, VOTING_TYPES } from "shared/constants";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { IOptionWithNote, ProposalType } from "shared/types";
 import { Badge } from "shared/ui/Badge";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
@@ -7,29 +11,11 @@ import { Radio } from "shared/ui/Radio";
 import { Title } from "shared/ui/Title";
 import css from "./styles.module.scss";
 
-type IOptionWithNote = {
-  id: number;
-  value: string;
-  note?: string;
-};
-
-const TOKENS: IOptionWithNote[] = [
-  { id: 1, value: "GP", note: "only GP holders can vote" },
-  { id: 2, value: "LP" },
-  { id: 3, value: "Custom token" },
-];
-
-const VOTING_TYPES: string[] = [
-  "One wallet = one vote",
-  "Proportional to token amount",
-];
-
 interface ICustomProposalFormProps {
   onResponse: (value: boolean) => void;
 }
 
 export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
@@ -38,10 +24,39 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
   const [token, setToken] = React.useState<IOptionWithNote>(TOKENS[0]);
   const [lpPool, setLpPool] = React.useState<string>("");
   const [minTokens, setMinTokens] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(true);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateCustomProposalPayload = {
+      type: ProposalType.CreateOnChainPoll,
+      name,
+      description,
+      votingDuration: Number(votingDuration),
+      newName,
+      votingType,
+      token: token.value,
+      lpPool,
+      minTokens,
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    description,
+    lpPool,
+    minTokens,
+    name,
+    newName,
+    onResponse,
+    token,
+    votingDuration,
+    votingType,
+  ]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>

@@ -1,9 +1,11 @@
 import React from "react";
 import toast from "react-hot-toast";
 import { useDaos } from "shared/api/daos";
+import { useProposals } from "shared/api/proposals";
+import { ICreateSendFundsProposalPayload } from "shared/api/proposals/payloads";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
-import { IDao, IToken } from "shared/types";
+import { IDao, IToken, ProposalType } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { InputNumber } from "shared/ui/InputNumber";
@@ -41,7 +43,6 @@ interface ISendFundsFormProps {
 }
 
 export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const { daos, fetchDaos } = useDaos();
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
@@ -50,10 +51,41 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
   const [recipientAddress, setRecipientAddress] = React.useState<string>("");
   const [token, setToken] = React.useState<IToken>(TOKENS[0]);
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(true);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    if (!fromDAO) {
+      return;
+    }
+
+    const payload: ICreateSendFundsProposalPayload = {
+      type: ProposalType.SendDAOFunds,
+      name,
+      description,
+      votingDuration: Number(votingDuration),
+      fromDAO,
+      token,
+      recipientAddress,
+      tokenAmount: Number(tokenAmount),
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    description,
+    fromDAO,
+    name,
+    onResponse,
+    recipientAddress,
+    token,
+    tokenAmount,
+    votingDuration,
+  ]);
 
   React.useEffect(() => {
     fetchDaos();

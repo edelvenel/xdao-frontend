@@ -1,7 +1,10 @@
 import cn from "classnames";
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateRemoveGPProposalPayload } from "shared/api/proposals/payloads";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { ProposalType } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Title } from "shared/ui/Title";
@@ -12,15 +15,35 @@ interface IRemoveGPFormProps {
 }
 
 export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
   const [gpToRemove, setGpToRemove] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(true);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateRemoveGPProposalPayload = {
+      type: ProposalType.RemoveGP,
+      name,
+      description,
+      gpToRemove,
+      votingDuration: Number(votingDuration),
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    description,
+    gpToRemove,
+    name,
+    onResponse,
+    votingDuration,
+  ]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>

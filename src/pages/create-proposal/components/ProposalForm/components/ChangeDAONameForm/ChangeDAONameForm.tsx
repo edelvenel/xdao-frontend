@@ -1,5 +1,8 @@
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateChangeDAONameProposalPayload } from "shared/api/proposals/payloads";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { ProposalType } from "shared/types";
 import { Badge } from "shared/ui/Badge";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
@@ -11,15 +14,28 @@ interface IChangeDAONameFormProps {
 }
 
 export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
   const [newName, setNewName] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(true);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateChangeDAONameProposalPayload = {
+      type: ProposalType.ChangeDAOName,
+      name,
+      description,
+      votingDuration: Number(votingDuration),
+      newName,
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [createProposal, description, name, newName, onResponse, votingDuration]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>

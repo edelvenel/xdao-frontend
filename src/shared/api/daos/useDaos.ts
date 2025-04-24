@@ -1,5 +1,6 @@
+import { DAOS_MOCK } from "app/mocks/constants";
 import React from "react";
-import { DAOS_MOCK, IDao } from "shared/types";
+import { IDao } from "shared/types";
 
 export function useDaos() {
   const [daos, setDaos] = React.useState<IDao[]>([]);

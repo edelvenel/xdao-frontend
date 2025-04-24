@@ -1,7 +1,10 @@
 import cn from "classnames";
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateAddGPProposalPayload } from "shared/api/proposals/payloads";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { ProposalType } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Title } from "shared/ui/Title";
@@ -12,16 +15,38 @@ interface IAddGPFormProps {
 }
 
 export function AddGPForm({ onResponse }: IAddGPFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [walletAddress, setWalletAddress] = React.useState<string>("");
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(false);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateAddGPProposalPayload = {
+      type: ProposalType.AddGP,
+      name,
+      description,
+      walletAddress,
+      tokenAmount: Number(tokenAmount),
+      votingDuration: Number(votingDuration),
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    description,
+    name,
+    onResponse,
+    tokenAmount,
+    votingDuration,
+    walletAddress,
+  ]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>
