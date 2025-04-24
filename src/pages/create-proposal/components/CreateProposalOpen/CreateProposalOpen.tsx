@@ -1,7 +1,8 @@
+import { ProposalTypes } from "app/mocks/constants";
 import React from "react";
 import { useDaos } from "shared/api/daos";
 import { store } from "shared/store";
-import { IDao, IProposalType, ProposalTypes } from "shared/types";
+import { IDao, IProposalType } from "shared/types";
 import { Button } from "shared/ui/Button";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Title } from "shared/ui/Title";

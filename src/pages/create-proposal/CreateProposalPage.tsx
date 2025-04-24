@@ -1,10 +1,11 @@
 import { backButton } from "@telegram-apps/sdk";
+import { ProposalTypes } from "app/mocks/constants";
 import cn from "classnames";
 import React from "react";
 import { useNavigate } from "react-router";
 import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
-import { IDao, IProposalType, ProposalTypes } from "shared/types";
+import { IDao, IProposalType } from "shared/types";
 import { Modal } from "shared/ui/Modal";
 import { CreateProposalOpen } from "./components/CreateProposalOpen";
 import { ProposalCreateResult } from "./components/ProposalCreateResult";

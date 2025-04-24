@@ -1,5 +1,8 @@
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateChangeGPTransferStatusProposalPayload } from "shared/api/proposals/payloads";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { ProposalType } from "shared/types";
 import { Badge } from "shared/ui/Badge";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
@@ -13,15 +16,35 @@ interface IChangeGPTransferStatusFormProps {
 export function ChangeGPTransferStatusForm({
   onResponse,
 }: IChangeGPTransferStatusFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
   const [newStatus, setNewStatus] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(false);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateChangeGPTransferStatusProposalPayload = {
+      type: ProposalType.ChangeGPTransferStatus,
+      name,
+      description,
+      votingDuration: Number(votingDuration),
+      newStatus,
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    description,
+    name,
+    newStatus,
+    onResponse,
+    votingDuration,
+  ]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>

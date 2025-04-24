@@ -1,6 +1,9 @@
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateChangeGeneralConsensusProposalPayload } from "shared/api/proposals/payloads";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { ProposalType } from "shared/types";
 import { Badge } from "shared/ui/Badge";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
@@ -21,16 +24,36 @@ interface IChangeGeneralConsensusFormProps {
 export function ChangeGeneralConsensusForm({
   onResponse,
 }: IChangeGeneralConsensusFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
   const [currentConsensus, setCurrentConsensus] = React.useState<number>(51);
   const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(true);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateChangeGeneralConsensusProposalPayload = {
+      type: ProposalType.ChangeGeneralConsensus,
+      name,
+      description,
+      votingDuration: Number(votingDuration),
+      currentConsensus,
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    currentConsensus,
+    description,
+    name,
+    onResponse,
+    votingDuration,
+  ]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>

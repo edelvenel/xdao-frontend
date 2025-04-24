@@ -1,5 +1,8 @@
 import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { ICreateTransferGPProposalPayload } from "shared/api/proposals/payloads";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
+import { ProposalType } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Title } from "shared/ui/Title";
@@ -10,17 +13,41 @@ interface ITransferGPFormProps {
 }
 
 export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
-  //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
   const [fromWalletAddress, setFromWalletAddress] = React.useState<string>("");
   const [toWalletAddress, setToWalletAddress] = React.useState<string>("");
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
+  const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(() => {
-    onResponse(false);
-  }, [onResponse]);
+  const handleOnClick = React.useCallback(async () => {
+    const payload: ICreateTransferGPProposalPayload = {
+      type: ProposalType.TransferGPTokens,
+      name,
+      description,
+      votingDuration: Number(votingDuration),
+      fromWalletAddress,
+      tokenAmount: Number(tokenAmount),
+      toWalletAddress,
+    };
+
+    try {
+      await createProposal(payload);
+      onResponse(true);
+    } catch {
+      onResponse(false);
+    }
+  }, [
+    createProposal,
+    description,
+    fromWalletAddress,
+    name,
+    onResponse,
+    toWalletAddress,
+    tokenAmount,
+    votingDuration,
+  ]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>
