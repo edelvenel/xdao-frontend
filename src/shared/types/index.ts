@@ -47,6 +47,11 @@ export enum ProposalType {
   CreateOnChainPoll = "create_on_chain_poll",
 }
 
+export enum DaoType {
+  Equal = "equal",
+  Proportional = "proportional",
+}
+
 export type IToken = {
   id: string;
   name: string;

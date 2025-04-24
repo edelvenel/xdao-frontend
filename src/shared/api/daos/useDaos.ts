@@ -1,6 +1,7 @@
 import { DAOS_MOCK } from "app/mocks/constants";
 import React from "react";
 import { IDao } from "shared/types";
+import { ICreateDaoPayload } from "./payloads";
 
 export function useDaos() {
   const [daos, setDaos] = React.useState<IDao[]>([]);
@@ -20,15 +21,18 @@ export function useDaos() {
     setDaos(formatedData);
   }, [mapper]);
 
-  const createDao = React.useCallback(async (dao: IDao): Promise<void> => {
-    // create dao or throw error
-    try {
-      console.log("Dao successfully created", dao); // TODO: replace with real implementation
-    } catch (error) {
-      console.error("Unable to create dao", error);
-      throw error;
-    }
-  }, []);
+  const createDao = React.useCallback(
+    async (payload: ICreateDaoPayload): Promise<void> => {
+      // create dao or throw error
+      try {
+        console.log("Dao successfully created", payload); // TODO: replace with real implementation
+      } catch (error) {
+        console.error("Unable to create dao", error);
+        throw error;
+      }
+    },
+    []
+  );
 
   const updateDao = React.useCallback(
     async (id: string, dao: IDao): Promise<void> => {
