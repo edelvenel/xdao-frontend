@@ -1,10 +1,9 @@
-import { routes } from "app/router/routes";
 import cn from "classnames";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
+import { useProposals } from "shared/api/proposals";
 import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
-import { PROPOSALS } from "shared/types";
 import { Modal } from "shared/ui/Modal";
 import { ProposalDetails } from "./components/ProposalDetails";
 import { Vote } from "./components/Vote";
@@ -12,14 +11,18 @@ import { VoteResult } from "./components/VoteResult";
 import css from "./styles.module.scss";
 
 export const ProposalPage = React.memo(function ProposalPage() {
+  const { proposals, fetchProposals } = useProposals();
   const { id } = useParams();
-  const proposal = PROPOSALS.find((proposal) => proposal.id === id);
   const navigate = useNavigate();
   const { setIsMenuShown, setIsHeaderShown } = store.useApp();
   const [isOnVote, setIsOnVote] = React.useState<boolean>(false);
   const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean | null>(null);
   useBackButton();
+
+  const proposal = React.useMemo(() => {
+    return proposals.find((proposal) => proposal.id === id);
+  }, [id, proposals]);
 
   React.useEffect(() => {
     setIsMenuShown(false);
@@ -34,10 +37,12 @@ export const ProposalPage = React.memo(function ProposalPage() {
   }, []);
 
   React.useEffect(() => {
-    if (!proposal) {
-      navigate(routes.notfound);
-    }
-  }, [navigate, proposal]);
+    fetchProposals();
+  }, [fetchProposals]);
+
+  if (!proposal) {
+    return null;
+  }
 
   return (
     <div className={css.page}>

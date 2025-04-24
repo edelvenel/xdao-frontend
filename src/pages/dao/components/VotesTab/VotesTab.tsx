@@ -1,5 +1,7 @@
 import { Proposal } from "pages/proposal-list/components/Proposal";
-import { IDao, PROPOSALS } from "shared/types";
+import React from "react";
+import { useProposals } from "shared/api/proposals";
+import { IDao } from "shared/types";
 import css from "./styles.module.scss";
 
 interface IVotesTabProps {
@@ -7,6 +9,12 @@ interface IVotesTabProps {
 }
 
 export function VotesTab({ dao }: IVotesTabProps) {
+  const { proposals, fetchProposals } = useProposals();
+
+  React.useEffect(() => {
+    fetchProposals();
+  }, [fetchProposals]);
+
   //TODO: get proposals with dao
   if (!dao) {
     return null;
@@ -15,7 +23,7 @@ export function VotesTab({ dao }: IVotesTabProps) {
   return (
     <div className={css.tab}>
       <div className={css.list}>
-        {PROPOSALS.map((proposal, index) => (
+        {proposals.map((proposal, index) => (
           <Proposal data={proposal} key={index} />
         ))}
       </div>

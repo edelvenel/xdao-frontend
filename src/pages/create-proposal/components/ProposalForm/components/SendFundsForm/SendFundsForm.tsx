@@ -1,8 +1,9 @@
 import React from "react";
 import toast from "react-hot-toast";
+import { useDaos } from "shared/api/daos";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
-import { DAOS_MOCK, IDao, IToken } from "shared/types";
+import { IDao, IToken } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { InputNumber } from "shared/ui/InputNumber";
@@ -41,10 +42,11 @@ interface ISendFundsFormProps {
 
 export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
   //   const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
+  const { daos, fetchDaos } = useDaos();
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [votingDuration, setVotingDuration] = React.useState<string>("");
-  const [fromDAO, setFromDAO] = React.useState<IDao>(DAOS_MOCK[0]);
+  const [fromDAO, setFromDAO] = React.useState<IDao | null>(null);
   const [recipientAddress, setRecipientAddress] = React.useState<string>("");
   const [token, setToken] = React.useState<IToken>(TOKENS[0]);
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
@@ -52,6 +54,11 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
   const handleOnClick = React.useCallback(() => {
     onResponse(true);
   }, [onResponse]);
+
+  React.useEffect(() => {
+    fetchDaos();
+    setFromDAO(daos[0]);
+  }, [daos, fetchDaos]);
 
   return (
     <ProposalCreateLayout disabled={false} onClick={handleOnClick}>
@@ -80,7 +87,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
             <Dropdown
               placeholder="From DAO"
               onSelect={setFromDAO}
-              options={DAOS_MOCK}
+              options={daos}
               selected={fromDAO}
               optionLabel={(option) => option.name}
               optionLogo={(option) => option.logo}

@@ -4,8 +4,8 @@ import { Filter } from "pages/proposal-list/components/Filter";
 import { SearchBlock } from "pages/proposal-list/components/SearchBlock";
 import React from "react";
 import { generatePath, useNavigate } from "react-router";
+import { useDaos } from "shared/api/daos/useDaos";
 import { store } from "shared/store";
-import { DAOS_MOCK } from "shared/types";
 import { Modal } from "shared/ui/Modal";
 import { DAO } from "./components/DAO";
 import css from "./styles.module.scss";
@@ -24,6 +24,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
   const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
   const [filter, setFilter] = React.useState<number>(0);
   const { setIsHeaderShown, setIsMenuShown } = store.useApp();
+  const { daos, fetchDaos } = useDaos();
 
   const navigate = useNavigate();
 
@@ -36,10 +37,14 @@ export const DAOListPage = React.memo(function DAOListPage() {
     setIsHeaderShown(true);
   }, [setIsHeaderShown, setIsMenuShown]);
 
+  React.useEffect(() => {
+    fetchDaos();
+  }, [fetchDaos]);
+
   return (
     <div className={css.page}>
       <div className={css.list}>
-        {DAOS_MOCK.map((dao) => (
+        {daos.map((dao) => (
           <DAO
             key={dao.id}
             dao={dao}

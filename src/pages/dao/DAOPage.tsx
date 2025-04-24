@@ -1,9 +1,10 @@
 import { routes } from "app/router/routes";
 import React from "react";
 import { generatePath, useNavigate, useParams } from "react-router";
+import { useDaos } from "shared/api/daos";
 import { useBackButton } from "shared/hooks/useBackButton";
 import { store } from "shared/store";
-import { DAOS_MOCK, IDao } from "shared/types";
+import { IDao } from "shared/types";
 import { CrowdfundingTab } from "./components/CrowdfundingTab";
 import { DAOBalanceTab } from "./components/DAOBalanceTab";
 import { OverviewTab } from "./components/OverviewTab";
@@ -17,13 +18,14 @@ import css from "./styles.module.scss";
 export const DAOPage = React.memo(function DAOPage() {
   const { id, tab } = useParams();
   const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
+  const { daos, fetchDaos } = useDaos();
 
   const navigate = useNavigate();
   useBackButton();
 
   const dao: IDao | undefined = React.useMemo(
-    () => DAOS_MOCK.find((dao) => dao.id === id),
-    [id]
+    () => daos.find((dao) => dao.id === id),
+    [daos, id]
   );
 
   const selectedTabIdx = React.useMemo(() => mapTabNumber(tab), [tab]);
@@ -44,6 +46,10 @@ export const DAOPage = React.memo(function DAOPage() {
     setIsMenuShown(true);
     setIsBackground(false);
   }, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
+
+  React.useEffect(() => {
+    fetchDaos();
+  }, [fetchDaos]);
 
   const tabs: ITab[] = React.useMemo(() => {
     if (!dao) {
