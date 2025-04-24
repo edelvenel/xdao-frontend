@@ -4,9 +4,10 @@ import { Filter } from "pages/proposal-list/components/Filter";
 import React from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
+import { useDaos } from "shared/api/daos";
+import { useProposals } from "shared/api/proposals";
 import { Icon } from "shared/icons";
 import { store } from "shared/store";
-import { DAOS_MOCK, PROPOSALS } from "shared/types";
 import { Button } from "shared/ui/Button";
 import { IconButton } from "shared/ui/IconButton";
 import { Modal } from "shared/ui/Modal";
@@ -42,6 +43,8 @@ export const ProfilePage = React.memo(function ProfilePage() {
   const [daoShowAll, setDaoShowAll] = React.useState<boolean>(false);
   const [searchText, setSearchText] = React.useState<string>("");
   const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
+  const { daos, fetchDaos } = useDaos();
+  const { proposals, fetchProposals } = useProposals();
 
   const { me } = store.useMe();
 
@@ -52,6 +55,11 @@ export const ProfilePage = React.memo(function ProfilePage() {
     setIsHeaderShown(true);
     setIsMenuShown(true);
   }, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
+
+  React.useEffect(() => {
+    fetchDaos();
+    fetchProposals();
+  }, [fetchDaos, fetchProposals]);
 
   return (
     <div className={css.page}>
@@ -98,8 +106,8 @@ export const ProfilePage = React.memo(function ProfilePage() {
         </div>
         <div className={css.list}>
           {(proposalShowAll
-            ? PROPOSALS
-            : PROPOSALS.filter((_, index) => index < 2)
+            ? proposals
+            : proposals.filter((_, index) => index < 2)
           ).map((proposal) => (
             <ProposalCard key={proposal.id} proposal={proposal} />
           ))}
@@ -123,12 +131,11 @@ export const ProfilePage = React.memo(function ProfilePage() {
           </IconButton>
         </div>
         <div className={css.list}>
-          {(daoShowAll
-            ? DAOS_MOCK
-            : DAOS_MOCK.filter((_, index) => index < 2)
-          ).map((dao) => (
-            <DaoCard key={dao.id} dao={dao} />
-          ))}
+          {(daoShowAll ? daos : daos.filter((_, index) => index < 2)).map(
+            (dao) => (
+              <DaoCard key={dao.id} dao={dao} />
+            )
+          )}
         </div>
         <div
           className={css.seeMoreButton}

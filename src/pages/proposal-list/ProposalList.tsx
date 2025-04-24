@@ -2,8 +2,8 @@ import { TopContent } from "app/navigation/components/top-content";
 import { routes } from "app/router/routes";
 import React from "react";
 import { useNavigate } from "react-router";
+import { useProposals } from "shared/api/proposals";
 import { store } from "shared/store";
-import { PROPOSALS } from "shared/types";
 import { Modal } from "shared/ui/Modal";
 import { Filter } from "./components/Filter";
 import { Proposal } from "./components/Proposal";
@@ -23,6 +23,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
   const [searchText, setSearchText] = React.useState<string>("");
   const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
   const [filter, setFilter] = React.useState<number>(0);
+  const { proposals, fetchProposals } = useProposals();
 
   const navigate = useNavigate();
 
@@ -39,10 +40,14 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
     setIsMenuShown(true);
   }, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 
+  React.useEffect(() => {
+    fetchProposals();
+  }, [fetchProposals]);
+
   return (
     <div className={css.page}>
       <div className={css.list}>
-        {PROPOSALS.map((proposal, index) => (
+        {proposals.map((proposal, index) => (
           <Proposal data={proposal} key={index} />
         ))}
       </div>

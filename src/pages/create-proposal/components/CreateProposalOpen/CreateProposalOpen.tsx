@@ -1,6 +1,7 @@
 import React from "react";
+import { useDaos } from "shared/api/daos";
 import { store } from "shared/store";
-import { DAOS_MOCK, IDao, IProposalType, ProposalTypes } from "shared/types";
+import { IDao, IProposalType, ProposalTypes } from "shared/types";
 import { Button } from "shared/ui/Button";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Title } from "shared/ui/Title";
@@ -25,10 +26,15 @@ export function CreateProposalOpen({
   onCreate,
 }: ICreateProposalOpen) {
   const { setIsBackground } = store.useApp();
+  const { daos, fetchDaos } = useDaos();
 
   React.useEffect(() => {
     setIsBackground(true);
   }, [setIsBackground]);
+
+  React.useEffect(() => {
+    fetchDaos();
+  }, [fetchDaos]);
 
   return (
     <div className={css.createProposalOpen}>
@@ -38,7 +44,7 @@ export function CreateProposalOpen({
       <div className={css.form}>
         <Dropdown
           selected={dao}
-          options={DAOS_MOCK}
+          options={daos}
           optionLabel={(option) => option.name}
           optionLogo={(option) => option.logo}
           matcher={objectIdMatcher}
