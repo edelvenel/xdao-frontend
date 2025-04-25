@@ -10,9 +10,15 @@ interface IEditableInputProps
     HTMLInputElement
   > {
   onSave: () => void;
+  onCancel: () => void;
 }
 
-export function EditableInput({ onSave, ...props }: IEditableInputProps) {
+export function EditableInput({
+  onSave,
+  onCancel,
+  ...props
+}: IEditableInputProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const handleOnClick = React.useCallback(() => {
     hapticFeedback("press");
@@ -22,8 +28,23 @@ export function EditableInput({ onSave, ...props }: IEditableInputProps) {
     setIsEdit(!isEdit);
   }, [isEdit, onSave]);
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsEdit(false);
+        onCancel();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onCancel]);
+
   return (
-    <div className={css.editableInput}>
+    <div ref={ref} className={css.editableInput}>
       <Input
         value={props.value}
         disabled={!isEdit}
@@ -32,7 +53,11 @@ export function EditableInput({ onSave, ...props }: IEditableInputProps) {
       />
 
       <div className={css.modeButton} onClick={handleOnClick}>
-        {!isEdit ? <Icon.Common.Edit /> : <Icon.Common.Check />}
+        {!isEdit ? (
+          <Icon.Common.Edit />
+        ) : (
+          <div className={css.confirmButton}>Confirm</div>
+        )}
       </div>
     </div>
   );

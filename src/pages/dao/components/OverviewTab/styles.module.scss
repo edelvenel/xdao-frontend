@@ -1,119 +1,119 @@
 .tab {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  gap: 20px;
-  overflow: auto;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	gap: 20px;
+	overflow: auto;
 
-  .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 18px;
-    padding: 12px;
-    color: var(--semantic-text-primary);
+	.card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 18px;
+		padding: 12px;
+		color: var(--semantic-text-primary);
 
-    .header {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
+		.header {
+			display: flex;
+			gap: 12px;
+			align-items: center;
+			justify-content: center;
 
-      .blockList {
-        display: flex;
-        gap: 7px;
-        align-items: center;
-        justify-content: center;
-        font-size: 17px;
-        font-weight: 500;
-        overflow: hidden;
+			.blockList {
+				display: flex;
+				gap: 7px;
+				align-items: center;
+				justify-content: center;
+				font-size: 17px;
+				font-weight: 500;
+				overflow: hidden;
 
-        .addressBlock {
-          display: flex;
-          min-height: 40px;
-          border-radius: 32px;
-          padding: 8px 20px;
-          background-color: var(--semantic-background-tetriary);
-          flex-grow: 1;
-          overflow: hidden;
+				.addressBlock {
+					display: flex;
+					min-height: 40px;
+					border-radius: 32px;
+					padding: 8px 20px;
+					background-color: var(--semantic-background-tetriary);
+					flex-grow: 1;
+					overflow: hidden;
 
-          .text {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
+					.text {
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+				}
 
-        .iconBlock {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 40px;
-          min-width: 50px;
-          border-radius: 32px;
-          background-color: var(--semantic-background-tetriary);
-          color: var(--semantic-text-secondary);
-          flex-shrink: 0;
+				.iconBlock {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					min-height: 40px;
+					min-width: 50px;
+					border-radius: 32px;
+					background-color: var(--semantic-background-tetriary);
+					color: var(--semantic-text-secondary);
+					flex-shrink: 0;
 
-          cursor: pointer;
-          user-select: none;
+					cursor: pointer;
+					user-select: none;
 
-          &:hover {
-            color: var(--semantic-text-primary);
-          }
-        }
-      }
+					&:hover {
+						color: var(--semantic-text-primary);
+					}
+				}
+			}
 
-      .logo {
-        min-width: 70px;
-        min-height: 70px;
-        border-radius: 50px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-      }
-    }
+			.logo {
+				min-width: 70px;
+				min-height: 70px;
+				border-radius: 50px;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      align-items: left;
-      gap: 5px;
+		.field {
+			display: flex;
+			flex-direction: column;
+			align-items: left;
+			gap: 5px;
 
-      .name {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--semantic-text-placeholder);
-      }
+			.name {
+				font-size: 16px;
+				font-weight: 600;
+				color: var(--semantic-text-placeholder);
+			}
 
-      .networks {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: start;
-        gap: 10px;
-        flex-wrap: wrap;
-        border-radius: 32px;
-        padding: 15px;
-        background-color: var(--semantic-background-tetriary);
+			.networks {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				gap: 10px;
+				flex-wrap: wrap;
+				border-radius: 32px;
+				padding: 15px;
+				background-color: var(--semantic-background-tetriary);
 
-        .social {
-          width: 61px;
-          height: 61px;
-        }
+				.social {
+					width: 61px;
+					height: 61px;
+				}
 
-        .addButton {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 61px;
-          min-height: 61px;
-          background-color: var(--semantic-text-placeholder);
-          color: var(--semantic-text-accent);
-          border-radius: 50px;
-        }
-      }
-    }
-  }
+				.addButton {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					min-width: 61px;
+					min-height: 61px;
+					background-color: var(--semantic-text-placeholder);
+					color: var(--semantic-text-accent);
+					border-radius: 50px;
+				}
+			}
+		}
+	}
 }

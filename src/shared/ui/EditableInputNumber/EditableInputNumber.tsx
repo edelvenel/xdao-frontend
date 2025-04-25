@@ -13,6 +13,7 @@ interface IEditableInputNumberProps
   onMaxAmount?: () => void;
   onUpdate: (value: string) => void;
   onSave: () => void;
+  onCancel: () => void;
 }
 
 export function EditableInputNumber({
@@ -20,8 +21,10 @@ export function EditableInputNumber({
   onMaxAmount,
   onUpdate,
   onSave,
+  onCancel,
   ...props
 }: IEditableInputNumberProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const handleOnClick = React.useCallback(() => {
     hapticFeedback("press");
@@ -31,8 +34,23 @@ export function EditableInputNumber({
     setIsEdit(!isEdit);
   }, [isEdit, onSave]);
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsEdit(false);
+        onCancel();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onCancel]);
+
   return (
-    <div className={css.editableInputNumber}>
+    <div ref={ref} className={css.editableInputNumber}>
       <InputNumber
         fieldName={fieldName}
         value={props.value}
@@ -42,7 +60,11 @@ export function EditableInputNumber({
       />
 
       <div className={css.modeButton} onClick={handleOnClick}>
-        {!isEdit ? <Icon.Common.Edit /> : <Icon.Common.Check />}
+        {!isEdit ? (
+          <Icon.Common.Edit />
+        ) : (
+          <div className={css.confirmButton}>Confirm</div>
+        )}
       </div>
     </div>
   );

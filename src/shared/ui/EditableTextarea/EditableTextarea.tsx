@@ -11,13 +11,16 @@ interface IEditableTextareaProps
   > {
   value: string;
   onSave: () => void;
+  onCancel: () => void;
 }
 
 export function EditableTextarea({
   value,
   onSave,
+  onCancel,
   ...props
 }: IEditableTextareaProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const handleOnClick = React.useCallback(() => {
     hapticFeedback("press");
@@ -27,8 +30,23 @@ export function EditableTextarea({
     setIsEdit(!isEdit);
   }, [isEdit, onSave]);
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsEdit(false);
+        onCancel();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onCancel]);
+
   return (
-    <div className={css.editableTextarea}>
+    <div ref={ref} className={css.editableTextarea}>
       <Textarea
         value={value}
         className={css.textarea}
@@ -38,7 +56,11 @@ export function EditableTextarea({
       />
 
       <div className={css.modeButton} onClick={handleOnClick}>
-        {!isEdit ? <Icon.Common.Edit /> : <Icon.Common.Check />}
+        {!isEdit ? (
+          <Icon.Common.Edit />
+        ) : (
+          <div className={css.confirmButton}>Confirm</div>
+        )}
       </div>
     </div>
   );

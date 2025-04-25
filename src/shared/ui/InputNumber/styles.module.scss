@@ -1,4 +1,5 @@
 .inputNumber {
+  flex: 1;
   display: flex;
   justify-content: space-between;
   gap: 15px;
@@ -13,6 +14,7 @@
   background-color: var(--semantic-background-tetriary);
 
   .input {
+    flex: 1;
     background: none;
     height: 100%;
     width: auto;

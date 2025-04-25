@@ -1,34 +1,34 @@
 export enum Route {
-  Root = "root",
-  Proposal = "proposal",
-  CreateProposal = "createProposal",
-  ProposalList = "proposalList",
-  Profile = "profile",
-  Nft = "nft",
-  Dao = "dao",
-  DaoList = "daoList",
-  CreateDao = "createDao",
-  NotFound = "notfound",
+	Root = 'root',
+	Proposal = 'proposal',
+	CreateProposal = 'createProposal',
+	ProposalList = 'proposalList',
+	Profile = 'profile',
+	Nft = 'nft',
+	Dao = 'dao',
+	DaoList = 'daoList',
+	CreateDao = 'createDao',
+	NotFound = 'notfound',
 }
 
 export const routes = {
-  [Route.Root]: "/",
+	[Route.Root]: '/',
 
-  [Route.Proposal]: "/proposals/:id",
+	[Route.Proposal]: '/proposals/:id',
 
-  [Route.CreateProposal]: "/proposals/create",
+	[Route.CreateProposal]: '/proposals/create',
 
-  [Route.ProposalList]: "/proposals",
+	[Route.ProposalList]: '/proposals',
 
-  [Route.Profile]: "/profile",
+	[Route.Profile]: '/profile',
 
-  [Route.Nft]: "/nft/:id",
+	[Route.Nft]: '/nft/:id',
 
-  [Route.Dao]: "/daos/:id/:tab",
+	[Route.Dao]: '/daos/:id/:tab',
 
-  [Route.DaoList]: "/daos",
+	[Route.DaoList]: '/daos',
 
-  [Route.CreateDao]: "/daos/create",
+	[Route.CreateDao]: '/daos/create',
 
-  [Route.NotFound]: "/notfound",
+	[Route.NotFound]: '/notfound',
 } as const;
