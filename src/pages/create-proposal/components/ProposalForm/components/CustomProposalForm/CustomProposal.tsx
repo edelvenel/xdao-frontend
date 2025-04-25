@@ -4,11 +4,13 @@ import { ICreateCustomProposalPayload } from "shared/api/proposals/payloads";
 import { TOKENS, VOTING_TYPES } from "shared/constants";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
 import { IOptionWithNote, ProposalType } from "shared/types";
-import { Badge } from "shared/ui/Badge";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Radio } from "shared/ui/Radio";
 import { Title } from "shared/ui/Title";
+import { SelectOptions } from "../SelectOptions";
+import { TokenRequired } from "../TokenRequired";
+import { VotingDuration } from "../VotingDuration";
 import css from "./styles.module.scss";
 
 interface ICustomProposalFormProps {
@@ -18,17 +20,23 @@ interface ICustomProposalFormProps {
 export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
-  const [votingDuration, setVotingDuration] = React.useState<string>("");
+  const [votingDuration, setVotingDuration] = React.useState<number | null>(
+    null
+  );
   const [newName, setNewName] = React.useState<string>("");
   const [votingType, setVotingType] = React.useState<string>(VOTING_TYPES[0]);
+  const [selectOptions, setSelectOptions] = React.useState<string[]>(["", ""]);
+  const [question, setQuestion] = React.useState<string>("");
   const [token, setToken] = React.useState<IOptionWithNote>(TOKENS[0]);
   const [lpPool, setLpPool] = React.useState<string>("");
-  const [minTokens, setMinTokens] = React.useState<string>("");
+  const [minTokens, setMinTokens] = React.useState<number | null>(null);
+  const [tokenAddress, setTokenAddress] = React.useState<string>("");
+  const [tokenSymbol, setTokenSymbol] = React.useState<string>("");
   const { createProposal } = useProposals();
 
   const handleOnClick = React.useCallback(async () => {
     const payload: ICreateCustomProposalPayload = {
-      type: ProposalType.CreateOnChainPoll,
+      type: ProposalType.CustomProposal,
       name,
       description,
       votingDuration: Number(votingDuration),
@@ -36,7 +44,7 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
       votingType,
       token: token.value,
       lpPool,
-      minTokens,
+      minTokens: minTokens === null ? 0 : minTokens,
     };
 
     try {
@@ -76,22 +84,24 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <Dropdown
-              placeholder="Select voting duration"
-              onSelect={setVotingDuration}
-              options={["2 Days", "3 Days", "4 Days", "Custom"]}
-              selected={votingDuration}
+            <VotingDuration
+              value={votingDuration}
+              setValue={setVotingDuration}
             />
-            <div className={css.currentName}>
-              <span>Current name</span>
-              <Badge text="Example DAO" variant="blue" />
-            </div>
+            <Input
+              value={question}
+              fieldName="Question"
+              placeholder="Question"
+              onChange={(e) => setQuestion(e.target.value)}
+            />
+
             <Input
               value={newName}
               fieldName="New name"
               placeholder="New name"
               onChange={(e) => setNewName(e.target.value)}
             />
+            <SelectOptions value={selectOptions} setValue={setSelectOptions} />
           </div>
 
           <div className={css.block}>
@@ -130,14 +140,25 @@ export function CustomProposalForm({ onResponse }: ICustomProposalFormProps) {
                 selected={lpPool}
               />
             )}
-            {(token.id === 1 || token.id === 2) && (
-              <Dropdown
-                placeholder="Min. tokens required to vote"
-                onSelect={setMinTokens}
-                options={["10", "100", "500", "Custom"]}
-                selected={minTokens}
-              />
+
+            {token.id === 3 && (
+              <>
+                <Input
+                  value={tokenAddress}
+                  fieldName="Token address"
+                  placeholder="Paste token address"
+                  onChange={(e) => setTokenAddress(e.target.value)}
+                />
+                <Input
+                  value={tokenSymbol}
+                  fieldName="Token symbol"
+                  placeholder="Write token symbol"
+                  onChange={(e) => setTokenSymbol(e.target.value)}
+                />
+              </>
             )}
+
+            <TokenRequired value={minTokens} setValue={setMinTokens} />
           </div>
         </div>
       </div>

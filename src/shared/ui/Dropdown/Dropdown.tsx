@@ -8,7 +8,7 @@ import {
   useInteractions,
 } from "@floating-ui/react";
 import cn from "classnames";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Icon } from "shared/icons";
 import { hapticFeedback } from "shared/utils/haptic";
 import css from "./styles.module.scss";
@@ -25,7 +25,7 @@ interface IDropdownProps<T> {
   className?: string;
   optionLogo?: (option: T) => string;
   matcher?: (a: T, b: T) => boolean;
-  optionLabel?: (option: T) => string;
+  optionLabel?: (option: T) => string | ReactNode;
   onSelect: (option: T) => void;
 }
 

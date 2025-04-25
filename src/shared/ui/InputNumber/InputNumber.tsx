@@ -1,3 +1,4 @@
+import cn from "classnames";
 import React from "react";
 import { hapticFeedback } from "shared/utils/haptic";
 import css from "./styles.module.scss";
@@ -15,6 +16,7 @@ interface IInputAmountProps
 export function InputNumber({
   onMaxAmount,
   onUpdate,
+  className,
   max,
   min,
   ...props
@@ -66,7 +68,7 @@ export function InputNumber({
   }, [onMaxAmount]);
 
   return (
-    <div className={css.inputNumber}>
+    <div className={cn(css.inputNumber, className)}>
       <input
         value={props.value}
         className={css.input}

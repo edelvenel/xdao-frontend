@@ -11,7 +11,7 @@ export const ProposalTypes = [
   { id: 5, name: "Change General Consensus" },
   { id: 6, name: "Send DAO Funds" },
   { id: 7, name: "Change DAO Name" },
-  { id: 8, name: "Create On-Chain Poll" },
+  { id: 8, name: "Custom proposal" },
 ];
 
 export const DAOS_MOCK: IDao[] = [

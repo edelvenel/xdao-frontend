@@ -6,6 +6,7 @@ import { ProposalType } from "shared/types";
 import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Title } from "shared/ui/Title";
+import { VotingDuration } from "../VotingDuration";
 import css from "./styles.module.scss";
 
 interface ITransferGPFormProps {
@@ -15,7 +16,9 @@ interface ITransferGPFormProps {
 export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
-  const [votingDuration, setVotingDuration] = React.useState<string>("");
+  const [votingDuration, setVotingDuration] = React.useState<number | null>(
+    null
+  );
   const [fromWalletAddress, setFromWalletAddress] = React.useState<string>("");
   const [toWalletAddress, setToWalletAddress] = React.useState<string>("");
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
@@ -67,11 +70,9 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <Dropdown
-              placeholder="Select voting duration"
-              onSelect={setVotingDuration}
-              options={["2 Days", "3 Days", "4 Days", "Custom"]}
-              selected={votingDuration}
+            <VotingDuration
+              value={votingDuration}
+              setValue={setVotingDuration}
             />
             <Dropdown
               placeholder="From wallet address"

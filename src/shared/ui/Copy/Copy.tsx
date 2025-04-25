@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import React from "react";
 import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
@@ -37,11 +37,13 @@ export function Copy({ text }: ICopyProps) {
       className={cn(css.copy, isCopied && css.copied)}
       onClick={handleOnClick}
     >
-      {!isCopied && (
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-          <Icon.Common.Copy />
-        </motion.div>
-      )}
+      <AnimatePresence initial={false}>
+        {!isCopied && (
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+            <Icon.Common.Copy />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {isCopied && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
           <Icon.Common.Check />

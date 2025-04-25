@@ -18,7 +18,7 @@ export function Collapse({ label, isOpen, children, onClick }: ICollapseProps) {
           <Icon.Common.ChevronDown />
         </div>
       </div>
-      {isOpen && <>{children}</>}
+      {isOpen && <div className={css.content}>{children}</div>}
     </div>
   );
 }

@@ -8,6 +8,7 @@ interface IInputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
+  variant?: "primary" | "secondary";
   fieldName?: string;
 }
 
@@ -15,21 +16,30 @@ export function Input({
   fieldName,
   value,
   placeholder,
+  variant = "primary",
+  className,
   ...props
 }: IInputProps) {
   const [isFocused, setIsFocused] = React.useState<boolean>(false);
 
   return (
-    <div className={cn(css.inputField, fieldName && css.withName)}>
+    <div
+      className={cn(
+        css.inputField,
+        fieldName && css.withName,
+        css[variant],
+        className
+      )}
+    >
       <AnimatePresence initial={false}>
         {!isFocused && !value && (
           <motion.div
             key={"placeholder"}
-            className={css.placeholder}
-            initial={{ opacity: 0, scale: 0.5 }}
+            className={cn(css.placeholder, css[variant])}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ type: "tween", ease: "anticipate" }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ type: "twin", ease: "anticipate" }}
           >
             {placeholder}
           </motion.div>
@@ -37,7 +47,9 @@ export function Input({
       </AnimatePresence>
       <motion.div
         className={css.field}
-        animate={{ opacity: isFocused || value ? 1 : 0 }}
+        animate={{
+          opacity: isFocused || value ? 1 : 0,
+        }}
       >
         {(isFocused || value) && !!fieldName && (
           <div className={css.fieldName}>{fieldName}</div>

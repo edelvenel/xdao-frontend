@@ -8,13 +8,17 @@ import css from "./styles.module.scss";
 
 interface ITabProportionalProps {
   currentConsensus: number;
+  isManualConsensus: boolean;
   setCurrentConsensus: (value: number) => void;
+  setIsManualConsensus: (value: boolean) => void;
   onInfo: () => void;
 }
 
 export function TabProportional({
   currentConsensus,
+  isManualConsensus,
   setCurrentConsensus,
+  setIsManualConsensus,
   onInfo,
 }: ITabProportionalProps) {
   return (
@@ -55,6 +59,7 @@ export function TabProportional({
             </div>
           </div>
           <InputStep
+            step={10}
             current={currentConsensus}
             onChange={setCurrentConsensus}
             renderLabel={(value) => `${value}%`}
@@ -64,7 +69,8 @@ export function TabProportional({
             max={100}
             min={0}
             onUpdate={(value) => setCurrentConsensus(Number(value))}
-            value={currentConsensus > 0 ? currentConsensus : ""}
+            onFocus={() => setIsManualConsensus(true)}
+            value={isManualConsensus ? currentConsensus : ""}
             placeholder="Enter amount manual"
           />
         </div>

@@ -5,12 +5,12 @@ import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
 import { ProposalType } from "shared/types";
 import { Badge } from "shared/ui/Badge";
-import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { InputNumber } from "shared/ui/InputNumber";
 import { InputStep } from "shared/ui/InputStep";
 import { Modal } from "shared/ui/Modal";
 import { Title } from "shared/ui/Title";
+import { VotingDuration } from "../VotingDuration";
 import css from "./styles.module.scss";
 
 const handleRenderLabel = (value: number): string => {
@@ -26,7 +26,9 @@ export function ChangeGeneralConsensusForm({
 }: IChangeGeneralConsensusFormProps) {
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
-  const [votingDuration, setVotingDuration] = React.useState<string>("");
+  const [votingDuration, setVotingDuration] = React.useState<number | null>(
+    null
+  );
   const [currentConsensus, setCurrentConsensus] = React.useState<number>(51);
   const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
   const { createProposal } = useProposals();
@@ -73,11 +75,9 @@ export function ChangeGeneralConsensusForm({
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <Dropdown
-              placeholder="Select voting duration"
-              onSelect={setVotingDuration}
-              options={["2 Days", "3 Days", "4 Days", "Custom"]}
-              selected={votingDuration}
+            <VotingDuration
+              value={votingDuration}
+              setValue={setVotingDuration}
             />
             <div className={css.currentConsensus}>
               <span>Current consensus</span>
@@ -101,6 +101,7 @@ export function ChangeGeneralConsensusForm({
                 current={currentConsensus}
                 onChange={setCurrentConsensus}
                 renderLabel={handleRenderLabel}
+                step={10}
               />
 
               <InputNumber

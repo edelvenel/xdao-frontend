@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { Icon } from "shared/icons";
 import { Button } from "shared/ui/Button";
 import { Input } from "shared/ui/Input";
@@ -6,13 +5,12 @@ import { InputStep } from "shared/ui/InputStep";
 import { Title } from "shared/ui/Title";
 import css from "./styles.module.scss";
 
-const MAX = 3;
-
 interface ITabEqualProps {
   walletAddresses: string[];
   consensus: number;
   setWalletAddresses: (addresses: string[]) => void;
   setConsensus: (value: number) => void;
+  onSetupInfo: () => void;
 }
 
 export function TabEqual({
@@ -20,6 +18,7 @@ export function TabEqual({
   consensus,
   setWalletAddresses,
   setConsensus,
+  onSetupInfo,
 }: ITabEqualProps) {
   return (
     <div className={css.tab}>
@@ -51,20 +50,17 @@ export function TabEqual({
       <div className={css.block}>
         <div className={css.header}>
           <Title value="Set-up consensus" variant="medium" />
-          <div
-            className={css.infoButton}
-            onClick={() => toast.error("Unimplemented")}
-          >
+          <div className={css.infoButton} onClick={onSetupInfo}>
             <Icon.Common.QuestionSmall />
           </div>
         </div>
         <InputStep
           current={consensus}
           onChange={setConsensus}
-          max={MAX}
+          max={walletAddresses.length}
           min={1}
           step={1}
-          renderLabel={(value) => `${value} of ${MAX}`}
+          renderLabel={(value) => `${value} of ${walletAddresses.length}`}
         />
       </div>
     </div>

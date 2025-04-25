@@ -21,6 +21,7 @@ import { ProposalIcon } from "./common/Proposal";
 import { QuestionIcon } from "./common/Question";
 import { QuestionSmallIcon } from "./common/QuestionSmall";
 import { QuestionTinyIcon } from "./common/QuestionTiny";
+import { RestoreIcon } from "./common/Restore";
 import { ScanIcon } from "./common/Scan";
 import { SearchIcon } from "./common/Search";
 import { EyeIcon } from "./common/See";
@@ -67,6 +68,7 @@ export const Icon = {
     TinyLink: TinyLinkIcon,
     Proposal: ProposalIcon,
     DAO: DAOIcon,
+    Restore: RestoreIcon,
   },
   Crypto: {},
   Navigation: {

@@ -44,7 +44,7 @@ export enum ProposalType {
   ChangeGeneralConsensus = "change_general_consensus",
   SendDAOFunds = "send_dao_funds",
   ChangeDAOName = "change_dao_name",
-  CreateOnChainPoll = "create_on_chain_poll",
+  CustomProposal = "custom_proposal",
 }
 
 export enum DaoType {

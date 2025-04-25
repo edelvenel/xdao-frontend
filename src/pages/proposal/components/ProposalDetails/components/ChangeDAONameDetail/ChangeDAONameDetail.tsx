@@ -78,6 +78,7 @@ export function ChangeDAONameDetail({
               <div className={css.value}>NewDAO</div>
             </div>
           </div>
+
           <div className={css.block}>
             <div className={css.column}>
               <div className={css.label}>Created by</div>
@@ -98,7 +99,17 @@ export function ChangeDAONameDetail({
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
           >
-            Content
+            <div className={css.details}>
+              <div className={css.title}>Function: mint (address, uint256)</div>
+              <div className={css.divider} />
+              <div className={css.subtitle}>
+                <span>Raw data</span>
+                <Copy text="0x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg00000000000000000034567890453" />
+              </div>
+              <div className={css.rawData}>
+                0x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg00000000000000000034567890453
+              </div>
+            </div>
           </Collapse>
         </div>
 

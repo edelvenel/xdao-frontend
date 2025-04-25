@@ -1,4 +1,7 @@
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
   text-align: center;
   padding: 12px 20px;
@@ -15,6 +18,11 @@
 
   &.secondary {
     background-color: var(--semantic-button-secondary);
+  }
+
+  &.tetriary {
+    color: var(--semantic-text-accent);
+    background-color: var(--color-base-neutral-6);
   }
 
   &.accent {

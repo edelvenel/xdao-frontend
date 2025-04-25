@@ -2,9 +2,17 @@
   flex: 1;
   min-height: 52px;
   border-radius: 50px;
-  background-color: var(--semantic-background-tetriary);
+
   overflow: hidden;
   position: relative;
+
+  &.primary {
+    background-color: var(--semantic-background-tetriary);
+  }
+
+  &.secondary {
+    background-color: var(--color-base-neutral-6);
+  }
 
   .placeholder {
     top: 0;
@@ -18,8 +26,15 @@
     font-weight: 600;
     font-size: 15px;
     line-height: 20px;
-    color: var(--semantic-text-placeholder);
     pointer-events: none;
+
+    &.primary {
+      color: var(--semantic-text-placeholder);
+    }
+
+    &.secondary {
+      color: var(--semantic-text-non-active);
+    }
   }
 
   .field {

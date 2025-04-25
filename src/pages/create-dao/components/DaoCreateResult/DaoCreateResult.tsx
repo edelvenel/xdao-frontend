@@ -22,7 +22,9 @@ export function DaoCreateResult({
             <Icon.Special.Success />
           </div>
           <Title variant={"large"} value="DAO created" />
-          <div className={css.text}>Your DAO has been successfully created</div>
+          <div className={css.text}>
+            Your DAO has been successfully created and is now live onchain
+          </div>
         </div>
         <div className={css.button}>
           <Button variant="accent" onClick={onDone}>
