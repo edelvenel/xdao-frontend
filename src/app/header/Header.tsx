@@ -21,11 +21,6 @@ export function Header() {
 		setIsConnectWalletOpen(true);
 	}, []);
 
-	const handleOnWalletConnectTON = React.useCallback(async () => {
-		await tonConnectUI.disconnect();
-		await tonConnectUI.openSingleWalletModal('telegram-wallet');
-	}, [tonConnectUI]);
-
 	const handleOnWalletConnect = React.useCallback(async () => {
 		await tonConnectUI.disconnect();
 		await tonConnectUI.openModal();
@@ -60,11 +55,8 @@ export function Header() {
 					</div>
 
 					<div className={css.actions}>
-						<Button variant="primary" onClick={handleOnWalletConnectTON}>
+						<Button variant="primary" onClick={handleOnWalletConnect}>
 							Connect to TON
-						</Button>
-						<Button variant="secondary" onClick={handleOnWalletConnect}>
-							Connect another wallet
 						</Button>
 					</div>
 				</div>
