@@ -1,6 +1,5 @@
 import cn from "classnames";
 import React from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useDaos } from "shared/api/daos";
 import {
@@ -32,8 +31,13 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
     "",
   ]);
   const [consensus, setConsensus] = React.useState<number>(1);
+  const [isManualConsensus, setIsManualConsensus] =
+    React.useState<boolean>(false);
   const [consensusPercent, setConsensusPercent] = React.useState<number>(50);
   const [isSuccess, setIsSuccess] = React.useState<boolean | null>(null);
+  const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] =
+    React.useState<boolean>(false);
+  const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
   const { setIsHeaderShown, setIsMenuShown } = store.useApp();
   const { createDao } = useDaos();
 
@@ -51,6 +55,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
             setWalletAddresses={setWalletAddresses}
             consensus={consensus}
             setConsensus={setConsensus}
+            onSetupInfo={() => setIsOpenSetupInfoModal(true)}
           />
         ),
       },
@@ -58,14 +63,16 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
         title: "Proportional",
         content: (
           <TabProportional
-            onInfo={() => toast.error("Unimplemented")}
+            isManualConsensus={isManualConsensus}
+            setIsManualConsensus={setIsManualConsensus}
+            onInfo={() => setIsInfoOpen(true)}
             currentConsensus={consensusPercent}
             setCurrentConsensus={setConsensusPercent}
           />
         ),
       },
     ];
-  }, [consensus, consensusPercent, walletAddresses]);
+  }, [consensus, consensusPercent, isManualConsensus, walletAddresses]);
 
   const handleOnCreate = React.useCallback(async () => {
     if (selectedTabIdx === 0) {
@@ -147,6 +154,43 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
       <div className={css.createButton}>
         <Button onClick={handleOnCreate}>Create</Button>
       </div>
+
+      {isOpenSetupInfoModal && (
+        <Modal
+          title="Set-up consensus"
+          onClose={() => setIsOpenSetupInfoModal(false)}
+        >
+          <div className={css.infoBlock}>
+            <div className={css.textBlock}>
+              Defines how many GP holders must approve a proposal for it to
+              pass.
+            </div>
+            <div className={css.textBlock}>
+              For example, “2 of 3” means that out of 3 total GPs, at least 2
+              must vote in favor.
+            </div>
+            <div className={css.textBlock}>
+              You can adjust this number depending on how decentralized or
+              strict the decision-making should be.
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {isInfoOpen && (
+        <Modal title="Current consensus" onClose={() => setIsInfoOpen(false)}>
+          <div className={css.infoBlock}>
+            <div className={css.textBlock}>
+              This is the minimum percentage of GP token votes needed to approve
+              a proposal.
+            </div>
+            <div className={css.textBlock}>
+              Increasing the consensus makes decisions harder to pass, while
+              lowering it makes them easier.
+            </div>
+          </div>
+        </Modal>
+      )}
 
       {isSuccess !== null && (
         <Modal

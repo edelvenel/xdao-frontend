@@ -52,7 +52,7 @@ export type ICreateChangeGPTransferStatusProposalPayload = {
 };
 
 export type ICreateCustomProposalPayload = {
-  type: ProposalType.CreateOnChainPoll;
+  type: ProposalType.CustomProposal;
   name: string;
   description: string;
   votingDuration: number;
@@ -60,7 +60,7 @@ export type ICreateCustomProposalPayload = {
   votingType: string;
   token: string;
   lpPool: string;
-  minTokens: string;
+  minTokens: number;
 };
 
 export type ICreateSendFundsProposalPayload = {

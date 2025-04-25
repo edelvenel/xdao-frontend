@@ -5,9 +5,9 @@ import { ICreateAddGPProposalPayload } from "shared/api/proposals/payloads";
 import { Icon } from "shared/icons";
 import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
 import { ProposalType } from "shared/types";
-import { Dropdown } from "shared/ui/Dropdown";
 import { Input } from "shared/ui/Input";
 import { Title } from "shared/ui/Title";
+import { VotingDuration } from "../VotingDuration";
 import css from "./styles.module.scss";
 
 interface IAddGPFormProps {
@@ -19,17 +19,23 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
   const [description, setDescription] = React.useState<string>("");
   const [walletAddress, setWalletAddress] = React.useState<string>("");
   const [tokenAmount, setTokenAmount] = React.useState<string>("");
-  const [votingDuration, setVotingDuration] = React.useState<string>("");
+  const [votingDuration, setVotingDuration] = React.useState<number | null>(
+    null
+  );
   const { createProposal } = useProposals();
 
   const handleOnClick = React.useCallback(async () => {
+    if (votingDuration === null) {
+      return;
+    }
+
     const payload: ICreateAddGPProposalPayload = {
       type: ProposalType.AddGP,
       name,
       description,
       walletAddress,
       tokenAmount: Number(tokenAmount),
-      votingDuration: Number(votingDuration),
+      votingDuration: votingDuration,
     };
 
     try {
@@ -66,11 +72,9 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <Dropdown
-              placeholder="Select voting duration"
-              onSelect={setVotingDuration}
-              options={["2 Days", "3 Days", "4 Days", "Custom"]}
-              selected={votingDuration}
+            <VotingDuration
+              value={votingDuration}
+              setValue={setVotingDuration}
             />
             <Input
               value={walletAddress}

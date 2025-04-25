@@ -12,6 +12,7 @@ import { InputNumber } from "shared/ui/InputNumber";
 import { RadioToken } from "shared/ui/RadioToken";
 import { Title } from "shared/ui/Title";
 import { objectIdMatcher } from "shared/utils/Mathcer";
+import { VotingDuration } from "../VotingDuration";
 import css from "./styles.module.scss";
 
 const TOKENS: IToken[] = [
@@ -46,7 +47,9 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
   const { daos, fetchDaos } = useDaos();
   const [name, setName] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
-  const [votingDuration, setVotingDuration] = React.useState<string>("");
+  const [votingDuration, setVotingDuration] = React.useState<number | null>(
+    null
+  );
   const [fromDAO, setFromDAO] = React.useState<IDao | null>(null);
   const [recipientAddress, setRecipientAddress] = React.useState<string>("");
   const [token, setToken] = React.useState<IToken>(TOKENS[0]);
@@ -110,11 +113,9 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <Dropdown
-              placeholder="Select voting duration"
-              onSelect={setVotingDuration}
-              options={["2 Days", "3 Days", "4 Days", "Custom"]}
-              selected={votingDuration}
+            <VotingDuration
+              value={votingDuration}
+              setValue={setVotingDuration}
             />
             <Dropdown
               placeholder="From DAO"

@@ -77,6 +77,13 @@ export function RemoveGPDetail({ proposal, onVote }: IRemoveGPDetailProps) {
           </div>
           <div className={css.block}>
             <div className={css.column}>
+              <div className={css.label}>GP Address</div>
+              <div className={css.value}>43fjYR48JEfkfof83436437DJfewlr8</div>
+            </div>
+            <Copy text="43fjYR48JEfkfof83436437DJfewlr8" />
+          </div>
+          <div className={css.block}>
+            <div className={css.column}>
               <div className={css.label}>Created by</div>
               <div className={css.value}>
                 TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ
@@ -95,7 +102,17 @@ export function RemoveGPDetail({ proposal, onVote }: IRemoveGPDetailProps) {
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
           >
-            Content
+            <div className={css.details}>
+              <div className={css.title}>Function: mint (address, uint256)</div>
+              <div className={css.divider} />
+              <div className={css.subtitle}>
+                <span>Raw data</span>
+                <Copy text="0x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg00000000000000000034567890453" />
+              </div>
+              <div className={css.rawData}>
+                0x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg0000000000000000000x57584386yfeg00000000000000000034567890453
+              </div>
+            </div>
           </Collapse>
         </div>
 

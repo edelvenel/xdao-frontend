@@ -47,7 +47,7 @@ export function useProposals() {
             break;
           }
 
-          case ProposalType.CreateOnChainPoll: {
+          case ProposalType.CustomProposal: {
             break;
           }
 
