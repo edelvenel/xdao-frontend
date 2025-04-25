@@ -1,14 +1,18 @@
-import cn from "classnames";
-import toast from "react-hot-toast";
+import React from "react";
 import { Icon } from "shared/icons";
+import { IDistributionRule } from "shared/types";
+import { Button } from "shared/ui/Button";
 import { InputNumber } from "shared/ui/InputNumber";
 import { InputStep } from "shared/ui/InputStep";
 import { Title } from "shared/ui/Title";
+import { DistributionRule } from "./components/DistributionRule";
 import css from "./styles.module.scss";
 
 interface ITabProportionalProps {
   currentConsensus: number;
   isManualConsensus: boolean;
+  distributionRules: IDistributionRule[];
+  setDistributionRules: (rules: IDistributionRule[]) => void;
   setCurrentConsensus: (value: number) => void;
   setIsManualConsensus: (value: boolean) => void;
   onInfo: () => void;
@@ -17,36 +21,58 @@ interface ITabProportionalProps {
 export function TabProportional({
   currentConsensus,
   isManualConsensus,
+  distributionRules,
   setCurrentConsensus,
   setIsManualConsensus,
+  setDistributionRules,
   onInfo,
 }: ITabProportionalProps) {
+  const handleOnDelete = React.useCallback(
+    (idx: number) => {
+      if (distributionRules.length > 2) {
+        setDistributionRules([
+          ...distributionRules.filter((_, index) => index !== idx),
+        ]);
+      } else {
+        setDistributionRules([
+          ...distributionRules.filter((_, index) => index < idx),
+          { walletAddress: "", tokens: null, percent: 30 },
+          ...distributionRules.filter((_, index) => index > idx),
+        ]);
+      }
+    },
+    [distributionRules, setDistributionRules]
+  );
+
   return (
     <div className={css.tab}>
       <div className={css.block}>
         <Title variant={"medium"} value="Update GP distribution" />
-        <div className={css.distributionRule}>
-          <div className={cn(css.item, css.wallet)}>0x...123</div>
-          <div className={cn(css.item, css.gpTokens)}>GP tokens</div>
-          <div className={cn(css.item, css.percent)}>30%</div>
-          <div
-            className={cn(css.item, css.cancel)}
-            onClick={() => toast.error("Unimplemented")}
-          >
-            <Icon.Common.Cancel />
-          </div>
-        </div>
-        <div className={css.distributionRule}>
-          <div className={cn(css.item, css.wallet)}>0x...123</div>
-          <div className={cn(css.item, css.gpTokens)}>GP tokens</div>
-          <div className={cn(css.item, css.percent)}>30%</div>
-          <div
-            className={cn(css.item, css.cancel)}
-            onClick={() => toast.error("Unimplemented")}
-          >
-            <Icon.Common.Cancel />
-          </div>
-        </div>
+        {distributionRules.map((rule, index) => (
+          <DistributionRule
+            key={index}
+            rule={rule}
+            onChange={(value) =>
+              setDistributionRules([
+                ...distributionRules.filter((_, idx) => idx < index),
+                { ...value },
+                ...distributionRules.filter((_, idx) => idx > index),
+              ])
+            }
+            onDelete={() => handleOnDelete(index)}
+          />
+        ))}
+        <Button
+          variant="primary"
+          onClick={() =>
+            setDistributionRules([
+              ...distributionRules,
+              { walletAddress: "", percent: 30, tokens: null },
+            ])
+          }
+        >
+          Add more
+        </Button>
       </div>
       <div className={css.block}>
         <div className={css.setConsensusBlock}>

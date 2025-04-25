@@ -17,6 +17,12 @@
     align-self: center;
     user-select: none;
     cursor: pointer;
+
+    .confirmButton {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--semantic-text-accent-2);
+    }
   }
 
   &::placeholder {

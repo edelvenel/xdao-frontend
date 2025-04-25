@@ -27,6 +27,14 @@
     margin-top: 15px;
     user-select: none;
     cursor: pointer;
+    min-width: 24px;
+    min-height: 24px;
+
+    .confirmButton {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--semantic-text-accent-2);
+    }
   }
 
   &::placeholder {

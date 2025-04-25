@@ -10,29 +10,60 @@
     display: flex;
     overflow: hidden;
   }
+  .tabListContainer {
+    position: relative;
 
-  .tabButtonList {
-    display: flex;
-    gap: 13px;
-    overflow: auto;
+    .rightShadow {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--color-base-neutral-3)
+      );
+      pointer-events: none;
+    }
 
-    .tabButton {
+    .leftShadow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      background: linear-gradient(
+        to left,
+        transparent,
+        var(--color-base-neutral-3)
+      );
+      pointer-events: none;
+    }
+
+    .tabList {
       display: flex;
-      flex-shrink: 0;
-      height: 40px;
-      background-color: transparent;
-      line-height: 32px;
-      font-size: 15px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 32px;
-      color: var(--semantic-text-secondary);
-      cursor: pointer;
-      user-select: none;
+      gap: 13px;
+      overflow: auto;
 
-      &.selected {
-        color: var(--semantic-text-accent);
-        background-color: var(--semantic-background-tetriary);
+      .tabButton {
+        display: flex;
+        flex-shrink: 0;
+        height: 40px;
+        background-color: transparent;
+        line-height: 32px;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 32px;
+        color: var(--semantic-text-secondary);
+        cursor: pointer;
+        user-select: none;
+
+        &.selected {
+          color: var(--semantic-text-accent);
+          background-color: var(--semantic-background-tetriary);
+        }
       }
     }
   }

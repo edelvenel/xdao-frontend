@@ -1,3 +1,4 @@
+import React from "react";
 import { Icon } from "shared/icons";
 import { Button } from "shared/ui/Button";
 import { Input } from "shared/ui/Input";
@@ -20,23 +21,44 @@ export function TabEqual({
   setConsensus,
   onSetupInfo,
 }: ITabEqualProps) {
+  const handleOnDelete = React.useCallback(
+    (idx: number) => {
+      const newWalletAddresses = walletAddresses.filter(
+        (_, index) => index !== idx
+      );
+      setWalletAddresses([...newWalletAddresses]);
+    },
+    [setWalletAddresses, walletAddresses]
+  );
+
   return (
     <div className={css.tab}>
       <div className={css.block}>
         <Title value="Add General Partners" variant="medium" />
         {walletAddresses.map((waddr, index) => (
-          <Input
-            key={index}
-            value={waddr}
-            placeholder="Wallet Address"
-            onChange={(e) =>
-              setWalletAddresses([
-                ...walletAddresses.filter((_, idx) => idx < index),
-                e.target.value,
-                ...walletAddresses.filter((_, idx) => idx > index),
-              ])
-            }
-          />
+          <div className={css.field}>
+            <Input
+              key={index}
+              value={waddr}
+              className={css.input}
+              placeholder="Wallet Address"
+              onChange={(e) =>
+                setWalletAddresses([
+                  ...walletAddresses.filter((_, idx) => idx < index),
+                  e.target.value,
+                  ...walletAddresses.filter((_, idx) => idx > index),
+                ])
+              }
+            />
+            {walletAddresses.length > 2 && (
+              <div
+                className={css.deleteButton}
+                onClick={() => handleOnDelete(index)}
+              >
+                <Icon.Common.Cancel />
+              </div>
+            )}
+          </div>
         ))}
 
         <Button
