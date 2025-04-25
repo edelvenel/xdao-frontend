@@ -41,7 +41,7 @@ export function Input({
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "twin", ease: "anticipate" }}
           >
-            {placeholder}
+            <div className={css.text}>{placeholder}</div>
           </motion.div>
         )}
       </AnimatePresence>

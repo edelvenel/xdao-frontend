@@ -2,9 +2,9 @@
   flex: 1;
   min-height: 52px;
   border-radius: 50px;
-
   overflow: hidden;
   position: relative;
+  overflow: hidden;
 
   &.primary {
     background-color: var(--semantic-background-tetriary);
@@ -27,6 +27,12 @@
     font-size: 15px;
     line-height: 20px;
     pointer-events: none;
+
+    .text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     &.primary {
       color: var(--semantic-text-placeholder);
