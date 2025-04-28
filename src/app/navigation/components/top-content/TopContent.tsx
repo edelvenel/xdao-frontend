@@ -1,17 +1,21 @@
-import { PropsWithChildren } from "react";
-import { createPortal } from "react-dom";
-import { store } from "shared/store";
-import css from "./styles.module.scss";
+import React, { PropsWithChildren } from 'react';
+import { createPortal } from 'react-dom';
+import { store } from 'shared/store';
+import css from './styles.module.scss';
 
 export function TopContent({ children }: PropsWithChildren) {
-  const { topContentElement } = store.useApp();
+	const { topContentElement, setIsTopContent } = store.useApp();
 
-  if (!topContentElement) {
-    return null;
-  }
+	React.useEffect(() => {
+		setIsTopContent(true);
+		return () => {
+			setIsTopContent(false);
+		};
+	}, [setIsTopContent]);
 
-  return createPortal(
-    <div className={css.topContent}>{children}</div>,
-    topContentElement
-  );
+	if (!topContentElement) {
+		return null;
+	}
+
+	return createPortal(<div className={css.topContent}>{children}</div>, topContentElement);
 }

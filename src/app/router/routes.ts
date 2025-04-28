@@ -2,6 +2,7 @@ export enum Route {
 	Root = 'root',
 	Proposal = 'proposal',
 	CreateProposal = 'createProposal',
+	CreateProposalForm = 'createProposalForm',
 	ProposalList = 'proposalList',
 	Profile = 'profile',
 	Nft = 'nft',
@@ -17,6 +18,8 @@ export const routes = {
 	[Route.Proposal]: '/proposals/:id',
 
 	[Route.CreateProposal]: '/proposals/create',
+
+	[Route.CreateProposalForm]: '/proposals/create/form',
 
 	[Route.ProposalList]: '/proposals',
 

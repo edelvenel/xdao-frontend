@@ -1,28 +1,26 @@
 .layout {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-bottom: 60px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	margin-bottom: 60px;
 
-  .content {
-    flex: 1;
-    overflow: auto;
-    padding-bottom: 60px;
-  }
+	.content {
+		flex: 1;
+		overflow: auto;
+		padding-bottom: 60px;
+	}
 
-  .actions {
-    background-color: var(--semantic-card-background);
-    border-radius: 40px 40px 0 0;
-    display: flex;
-    padding: 12px 16px 40px 16px;
-    gap: 12px;
-    position: fixed;
-    bottom: 0px;
-    left: 0;
-    right: 0;
-  }
-
-  .info {
-  }
+	.actions {
+		background-color: var(--semantic-card-background);
+		border-radius: 40px 40px 0 0;
+		display: flex;
+		padding: 12px 16px 40px 16px;
+		gap: 12px;
+		position: fixed;
+		bottom: 0px;
+		left: 0;
+		right: 0;
+		border-top: 1px solid var(--color-base-neutral-7);
+	}
 }
