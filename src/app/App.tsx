@@ -10,10 +10,6 @@ import { AppRouter } from './router/AppRouter';
 import { SplashScreen } from './splash';
 import './styles/root.scss';
 
-interface ScreenOrientationWithLock extends ScreenOrientation {
-	lock: (orientation: string) => Promise<void>;
-}
-
 export function App() {
 	const { setToken } = store.useAuth();
 	const { isWalletConnected } = store.useWallet();
@@ -24,11 +20,6 @@ export function App() {
 			WebApp.disableVerticalSwipes();
 			WebApp.lockOrientation();
 		}
-		const orientation = screen.orientation as ScreenOrientationWithLock;
-
-		orientation.lock('portrait').catch((err) => {
-			console.warn('Failed to lock orientation:', err);
-		});
 	}, []);
 
 	React.useEffect(() => {
