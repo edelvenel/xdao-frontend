@@ -8,14 +8,62 @@
 
 	.field {
 		display: flex;
-		flex-direction: column;
-		align-items: left;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 		gap: 5px;
+		height: 108px;
+		border-radius: 40px;
+		padding-left: 20px;
+		padding-right: 24px;
+		background-color: var(--semantic-background-secondary);
+		overflow: hidden;
 
-		.name {
-			font-size: 16px;
-			font-weight: 600;
+		.info {
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+			flex: 1;
+
+			.inputBox {
+				display: flex;
+				color: var(--semantic-text-placeholder);
+				justify-content: space-between;
+				flex: 1;
+
+				.input {
+					background: none;
+					outline: none;
+					max-height: 24px;
+					color: var(--semantic-text-primary);
+					font-size: 30px;
+					font-weight: 500;
+					line-height: 24px;
+					max-width: 100px;
+				}
+			}
+
+			.value {
+				font-size: 30px;
+				font-weight: 500;
+				line-height: 24px;
+			}
+			.name {
+				font-size: 12px;
+				font-weight: 600;
+				color: var(--semantic-text-non-active);
+			}
+		}
+
+		.button {
 			color: var(--semantic-text-placeholder);
+			user-select: none;
+			cursor: pointer;
+		}
+		.confirmButton {
+			font-size: 15px;
+			font-weight: 600;
+			color: var(--semantic-text-accent-2);
 		}
 	}
 

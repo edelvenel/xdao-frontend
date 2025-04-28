@@ -1,3 +1,4 @@
+import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import toast from 'react-hot-toast';
 import { generatePath, Link } from 'react-router';
@@ -22,7 +23,7 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 			<div className={css.block}>
 				<div className={css.title}>Main account</div>
 				<div className={css.amount}>
-					<div className={css.currency}>$</div>
+					<div className={css.dollar}>$</div>
 					<span>500 000</span>
 				</div>
 			</div>
@@ -35,7 +36,7 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 				</div>
 				<div className={css.amount}>
 					<div className={css.currency}>$DAO</div>
-					500 000
+					48,750,000
 				</div>
 			</div>
 			<div className={css.card}>
@@ -69,14 +70,16 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 					</Link>
 				</div>
 			</div>
-			<div className={css.actions}>
-				<Button variant="primary" onClick={() => toast.error('Unimplemented')}>
-					Send
-				</Button>
-				<Button variant="secondary" onClick={() => toast.error('Unimplemented')}>
-					Receive QR
-				</Button>
-			</div>
+			<TopContent>
+				<div className={css.actions}>
+					<Button variant="primary" onClick={() => toast.error('Unimplemented')}>
+						Send
+					</Button>
+					<Button variant="secondary" onClick={() => toast.error('Unimplemented')}>
+						Receive QR
+					</Button>
+				</div>
+			</TopContent>
 		</div>
 	);
 }

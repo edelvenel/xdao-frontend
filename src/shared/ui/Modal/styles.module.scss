@@ -1,61 +1,61 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.75);
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.75);
 
-  .modal {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    max-height: 80%;
-    padding: 16px;
-    border-radius: 32px 32px 0 0;
-    background-color: var(--semantic-background-secondary);
-    overflow: auto;
+	.modal {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		max-height: 80%;
+		padding: 16px;
+		border-radius: 32px 32px 0 0;
+		background-color: var(--semantic-background-secondary);
+		overflow: auto;
 
-    .header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+		.header {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
 
-      .title {
-        flex: 1;
-        display: flex;
-        min-height: 40px;
-        padding-left: 16px;
-        padding-right: 16px;
-        align-items: center;
-      }
-    }
+			.title {
+				flex: 1;
+				display: flex;
+				min-height: 40px;
+				padding-left: 4px;
+				padding-right: 4px;
+				align-items: center;
+			}
+		}
 
-    .closeButton {
-      position: absolute;
-      right: 16px;
-      top: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 32px;
-      color: var(--semantic-text-secondary);
-      background-color: var(--semantic-background-tetriary);
-    }
+		.closeButton {
+			position: absolute;
+			right: 16px;
+			top: 16px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 32px;
+			color: var(--semantic-text-secondary);
+			background-color: var(--semantic-background-tetriary);
+		}
 
-    .content {
-      display: flex;
-      flex: 1;
-      padding-bottom: 22px;
-    }
-  }
+		.content {
+			display: flex;
+			flex: 1;
+			padding-bottom: 22px;
+		}
+	}
 }
