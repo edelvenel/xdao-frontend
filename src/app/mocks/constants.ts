@@ -1,7 +1,5 @@
 import { IDao, INft, IProposal, IVotingType, Social } from 'shared/types';
-
-export const LOGO_URL =
-	'https://s3-alpha-sig.figma.com/img/42ae/6ec1/60426ed7c2345cb0f3fa82362c4448c6?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=FP2xA~duxcKvBndxlZshuwejmfv2HCx870FkWLQEFtLghUqURStu727g9JfMKmssLHH9zgeuPBXuJR5Ezg6a7EC1tFMuJToC3Orumoi9BJwOSbA7YPhmevC4-knkwzFpeybPEAq9yIFuyr78og6X6NP5XA~z7Ci-EAiYDWyL32rlP8JojRL8PvVl5g03KJQhp0TU5tAlT-Mw-73jLVeAK3DMVMghFpqBcPS73Ewf6OcMSCxRQgSPV266ShogW4wP1u3u-0DnOaRISt75RhILpD~eO32EYUQ4dwI2RwsTAd7OBJiYI7P8RHsinn1FgxNmUPT86RkWmAahPOelmqJHGA__';
+import logoExample from '../../assets/images/logo-example.png';
 
 export const ProposalTypes = [
 	{ id: 1, name: 'Add General Partner' },
@@ -17,7 +15,7 @@ export const ProposalTypes = [
 export const DAOS_MOCK: IDao[] = [
 	{
 		id: '1',
-		logo: LOGO_URL,
+		logo: logoExample,
 		name: 'Example DAO 1',
 		activeProposals: 2,
 		LPTokens: 500,
@@ -39,7 +37,7 @@ export const DAOS_MOCK: IDao[] = [
 	},
 	{
 		id: '2',
-		logo: LOGO_URL,
+		logo: logoExample,
 		name: 'Example DAO 2',
 		activeProposals: 1,
 		consensus: 43,
@@ -60,7 +58,7 @@ export const DAOS_MOCK: IDao[] = [
 	},
 	{
 		id: '3',
-		logo: LOGO_URL,
+		logo: logoExample,
 		name: 'Example DAO 3',
 		consensus: 76,
 		activeProposals: 4,
@@ -205,11 +203,11 @@ export const NFTS: INft[] = [
 	{
 		id: 'ABC12345',
 		hash: '123456',
-		imgUrl: LOGO_URL,
+		imgUrl: logoExample,
 	},
 	{
 		id: 'DEF12345',
 		hash: '324323234',
-		imgUrl: LOGO_URL,
+		imgUrl: logoExample,
 	},
 ];
