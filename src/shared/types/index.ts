@@ -14,6 +14,10 @@ export type IDao = {
 	social: ISocial[];
 	consensus: number;
 	distributionRules: IDistributionRule[];
+	slots: {
+		total: number;
+		reserved: number;
+	};
 };
 
 export type ISocial = {

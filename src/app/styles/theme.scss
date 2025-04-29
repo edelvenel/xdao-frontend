@@ -1,44 +1,46 @@
 :root {
-  --font-primary: "DM Sans", sans-serif;
-  --font-secondary: "Work Sans", sans-serif;
+	--font-primary: 'DM Sans', sans-serif;
+	--font-secondary: 'Work Sans', sans-serif;
 
-  --color-base-neutral-0: #000000;
-  --color-base-neutral-1: #070707;
-  --color-base-neutral-2: #111111;
-  --color-base-neutral-3: #0f0f0f;
-  --color-base-neutral-4: #1c1c1c;
-  --color-base-neutral-5: #272727;
-  --color-base-neutral-6: #2e2e2e;
-  --color-base-neutral-7: #424242;
-  --color-base-neutral-8: #717171;
-  --color-base-neutral-9: #9a9a9a;
-  --color-base-neutral-10: #b5b5b5;
-  --color-base-neutral-11: #f3f3f3;
-  --color-base-neutral-12: #e8e8e8;
+	--fixed-background: linear-gradient(to top, rgba(28, 28, 28, 1) 70%, rgba(28, 28, 28, 0));
 
-  --color-base-blue-main: #003bb9;
-  --color-base-yellow-main: #ddf600;
-  --color-base-blue-second: #0c7cff;
-  --color-base-yellow-dark: #1a1b0e;
+	--color-base-neutral-0: #000000;
+	--color-base-neutral-1: #070707;
+	--color-base-neutral-2: #111111;
+	--color-base-neutral-3: #0f0f0f;
+	--color-base-neutral-4: #1c1c1c;
+	--color-base-neutral-5: #272727;
+	--color-base-neutral-6: #2e2e2e;
+	--color-base-neutral-7: #424242;
+	--color-base-neutral-8: #717171;
+	--color-base-neutral-9: #9a9a9a;
+	--color-base-neutral-10: #b5b5b5;
+	--color-base-neutral-11: #f3f3f3;
+	--color-base-neutral-12: #e8e8e8;
 
-  --semantic-card-background: var(--color-base-neutral-0);
-  --semantic-card-edge: var(--color-base-neutral-2);
+	--color-base-blue-main: #003bb9;
+	--color-base-yellow-main: #ddf600;
+	--color-base-blue-second: #0c7cff;
+	--color-base-yellow-dark: #1a1b0e;
 
-  --semantic-background-primary: var(--color-base-neutral-3);
-  --semantic-background-secondary: var(--color-base-neutral-4);
-  --semantic-background-tetriary: var(--color-base-neutral-5);
-  --semantic-background-graphic: var(--color-base-yellow-dark);
+	--semantic-card-background: var(--color-base-neutral-0);
+	--semantic-card-edge: var(--color-base-neutral-2);
 
-  --semantic-button-secondary: var(--color-base-neutral-5);
-  --semantic-button-primary: var(--color-base-blue-main);
-  --semantic-button-notifications: var(--color-base-yellow-main);
-  --semantic-button-notifications-2: var(--color-base-blue-second);
+	--semantic-background-primary: var(--color-base-neutral-3);
+	--semantic-background-secondary: var(--color-base-neutral-4);
+	--semantic-background-tetriary: var(--color-base-neutral-5);
+	--semantic-background-graphic: var(--color-base-yellow-dark);
 
-  --semantic-text-primary: var(--color-base-neutral-11);
-  --semantic-text-placeholder: var(--color-base-neutral-7);
-  --semantic-text-accent: var(--color-base-yellow-main);
-  --semantic-text-secondary: var(--color-base-neutral-10);
-  --semantic-text-accent-2: var(--color-base-blue-second);
-  --semantic-text-non-active: var(--color-base-neutral-8);
-  --semantic-text-dark: var(--color-base-neutral-0);
+	--semantic-button-secondary: var(--color-base-neutral-5);
+	--semantic-button-primary: var(--color-base-blue-main);
+	--semantic-button-notifications: var(--color-base-yellow-main);
+	--semantic-button-notifications-2: var(--color-base-blue-second);
+
+	--semantic-text-primary: var(--color-base-neutral-11);
+	--semantic-text-placeholder: var(--color-base-neutral-7);
+	--semantic-text-accent: var(--color-base-yellow-main);
+	--semantic-text-secondary: var(--color-base-neutral-10);
+	--semantic-text-accent-2: var(--color-base-blue-second);
+	--semantic-text-non-active: var(--color-base-neutral-8);
+	--semantic-text-dark: var(--color-base-neutral-0);
 }
