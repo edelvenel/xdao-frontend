@@ -32,6 +32,10 @@ export const DAOS_MOCK: IDao[] = [
 			{ walletAddress: '43fjYR48JEfkfof83436437DJfewlr8', tokens: 100, percent: 30 },
 			{ walletAddress: '4343878ffr3ufjrn8rfufHJR48fufj33f', tokens: 100, percent: 30 },
 		],
+		slots: {
+			reserved: 2,
+			total: 5,
+		},
 	},
 	{
 		id: '2',
@@ -49,6 +53,10 @@ export const DAOS_MOCK: IDao[] = [
 			{ walletAddress: '43fjYR48JEfkfof83436437DJfewlr8', tokens: 100, percent: 30 },
 			{ walletAddress: '4343878ffr3ufjrn8rfufHJR48fufj33f', tokens: 100, percent: 30 },
 		],
+		slots: {
+			reserved: 1,
+			total: 5,
+		},
 	},
 	{
 		id: '3',
@@ -63,6 +71,10 @@ export const DAOS_MOCK: IDao[] = [
 			{ walletAddress: '43fjYR48JEfkfof83436437DJfewlr8', tokens: 100, percent: 30 },
 			{ walletAddress: '4343878ffr3ufjrn8rfufHJR48fufj33f', tokens: 100, percent: 30 },
 		],
+		slots: {
+			reserved: 5,
+			total: 5,
+		},
 	},
 ];
 

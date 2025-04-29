@@ -1,0 +1,75 @@
+.selectDao {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding-bottom: 70px;
+	width: 100%;
+
+	.button {
+		position: fixed;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px 16px 40px;
+		bottom: 0px;
+		left: 0;
+		right: 0;
+		background: var(--fixed-background);
+	}
+
+	.daoList {
+		flex: 1;
+		overflow: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+
+		.logo {
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+
+		.name {
+			flex: 1;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 20px;
+		}
+
+		.slots {
+			display: flex;
+			font-size: 16px;
+			line-height: 20px;
+			font-weight: 500;
+
+			.reserved {
+				padding-left: 4px;
+				color: var(--semantic-text-accent);
+			}
+		}
+	}
+}
+
+.option {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 66px;
+	border: 1px solid transparent; //TODO: replace with library color
+	border-radius: 50px;
+	padding-left: 15px;
+	padding-right: 20px;
+	font-size: 16px;
+	font-weight: 500;
+	gap: 7px;
+	background-color: var(--semantic-background-tetriary);
+
+	&.selected {
+		border-color: var(--semantic-text-accent);
+	}
+}
