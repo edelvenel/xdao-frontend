@@ -43,27 +43,6 @@ export function App() {
 		auth();
 	}, [setToken]);
 
-	// const isLoading = React.useMemo(() => {
-	//   if (!token) {
-	//     return true;
-	//   }
-
-	//   if (!me) {
-	//     return true;
-	//   }
-
-	//   return false;
-	// }, [me, token]);
-
-	// if (isLoading) {
-	//   return (
-	//     <AppErrorBoundary>
-	//       <ScreenLoader />
-	//       <NotificationLayer />
-	//     </AppErrorBoundary>
-	//   );
-	// }
-
 	return (
 		<TonConnectUIProvider
 			manifestUrl={`https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json`}
