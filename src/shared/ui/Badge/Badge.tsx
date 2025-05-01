@@ -1,11 +1,12 @@
-import cn from "classnames";
-import css from "./styles.module.scss";
+import cn from 'classnames';
+import css from './styles.module.scss';
 
 interface IBadgeProps {
-  text: string;
-  variant: "yellow" | "blue";
+	text: string;
+	capitalized?: boolean;
+	variant: 'yellow' | 'blue';
 }
 
-export function Badge({ text, variant }: IBadgeProps) {
-  return <div className={cn(css.badge, css[variant])}>{text}</div>;
+export function Badge({ text, capitalized = false, variant }: IBadgeProps) {
+	return <div className={cn(css.badge, css[variant], capitalized && css.capitalized)}>{text}</div>;
 }

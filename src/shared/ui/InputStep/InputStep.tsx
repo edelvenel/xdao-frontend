@@ -1,72 +1,60 @@
-import cn from "classnames";
-import React from "react";
-import { Icon } from "shared/icons";
-import { hapticFeedback } from "shared/utils/haptic";
-import css from "./styles.module.scss";
+import cn from 'classnames';
+import React from 'react';
+import { Icon } from 'shared/icons';
+import { hapticFeedback } from 'shared/utils/haptic';
+import css from './styles.module.scss';
 
 const setLabel = (value: number): string => {
-  return value.toString();
+	return value.toString();
 };
 
 interface IInputStepProps {
-  step?: number;
-  min?: number;
-  max?: number;
-  current: number;
-  renderLabel?: (value: number) => string;
-  onChange: (value: number) => void;
+	step?: number;
+	min?: number;
+	max?: number;
+	current: number;
+	renderLabel?: (value: number) => string;
+	onChange: (value: number) => void;
 }
 
 export function InputStep({
-  step = 1,
-  min = 0,
-  max = 100,
-  current,
-  renderLabel = setLabel,
-  onChange,
+	step = 1,
+	min = 0,
+	max = 100,
+	current,
+	renderLabel = setLabel,
+	onChange,
 }: IInputStepProps) {
-  const isDecrementDisabled: boolean = React.useMemo(
-    () => current - step < min,
-    [current, min, step]
-  );
-  const isIncrementDisabled: boolean = React.useMemo(
-    () => current + step > max,
-    [current, max, step]
-  );
+	const isDecrementDisabled: boolean = React.useMemo(() => current - step < min, [current, min, step]);
+	const isIncrementDisabled: boolean = React.useMemo(() => current + step > max, [current, max, step]);
 
-  const handleOnChange = React.useCallback(
-    (value: number) => {
-      hapticFeedback("press");
-      onChange(value);
-    },
-    [onChange]
-  );
+	const handleOnChange = React.useCallback(
+		(value: number) => {
+			hapticFeedback('press');
+			onChange(value);
+		},
+		[onChange]
+	);
 
-  return (
-    <div className={css.inputStep}>
-      <button
-        className={cn(
-          css.button,
-          css.decrement,
-          isDecrementDisabled && css.disabled
-        )}
-        disabled={isDecrementDisabled}
-        onClick={() => handleOnChange(current - step)}
-      >
-        <Icon.Common.Minus />
-      </button>
-      <div className={css.label}>{renderLabel(current)}</div>
-      <button
-        className={cn(
-          css.button,
-          css.increment,
-          isIncrementDisabled && css.disabled
-        )}
-        disabled={isIncrementDisabled}
-        onClick={() => handleOnChange(current + step)}
-      >
-        <Icon.Common.Plus />
-      </button>
-    </div>
-  );
+	return (
+		<div className={css.inputStep}>
+			<button
+				type="button"
+				className={cn(css.button, css.decrement, isDecrementDisabled && css.disabled)}
+				disabled={isDecrementDisabled}
+				onClick={() => handleOnChange(current - step)}
+			>
+				<Icon.Common.Minus />
+			</button>
+			<div className={css.label}>{renderLabel(current)}</div>
+			<button
+				type="button"
+				className={cn(css.button, css.increment, isIncrementDisabled && css.disabled)}
+				disabled={isIncrementDisabled}
+				onClick={() => handleOnChange(current + step)}
+			>
+				<Icon.Common.Plus />
+			</button>
+		</div>
+	);
 }

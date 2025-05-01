@@ -1,167 +1,168 @@
-import React from "react";
-import toast from "react-hot-toast";
-import { useDaos } from "shared/api/daos";
-import { useProposals } from "shared/api/proposals";
-import { ICreateSendFundsProposalPayload } from "shared/api/proposals/payloads";
-import { Icon } from "shared/icons";
-import { ProposalCreateLayout } from "shared/layouts/proposal-create-layout";
-import { IDao, IToken, ProposalType } from "shared/types";
-import { Dropdown } from "shared/ui/Dropdown";
-import { Input } from "shared/ui/Input";
-import { InputNumber } from "shared/ui/InputNumber";
-import { RadioToken } from "shared/ui/RadioToken";
-import { Title } from "shared/ui/Title";
-import { objectIdMatcher } from "shared/utils/Mathcer";
-import { VotingDuration } from "../VotingDuration";
-import css from "./styles.module.scss";
-
-const TOKENS: IToken[] = [
-  {
-    id: "0",
-    name: "TON",
-    imgUrl: "https://cryptologos.cc/logos/toncoin-ton-logo.png",
-    amount: 125,
-    rate: 10.0987,
-  },
-  {
-    id: "1",
-    name: "BTC",
-    imgUrl: "https://cryptologos.cc/logos/toncoin-ton-logo.png",
-    amount: 59,
-    rate: 3.0953,
-  },
-  {
-    id: "2",
-    name: "USDT",
-    imgUrl: "https://cryptologos.cc/logos/toncoin-ton-logo.png",
-    amount: 12,
-    rate: 8.362,
-  },
-];
+import { TOKENS } from 'app/mocks/constants';
+import { Formik } from 'formik';
+import React from 'react';
+import toast from 'react-hot-toast';
+import { useDaos } from 'shared/api/daos';
+import { useProposals } from 'shared/api/proposals';
+import { ICreateSendFundsProposalPayload } from 'shared/api/proposals/payloads';
+import { Icon } from 'shared/icons';
+import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
+import { store } from 'shared/store';
+import { ProposalType } from 'shared/types';
+import { Dropdown } from 'shared/ui/Dropdown';
+import { Input } from 'shared/ui/Input';
+import { InputNumber } from 'shared/ui/InputNumber';
+import { RadioToken } from 'shared/ui/RadioToken';
+import { Title } from 'shared/ui/Title';
+import { objectIdMatcher } from 'shared/utils/Mathcer';
+import { ValidationError } from '../ValidationError';
+import { VotingDuration } from '../VotingDuration';
+import css from './styles.module.scss';
+import { getInitialValues, IForm, validationSchema } from './types';
 
 interface ISendFundsFormProps {
-  onResponse: (value: boolean) => void;
+	onResponse: (value: boolean) => void;
 }
 
 export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
-  const { daos, fetchDaos } = useDaos();
-  const [name, setName] = React.useState<string>("");
-  const [description, setDescription] = React.useState<string>("");
-  const [votingDuration, setVotingDuration] = React.useState<number | null>(
-    null
-  );
-  const [fromDAO, setFromDAO] = React.useState<IDao | null>(null);
-  const [recipientAddress, setRecipientAddress] = React.useState<string>("");
-  const [token, setToken] = React.useState<IToken>(TOKENS[0]);
-  const [tokenAmount, setTokenAmount] = React.useState<string>("");
-  const { createProposal } = useProposals();
+	const { daos, fetchDaos } = useDaos();
+	const { dao } = store.useFormType();
+	const { createProposal } = useProposals();
 
-  const handleOnClick = React.useCallback(async () => {
-    if (!fromDAO) {
-      return;
-    }
+	const handleOnSubmit = React.useCallback(
+		async (values: IForm) => {
+			const payload: ICreateSendFundsProposalPayload = {
+				type: ProposalType.SendDAOFunds,
+				name: values.name,
+				description: values.description,
+				votingDuration: Number(values.votingDuration),
+				fromDAO: values.fromDAO!,
+				token: values.token,
+				recipientAddress: values.recipientAddress,
+				tokenAmount: Number(values.tokenAmount),
+			};
 
-    const payload: ICreateSendFundsProposalPayload = {
-      type: ProposalType.SendDAOFunds,
-      name,
-      description,
-      votingDuration: Number(votingDuration),
-      fromDAO,
-      token,
-      recipientAddress,
-      tokenAmount: Number(tokenAmount),
-    };
+			try {
+				await createProposal(payload);
+				onResponse(true);
+			} catch {
+				onResponse(false);
+			}
+		},
+		[createProposal, onResponse]
+	);
 
-    try {
-      await createProposal(payload);
-      onResponse(true);
-    } catch {
-      onResponse(false);
-    }
-  }, [
-    createProposal,
-    description,
-    fromDAO,
-    name,
-    onResponse,
-    recipientAddress,
-    token,
-    tokenAmount,
-    votingDuration,
-  ]);
+	React.useEffect(() => {
+		fetchDaos();
+	}, [daos, fetchDaos]);
 
-  React.useEffect(() => {
-    fetchDaos();
-    setFromDAO(daos[0]);
-  }, [daos, fetchDaos]);
+	if (!dao) {
+		return;
+	}
 
-  return (
-    <ProposalCreateLayout disabled={false} onClick={handleOnClick}>
-      <div className={css.form}>
-        <div className={css.fields}>
-          <div className={css.block}>
-            <Title variant={"medium"} value="Send DAO funds" />
-            <Input
-              value={name}
-              fieldName="Proposal name"
-              placeholder="Create proposal name"
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Input
-              value={description}
-              fieldName="Description"
-              placeholder="Description"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <VotingDuration
-              value={votingDuration}
-              setValue={setVotingDuration}
-            />
-            <Dropdown
-              placeholder="From DAO"
-              onSelect={setFromDAO}
-              options={daos}
-              selected={fromDAO}
-              optionLabel={(option) => option.name}
-              optionLogo={(option) => option.logo}
-              matcher={objectIdMatcher}
-            />
-            <Input
-              value={recipientAddress}
-              fieldName="Recipient address"
-              placeholder="Enter recipient address"
-              onChange={(e) => setRecipientAddress(e.target.value)}
-            />
-          </div>
-          <div className={css.block}>
-            <Title variant={"medium"} value="Select token type" />
-            <div className={css.tokenBlock}>
-              <RadioToken
-                selected={token}
-                options={TOKENS}
-                onSelect={setToken}
-              />
-              <div className={css.amountBlock}>
-                <InputNumber
-                  value={tokenAmount}
-                  placeholder="Enter token amount"
-                  onMaxAmount={() => setTokenAmount("100")}
-                  onUpdate={(value) => setTokenAmount(value)}
-                />
-                <div className={css.link}>
-                  <span>Open link for more info</span>
-                  <div
-                    className={css.linkButton}
-                    onClick={() => toast.error("Unimplemented")}
-                  >
-                    <Icon.Common.Link />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ProposalCreateLayout>
-  );
+	const initialValues = getInitialValues(dao);
+
+	return (
+		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
+			{(props) => (
+				<ProposalCreateLayout disabled={false} onClick={props.handleSubmit}>
+					<div className={css.form}>
+						<div className={css.fields}>
+							<div className={css.block}>
+								<Title variant={'medium'} value="Send DAO funds" />
+								<Input
+									variant={props.errors.name && props.touched.name ? 'error' : 'primary'}
+									value={props.values.name}
+									fieldName="Proposal name"
+									placeholder="Create proposal name"
+									onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
+								/>
+								<Input
+									variant={props.errors.description && props.touched.description ? 'error' : 'primary'}
+									value={props.values.description}
+									fieldName="Description"
+									placeholder="Description"
+									onChange={(e) => props.setValues({ ...props.values, description: e.target.value })}
+								/>
+								<VotingDuration
+									variant={props.errors.votingDuration && props.touched.votingDuration ? 'error' : 'primary'}
+									value={props.values.votingDuration}
+									setValue={(value) => props.setValues({ ...props.values, votingDuration: value })}
+								/>
+								<Dropdown
+									selected={props.values.fromDAO}
+									options={daos}
+									placeholder="From DAO"
+									onSelect={(value) => props.setValues({ ...props.values, fromDAO: value })}
+									optionLabel={(option) => option.name}
+									optionLogo={(option) => option.logo}
+									matcher={objectIdMatcher}
+								/>
+								<Input
+									value={props.values.recipientAddress}
+									variant={props.errors.recipientAddress && props.touched.recipientAddress ? 'error' : 'primary'}
+									fieldName="Recipient address"
+									placeholder="Enter recipient address"
+									onChange={(e) => props.setValues({ ...props.values, recipientAddress: e.target.value })}
+								/>
+								{props.errors.name && props.touched.name ? (
+									<ValidationError>{props.errors.name}</ValidationError>
+								) : null}
+								{props.errors.description && props.touched.description ? (
+									<ValidationError>{props.errors.description}</ValidationError>
+								) : null}
+								{props.errors.votingDuration && props.touched.votingDuration ? (
+									<ValidationError>{props.errors.votingDuration}</ValidationError>
+								) : null}
+								{props.errors.fromDAO && props.touched.fromDAO ? (
+									<ValidationError>{props.errors.fromDAO}</ValidationError>
+								) : null}
+								{props.errors.recipientAddress && props.touched.recipientAddress ? (
+									<ValidationError>{props.errors.recipientAddress}</ValidationError>
+								) : null}
+							</div>
+							<div className={css.block}>
+								<Title variant={'medium'} value="Select token type" />
+								<div className={css.tokenBlock}>
+									<RadioToken
+										selected={props.values.token}
+										options={TOKENS}
+										onSelect={(value) => {
+											if (Number(props.values.tokenAmount) > value.amount) {
+												props.setValues({ ...props.values, token: value, tokenAmount: String(value.amount) });
+											} else {
+												props.setValues({ ...props.values, token: value });
+											}
+										}}
+									/>
+									<div className={css.amountBlock}>
+										<InputNumber
+											variant={props.errors.tokenAmount && props.touched.tokenAmount ? 'error' : 'primary'}
+											value={props.values.tokenAmount}
+											placeholder="Enter token amount"
+											min={0}
+											max={props.values.token.amount}
+											onMaxAmount={() =>
+												props.setValues({ ...props.values, tokenAmount: String(props.values.token.amount) })
+											}
+											onUpdate={(value) => props.setValues({ ...props.values, tokenAmount: value })}
+										/>
+										{props.errors.tokenAmount && props.touched.tokenAmount ? (
+											<ValidationError>{props.errors.tokenAmount}</ValidationError>
+										) : null}
+										<div className={css.link}>
+											<span>Open link for more info</span>
+											<div className={css.linkButton} onClick={() => toast.error('Unimplemented')}>
+												<Icon.Common.Link />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ProposalCreateLayout>
+			)}
+		</Formik>
+	);
 }

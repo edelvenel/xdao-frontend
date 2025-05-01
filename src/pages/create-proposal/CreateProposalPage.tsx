@@ -39,8 +39,10 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 		if (dao !== null && proposalType !== null) {
 			const currentType = ProposalTypes.find((type) => type.id === proposalType.id);
 			setFormType(currentType?.id || null);
+		} else {
+			navigate(-1);
 		}
-	}, [dao, proposalType]);
+	}, [dao, navigate, proposalType]);
 
 	return (
 		<div className={css.page}>

@@ -1,4 +1,4 @@
-import { IDao, INft, IProposal, IVotingType, Social } from 'shared/types';
+import { DaoStatus, IDao, INft, IProposal, IToken, IVotingType, Social } from 'shared/types';
 import logoExample from '../../assets/images/logo-example.png';
 
 export const ProposalTypes = [
@@ -15,10 +15,12 @@ export const ProposalTypes = [
 export const DAOS_MOCK: IDao[] = [
 	{
 		id: '1',
+		address: 'Y4fk38458fme3f93mi3fc3ik44r6809',
 		logo: logoExample,
 		name: 'Example DAO 1',
 		activeProposals: 2,
 		LPTokens: 500,
+		status: DaoStatus.Transferable,
 		email: 'email@mail.com',
 		description: 'Some description',
 		consensus: 51,
@@ -37,11 +39,13 @@ export const DAOS_MOCK: IDao[] = [
 	},
 	{
 		id: '2',
+		address: '774nKO993lf0999r473fUU4574',
 		logo: logoExample,
 		name: 'Example DAO 2',
 		activeProposals: 1,
 		consensus: 43,
 		LPTokens: 300,
+		status: DaoStatus.NonTransferable,
 		email: 'xdao@mail.com',
 		social: [
 			{ type: Social.Telegram, url: 'http://t.me/' },
@@ -58,11 +62,13 @@ export const DAOS_MOCK: IDao[] = [
 	},
 	{
 		id: '3',
+		address: '9947wmvUrn38jf48003kKKD84723f53rc3',
 		logo: logoExample,
 		name: 'Example DAO 3',
 		consensus: 76,
 		activeProposals: 4,
 		LPTokens: 1000,
+		status: DaoStatus.NonTransferable,
 		email: 'example@mail.com',
 		social: [{ type: Social.Telegram, url: 'http://t.me/' }],
 		distributionRules: [
@@ -209,5 +215,29 @@ export const NFTS: INft[] = [
 		id: 'DEF12345',
 		hash: '324323234',
 		imgUrl: logoExample,
+	},
+];
+
+export const TOKENS: IToken[] = [
+	{
+		id: '0',
+		name: 'TON',
+		imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
+		amount: 125,
+		rate: 10.0987,
+	},
+	{
+		id: '1',
+		name: 'BTC',
+		imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
+		amount: 59,
+		rate: 3.0953,
+	},
+	{
+		id: '2',
+		name: 'USDT',
+		imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
+		amount: 12,
+		rate: 8.362,
 	},
 ];

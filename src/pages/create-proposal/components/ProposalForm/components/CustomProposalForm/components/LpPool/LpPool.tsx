@@ -1,19 +1,17 @@
-import cn from 'classnames';
 import React from 'react';
 import { Icon } from 'shared/icons';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { InputNumber } from 'shared/ui/InputNumber';
 import css from './styles.module.scss';
 
-const votingDurations = ['2 Days', '3 Days', '4 Days', 'Custom'];
+const LP_POOL_OPTIONS = ['0', '1', '10', 'Custom'];
 
-interface IVotingDurationProps {
-	variant?: 'primary' | 'error';
+interface ILpPoolProps {
 	value: number | null;
 	setValue: (value: number | null) => void;
 }
 
-export function VotingDuration({ value, variant = 'primary', setValue }: IVotingDurationProps) {
+export function LpPool({ value, setValue }: ILpPoolProps) {
 	const [isCustom, setIsCustom] = React.useState<boolean>(false);
 	const [selected, setSelected] = React.useState<string | null>(null);
 
@@ -22,16 +20,16 @@ export function VotingDuration({ value, variant = 'primary', setValue }: IVoting
 			setSelected(option);
 
 			switch (option) {
-				case '2 Days': {
-					setValue(2);
+				case '0': {
+					setValue(0);
 					break;
 				}
-				case '3 Days': {
-					setValue(3);
+				case '1': {
+					setValue(1);
 					break;
 				}
-				case '4 Days': {
-					setValue(4);
+				case '10': {
+					setValue(10);
 					break;
 				}
 				default:
@@ -51,25 +49,23 @@ export function VotingDuration({ value, variant = 'primary', setValue }: IVoting
 	}, [selected]);
 
 	return (
-		<div className={css.votingDuragion}>
+		<div className={css.lpPool}>
 			{!isCustom && (
 				<Dropdown
-					variant={variant}
-					placeholder="Select voting duration"
+					placeholder="Select LP pool"
 					onSelect={handleOnSelect}
-					options={votingDurations}
+					options={LP_POOL_OPTIONS}
 					selected={selected}
 				/>
 			)}
 			{isCustom && (
-				<div className={cn(css.custom, css[variant])}>
+				<div className={css.custom}>
 					<InputNumber
-						variant={variant}
 						className={css.inputNumber}
 						value={value === null ? '' : value}
 						min={0}
-						fieldName="Voting duration"
-						placeholder="Enter the number of voting duration"
+						fieldName="LP pool"
+						placeholder="Enter LP pool"
 						onUpdate={(value) => setValue(Number(value))}
 					/>
 					<div className={css.restoreButton} onClick={handleOnRestore}>
