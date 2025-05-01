@@ -1,3 +1,4 @@
+import { Address } from '@ton/core';
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import { routes } from 'app/router/routes';
 import React from 'react';
@@ -14,7 +15,11 @@ export function Header() {
 	const [isConnectWalletOpen, setIsConnectWalletOpen] = React.useState<boolean>(false);
 	const { walletAddress } = store.useWallet();
 
-	const [tonConnectUI] = useTonConnectUI();
+  const userFriendlyAddress = React.useMemo(() => {
+    return walletAddress && Address.parseRaw(walletAddress).toString({ bounceable: false });
+  }, [walletAddress]);
+
+  const [tonConnectUI] = useTonConnectUI();
 
 	const handleOnAddressClick = React.useCallback(() => {
 		hapticFeedback('press');
@@ -36,7 +41,7 @@ export function Header() {
 					<Icon.Common.Question />
 				</div>
 				<div className={css.user} onClick={handleOnAddressClick}>
-					<div className={css.text}>{walletAddress}</div>
+					<div className={css.text}>{userFriendlyAddress}</div>
 					<div className={css.icon}>
 						<Icon.Common.User />
 					</div>
@@ -51,7 +56,7 @@ export function Header() {
 			>
 				<div className={css.connectWalletModal}>
 					<div className={css.currentWallet}>
-						<div className={css.text}>{walletAddress}</div>
+						<div className={css.text}>{userFriendlyAddress}</div>
 					</div>
 
 					<div className={css.actions}>
