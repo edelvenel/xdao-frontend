@@ -91,6 +91,7 @@ export type ICreateTransferGPProposalPayload = {
 
 export const proposalsBuilders = (responseDestination: Address) => ({
   [ProposalType.AddGP]: (payload: ICreateAddGPProposalPayload) => (
+    console.log(payload.walletAddress, 'walletAddress'),
     ProposalsBuilder.buildCallJettonMint(
       JettonBuilder.buildJettonMint({
         amount: payload.tokenAmount,

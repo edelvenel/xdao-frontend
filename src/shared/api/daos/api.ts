@@ -10,3 +10,14 @@ export const getFactoryAddress = async () => {
     throw error;
   }
 };
+
+export const fetchDaos = async () => {
+  try {
+    const response = await http.get('/master-dao');
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
