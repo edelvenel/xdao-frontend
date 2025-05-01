@@ -95,7 +95,7 @@ export const proposalsBuilders = (responseDestination: Address) => ({
     ProposalsBuilder.buildCallJettonMint(
       JettonBuilder.buildJettonMint({
         amount: payload.tokenAmount,
-        fromAddress: Address.parseRaw(payload.walletAddress),
+        fromAddress: Address.parse(payload.walletAddress),
         responseDestination: responseDestination,
       })
     )
@@ -114,7 +114,7 @@ export const proposalsBuilders = (responseDestination: Address) => ({
         amount: payload.tokenAmount,
         forwardTonAmount: 1n,
         responseDestination: responseDestination,
-        destination: Address.parseRaw(payload.toWalletAddress),
+        destination: Address.parse(payload.toWalletAddress),
       }
     )
   ),

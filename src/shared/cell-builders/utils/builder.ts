@@ -4,7 +4,7 @@ import randombytes from "randombytes";
 // utility class for building cells
 export class Builder {
     protected static getQueryId() {
-        return BigInt(randombytes(8).toString("hex"));
+        return BigInt("0x" + randombytes(8).toString("hex"));
     }
 
     protected static buildWithRef(opCode: bigint | number, ref: Cell) {
