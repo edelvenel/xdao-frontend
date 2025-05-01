@@ -118,4 +118,5 @@ export const proposalsBuilders = (responseDestination: Address) => ({
       }
     )
   ),
+  [ProposalType.ChangeGeneralConsensus]: (payload: ICreateChangeGeneralConsensusProposalPayload) =>  ProposalsBuilder.buildChangeSuccessPercentage(BigInt(payload.currentConsensus)),
 });
