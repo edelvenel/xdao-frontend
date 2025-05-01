@@ -1,7 +1,8 @@
 import { PROPOSALS } from "app/mocks/constants";
 import React from "react";
 import { IProposal, ProposalType } from "shared/types";
-import { ICreateProposalPayload } from "./payloads";
+import { ICreateProposalPayload, proposalsBuilders } from "./payloads";
+import { Address } from "@ton/core";
 
 export function useProposals() {
   const [proposals, setProposals] = React.useState<IProposal[]>([]);
@@ -27,11 +28,7 @@ export function useProposals() {
       try {
         switch (payload.type) {
           case ProposalType.AddGP: {
-            console.log("Proposal successfully created", payload); // TODO: replace with real implementation
-            break;
-          }
-
-          case ProposalType.RemoveGP: {
+            // let body = proposalsBuilders(Address.parseRaw(DAOAddress))[payload.type]
             break;
           }
 

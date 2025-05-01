@@ -3,11 +3,11 @@ import React from 'react';
 import { DaoType, IDao } from 'shared/types';
 import { ICreateDaoPayload } from './payloads';
 import { useTonWallet } from 'shared/utils/useTonConnect';
-import { beginCell, Dictionary, toNano, Address } from '@ton/core';
-import { buildJettonOnchainMetadata } from 'shared/utils/buildJetton';
+import { Dictionary, toNano, Address } from '@ton/core';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-import { OP_CREATE_MASTER } from './constants';
 import { getFactoryAddress } from './api';
+import { JettonBuilder } from 'shared/cell-builders/common';
+import { DAOBuilder } from 'shared/cell-builders';
 
 export function useDaos() {
   const [daos, setDaos] = React.useState<IDao[]>([]);
@@ -68,21 +68,14 @@ export function useDaos() {
       throw error;
     }
 
-    const meta = buildJettonOnchainMetadata({
+    const meta = JettonBuilder.buildOnchainMetadata({
       name: payload.daoTokenName,
       symbol: payload.daoTokenSymbol,
       description: payload.daoName,
       image: 'https://ton.org/download/ton_symbol.png',
       decimals: '9',
     });
-
-    const body = beginCell()
-      .storeUint(OP_CREATE_MASTER, 32)
-      .storeUint(0, 64)
-      .storeRef(meta)
-      .storeUint(successPercentage, 14)
-      .storeDict(holders)
-      .endCell();
+    const body = DAOBuilder.buildCreateMaster(meta, successPercentage, holders)
 
     await tonConnectUI.sendTransaction({
       validUntil: Math.floor(Date.now() / 1000) + 120,
