@@ -45,12 +45,11 @@ export function useDaos() {
       payload.walletAddresses.forEach((addr) =>
         holders.set(Address.parse(addr), share),
       );
-      successPercentage =
-        (payload.consensus / payload.walletAddresses.length) * 1000;
+      successPercentage = Math.floor((payload.consensus / payload.walletAddresses.length) * 10000);
     } else {
       successPercentage = payload.consensusPercent * 100;
     }
-  
+      
     try {
       if (payload.type === 'equal' && payload.walletAddresses) {
         for (const address of payload.walletAddresses) {
@@ -75,6 +74,7 @@ export function useDaos() {
       image: 'https://ton.org/download/ton_symbol.png',
       decimals: '9',
     });
+    console.log(successPercentage);
     const body = DAOBuilder.buildCreateMaster(meta, successPercentage, holders)
 
     await tonConnectUI.sendTransaction({
