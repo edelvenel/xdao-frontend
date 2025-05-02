@@ -49,7 +49,7 @@ export function useDaos() {
     } else {
       successPercentage = payload.consensusPercent * 100;
     }
-      
+
     try {
       if (payload.type === 'equal' && payload.walletAddresses) {
         for (const address of payload.walletAddresses) {
@@ -74,7 +74,7 @@ export function useDaos() {
       image: 'https://ton.org/download/ton_symbol.png',
       decimals: '9',
     });
-    console.log(successPercentage);
+
     const body = DAOBuilder.buildCreateMaster(meta, successPercentage, holders)
 
     await tonConnectUI.sendTransaction({
