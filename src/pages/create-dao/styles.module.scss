@@ -1,47 +1,47 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  padding: 16px;
-  overflow: auto;
-  padding-bottom: 60px;
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	padding: 16px;
+	overflow: auto;
+	padding-bottom: 60px;
 
-  .block {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 30px;
-    background-color: var(--semantic-card-background);
-  }
+	.block {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 12px;
+		border-radius: 30px;
+		background-color: var(--semantic-card-background);
+	}
+}
 
-  .createButton {
-    display: flex;
-    padding: 16px;
-    position: absolute;
-    right: 0;
-    bottom: 100px;
-    left: 0;
-  }
+.createButton {
+	display: flex;
+	padding: 16px;
+	position: absolute;
+	right: 0;
+	bottom: 100px;
+	left: 0;
 }
 
 .success {
-  background-image: url("/src/assets/images/background.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+	background-image: url('/src/assets/images/background.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .infoBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 16px;
 
-  .textBlock {
-    text-align: left;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-  }
+	.textBlock {
+		text-align: left;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 20px;
+	}
 }

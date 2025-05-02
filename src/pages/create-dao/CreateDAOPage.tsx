@@ -1,4 +1,7 @@
+import { TopContent } from 'app/navigation/components/top-content';
 import cn from 'classnames';
+import { Formik, FormikErrors, FormikProps } from 'formik';
+import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos';
@@ -16,20 +19,32 @@ import { TabProportional } from './components/TabProportional';
 import { Tabs } from './components/Tabs';
 import { ITab } from './components/Tabs/types';
 import css from './styles.module.scss';
+import { getValidationSchema, IForm, initialValues } from './types';
+
+const getErrors = (errors: string | string[] | FormikErrors<IDistributionRule>[]) => {
+	switch (typeof errors) {
+		case 'string': {
+			return [errors];
+		}
+		case 'object': {
+			if (Array.isArray(errors)) {
+				return Array.from(
+					errors.flatMap((e, idx) => {
+						if (typeof e === 'string') {
+							return e;
+						} else {
+							return idx === 0 ? [e.walletAddress, e.tokens, e.percent].join('; ') : [];
+						}
+					})
+				);
+			}
+		}
+	}
+};
 
 export const CreateDAOPage = React.memo(function CreateDAOPage() {
-	const [daoName, setDaoName] = React.useState<string>('');
-	const [daoTokenName, setDaoTokenName] = React.useState<string>('');
-	const [daoTokenSymbol, setDaoTokenSymbol] = React.useState<string>('');
 	const [selectedTabIdx, setSelectedTabIdx] = React.useState<number>(0);
-	const [walletAddresses, setWalletAddresses] = React.useState<string[]>(['', '', '']);
-	const [distributionRules, setDistributionRules] = React.useState<IDistributionRule[]>([
-		{ walletAddress: '', tokens: null, percent: 30 },
-		{ walletAddress: '', tokens: null, percent: 30 },
-	]);
-	const [consensus, setConsensus] = React.useState<number>(1);
-	const [isManualConsensus, setIsManualConsensus] = React.useState<boolean>(false);
-	const [consensusPercent, setConsensusPercent] = React.useState<number>(50);
+	const [validationSchema, setValidationSchema] = React.useState(getValidationSchema(0));
 	const [isSuccess, setIsSuccess] = React.useState<boolean | null>(null);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
@@ -40,137 +55,180 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 
 	useBackButton();
 
-	const tabs: ITab[] = React.useMemo(() => {
-		return [
-			{
-				title: 'Equal',
-				content: (
-					<TabEqual
-						walletAddresses={walletAddresses}
-						setWalletAddresses={setWalletAddresses}
-						consensus={consensus}
-						setConsensus={setConsensus}
-						onSetupInfo={() => setIsOpenSetupInfoModal(true)}
-					/>
-				),
-			},
-			{
-				title: 'Proportional',
-				content: (
-					<TabProportional
-						isManualConsensus={isManualConsensus}
-						setIsManualConsensus={setIsManualConsensus}
-						onInfo={() => setIsInfoOpen(true)}
-						currentConsensus={consensusPercent}
-						setCurrentConsensus={setConsensusPercent}
-						distributionRules={distributionRules}
-						setDistributionRules={setDistributionRules}
-					/>
-				),
-			},
-		];
-	}, [consensus, consensusPercent, distributionRules, isManualConsensus, walletAddresses]);
+	const getTabs = React.useCallback(
+		(props: FormikProps<IForm>): ITab[] => {
+			return [
+				{
+					title: 'Equal',
+					content: (
+						<TabEqual
+							walletAddresses={props.values.walletAddresses}
+							setWalletAddresses={(value) => {
+								props.setValues({ ...props.values, walletAddresses: value });
+								setValidationSchema(getValidationSchema(selectedTabIdx));
+							}}
+							consensus={props.values.consensus}
+							setConsensus={(value) => props.setValues({ ...props.values, consensus: value })}
+							onSetupInfo={() => setIsOpenSetupInfoModal(true)}
+						/>
+					),
+				},
+				{
+					title: 'Proportional',
+					content: (
+						<TabProportional
+							isManualConsensus={props.touched.currentConsensusManual ?? false}
+							setIsManualConsensus={() => props.setTouched({ currentConsensusManual: true })}
+							onInfo={() => setIsInfoOpen(true)}
+							currentConsensus={props.values.consensusPercent}
+							setCurrentConsensus={(value) => props.setValues({ ...props.values, consensusPercent: value })}
+							distributionRules={props.values.distributionRules}
+							setDistributionRules={(value) => props.setValues({ ...props.values, distributionRules: value })}
+						/>
+					),
+				},
+			];
+		},
+		[selectedTabIdx]
+	);
 
-	const handleOnCreate = React.useCallback(async () => {
-		if (selectedTabIdx === 0) {
-			const payload: ICreateDaoEqualPayload = {
-				type: DaoType.Equal,
-				daoName,
-				daoTokenName,
-				daoTokenSymbol,
-				consensus,
-				walletAddresses,
-			};
-			try {
-				await createDao(payload);
-				setIsSuccess(true);
-			} catch {
-				setIsSuccess(false);
+	const handleOnSubmit = React.useCallback(
+		async (values: IForm) => {
+			if (selectedTabIdx === 0) {
+				const payload: ICreateDaoEqualPayload = {
+					type: DaoType.Equal,
+					daoName: values.name,
+					daoTokenName: values.tokenName,
+					daoTokenSymbol: values.tokenSymbol,
+					consensus: values.consensus,
+					walletAddresses: values.walletAddresses,
+				};
+				try {
+					await createDao(payload);
+					setIsSuccess(true);
+				} catch {
+					setIsSuccess(false);
+				}
+			} else if (selectedTabIdx === 1) {
+				const payload: ICreateDaoProportionalPayload = {
+					type: DaoType.Proportional,
+					daoName: values.name,
+					daoTokenName: values.tokenName,
+					daoTokenSymbol: values.tokenSymbol,
+					consensusPercent: values.consensusPercent,
+				};
+				try {
+					await createDao(payload);
+					setIsSuccess(true);
+				} catch {
+					setIsSuccess(false);
+				}
 			}
-		} else if (selectedTabIdx === 1) {
-			const payload: ICreateDaoProportionalPayload = {
-				type: DaoType.Proportional,
-				daoName,
-				daoTokenName,
-				daoTokenSymbol,
-				consensusPercent,
-			};
-			try {
-				await createDao(payload);
-				setIsSuccess(true);
-			} catch {
-				setIsSuccess(false);
-			}
-		}
-	}, [consensus, consensusPercent, createDao, daoName, daoTokenName, daoTokenSymbol, selectedTabIdx, walletAddresses]);
+		},
+		[createDao, selectedTabIdx]
+	);
 
 	React.useEffect(() => {
 		setIsHeaderShown(true);
 		setIsMenuShown(true);
 	}, [setIsHeaderShown, setIsMenuShown]);
 
+	React.useEffect(() => {
+		setValidationSchema(getValidationSchema(selectedTabIdx));
+	}, [selectedTabIdx]);
+
 	return (
-		<div className={css.page}>
-			<div className={css.block}>
-				<Title value="Create DAO" variant="medium" />
-				<Input
-					value={daoName}
-					fieldName="DAO name"
-					placeholder="Create DAO name"
-					onChange={(e) => setDaoName(e.target.value)}
-				/>
-				<Input
-					value={daoTokenName}
-					fieldName="DAO token name"
-					placeholder="Create DAO token name"
-					onChange={(e) => setDaoTokenName(e.target.value)}
-				/>
-				<Input
-					value={daoTokenSymbol}
-					fieldName="DAO token symbol"
-					placeholder="Create DAO token symbol"
-					onChange={(e) => setDaoTokenSymbol(e.target.value)}
-				/>
-			</div>
-
-			<Tabs selectedTabIdx={selectedTabIdx} onSelect={setSelectedTabIdx} tabs={tabs} />
-
-			<div className={css.createButton}>
-				<Button onClick={handleOnCreate}>Create</Button>
-			</div>
-
-			{isOpenSetupInfoModal && (
-				<Modal title="Set-up consensus" onClose={() => setIsOpenSetupInfoModal(false)}>
-					<div className={css.infoBlock}>
-						<div className={css.textBlock}>Defines how many GP holders must approve a proposal for it to pass.</div>
-						<div className={css.textBlock}>
-							For example, “2 of 3” means that out of 3 total GPs, at least 2 must vote in favor.
-						</div>
-						<div className={css.textBlock}>
-							You can adjust this number depending on how decentralized or strict the decision-making should be.
-						</div>
+		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
+			{(props) => (
+				<div className={css.page}>
+					<div className={css.block}>
+						<Title value="Create DAO" variant="medium" />
+						<Input
+							value={props.values.name}
+							variant={props.touched.name && props.errors.name ? 'error' : 'primary'}
+							fieldName="DAO name"
+							placeholder="Create DAO name"
+							onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
+						/>
+						<Input
+							value={props.values.tokenName}
+							variant={props.touched.tokenName && props.errors.tokenName ? 'error' : 'primary'}
+							fieldName="DAO token name"
+							placeholder="Create DAO token name"
+							onChange={(e) => props.setValues({ ...props.values, tokenName: e.target.value })}
+						/>
+						<Input
+							value={props.values.tokenSymbol}
+							variant={props.touched.tokenSymbol && props.errors.tokenSymbol ? 'error' : 'primary'}
+							fieldName="DAO token symbol"
+							placeholder="Create DAO token symbol"
+							onChange={(e) => props.setValues({ ...props.values, tokenSymbol: e.target.value })}
+						/>
+						{props.errors.name && props.touched.name ? <ValidationError>{props.errors.name}</ValidationError> : null}
+						{props.errors.tokenName && props.touched.tokenName ? (
+							<ValidationError>{props.errors.tokenName}</ValidationError>
+						) : null}
+						{props.errors.tokenSymbol && props.touched.tokenSymbol ? (
+							<ValidationError>{props.errors.tokenSymbol}</ValidationError>
+						) : null}
 					</div>
-				</Modal>
-			)}
 
-			{isInfoOpen && (
-				<Modal title="Current consensus" onClose={() => setIsInfoOpen(false)}>
-					<div className={css.infoBlock}>
-						<div className={css.textBlock}>
-							This is the minimum percentage of GP token votes needed to approve a proposal.
-						</div>
-						<div className={css.textBlock}>
-							Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
-						</div>
-					</div>
-				</Modal>
-			)}
+					<Tabs selectedTabIdx={selectedTabIdx} onSelect={setSelectedTabIdx} tabs={getTabs(props)} />
+					{selectedTabIdx === 0 && props.errors.consensus && props.touched.consensus ? (
+						<ValidationError>{props.errors.consensus}</ValidationError>
+					) : null}
+					{selectedTabIdx === 0 && props.errors.walletAddresses && props.touched.walletAddresses ? (
+						<ValidationError>{props.errors.walletAddresses[0]}</ValidationError>
+					) : null}
+					{selectedTabIdx === 1 && props.errors.consensusPercent && props.touched.consensusPercent ? (
+						<ValidationError>{props.errors.consensusPercent}</ValidationError>
+					) : null}
+					{selectedTabIdx === 1 && props.errors.distributionRules && props.touched.distributionRules ? (
+						<ValidationError>{'Distribution rule error: ' + getErrors(props.errors.distributionRules)}</ValidationError>
+					) : null}
 
-			{isSuccess !== null && (
-				<Modal onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
-					<DaoCreateResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsSuccess(null)} />
-				</Modal>
+					<TopContent>
+						<div className={css.createButton}>
+							<Button type="submit" onClick={() => props.handleSubmit()}>
+								Create
+							</Button>
+						</div>
+					</TopContent>
+
+					{isOpenSetupInfoModal && (
+						<Modal title="Set-up consensus" onClose={() => setIsOpenSetupInfoModal(false)}>
+							<div className={css.infoBlock}>
+								<div className={css.textBlock}>Defines how many GP holders must approve a proposal for it to pass.</div>
+								<div className={css.textBlock}>
+									For example, “2 of 3” means that out of 3 total GPs, at least 2 must vote in favor.
+								</div>
+								<div className={css.textBlock}>
+									You can adjust this number depending on how decentralized or strict the decision-making should be.
+								</div>
+							</div>
+						</Modal>
+					)}
+
+					{isInfoOpen && (
+						<Modal title="Current consensus" onClose={() => setIsInfoOpen(false)}>
+							<div className={css.infoBlock}>
+								<div className={css.textBlock}>
+									This is the minimum percentage of GP token votes needed to approve a proposal.
+								</div>
+								<div className={css.textBlock}>
+									Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
+								</div>
+							</div>
+						</Modal>
+					)}
+
+					{isSuccess !== null && (
+						<Modal onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
+							<DaoCreateResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsSuccess(null)} />
+						</Modal>
+					)}
+				</div>
 			)}
-		</div>
+		</Formik>
 	);
 });
