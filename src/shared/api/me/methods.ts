@@ -1,4 +1,4 @@
-import { http } from "app/http";
+import { api } from "app/api";
 import { ILinkWalletPayload } from "./payloads";
 import {
   IGetBalanceResponse,
@@ -8,19 +8,19 @@ import {
 } from "./responses";
 
 export const getMe = async (): Promise<IGetMeResponse> => {
-  const response = await http.get(`/user/me`);
+  const response = await api.v1.getMe();
 
   return response.data;
-};
+};  
 
 export const getBalance = async (): Promise<IGetBalanceResponse> => {
-  const response = await http.get(`/user/me/balance`);
+  const response = await api.v1.getBalance();
 
   return response.data;
 };
 
 export const getNfts = async (): Promise<IGetNftsResponse> => {
-  const response = await http.get(`/user/me/nfts`);
+  const response = await api.v1.getNfts();
 
   return response.data;
 };
@@ -28,7 +28,7 @@ export const getNfts = async (): Promise<IGetNftsResponse> => {
 export const linkWallet = async (
   payload: ILinkWalletPayload
 ): Promise<ILinkWalletResponse> => {
-  const response = await http.post(`/user/me/wallet`, payload);
+  const response = await api.v1.linkWallet(payload);
 
   return response.status === 204;
 };
