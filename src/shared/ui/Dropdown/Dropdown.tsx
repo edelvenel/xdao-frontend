@@ -43,6 +43,7 @@ export function Dropdown<T>({
 				apply({ rects, elements }) {
 					Object.assign(elements.floating.style, {
 						minWidth: `${rects.reference.width}px`,
+						maxWidth: `${rects.reference.width}px`,
 					});
 				},
 			}),
@@ -84,8 +85,8 @@ export function Dropdown<T>({
 					{optionLogo && selected && (
 						<div className={css.logo} style={{ backgroundImage: `url(${optionLogo(selected)})` }} />
 					)}
-					{label && <span>{label}: </span>}
-					{selected && <span>{optionLabel(selected)}</span>}
+					{label && <span className={css.text}>{label}: </span>}
+					{selected && <span className={css.text}>{optionLabel(selected)}</span>}
 				</span>
 				<Icon.Common.ChevronDown className={cn(css.icon, isOpen && css.reversed)} />
 			</div>
