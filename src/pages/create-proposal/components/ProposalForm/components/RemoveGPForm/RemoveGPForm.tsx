@@ -36,6 +36,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 				description: values.description,
 				gpToRemove: values.gpToRemove,
 				votingDuration: Number(values.votingDuration),
+				tokenAmount: Number(values.tokenAmount),
 			};
 
 			try {

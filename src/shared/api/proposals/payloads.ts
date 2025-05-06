@@ -25,6 +25,7 @@ export type ICreateRemoveGPProposalPayload = {
 	description: string;
 	gpToRemove: string;
 	votingDuration: number;
+	tokenAmount: number;
 };
 
 export type ICreateChangeDAONameProposalPayload = {
