@@ -1,13 +1,33 @@
 .vote {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
 
-  .name {
-    text-align: center;
-    color: var(--semantic-text-secondary);
-    font-size: 16px;
-    font-weight: 500;
-  }
+	.infoText {
+		text-align: center;
+		color: var(--semantic-text-non-active);
+		font-size: 16px;
+		font-weight: 500;
+	}
+
+	.voteButton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		height: 96px;
+		font-size: 18px;
+		font-weight: 600;
+		border-radius: 32px;
+		background-color: var(--semantic-background-tetriary);
+		cursor: pointer;
+		user-select: none;
+
+		.reachText {
+			font-size: 12px;
+			font-weight: 600;
+			color: var(--semantic-text-accent-2);
+		}
+	}
 }
