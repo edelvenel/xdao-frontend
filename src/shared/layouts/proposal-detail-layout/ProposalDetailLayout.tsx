@@ -1,35 +1,46 @@
-import { PropsWithChildren } from "react";
-import { Button } from "shared/ui/Button";
-import css from "./styles.module.scss";
+import cn from 'classnames';
+import { PropsWithChildren } from 'react';
+import { IUserVote } from 'shared/types';
+import { Button } from 'shared/ui/Button';
+import { Title } from 'shared/ui/Title';
+import css from './styles.module.scss';
 
 interface IProposalDetailProps extends PropsWithChildren {
-  isVotingEnabled: boolean;
-  onVote: () => void;
-  onBack: () => void;
+	isVotingEnabled: boolean;
+	userVote: IUserVote | null;
+	onVote: () => void;
+	onBack: () => void;
 }
 
-export function ProposalDetailLayout({
-  isVotingEnabled,
-  onVote,
-  onBack,
-  children,
-}: IProposalDetailProps) {
-  return (
-    <div className={css.layout}>
-      <div className={css.content}>{children}</div>
-      {isVotingEnabled && (
-        <div className={css.actions}>
-          <Button onClick={onBack} variant="secondary">
-            Back
-          </Button>
-          <Button onClick={onVote}>Vote</Button>
-        </div>
-      )}
-      {!isVotingEnabled && (
-        <div className={css.info}>
-          Only GP token holders can vote on this on-chain proposal
-        </div>
-      )}
-    </div>
-  );
+export function ProposalDetailLayout({ isVotingEnabled, userVote, onVote, onBack, children }: IProposalDetailProps) {
+	return (
+		<div className={cn(css.layout, isVotingEnabled && css.voteEnabled)}>
+			<div className={css.content}>{children}</div>
+			{isVotingEnabled && userVote === null && (
+				<div className={css.actions}>
+					<Button onClick={onBack} variant="secondary">
+						Back
+					</Button>
+					<Button onClick={onVote}>Vote</Button>
+				</div>
+			)}
+			{userVote !== null && (
+				<div className={css.voted}>
+					<div className={css.info}>
+						<div className={css.title}>
+							<Title variant="medium" value="You have already voted" />
+						</div>
+						<div className={css.row}>
+							<span>You vote:</span>
+							<span className={css.accent}>{`${userVote.label} (${userVote.impact}%)`}</span>
+						</div>
+					</div>
+					<Button onClick={onBack} variant="secondary">
+						Back
+					</Button>
+				</div>
+			)}
+			{!isVotingEnabled && <div className={css.info}>Only GP token holders can vote on this on-chain proposal</div>}
+		</div>
+	);
 }

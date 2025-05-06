@@ -1,29 +1,40 @@
 .search {
-  display: flex;
-  gap: 10px;
-  padding: 12px 14px;
-  border: none;
-  border-radius: 32px;
-  color: var(--semantic-text-primary);
-  background-color: var(--semantic-background-tetriary);
+	flex: 1;
+	position: relative;
+	display: flex;
+	border: none;
+	height: 44px;
+	border-radius: 32px;
+	color: var(--semantic-text-primary);
+	background-color: var(--semantic-background-tetriary);
 
-  .icon {
-    width: 20px;
-    height: 20px;
-    color: var(--semantic-text-secondary);
-  }
+	.icon {
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		left: 14px;
+		top: 12px;
+		color: var(--semantic-text-secondary);
+		pointer-events: none;
+	}
 
-  .input {
-    font-family: var(--font-regular);
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 17px;
-    padding: 0;
-    background: none;
-    outline: none;
+	.input {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		font-family: var(--font-regular);
+		font-weight: 500;
+		font-size: 15px;
+		line-height: 17px;
+		padding: 12px 14px;
+		padding-left: calc(14px + 20px + 10px);
+		background: none;
+		outline: none;
 
-    &::placeholder {
-      color: var(--semantic-text-secondary);
-    }
-  }
+		&::placeholder {
+			color: var(--semantic-text-secondary);
+		}
+	}
 }

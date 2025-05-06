@@ -79,14 +79,13 @@ export interface IProposal {
 	description: string;
 	consensus: number;
 	endDate: Date;
-	votes: {
-		agree: number;
-		disagree: number;
-	};
+	createdAt: Date;
+	votes: IVote;
 	status: IProposalStatus;
 	type: IProposalType;
 	dao: IDao;
 	votingType?: IVotingType;
+	userVote: IUserVote | null;
 }
 
 export interface IProposalStatus {
@@ -109,4 +108,13 @@ export type IDistributionRule = {
 	walletAddress: string;
 	tokens: number | null;
 	percent: number | null;
+};
+
+export type IVote = {
+	agree: { walletAddress: string; impact: number }[];
+};
+
+export type IUserVote = {
+	label: string;
+	impact: number;
 };

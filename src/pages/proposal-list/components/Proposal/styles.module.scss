@@ -1,87 +1,107 @@
 .proposal {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid var(--semantic-card-edge);
-  border-radius: 32px;
-  background-color: var(--semantic-card-background);
-  color: var(--semantic-text-primary);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 12px;
+	border: 1px solid var(--semantic-card-edge);
+	border-radius: 32px;
+	background-color: var(--semantic-card-background);
+	color: var(--semantic-text-primary);
+	max-width: 100%;
 
-  .block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 32px;
-    border: 1px solid var(--semantic-background-tetriary);
-    padding: 12px 20px;
-    min-height: 64px;
-    background-color: var(--semantic-background-tetriary);
+	.block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-radius: 32px;
+		border: 1px solid var(--semantic-background-tetriary);
+		padding: 12px 20px;
+		min-height: 64px;
+		background-color: var(--semantic-background-tetriary);
 
-    .label {
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 16px;
-      color: var(--semantic-text-non-active);
-    }
+		.label {
+			font-size: 12px;
+			font-weight: 600;
+			line-height: 16px;
+			color: var(--semantic-text-non-active);
+		}
 
-    .name {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 21px;
-    }
+		.name {
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 21px;
+		}
 
-    .value {
-      font-size: 15px;
-      font-weight: 500;
-    }
-  }
+		.value {
+			font-size: 15px;
+			font-weight: 500;
+		}
+	}
 
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+	.column {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
 
-  .row {
-    display: flex;
-    align-items: first baseline;
-    flex-direction: row;
-    gap: 4px;
-  }
+	.row {
+		display: flex;
+		align-items: first baseline;
+		flex-direction: row;
+		gap: 4px;
+	}
 
-  .description {
-    font-size: 15px;
-    font-weight: 500;
-  }
+	.description {
+		font-size: 15px;
+		font-weight: 500;
+	}
 
-  .blockVote {
-    display: flex;
-    flex-direction: row;
-    font-size: 18px;
-    font-weight: 600;
-    gap: 12px;
+	.blockVote {
+		flex: 1;
+		display: flex;
+		flex-direction: row;
+		font-size: 18px;
+		font-weight: 600;
+		gap: 12px;
 
-    .button {
-      display: flex;
-      flex: 1;
-    }
+		.button {
+			display: flex;
+			overflow: hidden;
+			flex: 1;
 
-    .vote {
-      display: flex;
-      gap: 10px;
-      padding: 5px 12px;
-      border-radius: 32px;
-      background-color: var(--semantic-background-tetriary);
-      align-items: center;
+			.votedText {
+				text-align: left;
+				white-space: nowrap;
+				max-width: 80%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
 
-      &.agree {
-        color: var(--semantic-text-accent);
-      }
+		.vote {
+			display: flex;
+			width: 120px;
+			gap: 10px;
+			justify-content: center;
+			padding: 5px 12px;
+			border-radius: 32px;
+			background-color: var(--semantic-background-tetriary);
+			align-items: center;
+			color: var(--semantic-text-accent);
+		}
+	}
+}
 
-      &.disagree {
-        color: var(--semantic-text-accent-2);
-      }
-    }
-  }
+.voted {
+	flex: 1;
+	display: flex;
+	gap: 7px;
+	color: var(--semantic-text-secondary);
+	overflow: hidden;
+
+	.votedIcon {
+		min-width: 18px;
+		max-width: 18px;
+	}
 }
