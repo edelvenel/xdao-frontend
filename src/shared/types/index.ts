@@ -5,6 +5,7 @@ export type IIconComponent = JSX.Element;
 
 export type IDao = {
 	id: string;
+	address: string;
 	logo: string;
 	name: string;
 	activeProposals: number;
@@ -12,6 +13,7 @@ export type IDao = {
 	description?: string;
 	email?: string;
 	social: ISocial[];
+	status: DaoStatus;
 	consensus: number;
 	distributionRules: IDistributionRule[];
 	slots: {
@@ -19,6 +21,11 @@ export type IDao = {
 		reserved: number;
 	};
 };
+
+export enum DaoStatus {
+	Transferable = 'transferable',
+	NonTransferable = 'non-transferable',
+}
 
 export type ISocial = {
 	type: Social;

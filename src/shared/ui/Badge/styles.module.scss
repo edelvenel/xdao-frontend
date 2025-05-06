@@ -1,16 +1,20 @@
 .badge {
-  padding: 2px 10px;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 20px;
+	padding: 2px 10px;
+	font-size: 15px;
+	font-weight: 500;
+	border-radius: 20px;
 
-  &.yellow {
-    background-color: var(--semantic-button-notifications);
-    color: var(--semantic-text-dark);
-  }
+	&.yellow {
+		background-color: var(--semantic-button-notifications);
+		color: var(--semantic-text-dark);
+	}
 
-  &.blue {
-    background-color: var(--semantic-button-primary);
-    color: var(--semantic-text-primary);
-  }
+	&.blue {
+		background-color: var(--semantic-button-primary);
+		color: var(--semantic-text-primary);
+	}
+
+	&.capitalized {
+		text-transform: capitalize;
+	}
 }

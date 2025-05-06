@@ -14,8 +14,6 @@ export function AppLayout({ children }: IAppLayoutProps) {
 		[isMenuShown, isTopContent]
 	);
 
-	console.log(isTopContent);
-
 	return (
 		<div className={cn(css.layout, isBackground && css.background)} style={{ paddingBottom }}>
 			{isHeaderShown && <Header />}

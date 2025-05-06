@@ -49,7 +49,7 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 					<div className={css.logo} style={{ backgroundImage: `url(${dao.logo})` }} />
 					<div className={css.blockList}>
 						<div className={css.addressBlock}>
-							<span className={css.text}>Y5237J4838LD483483Dj4838e</span>
+							<span className={css.text}>{dao.address}</span>
 						</div>
 						<div className={css.iconBlock} onClick={() => toast.error('Unimplemented')}>
 							<Icon.Common.Scan />
@@ -59,6 +59,8 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className={css.card}>
 				<div className={css.field}>
 					<div className={css.name}>DAO name</div>
 					<EditableInput

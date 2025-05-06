@@ -1,107 +1,118 @@
 .dropdown {
-  .logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 32px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+	.logo {
+		width: 32px;
+		height: 32px;
+		border-radius: 32px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
 
-  .selected {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 9px 20px;
-    background-color: var(--semantic-background-tetriary);
-    border-radius: 32px;
-    min-height: 52px;
-    position: relative;
+	.selected {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		padding: 9px 20px;
+		background-color: var(--semantic-background-tetriary);
+		border-radius: 32px;
+		min-height: 52px;
+		position: relative;
 
-    .option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 33px;
-      max-height: 51px;
-      letter-spacing: -0.15px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+		.option {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 33px;
+			max-height: 51px;
+			letter-spacing: -0.15px;
 
-      &.placeholder {
-        color: var(--semantic-text-secondary);
-      }
+			.text {
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
 
-      .icon {
-        width: 20px;
-        height: 20px;
-        color: var(--semantic-text-primary);
-      }
-    }
-  }
+			&.primary {
+				color: var(--semantic-text-secondary);
+			}
 
-  .icon {
-    color: var(--semantic-text-primary);
-    &.reversed {
-      transform: rotate(180deg);
-    }
-  }
+			&.placeholder {
+				color: var(--semantic-text-secondary);
+			}
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    max-height: 300px;
-    padding: 8px;
-    border-radius: 32px;
-    background-color: var(--semantic-background-tetriary);
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
-    overflow: auto;
-    z-index: 1;
+			&.error {
+				color: var(--semantic-text-error);
+			}
 
-    .option {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      line-height: 33px;
-      gap: 8px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+			.icon {
+				width: 20px;
+				height: 20px;
+				color: var(--semantic-text-primary);
+			}
+		}
+	}
 
-      &.paddingWithLogo {
-        padding: 6px 16px 6px 8px;
-      }
+	.icon {
+		color: var(--semantic-text-primary);
+		&.reversed {
+			transform: rotate(180deg);
+		}
+	}
 
-      &.paddingWithoutLogo {
-        padding: 6px 16px;
-      }
+	.options {
+		display: flex;
+		flex-direction: column;
+		max-height: 300px;
+		padding: 8px;
+		border-radius: 32px;
+		background-color: var(--semantic-background-tetriary);
+		box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+		overflow: auto;
+		z-index: 1;
 
-      .optionInfo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-        gap: 10px;
-      }
+		.option {
+			flex-shrink: 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			line-height: 33px;
+			gap: 8px;
 
-      &.active {
-        background-color: var(--color-base-neutral-7);
-        border-radius: 32px;
-        color: var(--semantic-text-accent);
-      }
+			&.paddingWithLogo {
+				padding: 6px 16px 6px 8px;
+			}
 
-      .icon {
-        width: 20px;
-        height: 20px;
-      }
+			&.paddingWithoutLogo {
+				padding: 6px 16px;
+			}
 
-      .label {
-      }
-    }
-  }
+			.optionInfo {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: row;
+				gap: 10px;
+			}
+
+			&.active {
+				background-color: var(--color-base-neutral-7);
+				border-radius: 32px;
+				color: var(--semantic-text-accent);
+			}
+
+			.icon {
+				width: 20px;
+				height: 20px;
+			}
+
+			.label {
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+		}
+	}
 }

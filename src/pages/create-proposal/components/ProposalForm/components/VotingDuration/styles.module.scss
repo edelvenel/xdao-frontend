@@ -1,37 +1,45 @@
 .votingDuragion {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 .custom {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  height: 50px;
-  padding-right: 15px;
-  overflow: hidden;
-  border-radius: 32px;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 20px;
-  min-height: 52px;
-  color: var(--semantic-text-primary);
-  background-color: var(--semantic-background-tetriary);
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+	height: 50px;
+	padding-right: 15px;
+	overflow: hidden;
+	border-radius: 32px;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 20px;
+	min-height: 52px;
 
-  .restoreButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--semantic-text-secondary);
-  }
+	background-color: var(--semantic-background-tetriary);
 
-  .inputNumber {
-    flex: 1;
-    padding: 0;
-    background: none;
-    outline: none;
-    border: none;
-  }
+	&.primary {
+		color: var(--semantic-text-primary);
+	}
+
+	&.error {
+		color: var(--semantic-text-error);
+	}
+
+	.restoreButton {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: var(--semantic-text-secondary);
+	}
+
+	.inputNumber {
+		flex: 1;
+		padding: 0;
+		background: none;
+		outline: none;
+		border: none;
+	}
 }

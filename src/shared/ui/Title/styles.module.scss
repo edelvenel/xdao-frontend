@@ -1,16 +1,18 @@
 .title {
-  font-family: var(--font-regular);
-  color: var(--semantic-text-primary);
-  text-align: center;
-  line-height: 32px;
+	font-family: var(--font-regular);
+	color: var(--semantic-text-primary);
+	text-align: center;
+	line-height: 32px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
-  &.large {
-    font-size: 24px;
-    font-weight: 800;
-  }
+	&.large {
+		font-size: 24px;
+		font-weight: 800;
+	}
 
-  &.medium {
-    font-size: 20px;
-    font-weight: 600;
-  }
+	&.medium {
+		font-size: 20px;
+		font-weight: 600;
+	}
 }
