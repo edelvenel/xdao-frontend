@@ -35,6 +35,15 @@
 				padding-left: 4px;
 				padding-right: 4px;
 				align-items: center;
+				overflow: hidden;
+
+				&.left {
+					justify-content: flex-start;
+				}
+
+				&.center {
+					justify-content: center;
+				}
 			}
 		}
 

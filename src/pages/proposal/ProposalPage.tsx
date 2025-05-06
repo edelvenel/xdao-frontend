@@ -48,7 +48,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 		<div className={css.page}>
 			{!!proposal && <ProposalDetails proposal={proposal} onVote={() => setIsOnVote(true)} />}
 			{!!proposal && isOnVote && (
-				<Modal onClose={() => setIsOnVote(false)} title={proposal.name}>
+				<Modal onClose={() => setIsOnVote(false)} titleAlign="center" title={proposal.name}>
 					<Vote
 						currentPercent={20} //TODO: replace with appropriate real data
 						voteImpact={32} //TODO: replace with appropriate real data

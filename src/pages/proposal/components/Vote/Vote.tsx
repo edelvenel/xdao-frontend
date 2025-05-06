@@ -16,7 +16,7 @@ export function Vote({ currentPercent, totalPercent, voteImpact, onConfirm }: IV
 	const [voteDisabled, setVoteDisabled] = React.useState<boolean>(false);
 
 	const handleOnConfirm = React.useCallback(() => {
-		if (!answer) {
+		if (answer) {
 			setVoteDisabled(true);
 			setTimeout(() => onConfirm(answer), 1000);
 		}

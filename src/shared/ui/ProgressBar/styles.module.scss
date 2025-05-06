@@ -39,6 +39,7 @@
 		padding: 18px 20px;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		overflow: hidden;
 		user-select: none;
 		--dark-width: 50%;
@@ -52,6 +53,7 @@
 		.currentPercent {
 			font-size: 15px;
 			font-weight: 600;
+			line-height: 1;
 			-webkit-text-fill-color: transparent;
 		}
 
@@ -63,12 +65,14 @@
 			.totalPercent {
 				font-size: 15px;
 				font-weight: 600;
+				line-height: 1;
 				-webkit-text-fill-color: transparent;
 			}
 
 			.leftPercent {
 				font-size: 12px;
 				font-weight: 600;
+				line-height: 1;
 				color: var(--semantic-text-non-active);
 			}
 		}
@@ -97,6 +101,7 @@
 			font-size: 15px;
 			font-weight: 600;
 			-webkit-text-fill-color: transparent;
+			line-height: 1;
 		}
 	}
 }
