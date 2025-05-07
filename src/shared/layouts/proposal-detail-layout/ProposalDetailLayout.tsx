@@ -14,7 +14,7 @@ interface IProposalDetailProps extends PropsWithChildren {
 
 export function ProposalDetailLayout({ isVotingEnabled, userVote, onVote, onBack, children }: IProposalDetailProps) {
 	return (
-		<div className={cn(css.layout, isVotingEnabled && css.voteEnabled)}>
+		<div className={cn(css.layout, isVotingEnabled && css.voteEnabled, userVote !== null && css.voted)}>
 			<div className={css.content}>{children}</div>
 			{isVotingEnabled && userVote === null && (
 				<div className={css.actions}>
@@ -40,7 +40,9 @@ export function ProposalDetailLayout({ isVotingEnabled, userVote, onVote, onBack
 					</Button>
 				</div>
 			)}
-			{!isVotingEnabled && <div className={css.info}>Only GP token holders can vote on this on-chain proposal</div>}
+			{!isVotingEnabled && (
+				<div className={css.infoBlock}>Only GP token holders can vote on this on-chain proposal</div>
+			)}
 		</div>
 	);
 }
