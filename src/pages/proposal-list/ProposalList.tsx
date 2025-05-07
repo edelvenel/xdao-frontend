@@ -59,16 +59,10 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 					onCreate={handleOnCreate}
 				/>
 			</TopContent>
-			{isFilterOpen && (
-				<Modal title="Filter" onClose={() => setIsFilterOpen(false)}>
-					<Filter
-						selected={filter}
-						options={FILTER_OPTIONS}
-						onApply={setFilter}
-						onClose={() => setIsFilterOpen(false)}
-					/>
-				</Modal>
-			)}
+
+			<Modal isOpen={isFilterOpen} title="Filter" onClose={() => setIsFilterOpen(false)}>
+				<Filter selected={filter} options={FILTER_OPTIONS} onApply={setFilter} onClose={() => setIsFilterOpen(false)} />
+			</Modal>
 		</div>
 	);
 });

@@ -1,5 +1,6 @@
 import { autoPlacement, autoUpdate, offset, size, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
 import cn from 'classnames';
+import { AnimatePresence, motion } from 'motion/react';
 import React, { ReactNode } from 'react';
 import { Icon } from 'shared/icons';
 import { hapticFeedback } from 'shared/utils/haptic';
@@ -88,31 +89,53 @@ export function Dropdown<T>({
 					{label && <span className={css.text}>{label}: </span>}
 					{selected && <span className={css.text}>{optionLabel(selected)}</span>}
 				</span>
-				<Icon.Common.ChevronDown className={cn(css.icon, isOpen && css.reversed)} />
+				<motion.div
+					transition={{ ease: 'easeOut', duration: 0.2 }}
+					animate={{
+						rotate: isOpen ? 180 : 0,
+					}}
+					className={cn(css.icon)}
+				>
+					<Icon.Common.ChevronDown className={css.icon} />
+				</motion.div>
 			</div>
-			{isOpen && (
-				<div ref={refs.setFloating} className={css.options} style={floatingStyles} {...getFloatingProps()}>
-					{options.map((option, index) => {
-						return (
-							<div
-								key={index}
-								className={cn(
-									css.option,
-									selected && matcher(option, selected) && css.active,
-									optionLogo ? css.paddingWithLogo : css.paddingWithoutLogo
-								)}
-								onClick={() => handleOnClick(option)}
-							>
-								<div className={css.optionInfo}>
-									{optionLogo && <div className={css.logo} style={{ backgroundImage: `url(${optionLogo(option)})` }} />}
-									<span className={css.label}>{optionLabel(option)}</span>
-								</div>
-								{selected && matcher(option, selected) && <Icon.Common.Check />}
-							</div>
-						);
-					})}
-				</div>
-			)}
+			<AnimatePresence initial={false}>
+				{isOpen && (
+					<motion.div
+						ref={refs.setFloating}
+						className={css.options}
+						style={floatingStyles}
+						initial={{ opacity: 0, height: 0 }}
+						animate={{ opacity: 1, height: 'auto' }}
+						exit={{ opacity: 0, height: 0 }}
+						{...getFloatingProps()}
+					>
+						<div className={css.optionsPadding}>
+							{options.map((option, index) => {
+								return (
+									<div
+										key={index}
+										className={cn(
+											css.option,
+											selected && matcher(option, selected) && css.active,
+											optionLogo ? css.paddingWithLogo : css.paddingWithoutLogo
+										)}
+										onClick={() => handleOnClick(option)}
+									>
+										<div className={css.optionInfo}>
+											{optionLogo && (
+												<div className={css.logo} style={{ backgroundImage: `url(${optionLogo(option)})` }} />
+											)}
+											<span className={css.label}>{optionLabel(option)}</span>
+										</div>
+										{selected && matcher(option, selected) && <Icon.Common.Check />}
+									</div>
+								);
+							})}
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 }

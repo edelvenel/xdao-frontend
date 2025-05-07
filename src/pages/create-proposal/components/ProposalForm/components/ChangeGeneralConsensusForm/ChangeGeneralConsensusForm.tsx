@@ -7,6 +7,7 @@ import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
 import { store } from 'shared/store';
 import { ProposalType } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
+import { IconButton } from 'shared/ui/IconButton';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { InputStep } from 'shared/ui/InputStep';
@@ -104,9 +105,9 @@ export function ChangeGeneralConsensusForm({ onResponse }: IChangeGeneralConsens
 									<div className={css.title}>
 										<div className={css.header}>
 											<Title variant={'medium'} value="Current consensus" />
-											<div className={css.infoButton} onClick={() => setIsInfoOpen(true)}>
+											<IconButton size="small" variant="secondary" onClick={() => setIsInfoOpen(true)}>
 												<Icon.Common.QuestionSmall />
-											</div>
+											</IconButton>
 										</div>
 									</div>
 									<InputStep
@@ -152,18 +153,17 @@ export function ChangeGeneralConsensusForm({ onResponse }: IChangeGeneralConsens
 							</div>
 						</div>
 					</div>
-					{isInfoOpen && (
-						<Modal title="Current consensus" onClose={() => setIsInfoOpen(false)}>
-							<div className={css.infoBlock}>
-								<div className={css.textBlock}>
-									This is the minimum percentage of GP token votes needed to approve a proposal.
-								</div>
-								<div className={css.textBlock}>
-									Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
-								</div>
+
+					<Modal isOpen={isInfoOpen} title="Current consensus" onClose={() => setIsInfoOpen(false)}>
+						<div className={css.infoBlock}>
+							<div className={css.textBlock}>
+								This is the minimum percentage of GP token votes needed to approve a proposal.
 							</div>
-						</Modal>
-					)}
+							<div className={css.textBlock}>
+								Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
+							</div>
+						</div>
+					</Modal>
 				</ProposalCreateLayout>
 			)}
 		</Formik>

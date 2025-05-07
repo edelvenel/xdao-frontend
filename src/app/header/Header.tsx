@@ -11,14 +11,14 @@ import { hapticFeedback } from 'shared/utils/haptic';
 import css from './styles.module.scss';
 
 export function Header() {
-	const [onConnectWallet, setOnConnectWallet] = React.useState<boolean>(false);
+	const [isConnectWalletOpen, setIsConnectWalletOpen] = React.useState<boolean>(false);
 	const { walletAddress } = store.useWallet();
 
 	const [tonConnectUI] = useTonConnectUI();
 
 	const handleOnAddressClick = React.useCallback(() => {
 		hapticFeedback('press');
-		setOnConnectWallet(true);
+		setIsConnectWalletOpen(true);
 	}, []);
 
 	const handleOnWalletConnectTON = React.useCallback(async () => {
@@ -48,24 +48,27 @@ export function Header() {
 				</div>
 			</div>
 
-			{onConnectWallet && (
-				<Modal title="Connect wallet" titleAlign="center" onClose={() => setOnConnectWallet(false)}>
-					<div className={css.connectWalletModal}>
-						<div className={css.currentWallet}>
-							<div className={css.text}>{walletAddress}</div>
-						</div>
-
-						<div className={css.actions}>
-							<Button variant="primary" onClick={handleOnWalletConnectTON}>
-								Connect to TON
-							</Button>
-							<Button variant="secondary" onClick={handleOnWalletConnect}>
-								Connect another wallet
-							</Button>
-						</div>
+			<Modal
+				isOpen={isConnectWalletOpen}
+				title="Connect wallet"
+				titleAlign="center"
+				onClose={() => setIsConnectWalletOpen(false)}
+			>
+				<div className={css.connectWalletModal}>
+					<div className={css.currentWallet}>
+						<div className={css.text}>{walletAddress}</div>
 					</div>
-				</Modal>
-			)}
+
+					<div className={css.actions}>
+						<Button variant="primary" onClick={handleOnWalletConnectTON}>
+							Connect to TON
+						</Button>
+						<Button variant="secondary" onClick={handleOnWalletConnect}>
+							Connect another wallet
+						</Button>
+					</div>
+				</div>
+			</Modal>
 		</div>
 	);
 }

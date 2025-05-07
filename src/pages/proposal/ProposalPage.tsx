@@ -47,21 +47,28 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	return (
 		<div className={css.page}>
 			{!!proposal && <ProposalDetails proposal={proposal} onVote={() => setIsOnVote(true)} />}
-			{!!proposal && isOnVote && (
-				<Modal onClose={() => setIsOnVote(false)} titleAlign="center" title={proposal.name}>
-					<Vote
-						currentPercent={20} //TODO: replace with appropriate real data
-						voteImpact={32} //TODO: replace with appropriate real data
-						totalPercent={proposal.consensus}
-						onConfirm={handleOnConfirm}
-					/>
-				</Modal>
-			)}
-			{isResultOpen && success !== null && (
-				<Modal onClose={() => setIsResultOpen(false)} className={cn(success === true && css.success)}>
-					<VoteResult success={success} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
-				</Modal>
-			)}
+
+			<Modal
+				isOpen={!!proposal && isOnVote}
+				onClose={() => setIsOnVote(false)}
+				titleAlign="center"
+				title={proposal.name}
+			>
+				<Vote
+					currentPercent={20} //TODO: replace with appropriate real data
+					voteImpact={32} //TODO: replace with appropriate real data
+					totalPercent={proposal.consensus}
+					onConfirm={handleOnConfirm}
+				/>
+			</Modal>
+
+			<Modal
+				isOpen={isResultOpen && success !== null}
+				onClose={() => setIsResultOpen(false)}
+				className={cn(success === true && css.success)}
+			>
+				<VoteResult success={success!} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
+			</Modal>
 		</div>
 	);
 });

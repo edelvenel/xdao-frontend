@@ -47,11 +47,10 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 	return (
 		<div className={css.page}>
 			{formType != null && <ProposalForm data={formData} type={formType} onResponse={setIsSuccess} />}
-			{isSuccess !== null && (
-				<Modal onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
-					<ProposalCreateResult success={isSuccess} onDone={handleOnDone} onRetry={() => setIsSuccess(null)} />
-				</Modal>
-			)}
+
+			<Modal isOpen={isSuccess !== null} onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
+				<ProposalCreateResult success={isSuccess!} onDone={handleOnDone} onRetry={() => setIsSuccess(null)} />
+			</Modal>
 		</div>
 	);
 });

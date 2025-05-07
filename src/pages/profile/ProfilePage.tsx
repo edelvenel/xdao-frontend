@@ -156,69 +156,63 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				<SearchBlock searchText={searchText} onChange={setSearchText} onCreate={() => setIsCreateOpen(true)} />
 			</TopContent>
 
-			{isProposalsFilterOpen && (
-				<Modal title="Filter proposals" onClose={() => setIsProposalsFilterOpen(false)}>
-					<Filter
-						selected={proposalsFilter}
-						options={PROPOSALS_FILTER_OPTIONS}
-						onApply={setProposalsFilter}
-						onClose={() => setIsProposalsFilterOpen(false)}
-					/>
-				</Modal>
-			)}
+			<Modal isOpen={isProposalsFilterOpen} title="Filter proposals" onClose={() => setIsProposalsFilterOpen(false)}>
+				<Filter
+					selected={proposalsFilter}
+					options={PROPOSALS_FILTER_OPTIONS}
+					onApply={setProposalsFilter}
+					onClose={() => setIsProposalsFilterOpen(false)}
+				/>
+			</Modal>
 
-			{isDAOsFilterOpen && (
-				<Modal title="Filter DAOs" onClose={() => setIsDAOsFilterOpen(false)}>
-					<Filter
-						selected={daosFilter}
-						options={DAOS_FILTER_OPTIONS}
-						onApply={setDaosFilter}
-						onClose={() => setIsDAOsFilterOpen(false)}
-					/>
-				</Modal>
-			)}
+			<Modal isOpen={isDAOsFilterOpen} title="Filter DAOs" onClose={() => setIsDAOsFilterOpen(false)}>
+				<Filter
+					selected={daosFilter}
+					options={DAOS_FILTER_OPTIONS}
+					onApply={setDaosFilter}
+					onClose={() => setIsDAOsFilterOpen(false)}
+				/>
+			</Modal>
 
-			{isCreateOpen && (
-				<Modal title="Select action" onClose={() => setIsCreateOpen(false)}>
-					<div className={css.actions}>
-						<Link to={routes.createDao} className={css.cardButton}>
-							<div className={css.icon}>
-								<Icon.Common.DAO />
-							</div>
-							<span>Create</span>
-							<span>DAO</span>
-						</Link>
-						<Link to={routes.createProposal} className={css.cardButton}>
-							<div className={css.icon}>
-								<Icon.Common.Proposal />
-							</div>
-							<span>Create</span>
-							<span>Proposal</span>
-						</Link>
-					</div>
-				</Modal>
-			)}
+			<Modal isOpen={isCreateOpen} title="Select action" onClose={() => setIsCreateOpen(false)}>
+				<div className={css.actions}>
+					<Link to={routes.createDao} className={css.cardButton}>
+						<div className={css.icon}>
+							<Icon.Common.DAO />
+						</div>
+						<span>Create</span>
+						<span>DAO</span>
+					</Link>
+					<Link to={routes.createProposal} className={css.cardButton}>
+						<div className={css.icon}>
+							<Icon.Common.Proposal />
+						</div>
+						<span>Create</span>
+						<span>Proposal</span>
+					</Link>
+				</div>
+			</Modal>
 
-			{isSelectDaoOpen && (
-				<Modal title="Select DAO for airdrop" onClose={() => setIsSelectDaoOpen(false)}>
-					<SelectDao
-						selected={selectedDaoIdx}
-						options={daos}
-						onApply={handleOnApplyDao}
-						onClose={() => setIsSelectDaoOpen(false)}
-					/>
-				</Modal>
-			)}
+			<Modal isOpen={isSelectDaoOpen} title="Select DAO for airdrop" onClose={() => setIsSelectDaoOpen(false)}>
+				<SelectDao
+					selected={selectedDaoIdx}
+					options={daos}
+					onApply={handleOnApplyDao}
+					onClose={() => setIsSelectDaoOpen(false)}
+				/>
+			</Modal>
 
-			{isChangeSuccess !== null && (
-				<Modal onClose={() => setIsChangeSuccess(null)} className={cn(isChangeSuccess && css.success)}>
-					<ChangeDaoResult
-						success={isChangeSuccess}
-						onDone={() => setIsChangeSuccess(null)}
-						onRetry={() => setIsChangeSuccess(null)}
-					/>
-				</Modal>
-			)}
+			<Modal
+				isOpen={isChangeSuccess !== null}
+				onClose={() => setIsChangeSuccess(null)}
+				className={cn(isChangeSuccess && css.success)}
+			>
+				<ChangeDaoResult
+					success={isChangeSuccess!}
+					onDone={() => setIsChangeSuccess(null)}
+					onRetry={() => setIsChangeSuccess(null)}
+				/>
+			</Modal>
 		</div>
 	);
 });

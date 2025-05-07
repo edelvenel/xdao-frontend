@@ -195,38 +195,32 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 						</div>
 					</TopContent>
 
-					{isOpenSetupInfoModal && (
-						<Modal title="Set-up consensus" onClose={() => setIsOpenSetupInfoModal(false)}>
-							<div className={css.infoBlock}>
-								<div className={css.textBlock}>Defines how many GP holders must approve a proposal for it to pass.</div>
-								<div className={css.textBlock}>
-									For example, “2 of 3” means that out of 3 total GPs, at least 2 must vote in favor.
-								</div>
-								<div className={css.textBlock}>
-									You can adjust this number depending on how decentralized or strict the decision-making should be.
-								</div>
+					<Modal isOpen={isOpenSetupInfoModal} title="Set-up consensus" onClose={() => setIsOpenSetupInfoModal(false)}>
+						<div className={css.infoBlock}>
+							<div className={css.textBlock}>Defines how many GP holders must approve a proposal for it to pass.</div>
+							<div className={css.textBlock}>
+								For example, “2 of 3” means that out of 3 total GPs, at least 2 must vote in favor.
 							</div>
-						</Modal>
-					)}
-
-					{isInfoOpen && (
-						<Modal title="Current consensus" onClose={() => setIsInfoOpen(false)}>
-							<div className={css.infoBlock}>
-								<div className={css.textBlock}>
-									This is the minimum percentage of GP token votes needed to approve a proposal.
-								</div>
-								<div className={css.textBlock}>
-									Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
-								</div>
+							<div className={css.textBlock}>
+								You can adjust this number depending on how decentralized or strict the decision-making should be.
 							</div>
-						</Modal>
-					)}
+						</div>
+					</Modal>
 
-					{isSuccess !== null && (
-						<Modal onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
-							<DaoCreateResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsSuccess(null)} />
-						</Modal>
-					)}
+					<Modal isOpen={isInfoOpen} title="Current consensus" onClose={() => setIsInfoOpen(false)}>
+						<div className={css.infoBlock}>
+							<div className={css.textBlock}>
+								This is the minimum percentage of GP token votes needed to approve a proposal.
+							</div>
+							<div className={css.textBlock}>
+								Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
+							</div>
+						</div>
+					</Modal>
+
+					<Modal isOpen={isSuccess !== null} onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
+						<DaoCreateResult success={isSuccess!} onDone={() => navigate(-1)} onRetry={() => setIsSuccess(null)} />
+					</Modal>
 				</div>
 			)}
 		</Formik>
