@@ -1,32 +1,34 @@
 .tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
 
-  .tabContent {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    flex: 1;
-  }
+	.tabContent {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		flex: 1;
+	}
 
-  .tabButtonList {
-    display: flex;
-    gap: 13px;
+	.tabButtonList {
+		display: flex;
+		gap: 13px;
 
-    .tabButton {
-      height: 44px;
-      line-height: 32px;
-      font-size: 16px;
-      font-weight: 400;
-      padding: 6px 30px;
-      border-bottom: 2px solid transparent;
-      color: var(--semantic-text-secondary);
+		.tabButton {
+			height: 44px;
+			line-height: 32px;
+			font-size: 16px;
+			font-weight: 400;
+			padding: 6px 30px;
+			border-bottom: 2px solid transparent;
+			color: var(--semantic-text-secondary);
+			cursor: pointer;
+			user-select: none;
 
-      &.selected {
-        color: var(--semantic-text-primary);
-        border-bottom-color: var(--semantic-button-notifications);
-      }
-    }
-  }
+			&.selected {
+				color: var(--semantic-text-primary);
+				border-bottom-color: var(--semantic-button-notifications);
+			}
+		}
+	}
 }

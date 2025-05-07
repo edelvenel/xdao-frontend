@@ -85,18 +85,16 @@ export const DAOPage = React.memo(function DAOPage() {
 		<div className={css.page}>
 			<Tabs tabs={tabs} selectedTabIdx={selectedTabIdx} onSelect={handleSelectTab} />
 
-			{isInfoOpen && (
-				<Modal title="Future $DAO tokens" onClose={() => setIsInfoOpen(false)}>
-					<div className={css.infoBlock}>
-						<div className={css.textBlock}>
-							These tokens will be officially minted and distributed after the Token Generation Event (TGE).
-						</div>
-						<div className={css.textBlock}>
-							Displayed here is the estimated allocation reserved for this DAO based on its position in the system.
-						</div>
+			<Modal isOpen={isInfoOpen} title="Future $DAO tokens" onClose={() => setIsInfoOpen(false)}>
+				<div className={css.infoBlock}>
+					<div className={css.textBlock}>
+						These tokens will be officially minted and distributed after the Token Generation Event (TGE).
 					</div>
-				</Modal>
-			)}
+					<div className={css.textBlock}>
+						Displayed here is the estimated allocation reserved for this DAO based on its position in the system.
+					</div>
+				</div>
+			</Modal>
 		</div>
 	);
 });

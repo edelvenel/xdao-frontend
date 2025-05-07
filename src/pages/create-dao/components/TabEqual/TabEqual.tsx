@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'shared/icons';
 import { Button } from 'shared/ui/Button';
+import { IconButton } from 'shared/ui/IconButton';
 import { Input } from 'shared/ui/Input';
 import { InputStep } from 'shared/ui/InputStep';
 import { Title } from 'shared/ui/Title';
@@ -64,9 +65,9 @@ export function TabEqual({
 			<div className={css.block}>
 				<div className={css.header}>
 					<Title value="Set-up consensus" variant="medium" />
-					<div className={css.infoButton} onClick={onSetupInfo}>
+					<IconButton size="small" variant="secondary" onClick={onSetupInfo}>
 						<Icon.Common.QuestionSmall />
-					</div>
+					</IconButton>
 				</div>
 				<InputStep
 					current={consensus > walletAddresses.length ? 1 : consensus}

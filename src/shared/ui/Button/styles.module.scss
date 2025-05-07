@@ -1,17 +1,11 @@
-.button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.buttonBox {
+	position: relative;
 	flex: 1;
 	min-height: 48px;
-	text-align: center;
-	padding: 12px 20px;
 	font-size: 16px;
 	font-weight: 500;
 	border-radius: 32px;
 	color: var(--semantic-text-primary);
-	cursor: pointer;
-	user-select: none;
 
 	&.primary {
 		background-color: var(--semantic-button-primary);
@@ -31,7 +25,23 @@
 		color: var(--semantic-text-dark);
 	}
 
-	&:disabled {
+	.button {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 12px 20px;
+		background: none;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	&.disabled {
 		opacity: 0.5;
 		cursor: initial;
 	}

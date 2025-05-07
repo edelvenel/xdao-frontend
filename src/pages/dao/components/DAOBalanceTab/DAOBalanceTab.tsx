@@ -5,6 +5,7 @@ import { generatePath, Link } from 'react-router';
 import { Icon } from 'shared/icons';
 import { IDao } from 'shared/types';
 import { Button } from 'shared/ui/Button';
+import { IconButton } from 'shared/ui/IconButton';
 import css from './styles.module.scss';
 
 interface IDAOBalanceProps {
@@ -30,9 +31,9 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 			<div className={css.block}>
 				<div className={css.title}>
 					Future $DAO tokens
-					<div className={css.question} onClick={onInfo}>
+					<IconButton size="tiny" variant="secondary" onClick={onInfo}>
 						<Icon.Common.QuestionTiny />
-					</div>
+					</IconButton>
 				</div>
 				<div className={css.amount}>
 					<div className={css.currency}>$DAO</div>
