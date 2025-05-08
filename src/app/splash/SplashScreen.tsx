@@ -2,6 +2,7 @@ import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { store } from 'shared/store';
+import { Svg } from 'shared/svg';
 import css from './styles.module.scss';
 
 export function SplashScreen() {
@@ -29,6 +30,9 @@ export function SplashScreen() {
 			{isWalletChecked && (
 				<div className={css.splash}>
 					<div className={css.figures}>
+						<div className={css.background}>
+							<Svg.Background.Splash />
+						</div>
 						<div className={css.button} onClick={handleOnWalletConnect}>
 							<span>Connect Wallet</span>
 						</div>

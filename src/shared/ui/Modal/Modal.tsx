@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from 'shared/icons';
+import { Svg } from 'shared/svg';
 import { hapticFeedback } from 'shared/utils/haptic';
 import { IconButton } from '../IconButton';
 import { Title } from '../Title';
@@ -10,12 +11,21 @@ import css from './styles.module.scss';
 
 interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
 	isOpen: boolean;
+	isBackgroundOn?: boolean;
 	title?: string;
 	titleAlign?: 'left' | 'center';
 	onClose: () => void;
 }
 
-export function Modal({ isOpen, children, title, titleAlign = 'left', className, onClose }: IModalProps) {
+export function Modal({
+	isOpen,
+	children,
+	title,
+	titleAlign = 'left',
+	className,
+	isBackgroundOn = false,
+	onClose,
+}: IModalProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const handleOnClose = React.useCallback(() => {
 		hapticFeedback('press');
@@ -28,13 +38,15 @@ export function Modal({ isOpen, children, title, titleAlign = 'left', className,
 				onClose();
 			}
 		};
-
-		document.addEventListener('mousedown', handleClickOutside);
-
+		if (isOpen) {
+			document.addEventListener('mousedown', handleClickOutside);
+		}
 		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
+			if (isOpen) {
+				document.removeEventListener('mousedown', handleClickOutside);
+			}
 		};
-	}, [onClose]);
+	}, [isOpen, onClose]);
 
 	return createPortal(
 		<AnimatePresence>
@@ -63,6 +75,7 @@ export function Modal({ isOpen, children, title, titleAlign = 'left', className,
 								)}
 							</div>
 							<div className={css.content}>{children}</div>
+							{isBackgroundOn && <div className={css.background}>{<Svg.Background.Common />}</div>}
 						</motion.div>
 					</AnimatePresence>
 				</motion.div>
