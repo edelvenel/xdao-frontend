@@ -69,6 +69,24 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
   
+  /api/v1/address/factory:
+    get:
+      summary: 'Returns the current DAO factory contract address'
+      operationId: getFactoryAddress
+      tags:
+        - dao
+      responses:
+        '200':
+          description: 'Factory address'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  
   /api/v1/daos:
     get:
       summary: 'Get the list of all DAOs'
@@ -78,6 +96,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/LimitQuery'
         - $ref: '#/components/parameters/OffsetQuery'
+        - $ref: '#/components/parameters/DaoFilterQuery'
       responses:
         '200':
           $ref: '#/components/responses/DaoList'
@@ -85,14 +104,33 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalError'
-  /api/v1/dao/{address}/holders:
+  /api/v1/daos/{dao_address}:
+    get:
+      summary: 'Retrieve detailed DAO information'
+      operationId: getDaoInfo
+      tags:
+        - dao
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+      responses:
+        '200':
+          description: 'DAO'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dao'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}/holders:
     get:
       summary: 'Get the list of DAO holders'
       operationId: getDaoHolders
       tags:
         - dao
       parameters:
-        - $ref: '#/components/parameters/AddressPath'
+        - $ref: '#/components/parameters/DaoAddressPath'
         - $ref: '#/components/parameters/LimitQuery'
         - $ref: '#/components/parameters/OffsetQuery'
       responses:
@@ -102,18 +140,74 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalError'
-
-  /api/v1/proposals/{address}:
+  
+  /api/v1/proposals:
     get:
-      summary: 'Get the list of all proposals'
-      operationId: getAllProposals
+      summary: 'Get the list of proposals'
+      operationId: getProposals
       tags:
         - proposal
       parameters:
-        - $ref: '#/components/parameters/AddressPath'
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+        - $ref: '#/components/parameters/ProposalFilterQuery'
       responses:
         '200':
           $ref: '#/components/responses/ProposalList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/proposals/{proposal_address}:
+    get:
+      summary: 'Retrieve detailed proposal information'
+      operationId: getProposalInfo
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/ProposalAddressPath'
+      responses:
+        '200':
+          description: 'Proposal'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Proposal'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}/proposals:
+    get:
+      summary: 'Get the list of DAO proposals'
+      operationId: getDaoProposals
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProposalList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}/proposals/{proposal_address}/votes:
+    get:
+      summary: 'Returns votes for a DAO proposal'
+      operationId: getDaoProposalVotes
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+        - $ref: '#/components/parameters/ProposalAddressPath'
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProposalVotesList'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
@@ -126,10 +220,17 @@ components:
       scheme: bearer
   
   parameters:
-    AddressPath:
-      description: 'Address'
+    DaoAddressPath:
+      description: 'Dao Address'
       in: path
-      name: address
+      name: dao_address
+      required: true
+      schema:
+        type: string
+    ProposalAddressPath:
+      description: 'Proposal Address'
+      in: path
+      name: proposal_address
       required: true
       schema:
         type: string
@@ -147,6 +248,31 @@ components:
       name: offset
       schema:
         type: integer
+    DaoFilterQuery:
+      description: Filter DAOs by type
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+        enum:
+          - all
+          - mine
+        default: all
+    ProposalFilterQuery:
+      description: Filter proposals by type
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+        enum:
+          - all
+          - active
+          - rejected
+          - executed
+          - mine
+        default: all
   
   requestBodies:
     ProofData:
@@ -179,6 +305,13 @@ components:
         - error
       properties:
         error:
+          type: string
+    Address:
+      type: object
+      required:
+        - address
+      properties:
+        address:
           type: string
     Payload:
       type: object
@@ -262,26 +395,52 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Plugin'
+    Vote:
+      type: object
+      required:
+        - proposal_address
+        - voter_address
+        - amount
+        - date_create
+      properties:
+        proposal_address:
+          type: string
+        voter_address:
+          type: string
+        amount:
+          type: string
+        date_create:
+          type: string
     Proposal:
       type: object
       required:
+        - address
+        - dao_address
+        - jetton_master_address
         - initiated_by_address
         - success_amount
         - current_amount
         - date_start
         - date_expire
+        - type
       properties:
+        address:
+          type: string
+        dao_address:
+          type: string
+        jetton_master_address:
+          type: string
         initiated_by_address:
           type: string
         success_amount:
-          type: integer
-          format: int64
+          type: string
         current_amount:
-          type: integer
-          format: int64
+          type: string
         date_start:
           type: string
         date_expire:
+          type: string
+        type:
           type: string
 
   responses:
@@ -390,3 +549,20 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/Proposal'
+    ProposalVotesList:
+      description: 'List of proposal votes'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - total
+              - items
+            properties:
+              total:
+                type: integer
+                format: int64
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vote'

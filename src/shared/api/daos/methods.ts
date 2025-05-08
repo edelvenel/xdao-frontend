@@ -6,7 +6,7 @@ export const getFactoryAddress = async () => {
   try {
     const response = await api.v1.getFactoryAddress();
 
-    return response.data;
+    return response.address;
   } catch (error) {
     console.error(error);
     throw error;
@@ -26,11 +26,22 @@ const daoMapper = (dao: Dao): IDao => {
   };
 };
 
-export const fetchDaos = async (offset: number): Promise<IDao[]> => {
+export const getDaos = async (offset: number): Promise<IDao[]> => {
   try {
     const response = await api.v1.getAllDaos({ limit: 100, offset: offset });
 
     return response.items.map(daoMapper);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getDao = async (id: string): Promise<IDao> => {
+  try {
+    // TODO: waiting for zakhar 
+    // const response = await api.v1.
+
+    // return daoMapper(response);
   } catch (error) {
     throw error;
   }

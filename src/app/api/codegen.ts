@@ -19,6 +19,10 @@ export interface Error {
   error: string;
 }
 
+export interface Address {
+  address: string;
+}
+
 export interface Payload {
   payload: string;
 }
@@ -56,14 +60,23 @@ export interface Dao {
   plugins: Plugin[];
 }
 
+export interface Vote {
+  proposal_address: string;
+  voter_address: string;
+  amount: string;
+  date_create: string;
+}
+
 export interface Proposal {
+  address: string;
+  dao_address: string;
+  jetton_master_address: string;
   initiated_by_address: string;
-  /** @format int64 */
-  success_amount: number;
-  /** @format int64 */
-  current_amount: number;
+  success_amount: string;
+  current_amount: string;
   date_start: string;
   date_expire: string;
+  type: string;
 }
 
 export interface GetAllDaosParams {
@@ -75,6 +88,29 @@ export interface GetAllDaosParams {
   limit?: number;
   /** Offset */
   offset?: number;
+  /**
+   * Filter DAOs by type
+   * @default "all"
+   */
+  filter?: FilterEnum;
+}
+
+/**
+ * Filter DAOs by type
+ * @default "all"
+ */
+export enum FilterEnum {
+  All = "all",
+  Mine = "mine",
+}
+
+/**
+ * Filter DAOs by type
+ * @default "all"
+ */
+export enum GetAllDaosParams1FilterEnum {
+  All = "all",
+  Mine = "mine",
 }
 
 export interface GetDaoHoldersParams {
@@ -86,8 +122,76 @@ export interface GetDaoHoldersParams {
   limit?: number;
   /** Offset */
   offset?: number;
-  /** Address */
-  address: string;
+  /** Dao Address */
+  daoAddress: string;
+}
+
+export interface GetProposalsParams {
+  /**
+   * Limit
+   * @max 1000
+   * @default 100
+   */
+  limit?: number;
+  /** Offset */
+  offset?: number;
+  /**
+   * Filter proposals by type
+   * @default "all"
+   */
+  filter?: FilterEnum1;
+}
+
+/**
+ * Filter proposals by type
+ * @default "all"
+ */
+export enum FilterEnum1 {
+  All = "all",
+  Active = "active",
+  Rejected = "rejected",
+  Executed = "executed",
+  Mine = "mine",
+}
+
+/**
+ * Filter proposals by type
+ * @default "all"
+ */
+export enum GetProposalsParams1FilterEnum {
+  All = "all",
+  Active = "active",
+  Rejected = "rejected",
+  Executed = "executed",
+  Mine = "mine",
+}
+
+export interface GetDaoProposalsParams {
+  /**
+   * Limit
+   * @max 1000
+   * @default 100
+   */
+  limit?: number;
+  /** Offset */
+  offset?: number;
+  /** Dao Address */
+  daoAddress: string;
+}
+
+export interface GetDaoProposalVotesParams {
+  /**
+   * Limit
+   * @max 1000
+   * @default 100
+   */
+  limit?: number;
+  /** Offset */
+  offset?: number;
+  /** Dao Address */
+  daoAddress: string;
+  /** Proposal Address */
+  proposalAddress: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -424,6 +528,28 @@ export class Api<SecurityDataType extends unknown> {
      * No description
      *
      * @tags dao
+     * @name GetFactoryAddress
+     * @summary Returns the current DAO factory contract address
+     * @request GET:/api/v1/address/factory
+     */
+    getFactoryAddress: (params: RequestParams = {}) =>
+      this.http.request<
+        Address,
+        {
+          /** Error message */
+          error: string;
+        }
+      >({
+        path: `/api/v1/address/factory`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags dao
      * @name GetAllDaos
      * @summary Get the list of all DAOs
      * @request GET:/api/v1/daos
@@ -450,12 +576,34 @@ export class Api<SecurityDataType extends unknown> {
      * No description
      *
      * @tags dao
+     * @name GetDaoInfo
+     * @summary Retrieve detailed DAO information
+     * @request GET:/api/v1/daos/{dao_address}
+     */
+    getDaoInfo: (daoAddress: string, params: RequestParams = {}) =>
+      this.http.request<
+        Dao,
+        {
+          /** Error message */
+          error: string;
+        }
+      >({
+        path: `/api/v1/daos/${daoAddress}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags dao
      * @name GetDaoHolders
      * @summary Get the list of DAO holders
-     * @request GET:/api/v1/dao/{address}/holders
+     * @request GET:/api/v1/daos/{dao_address}/holders
      */
     getDaoHolders: (
-      { address, ...query }: GetDaoHoldersParams,
+      { daoAddress, ...query }: GetDaoHoldersParams,
       params: RequestParams = {},
     ) =>
       this.http.request<
@@ -469,7 +617,7 @@ export class Api<SecurityDataType extends unknown> {
           error: string;
         }
       >({
-        path: `/api/v1/dao/${address}/holders`,
+        path: `/api/v1/daos/${daoAddress}/holders`,
         method: "GET",
         query: query,
         ...params,
@@ -479,11 +627,11 @@ export class Api<SecurityDataType extends unknown> {
      * No description
      *
      * @tags proposal
-     * @name GetAllProposals
-     * @summary Get the list of all proposals
-     * @request GET:/api/v1/proposals/{address}
+     * @name GetProposals
+     * @summary Get the list of proposals
+     * @request GET:/api/v1/proposals
      */
-    getAllProposals: (address: string, params: RequestParams = {}) =>
+    getProposals: (query: GetProposalsParams, params: RequestParams = {}) =>
       this.http.request<
         {
           /** @format int64 */
@@ -495,8 +643,89 @@ export class Api<SecurityDataType extends unknown> {
           error: string;
         }
       >({
-        path: `/api/v1/proposals/${address}`,
+        path: `/api/v1/proposals`,
         method: "GET",
+        query: query,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags proposal
+     * @name GetProposalInfo
+     * @summary Retrieve detailed proposal information
+     * @request GET:/api/v1/proposals/{proposal_address}
+     */
+    getProposalInfo: (proposalAddress: string, params: RequestParams = {}) =>
+      this.http.request<
+        Proposal,
+        {
+          /** Error message */
+          error: string;
+        }
+      >({
+        path: `/api/v1/proposals/${proposalAddress}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags proposal
+     * @name GetDaoProposals
+     * @summary Get the list of DAO proposals
+     * @request GET:/api/v1/daos/{dao_address}/proposals
+     */
+    getDaoProposals: (
+      { daoAddress, ...query }: GetDaoProposalsParams,
+      params: RequestParams = {},
+    ) =>
+      this.http.request<
+        {
+          /** @format int64 */
+          total: number;
+          items: Proposal[];
+        },
+        {
+          /** Error message */
+          error: string;
+        }
+      >({
+        path: `/api/v1/daos/${daoAddress}/proposals`,
+        method: "GET",
+        query: query,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags proposal
+     * @name GetDaoProposalVotes
+     * @summary Returns votes for a DAO proposal
+     * @request GET:/api/v1/daos/{dao_address}/proposals/{proposal_address}/votes
+     */
+    getDaoProposalVotes: (
+      { daoAddress, proposalAddress, ...query }: GetDaoProposalVotesParams,
+      params: RequestParams = {},
+    ) =>
+      this.http.request<
+        {
+          /** @format int64 */
+          total: number;
+          items: Vote[];
+        },
+        {
+          /** Error message */
+          error: string;
+        }
+      >({
+        path: `/api/v1/daos/${daoAddress}/proposals/${proposalAddress}/votes`,
+        method: "GET",
+        query: query,
         ...params,
       }),
   };

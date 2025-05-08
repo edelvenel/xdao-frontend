@@ -1,11 +1,10 @@
-import { DAOS_MOCK } from 'app/mocks/constants';
-import React from 'react';
+import React, { useState } from 'react';
 import { DaoType, IDao } from 'shared/types';
 import { ICreateDaoPayload } from './payloads';
 import { useTonWallet } from 'shared/utils/useTonConnect';
 import { Dictionary, toNano, Address } from '@ton/core';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-import { getFactoryAddress } from './api';
+import { getDaos, getFactoryAddress } from './methods';
 import { JettonBuilder } from 'shared/cell-builders/common';
 import { DAOBuilder } from 'shared/cell-builders';
 
@@ -13,21 +12,14 @@ export function useDaos() {
   const [daos, setDaos] = React.useState<IDao[]>([]);
   const [tonConnectUI] = useTonConnectUI();
   const { wallet, isConnected } = useTonWallet();
-
-  const mapper = React.useCallback((data: unknown[]): IDao[] => {
-    //TODO: write a mapper for specific data (if needed)
-    const result = data as IDao[];
-
-    return result;
-  }, []);
+  const [currentOffset, setCurrentOffset] = useState(0);
 
   const fetchDaos = React.useCallback(async () => {
-    //get source data
-    const sourceData = DAOS_MOCK; // TODO: replace with real implementation
+    const sourceData = await getDaos(currentOffset);
 
-    const formatedData: IDao[] = mapper(sourceData);
-    setDaos(formatedData);
-  }, [mapper]);
+    setDaos(sourceData);
+    setCurrentOffset(sourceData.length);
+  }, [currentOffset]);
 
   const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
     if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');
