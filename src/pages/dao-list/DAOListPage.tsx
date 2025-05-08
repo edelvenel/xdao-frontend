@@ -1,14 +1,15 @@
-import { TopContent } from 'app/navigation/components/top-content';
-import { routes } from 'app/router/routes';
-import { Filter } from 'pages/proposal-list/components/Filter';
-import { SearchBlock } from 'pages/proposal-list/components/SearchBlock';
-import React from 'react';
-import { generatePath, useNavigate } from 'react-router';
-import { useDaos } from 'shared/api/daos/useDaos';
-import { store } from 'shared/store';
-import { Modal } from 'shared/ui/Modal';
-import { DAO } from './components/DAO';
-import css from './styles.module.scss';
+import { TopContent } from "app/navigation/components/top-content";
+import { routes } from "app/router/routes";
+import { Filter } from "pages/proposal-list/components/Filter";
+import { SearchBlock } from "pages/proposal-list/components/SearchBlock";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { generatePath, useNavigate } from "react-router";
+import { useDaos } from "shared/api/daos/useDaos";
+import { store } from "shared/store";
+import { Modal } from "shared/ui/Modal";
+import { DAO } from "./components/DAO";
+import css from "./styles.module.scss";
 
 const FILTER_OPTIONS: string[] = [
 	'All DAOs',
@@ -24,7 +25,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
 	const [filter, setFilter] = React.useState<number>(0);
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
-	const { daos, fetchDaos } = useDaos();
+	const { daos, fetchDaos, hasMore } = useDaos();
 
 	const navigate = useNavigate();
 
@@ -51,16 +52,25 @@ export const DAOListPage = React.memo(function DAOListPage() {
 
 	return (
 		<div className={css.page}>
-			<div className={css.list}>
-				{daos.map((dao) => (
-					<DAO
-						key={dao.id}
-						dao={dao}
-						onOpen={() => navigate(generatePath(routes.dao, { id: dao.id, tab: 'overview' }))}
-					/>
-				))}
-				{daos.length === 0 && <div className={css.placeholder}>No DAOs</div>}
-			</div>
+			      <div className={css.list}>
+      <InfiniteScroll 
+        dataLength={daos.length}
+        next={fetchDaos}
+        hasMore={hasMore}
+      >
+        {daos.map((dao) => (
+          <DAO
+            key={dao.id}
+            dao={dao}
+            onOpen={() =>
+              navigate(
+                generatePath(routes.dao, { id: dao.id, tab: "overview" })
+              )
+            }
+          />
+        ))}
+      </InfiniteScroll>
+      </div>
 			<TopContent>
 				<SearchBlock
 					searchText={searchText}

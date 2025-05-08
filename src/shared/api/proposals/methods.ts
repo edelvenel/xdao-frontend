@@ -1,5 +1,5 @@
 import { api } from "app/api";
-import { Proposal } from "app/api/codegen";
+import { FilterEnum1, Proposal } from "app/api/codegen";
 import { IProposal } from "shared/types";
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
@@ -14,8 +14,15 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
     };
 };
 
-export const getProposals = async (offset: number): Promise<IProposal[]> => {
-    const response = await api.v1.getProposals({ limit: 100, offset: offset });
+export const getDaoProposals = async (daoAddress: string): Promise<IProposal[]> => {
+    const response = await api.v1.getDaoProposals({ daoAddress });
+  
+    return response.items.map(proposalMapper);
+};
+  
+
+export const getProposals = async (filter?: FilterEnum1): Promise<IProposal[]> => {
+    const response = await api.v1.getProposals({ filter: filter });
   
     return response.items.map(proposalMapper);
 };

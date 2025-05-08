@@ -3,17 +3,18 @@ import React from "react";
 import { useProposals } from "shared/api/proposals";
 import { IDao } from "shared/types";
 import css from "./styles.module.scss";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface IVotesTabProps {
   dao: IDao;
 }
 
 export function VotesTab({ dao }: IVotesTabProps) {
-  const { proposals, fetchProposals } = useProposals();
+  const { proposals, fetchDaoProposals, hasMore } = useProposals();
 
   React.useEffect(() => {
-    fetchProposals();
-  }, [fetchProposals]);
+    fetchDaoProposals(dao.address);
+  }, [fetchDaoProposals, dao.address]);
 
   //TODO: get proposals with dao
   if (!dao) {
@@ -23,9 +24,15 @@ export function VotesTab({ dao }: IVotesTabProps) {
   return (
     <div className={css.tab}>
       <div className={css.list}>
-        {proposals.map((proposal, index) => (
-          <Proposal data={proposal} key={index} />
-        ))}
+        <InfiniteScroll 
+            dataLength={proposals.length}
+            next={fetchDaoProposals}
+            hasMore={hasMore}
+          >
+          {proposals.map((proposal, index) => (
+            <Proposal data={proposal} key={index} />
+          ))}
+        </InfiniteScroll>
       </div>
     </div>
   );

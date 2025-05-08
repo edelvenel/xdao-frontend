@@ -13,12 +13,14 @@ export function useDaos() {
   const [tonConnectUI] = useTonConnectUI();
   const { wallet, isConnected } = useTonWallet();
   const [currentOffset, setCurrentOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
 
   const fetchDaos = React.useCallback(async () => {
     const sourceData = await getDaos(currentOffset);
 
     setDaos(sourceData);
     setCurrentOffset(sourceData.length);
+    setHasMore(sourceData.length != 100);
   }, [currentOffset]);
 
   const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
@@ -94,5 +96,5 @@ export function useDaos() {
     []
   );
 
-  return { daos, fetchDaos, createDao, updateDao };
+  return { daos, fetchDaos, createDao, updateDao, hasMore };
 }

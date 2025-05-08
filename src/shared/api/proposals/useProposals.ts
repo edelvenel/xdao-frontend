@@ -1,27 +1,25 @@
-import { PROPOSALS } from 'app/mocks/constants';
 import { IProposal } from 'shared/types';
 import { ICreateProposalPayload } from './payloads';
 import { useCreateProposalByType } from 'shared/hooks/createProposalByType';
 import { useState, useCallback } from 'react';
+import { getDaoProposals, getMyProposals } from './methods';
 
 export function useProposals() {
   const [proposals, setProposals] = useState<IProposal[]>([]);
   const { createProposalByType } = useCreateProposalByType();
+  const [hasMore, setHasMore] = useState(false);
 
-  const mapper = useCallback((data: unknown[]): IProposal[] => {
-    //TODO: write a mapper for specific data (if needed)
-    const result = data as IProposal[];
-
-    return result;
+  const fetchDaoProposals = useCallback(async (daoAddress: string) => {
+    let proposals = await getDaoProposals(daoAddress);
+    setHasMore(proposals.length != 100)
+    setProposals(proposals);
   }, []);
 
-  const fetchProposals = useCallback(async () => {
-    //TODO: get source data
-    const sourceData = PROPOSALS;
-
-    const formatedData: IProposal[] = mapper(sourceData);
-    setProposals(formatedData);
-  }, [mapper]);
+  const fetchMyProposals = useCallback(async (address: string) => {
+    let proposals = await getMyProposals(address)
+    setHasMore(proposals.length != 100)
+    setProposals(proposals);
+  }, []);
 
   const createProposal = useCallback(
     async (payload: ICreateProposalPayload): Promise<void> => {
@@ -51,5 +49,5 @@ export function useProposals() {
     []
   );
 
-  return { proposals, fetchProposals, createProposal, updateProposal };
+  return { proposals, fetchDaoProposals, fetchMyProposals, createProposal, updateProposal, hasMore };
 }
