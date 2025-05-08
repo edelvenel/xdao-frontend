@@ -1,6 +1,5 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
-import cn from 'classnames';
 import { Filter } from 'pages/proposal-list/components/Filter';
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -36,7 +35,8 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const [searchText, setSearchText] = React.useState<string>('');
 	const [selectedDaoIdx, setSelectedDaoIdx] = React.useState<null | number>(null);
 	const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
-	const [isChangeSuccess, setIsChangeSuccess] = React.useState<boolean | null>(null);
+	const [isChangeSuccess, setIsChangeSuccess] = React.useState<boolean>(false);
+	const [isChangeResultOpen, setIsChangeResultOpen] = React.useState<boolean>(false);
 	const { daos, fetchDaos } = useDaos();
 	const { proposals, fetchProposals } = useProposals();
 
@@ -53,6 +53,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 
 		setSelectedDaoIdx(idx);
 		setIsChangeSuccess(true);
+		setIsChangeResultOpen(true);
 	}, []);
 
 	React.useEffect(() => {
@@ -202,15 +203,11 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				/>
 			</Modal>
 
-			<Modal
-				isOpen={isChangeSuccess !== null}
-				onClose={() => setIsChangeSuccess(null)}
-				className={cn(isChangeSuccess && css.success)}
-			>
+			<Modal isOpen={isChangeResultOpen} onClose={() => setIsChangeResultOpen(false)}>
 				<ChangeDaoResult
-					success={isChangeSuccess!}
-					onDone={() => setIsChangeSuccess(null)}
-					onRetry={() => setIsChangeSuccess(null)}
+					success={isChangeSuccess}
+					onDone={() => setIsChangeResultOpen(false)}
+					onRetry={() => setIsChangeResultOpen(false)}
 				/>
 			</Modal>
 		</div>

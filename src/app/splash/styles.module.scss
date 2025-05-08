@@ -4,15 +4,20 @@
 	justify-content: center;
 
 	.figures {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 1225px;
 		height: 1092px;
-		background-image: url('../../assets/images/splash-background.png');
-		background-position: center;
-		background-size: cover;
-		background-repeat: no-repeat;
+
+		.background {
+			position: fixed;
+			min-width: 1225px;
+			min-height: 1092px;
+			z-index: -1;
+			pointer-events: none;
+		}
 
 		.button {
 			display: flex;

@@ -1,6 +1,5 @@
 import { backButton } from '@telegram-apps/sdk';
 import { ProposalTypes } from 'app/mocks/constants';
-import cn from 'classnames';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { useBackButton } from 'shared/hooks/useBackButton';
@@ -12,7 +11,8 @@ import css from './styles.module.scss';
 
 export const CreateProposalPage = React.memo(function CreateProposalPage() {
 	const [formType, setFormType] = React.useState<number | null>(null);
-	const [isSuccess, setIsSuccess] = React.useState<boolean | null>(null);
+	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
+	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const { dao, setDao, proposalType, setProposalType, formData, setFormData } = store.useFormType();
 
 	const { setIsMenuShown, setIsHeaderShown } = store.useApp();
@@ -46,10 +46,19 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 
 	return (
 		<div className={css.page}>
-			{formType != null && <ProposalForm data={formData} type={formType} onResponse={setIsSuccess} />}
+			{formType != null && (
+				<ProposalForm
+					data={formData}
+					type={formType}
+					onResponse={(value) => {
+						setIsSuccess(value);
+						setIsResultOpen(true);
+					}}
+				/>
+			)}
 
-			<Modal isOpen={isSuccess !== null} onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
-				<ProposalCreateResult success={isSuccess!} onDone={handleOnDone} onRetry={() => setIsSuccess(null)} />
+			<Modal isBackgroundOn={isSuccess} isOpen={isResultOpen} onClose={() => navigate(-1)}>
+				<ProposalCreateResult success={isSuccess} onDone={handleOnDone} onRetry={() => setIsResultOpen(false)} />
 			</Modal>
 		</div>
 	);

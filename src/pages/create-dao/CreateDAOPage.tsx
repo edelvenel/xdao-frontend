@@ -1,5 +1,4 @@
 import { TopContent } from 'app/navigation/components/top-content';
-import cn from 'classnames';
 import { Formik, FormikErrors, FormikProps } from 'formik';
 import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
@@ -45,7 +44,8 @@ const getErrors = (errors: string | string[] | FormikErrors<IDistributionRule>[]
 export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [selectedTabIdx, setSelectedTabIdx] = React.useState<number>(0);
 	const [validationSchema, setValidationSchema] = React.useState(getValidationSchema(0));
-	const [isSuccess, setIsSuccess] = React.useState<boolean | null>(null);
+	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
+	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
 	const { setIsHeaderShown, setIsMenuShown } = store.useApp();
@@ -106,8 +106,10 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 				try {
 					await createDao(payload);
 					setIsSuccess(true);
+					setIsResultOpen(true);
 				} catch {
 					setIsSuccess(false);
+					setIsResultOpen(true);
 				}
 			} else if (selectedTabIdx === 1) {
 				const payload: ICreateDaoProportionalPayload = {
@@ -120,8 +122,10 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 				try {
 					await createDao(payload);
 					setIsSuccess(true);
+					setIsResultOpen(true);
 				} catch {
 					setIsSuccess(false);
+					setIsResultOpen(true);
 				}
 			}
 		},
@@ -218,8 +222,8 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 						</div>
 					</Modal>
 
-					<Modal isOpen={isSuccess !== null} onClose={() => navigate(-1)} className={cn(isSuccess && css.success)}>
-						<DaoCreateResult success={isSuccess!} onDone={() => navigate(-1)} onRetry={() => setIsSuccess(null)} />
+					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={isSuccess}>
+						<DaoCreateResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
 					</Modal>
 				</div>
 			)}

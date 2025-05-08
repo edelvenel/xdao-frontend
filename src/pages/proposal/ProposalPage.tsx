@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
@@ -17,7 +16,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	const { setIsMenuShown, setIsHeaderShown } = store.useApp();
 	const [isOnVote, setIsOnVote] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
-	const [success, setSuccess] = React.useState<boolean | null>(null);
+	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 	useBackButton();
 
 	const proposal = React.useMemo(() => {
@@ -32,7 +31,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	const handleOnConfirm = React.useCallback(() => {
 		setIsOnVote(false);
 		const success = true; //TODO: voting integration
-		setSuccess(success);
+		setIsSuccess(success);
 		setIsResultOpen(true);
 	}, []);
 
@@ -62,12 +61,8 @@ export const ProposalPage = React.memo(function ProposalPage() {
 				/>
 			</Modal>
 
-			<Modal
-				isOpen={isResultOpen && success !== null}
-				onClose={() => setIsResultOpen(false)}
-				className={cn(success === true && css.success)}
-			>
-				<VoteResult success={success!} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
+			<Modal isOpen={isResultOpen} onClose={() => setIsResultOpen(false)}>
+				<VoteResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
 			</Modal>
 		</div>
 	);
