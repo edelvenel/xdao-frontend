@@ -4,23 +4,24 @@ import { useCreateProposalByType } from 'shared/hooks/createProposalByType';
 import { useState, useCallback } from 'react';
 import { getDaoProposals, getProposals } from './methods';
 import { FilterEnum1 } from 'app/api/codegen';
-
+import { store } from 'shared/store';
 export function useProposals() {
   const [proposals, setProposals] = useState<IProposal[]>([]);
   const { createProposalByType } = useCreateProposalByType();
   const [hasMore, setHasMore] = useState(false);
+  const { token } = store.useAuth();
 
   const fetchDaoProposals = useCallback(async (daoAddress: string) => {
-    let proposals = await getDaoProposals(daoAddress);
+    let proposals = await getDaoProposals(token ?? "", daoAddress);
     setHasMore(proposals.length != 100)
     setProposals(proposals);
   }, []);
 
   const fetchProposals = useCallback(async (filter?: FilterEnum1) => {
-    let proposals = await getProposals(filter)
+    let proposals = await getProposals(token ?? "", filter)
     setHasMore(proposals.length != 100)
     setProposals(proposals);
-  }, []);
+  }, [token]);
 
   const createProposal = useCallback(
     async (payload: ICreateProposalPayload): Promise<void> => {

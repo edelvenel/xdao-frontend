@@ -26,22 +26,21 @@ const daoMapper = (dao: Dao): IDao => {
   };
 };
 
-export const getDaos = async (offset: number): Promise<IDao[]> => {
+export const getDaos = async (token: string, offset: number): Promise<{ daos: IDao[], hasMore: boolean }> => {
   try {
-    const response = await api.v1.getAllDaos({ limit: 100, offset: offset });
+    const response = await api.v1.getAllDaos({ limit: 100, offset: offset }, { format: "json", headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" } });
 
-    return response.items.map(daoMapper);
+    return { daos: response.items.map(daoMapper), hasMore: response.total > offset + response.items.length };
   } catch (error) {
     throw error;
   }
 };
 
-export const getDao = async (id: string): Promise<IDao> => {
+export const getDao = async (token: string, id: string): Promise<IDao> => {
   try {
-    // TODO: waiting for zakhar 
-    // const response = await api.v1.
+    const response = await api.v1.getDaoInfo(id, { format: "json", headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" } });
 
-    // return daoMapper(response);
+    return daoMapper(response);
   } catch (error) {
     throw error;
   }

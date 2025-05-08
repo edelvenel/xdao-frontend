@@ -14,15 +14,15 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
     };
 };
 
-export const getDaoProposals = async (daoAddress: string): Promise<IProposal[]> => {
-    const response = await api.v1.getDaoProposals({ daoAddress });
+export const getDaoProposals = async (token: string, daoAddress: string): Promise<IProposal[]> => {
+    const response = await api.v1.getDaoProposals({ daoAddress }, { format: "json", headers: { "Authorization": `Bearer ${token}` } });
   
     return response.items.map(proposalMapper);
 };
   
 
-export const getProposals = async (filter?: FilterEnum1): Promise<IProposal[]> => {
-    const response = await api.v1.getProposals({ filter: filter });
+export const getProposals = async (token: string, filter?: FilterEnum1): Promise<IProposal[]> => {
+    const response = await api.v1.getProposals({ filter: filter }, { format: "json", headers: { "Authorization": `Bearer ${token}` } });
   
     return response.items.map(proposalMapper);
 };

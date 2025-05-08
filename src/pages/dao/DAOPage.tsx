@@ -22,6 +22,7 @@ export const DAOPage = React.memo(function DAOPage() {
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
   const [dao, setDao] = useState<IDao | undefined>(undefined);
+  const { token } = store.useAuth();
 
 	const navigate = useNavigate();
 	useBackButton();
@@ -32,7 +33,7 @@ export const DAOPage = React.memo(function DAOPage() {
         return;
       }
 
-      const dao = await getDao(id);
+      const dao = await getDao(token ?? "", id);
       setDao(dao);
     };
 

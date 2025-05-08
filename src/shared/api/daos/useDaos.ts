@@ -7,6 +7,7 @@ import { useTonConnectUI } from '@tonconnect/ui-react';
 import { getDaos, getFactoryAddress } from './methods';
 import { JettonBuilder } from 'shared/cell-builders/common';
 import { DAOBuilder } from 'shared/cell-builders';
+import { store } from 'shared/store';
 
 export function useDaos() {
   const [daos, setDaos] = React.useState<IDao[]>([]);
@@ -14,14 +15,15 @@ export function useDaos() {
   const { wallet, isConnected } = useTonWallet();
   const [currentOffset, setCurrentOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+  const { token } = store.useAuth();
 
   const fetchDaos = React.useCallback(async () => {
-    const sourceData = await getDaos(currentOffset);
+    const { daos, hasMore } = await getDaos(token ?? "", currentOffset);
 
-    setDaos(sourceData);
-    setCurrentOffset(sourceData.length);
-    setHasMore(sourceData.length != 100);
-  }, [currentOffset]);
+    setDaos((prevDaos) => [...prevDaos, ...daos]);
+    setCurrentOffset((prevOffset) => prevOffset + daos.length);
+    setHasMore(hasMore);
+  }, [currentOffset, token]);
 
   const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
     if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');

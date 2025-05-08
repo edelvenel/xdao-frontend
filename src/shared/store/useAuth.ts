@@ -7,10 +7,15 @@ interface IAuthProps {
 }
 
 export const useAuth = create<IAuthProps>((set) => ({
-  token: null,
-  setToken: (newToken) => set({ token: newToken }),
+  get token() {
+    return localStorage.getItem("bearer_token");
+  },
+  setToken: (newToken) => {
+    localStorage.setItem("bearer_token", newToken);
+    set({ token: newToken });
+  },
   signOut: () => {
-    set({ token: null });
     localStorage.removeItem("bearer_token");
+    set({ token: null });
   },
 }));
