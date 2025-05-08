@@ -28,7 +28,8 @@ export function useDaos() {
   const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
     if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');
 
-    const factoryAddress = await getFactoryAddress();
+    console.log("token", token);
+    const factoryAddress = await getFactoryAddress(token ?? "");
 
     const holders = Dictionary.empty(
       Dictionary.Keys.Address(),

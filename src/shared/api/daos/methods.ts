@@ -2,9 +2,9 @@ import { api } from 'app/api';
 import { Dao } from 'app/api/codegen';
 import { IDao } from 'shared/types';
 
-export const getFactoryAddress = async () => {
+export const getFactoryAddress = async (token: string) => {
   try {
-    const response = await api.v1.getFactoryAddress();
+    const response = await api.v1.getFactoryAddress({ format: "json", headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" } });
 
     return response.address;
   } catch (error) {
