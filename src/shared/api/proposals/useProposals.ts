@@ -2,7 +2,7 @@ import { IProposal } from 'shared/types';
 import { ICreateProposalPayload } from './payloads';
 import { useCreateProposalByType } from 'shared/hooks/createProposalByType';
 import { useState, useCallback } from 'react';
-import { getDaoProposals, getMyProposals } from './methods';
+import { getDaoProposals, getProposals } from './methods';
 import { FilterEnum1 } from 'app/api/codegen';
 
 export function useProposals() {
@@ -17,7 +17,7 @@ export function useProposals() {
   }, []);
 
   const fetchProposals = useCallback(async (filter?: FilterEnum1) => {
-    let proposals = await getMyProposals(filter)
+    let proposals = await getProposals(filter)
     setHasMore(proposals.length != 100)
     setProposals(proposals);
   }, []);

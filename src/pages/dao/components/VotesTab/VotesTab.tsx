@@ -26,8 +26,9 @@ export function VotesTab({ dao }: IVotesTabProps) {
       <div className={css.list}>
         <InfiniteScroll 
             dataLength={proposals.length}
-            next={fetchDaoProposals}
+            next={() => fetchDaoProposals(dao.address)}
             hasMore={hasMore}
+            loader={<div>Loading...</div>}
           >
           {proposals.map((proposal, index) => (
             <Proposal data={proposal} key={index} />

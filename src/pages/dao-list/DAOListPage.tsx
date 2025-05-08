@@ -57,6 +57,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
         dataLength={daos.length}
         next={fetchDaos}
         hasMore={hasMore}
+        loader={<div>Loading...</div>}
       >
         {daos.map((dao) => (
           <DAO
