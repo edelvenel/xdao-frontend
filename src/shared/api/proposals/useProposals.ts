@@ -16,9 +16,9 @@ export function useProposals() {
   const { holders } = useDaos();
   const address = useTonAddress(false);
   
-  const isWalletHolder = holders.find((holder) => holder.owner_address === address);
+  const holder = holders.find((holder) => holder.owner_address === address);
 
-  if (!isWalletHolder) {
+  if (!holder) {
       throw new Error('Holder not found');
   }
 
@@ -38,14 +38,14 @@ export function useProposals() {
     async (payload: ICreateProposalPayload, daoAddress: string): Promise<void> => {
       try {
         console.log('createProposal 1');
-        await createProposalByType(payload, daoAddress, isWalletHolder);
+        await createProposalByType(payload, daoAddress, holder);
         console.log('createProposal 3');
       } catch (error) {
         console.error('Unable to create proposal', error);
         throw error;
       }
     },
-    [createProposalByType, isWalletHolder]
+    [createProposalByType, holder]
   );
 
   const updateProposal = useCallback(
