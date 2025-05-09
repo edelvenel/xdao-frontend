@@ -19,13 +19,13 @@ export function App() {
         twaReturnUrl: "https://t.me/Propeller_demo_bot/propeller/wallet",
       }}
     >
-      {(!token || !isWalletConnected) && (
+      {!isWalletConnected && (
         <>
           <SplashScreen />
           <TonProof />
         </>
       )}
-      {isWalletConnected && token && (
+      {isWalletConnected && (
         <AppErrorBoundary>
           <BrowserRouter>
             <AppRouter />
