@@ -17,10 +17,6 @@ export function SignaturesBlock({ votes }: ISignaturesBlockProps) {
 					<Icon.Common.Agree />
 					<span>{votes.agree.reduce((acc, curr) => acc + curr.impact, 0)}%</span>
 				</div>
-				<div className={cn(css.disagree, css.vote)}>
-					<Icon.Common.Disagree />
-					<span>{100 - votes.agree.reduce((acc, curr) => acc + curr.impact, 0)}%</span>
-				</div>
 			</div>
 			{votes.agree.map((vote) => (
 				<div className={css.block}>
