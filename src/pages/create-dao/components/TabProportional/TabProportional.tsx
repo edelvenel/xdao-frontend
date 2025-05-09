@@ -9,6 +9,14 @@ import { Title } from 'shared/ui/Title';
 import { DistributionRule } from './components/DistributionRule';
 import css from './styles.module.scss';
 
+function calculatePercents(rules: IDistributionRule[]): IDistributionRule[] {
+	const totalTokens = rules.reduce((acc,curr)=>acc + ( curr.tokens === null ? 0 : curr.tokens ), 0);
+	const calculatedDistributionRules = rules.map((rule)=>{
+		return {...rule, percent: ( rule.tokens === null ? 0 : rule.tokens ) / (totalTokens === 0 ? 1 : totalTokens) * 100}
+	});
+	return calculatedDistributionRules;
+}
+
 interface ITabProportionalProps {
 	currentConsensus: number;
 	isManualConsensus: boolean;
@@ -31,17 +39,29 @@ export function TabProportional({
 	const handleOnDelete = React.useCallback(
 		(idx: number) => {
 			if (distributionRules.length > 2) {
-				setDistributionRules([...distributionRules.filter((_, index) => index !== idx)]);
+				setDistributionRules(calculatePercents([...distributionRules.filter((_, index) => index !== idx)]));
 			} else {
-				setDistributionRules([
+				setDistributionRules(calculatePercents([
 					...distributionRules.filter((_, index) => index < idx),
-					{ walletAddress: '', tokens: null, percent: 30 },
+					{ walletAddress: '', tokens: null, percent: 0 },
 					...distributionRules.filter((_, index) => index > idx),
-				]);
+				]));
 			}
 		},
 		[distributionRules, setDistributionRules]
 	);
+
+	const handleOnAdd = React.useCallback(()=>{
+		setDistributionRules(calculatePercents([...distributionRules, { walletAddress: '', percent: 0, tokens: null }]));
+	},[distributionRules, setDistributionRules])
+
+	const handleOnChange = React.useCallback((value: IDistributionRule, index: number)=>{
+			setDistributionRules(calculatePercents([
+				...distributionRules.filter((_, idx) => idx < index),
+				{ ...value },
+				...distributionRules.filter((_, idx) => idx > index),
+			]));
+	},[distributionRules, setDistributionRules])
 
 	return (
 		<div className={css.tab}>
@@ -51,19 +71,13 @@ export function TabProportional({
 					<DistributionRule
 						key={index}
 						rule={rule}
-						onChange={(value) =>
-							setDistributionRules([
-								...distributionRules.filter((_, idx) => idx < index),
-								{ ...value },
-								...distributionRules.filter((_, idx) => idx > index),
-							])
-						}
+						onChange={(value)=>handleOnChange(value, index)}
 						onDelete={() => handleOnDelete(index)}
 					/>
 				))}
 				<Button
 					variant="primary"
-					onClick={() => setDistributionRules([...distributionRules, { walletAddress: '', percent: 30, tokens: null }])}
+					onClick={handleOnAdd}
 				>
 					Add more
 				</Button>

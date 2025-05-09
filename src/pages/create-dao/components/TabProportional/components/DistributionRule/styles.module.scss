@@ -1,45 +1,47 @@
 .distributionRule {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
 
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 44px;
-    background-color: var(--semantic-background-tetriary);
-    border-radius: 32px;
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-height: 44px;
+		background-color: var(--semantic-background-tetriary);
+		border-radius: 32px;
 
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--semantic-text-primary);
+		font-size: 15px;
+		font-weight: 500;
+		color: var(--semantic-text-primary);
 
-    &.wallet {
-      flex: 1;
-      min-height: 44px;
-    }
+		&.wallet {
+			flex: 1;
+			min-height: 44px;
+		}
 
-    &.gpTokens {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--semantic-text-secondary);
-      max-width: 104px;
-    }
+		&.gpTokens {
+			font-size: 15px;
+			font-weight: 400;
+			color: var(--semantic-text-secondary);
+			max-width: 104px;
+		}
 
-    &.percent {
-      max-width: 64px;
-      padding: 10px 16px;
-    }
+		&.percent {
+			max-width: 64px;
+			padding: 10px 16px;
+			overflow: hidden;
+			min-height: 44px;
+		}
 
-    &.cancel {
-      padding: 0;
-      width: 44px;
-      height: 44px;
-      color: var(--semantic-text-secondary);
-      user-select: none;
-      cursor: pointer;
-    }
-  }
+		&.cancel {
+			padding: 0;
+			width: 44px;
+			height: 44px;
+			color: var(--semantic-text-secondary);
+			user-select: none;
+			cursor: pointer;
+		}
+	}
 }
