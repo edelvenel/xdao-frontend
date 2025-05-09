@@ -28,61 +28,15 @@ export const useCreateProposalByType = () => {
 		console.log(jettonWalletAddress.toRawString())
 
 		const jettonWallet = client.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
+		const body = proposalsBuilders(Address.parseRaw(daoAddress))[payload.type](payload);
 
-		switch (payload.type) {
-			case ProposalType.AddGP: {
-				const body = proposalsBuilders(Address.parseRaw(daoAddress))[payload.type](payload);
-
-				await jettonWallet.sendBalanceNotification(
-					sender,
-					toNano('0.1'),
-					Address.parse(daoAddress),
-					makeElectionsMsg(body),
-					0n
-				);
-				break;
-			}
-
-			case ProposalType.RemoveGP: {
-				const body = proposalsBuilders(Address.parseRaw(daoAddress))[payload.type](payload);
-
-				await jettonWallet.sendBalanceNotification(
-					sender,
-					toNano('0.1'),
-					Address.parse(daoAddress),
-					makeElectionsMsg(body),
-					0n
-				);
-				break;
-			}
-
-			case ProposalType.ChangeDAOName: {
-				break;
-			}
-
-			case ProposalType.ChangeGPTransferStatus: {
-				break;
-			}
-
-			case ProposalType.ChangeGeneralConsensus: {
-				break;
-			}
-
-			case ProposalType.CustomProposal: {
-				break;
-			}
-
-			case ProposalType.SendDAOFunds: {
-				break;
-			}
-
-			case ProposalType.TransferGPTokens: {
-				break;
-			}
-
-			default:
-				break;
-		}
+		await jettonWallet.sendBalanceNotification(
+			sender,
+			toNano('0.1'),
+			Address.parse(daoAddress),
+			makeElectionsMsg(body),
+			0n
+		);
 	};
 
 	return { createProposalByType };

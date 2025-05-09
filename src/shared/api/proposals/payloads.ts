@@ -1,5 +1,5 @@
-import { Address } from "@ton/core";
-import { JettonBuilder, ProposalsBuilder } from "shared/cell-builders";
+import {Address, beginCell, Dictionary, toNano} from "@ton/core";
+import { ProposalsBuilder } from "shared/cell-builders";
 import { IDao, IToken, ProposalType } from "shared/types";
 
 export type ICreateProposalPayload =
@@ -89,34 +89,17 @@ export type ICreateTransferGPProposalPayload = {
 	toWalletAddress: string;
 };
 
-export const proposalsBuilders = (responseDestination: Address) => ({
-  [ProposalType.AddGP]: (payload: ICreateAddGPProposalPayload) => (
-    console.log(payload.walletAddress, 'walletAddress'),
-    ProposalsBuilder.buildCallJettonMint(
-      JettonBuilder.buildJettonMint({
-        amount: payload.tokenAmount,
-        fromAddress: Address.parse(payload.walletAddress),
-        responseDestination: responseDestination,
-      })
-    )
-  ),
-  [ProposalType.RemoveGP]: (payload: ICreateRemoveGPProposalPayload) => 
-    ProposalsBuilder.buildCallJettonBurn(JettonBuilder.buildJettonBurn(
-      {
-        amount: parseInt(payload.gpToRemove),
-        responseDestination: responseDestination,
-      }
-    )
-  ),
-  [ProposalType.TransferGPTokens]: (payload: ICreateTransferGPProposalPayload) =>  ProposalsBuilder.buildCallJettonTransfer(
-    JettonBuilder.buildJettonTransfer(
-      {
-        amount: payload.tokenAmount,
-        forwardTonAmount: 1n,
-        responseDestination: responseDestination,
-        destination: Address.parse(payload.toWalletAddress),
-      }
-    )
-  ),
-  [ProposalType.ChangeGeneralConsensus]: (payload: ICreateChangeGeneralConsensusProposalPayload) =>  ProposalsBuilder.buildChangeSuccessPercentage(BigInt(payload.currentConsensus)),
+export const proposalsBuilders = () => ({
+	// TODO: RemoveGP - ProposalsBuilder.buildCallJettonBurn(toNano(payload.tokenAmount), jettonWalletAddress),
+	// What is gpToRemove? Wallet address must be converted to the jetton wallet address through the
+	// /v1/dao/{address}/holders. It's mandatory!
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	[ProposalType.RemoveGP]: (payload: ICreateRemoveGPProposalPayload) => (beginCell().endCell()),
+	[ProposalType.TransferGPTokens]: (payload: ICreateTransferGPProposalPayload) =>  ProposalsBuilder.buildCallJettonTransfer(payload),
+	[ProposalType.ChangeGeneralConsensus]: (payload: ICreateChangeGeneralConsensusProposalPayload) =>  ProposalsBuilder.buildChangeSuccessPercentage(payload.currentConsensus),
+	[ProposalType.AddGP]: (payload: ICreateAddGPProposalPayload) => {
+		const dict = Dictionary.empty(Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4));
+		dict.set(Address.parse(payload.walletAddress), toNano(payload.tokenAmount))
+		return ProposalsBuilder.buildCallJettonMint(dict) // this method support dictionary, but payload only 1 object. So strange...
+	}
 });
