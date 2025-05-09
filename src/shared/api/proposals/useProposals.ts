@@ -12,23 +12,23 @@ export function useProposals() {
   const { token } = store.useAuth();
 
   const fetchDaoProposals = useCallback(async (daoAddress: string) => {
-    let proposals = await getDaoProposals(token ?? "", daoAddress);
+    const proposals = await getDaoProposals(token ?? "", daoAddress);
     setHasMore(proposals.length != 100)
     setProposals(proposals);
   }, []);
 
   const fetchProposals = useCallback(async (filter?: FilterEnum1) => {
-    let proposals = await getProposals(token ?? "", filter)
+    const proposals = await getProposals(token ?? "", filter)
     setHasMore(proposals.length != 100)
     setProposals(proposals);
   }, [token]);
 
   const createProposal = useCallback(
-    async (payload: ICreateProposalPayload): Promise<void> => {
+    async (payload: ICreateProposalPayload, daoAddress: string): Promise<void> => {
       try {
         console.log('createProposal 1');
-        console.log(payload, 123);
-        await createProposalByType(payload);
+        console.log(payload, daoAddress, 123);
+        await createProposalByType(payload, daoAddress);
         console.log('createProposal 3');
       } catch (error) {
         console.error('Unable to create proposal', error);
