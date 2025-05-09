@@ -80,11 +80,10 @@
 		}
 
 		.vote {
+			flex: 1;
 			display: flex;
-			width: 120px;
 			gap: 10px;
 			justify-content: center;
-			padding: 5px 12px;
 			border-radius: 32px;
 			background-color: var(--semantic-background-tetriary);
 			align-items: center;
