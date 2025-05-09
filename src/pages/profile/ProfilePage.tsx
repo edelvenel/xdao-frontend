@@ -203,7 +203,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				/>
 			</Modal>
 
-			<Modal isOpen={isChangeResultOpen} onClose={() => setIsChangeResultOpen(false)}>
+			<Modal isBackgroundOn={isChangeSuccess} isOpen={isChangeResultOpen} onClose={() => setIsChangeResultOpen(false)}>
 				<ChangeDaoResult
 					success={isChangeSuccess}
 					onDone={() => setIsChangeResultOpen(false)}

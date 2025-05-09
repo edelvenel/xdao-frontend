@@ -61,7 +61,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 				/>
 			</Modal>
 
-			<Modal isOpen={isResultOpen} onClose={() => setIsResultOpen(false)}>
+			<Modal isBackgroundOn={isSuccess} isOpen={isResultOpen} onClose={() => setIsResultOpen(false)}>
 				<VoteResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
 			</Modal>
 		</div>
