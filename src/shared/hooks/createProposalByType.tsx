@@ -2,7 +2,7 @@ import { Cell, toNano } from '@ton/core';
 import { Address } from '@ton/core';
 import { client } from 'shared/smartcontracts/sender';
 import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/payloads';
-import { clientOpen } from 'shared/smartcontracts/sender';
+import { jettonMaster } from 'shared/smartcontracts/sender';
 import { TonConnectSender } from 'shared/smartcontracts/sender';
 import { ProposalType } from 'shared/types';
 import { DAOJettonWallet } from 'shared/smartcontracts/DAOJettonWallet';
@@ -27,7 +27,7 @@ export const useCreateProposalByType = () => {
 
 		switch (payload.type) {
 			case ProposalType.AddGP: {
-				const walletAddress = await clientOpen.getWalletAddress(Address.parse(address));
+				const walletAddress = await jettonMaster.getWalletAddress(Address.parse(address));
 
 				const jettonWallet = client.open(DAOJettonWallet.createFromAddress(walletAddress));
 
@@ -44,7 +44,7 @@ export const useCreateProposalByType = () => {
 			}
 
 			case ProposalType.RemoveGP: {
-				const walletAddress = await clientOpen.getWalletAddress(Address.parse(address));
+				const walletAddress = await jettonMaster.getWalletAddress(Address.parse(address));
 
 				const jettonWallet = client.open(DAOJettonWallet.createFromAddress(walletAddress));
 
