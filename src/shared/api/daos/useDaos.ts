@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { DaoType, IDao, IHolder } from 'shared/types';
+import React, { useState } from 'react';
+import { DaoType, IDao } from 'shared/types';
 import { ICreateDaoPayload } from './payloads';
 import { useTonWallet } from 'shared/utils/useTonConnect';
 import { Dictionary, toNano, Address } from '@ton/core';
@@ -8,11 +8,9 @@ import { getDaos, getFactoryAddress } from './methods';
 import { JettonBuilder } from 'shared/cell-builders/common';
 import { DAOBuilder } from 'shared/cell-builders';
 import { store } from 'shared/store';
-import { getDaoHolders } from '../proposals/methods';
 
 export function useDaos() {
   const [daos, setDaos] = React.useState<IDao[]>([]);
-  const [holders, setHolders] = React.useState<IHolder[]>([]);
   const [tonConnectUI] = useTonConnectUI();
   const { wallet, isConnected } = useTonWallet();
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -26,11 +24,6 @@ export function useDaos() {
     setCurrentOffset((prevOffset) => prevOffset + daos.length);
     setHasMore(hasMore);
   }, [currentOffset, token]);
-
-  const fetchHolders = useCallback(async (daoAddress: string) => {
-    const holders = await getDaoHolders(token ?? "", daoAddress);
-    setHolders(holders);
-  }, [token]);
 
   const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
     if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');
@@ -106,5 +99,5 @@ export function useDaos() {
     []
   );
 
-  return { daos, holders, fetchDaos, createDao, updateDao, hasMore, fetchHolders };
+  return { daos, fetchDaos, createDao, updateDao, hasMore };
 }

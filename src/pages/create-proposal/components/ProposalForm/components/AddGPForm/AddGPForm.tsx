@@ -33,9 +33,10 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 				walletAddress: values.walletAddress,
 				tokenAmount: Number(values.tokenAmount),
 			};
+			if (!dao?.address) return;
 
 			try {
-				await createProposal(payload, dao?.address ?? '', dao?.jetton_address ?? '');
+				await createProposal(payload, dao?.address);
 				onResponse(true);
 			} catch {
 				onResponse(false);
