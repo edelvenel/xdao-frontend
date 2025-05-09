@@ -1,9 +1,9 @@
 type IAppLayoutProps = React.PropsWithChildren;
 import { Header } from 'app/header';
 import { Navigation } from 'app/navigation';
+import cn from 'classnames';
 import React from 'react';
 import { store } from 'shared/store';
-import BackgroundSvg from '../../svg/backgrounds/BackgroundSvg.svg';
 import css from './styles.module.scss';
 
 export function AppLayout({ children }: IAppLayoutProps) {
@@ -15,8 +15,7 @@ export function AppLayout({ children }: IAppLayoutProps) {
 	);
 
 	return (
-		<div className={css.layout} style={{ paddingBottom }}>
-			{isBackground && <div className={css.background} style={{ backgroundImage: `url(${BackgroundSvg})` }} />}
+		<div className={cn(css.layout, isBackground && css.background)} style={{ paddingBottom }}>
 			{isHeaderShown && <Header />}
 			{children}
 			{isMenuShown && <Navigation />}

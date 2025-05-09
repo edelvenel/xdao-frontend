@@ -23,13 +23,11 @@
 		max-height: 80%;
 		overflow: hidden;
 
-		.background {
-			position: absolute;
-			top: -70%;
-			left: -70%;
-			min-width: 900px;
-			z-index: -1;
-			pointer-events: none;
+		&.background {
+			background: url('../../svg/backgrounds/ModalBackground.svg');
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;	
 		}
 
 		.header {

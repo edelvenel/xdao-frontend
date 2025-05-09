@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'motion/react';
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from 'shared/icons';
-import { Svg } from 'shared/svg';
 import { hapticFeedback } from 'shared/utils/haptic';
 import { IconButton } from '../IconButton';
 import { Title } from '../Title';
@@ -58,7 +57,7 @@ export function Modal({
 							initial={{ opacity: 0, y: '100%' }}
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: '100%' }}
-							className={cn(css.modal, className)}
+							className={cn(css.modal, isBackgroundOn && css.background, className)}
 							ref={ref}
 						>
 							<div className={css.closeButton}>
@@ -75,7 +74,6 @@ export function Modal({
 								)}
 							</div>
 							<div className={css.content}>{children}</div>
-							{isBackgroundOn && <div className={css.background}>{<Svg.Background.Common />}</div>}
 						</motion.div>
 					</AnimatePresence>
 				</motion.div>
