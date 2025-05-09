@@ -16,7 +16,7 @@ export function useProposals() {
   const { holders } = useDaos();
   const address = useTonAddress(false);
   
-  const holder = holders.find((holder) => holder.owner_address === address);
+  const holder = holders.find((h) => h.owner_address === address);
 
   if (!holder) {
       throw new Error('Holder not found');
