@@ -27,7 +27,7 @@ export function CreateProposalOpen({
 	onCreate,
 }: ICreateProposalOpen) {
 	const { setIsBackground } = store.useApp();
-	const { daos, fetchDaos } = useDaos();
+	const { daos, fetchDaos, fetchHolders } = useDaos();
 
 	React.useEffect(() => {
 		setIsBackground(true);
@@ -35,7 +35,10 @@ export function CreateProposalOpen({
 
 	React.useEffect(() => {
 		fetchDaos();
-	}, [fetchDaos]);
+		if (dao?.address) {
+			fetchHolders(dao.address);
+		}
+	}, [fetchDaos, dao, fetchHolders]);
 
 	return (
 		<div className={css.createProposalOpen}>

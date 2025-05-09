@@ -4,7 +4,7 @@ import { client } from 'shared/smartcontracts/sender';
 import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/payloads';
 import { jettonMaster } from 'shared/smartcontracts/sender';
 import { TonConnectSender } from 'shared/smartcontracts/sender';
-import { ProposalType } from 'shared/types';
+import { IHolder, ProposalType } from 'shared/types';
 import { DAOJettonWallet } from 'shared/smartcontracts/DAOJettonWallet';
 import { Master } from 'shared/smartcontracts/masterWrapper';
 import { useTonAddress } from '@tonconnect/ui-react';
@@ -15,7 +15,12 @@ export const useCreateProposalByType = () => {
 	const sender = new TonConnectSender(tonConnect);
 	const address = useTonAddress();
 
-	const createProposalByType = async (payload: ICreateProposalPayload, daoAddress: string) => {
+	const createProposalByType = async (
+		payload: ICreateProposalPayload,
+		jettonMasterAddress: string,
+		daoAddress: string,
+		holder: IHolder
+	) => {
 		const makeElectionsMsg = (body: Cell) =>
 			Master.createElectionsMessage({
 				start_time: Date.now(),
@@ -23,11 +28,11 @@ export const useCreateProposalByType = () => {
 				action_message_body: body,
 			});
 
-		console.log(payload, daoAddress, 12312331);
+		console.log(jettonMasterAddress, daoAddress, holder, 12312331);
 
 		switch (payload.type) {
 			case ProposalType.AddGP: {
-				const walletAddress = await jettonMaster.getWalletAddress(Address.parse(address));
+				const walletAddress = await jettonMaster(jettonMasterAddress).getWalletAddress(Address.parse(address));
 
 				const jettonWallet = client.open(DAOJettonWallet.createFromAddress(walletAddress));
 
@@ -44,7 +49,7 @@ export const useCreateProposalByType = () => {
 			}
 
 			case ProposalType.RemoveGP: {
-				const walletAddress = await jettonMaster.getWalletAddress(Address.parse(address));
+				const walletAddress = await jettonMaster(jettonMasterAddress).getWalletAddress(Address.parse(address));
 
 				const jettonWallet = client.open(DAOJettonWallet.createFromAddress(walletAddress));
 

@@ -5,11 +5,22 @@ import { useState, useCallback } from 'react';
 import { getDaoProposals, getProposals } from './methods';
 import { FilterEnum1 } from 'app/api/codegen';
 import { store } from 'shared/store';
+import { useDaos } from '../daos/useDaos';
+import { useTonAddress } from '@tonconnect/ui-react';
+
 export function useProposals() {
   const [proposals, setProposals] = useState<IProposal[]>([]);
   const { createProposalByType } = useCreateProposalByType();
   const [hasMore, setHasMore] = useState(false);
   const { token } = store.useAuth();
+  const { holders } = useDaos();
+  const address = useTonAddress(false);
+  
+	const isWalletHolder = holders.find((holder) => holder.owner_address === address);
+
+  if (!isWalletHolder) {
+		throw new Error('Holder not found');
+	}
 
   const fetchDaoProposals = useCallback(async (daoAddress: string) => {
     const proposals = await getDaoProposals(token ?? "", daoAddress);
@@ -24,18 +35,17 @@ export function useProposals() {
   }, [token]);
 
   const createProposal = useCallback(
-    async (payload: ICreateProposalPayload, daoAddress: string): Promise<void> => {
+    async (payload: ICreateProposalPayload, daoAddress: string, jettonMasterAddress: string): Promise<void> => {
       try {
         console.log('createProposal 1');
-        console.log(payload, daoAddress, 123);
-        await createProposalByType(payload, daoAddress);
+        await createProposalByType(payload, daoAddress, jettonMasterAddress, isWalletHolder);
         console.log('createProposal 3');
       } catch (error) {
         console.error('Unable to create proposal', error);
         throw error;
       }
     },
-    [createProposalByType]
+    [createProposalByType, isWalletHolder]
   );
 
   const updateProposal = useCallback(

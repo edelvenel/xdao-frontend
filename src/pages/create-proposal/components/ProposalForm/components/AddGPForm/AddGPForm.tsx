@@ -35,7 +35,7 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 			};
 
 			try {
-				await createProposal(payload, dao?.address ?? '');
+				await createProposal(payload, dao?.address ?? '', dao?.jetton_address ?? '');
 				onResponse(true);
 			} catch {
 				onResponse(false);

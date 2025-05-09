@@ -6,9 +6,9 @@ export const client = new TonClient({
   endpoint: 'https://testnet.toncenter.com/api/v2/jsonRPC', // TODO: config
 });
 
-export const jettonMaster = client.open(
+export const jettonMaster = (jettonMasterAddress: string) => client.open(
   JettonMaster.create(
-    Address.parse('EQBcXfhYlwJOdFncTjFJW3lE21gfkShkbyoh7Grn71eXBW5y')
+    Address.parse(jettonMasterAddress)
   )
 );
 
