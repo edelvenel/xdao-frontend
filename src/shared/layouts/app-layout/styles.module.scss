@@ -1,21 +1,14 @@
 .layout {
-	// position: relative;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
 	gap: 20px;
 	padding-top: 20px;
 
-	.background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		z-index: -1;
-		pointer-events: none;
-	}
+&.background {
+	background: url('../../svg/backgrounds/BackgroundSvg.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 }

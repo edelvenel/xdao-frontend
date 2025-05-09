@@ -224,7 +224,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 						</div>
 					</Modal>
 
-					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={isSuccess}>
+					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={true}>
 						<DaoCreateResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
 					</Modal>
 				</div>
