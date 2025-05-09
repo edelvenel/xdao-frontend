@@ -1,74 +1,83 @@
 {
-  "name": "xdao-web-app",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "dependencies": {
-    "@floating-ui/react": "^0.27.5",
-    "@telegram-apps/sdk": "^3.7.1",
-    "@tonconnect/ui-react": "^2.1.0",
-    "@twa-dev/sdk": "^8.0.2",
-    "axios": "^1.8.4",
-    "classnames": "^2.5.1",
-    "date-fns": "^4.1.0",
-    "formik": "^2.4.6",
-    "motion": "^12.6.5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hot-toast": "^2.5.2",
-    "react-router": "^7.4.0",
-    "storybook": "^8.6.11",
-    "vercel": "^41.7.0",
-    "yup": "^1.6.1",
-    "zustand": "^5.0.3"
-  },
-  "devDependencies": {
-    "@chromatic-com/storybook": "^3",
-    "@eslint/js": "^9.21.0",
-    "@storybook/addon-essentials": "^8.6.11",
-    "@storybook/addon-onboarding": "^8.6.11",
-    "@storybook/blocks": "^8.6.11",
-    "@storybook/experimental-addon-test": "^8.6.11",
-    "@storybook/react": "^8.6.11",
-    "@storybook/react-vite": "^8.6.11",
-    "@storybook/test": "^8.6.11",
-    "@types/node": "^22.13.14",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react-swc": "^3.8.0",
-    "@vitest/browser": "^3.0.9",
-    "@vitest/coverage-v8": "^3.0.9",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "eslint-plugin-storybook": "^0.12.0",
-    "globals": "^15.15.0",
-    "msw": "^2.7.3",
-    "playwright": "^1.51.1",
-    "prettier": "3.5.3",
-    "sass-embedded": "^1.86.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.0",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.9"
-  },
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
-  }
+	"name": "xdao-web-app",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"lint": "eslint .",
+		"preview": "vite preview",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build"
+	},
+	"dependencies": {
+		"@floating-ui/react": "^0.27.5",
+		"@telegram-apps/sdk": "^3.7.1",
+		"@ton/core": "^0.60.1",
+		"@ton/crypto": "^3.3.0",
+		"@ton/ton": "^15.2.1",
+		"@tonconnect/ui-react": "^2.1.0",
+		"@twa-dev/sdk": "^8.0.2",
+		"axios": "^1.8.4",
+		"buffer": "^6.0.3",
+		"classnames": "^2.5.1",
+		"date-fns": "^4.1.0",
+		"formik": "^2.4.6",
+		"motion": "^12.6.5",
+		"node": "^22.15.0",
+		"randombytes": "^2.1.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-hot-toast": "^2.5.2",
+		"react-infinite-scroll-component": "^6.1.0",
+		"react-router": "^7.4.0",
+		"storybook": "^8.6.11",
+		"vite-plugin-node-polyfills": "^0.23.0",
+		"yup": "^1.6.1",
+		"zustand": "^5.0.3"
+	},
+	"devDependencies": {
+		"@chromatic-com/storybook": "^3",
+		"@eslint/js": "^9.21.0",
+		"@storybook/addon-essentials": "^8.6.11",
+		"@storybook/addon-onboarding": "^8.6.11",
+		"@storybook/blocks": "^8.6.11",
+		"@storybook/experimental-addon-test": "^8.6.11",
+		"@storybook/react": "^8.6.11",
+		"@storybook/react-vite": "^8.6.11",
+		"@storybook/test": "^8.6.11",
+		"@types/node": "^22.15.2",
+		"@types/randombytes": "^2.0.3",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
+		"@vitejs/plugin-react-swc": "^3.8.0",
+		"@vitest/browser": "^3.0.9",
+		"@vitest/coverage-v8": "^3.0.9",
+		"eslint": "^9.21.0",
+		"eslint-plugin-react-hooks": "^5.1.0",
+		"eslint-plugin-react-refresh": "^0.4.19",
+		"eslint-plugin-storybook": "^0.12.0",
+		"globals": "^15.15.0",
+		"msw": "^2.7.3",
+		"playwright": "^1.51.1",
+		"sass-embedded": "^1.86.0",
+		"swagger-typescript-api": "^13.1.2",
+		"typescript": "~5.7.2",
+		"typescript-eslint": "^8.24.1",
+		"vite": "^6.2.0",
+		"vite-tsconfig-paths": "^5.1.4",
+		"vitest": "^3.0.9"
+	},
+	"msw": {
+		"workerDirectory": [
+			"public"
+		]
+	},
+	"eslintConfig": {
+		"extends": [
+			"plugin:storybook/recommended"
+		]
+	},
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

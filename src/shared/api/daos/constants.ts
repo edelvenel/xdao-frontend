@@ -1,0 +1,1 @@
+export const OP_CREATE_MASTER = 0x17881d60;

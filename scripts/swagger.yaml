@@ -1,0 +1,568 @@
+openapi: 3.0.1
+info:
+  title: "DAO REST API"
+  version: 0.0.1
+  contact:
+    name: 'Support'
+    email: "contact@xdao.org"
+
+servers:
+  - url: 'http://localhost:8888'
+
+tags:
+  - name: system
+    description: 'Endpoints for system-related operations and configurations.'
+  - name: auth
+    description: 'Endpoints for authentication and authorization.'
+  - name: dao
+    description: 'Endpoints for retrieving DAO information'
+  - name: proposal
+    description: 'Endpoints for retrieving proposal information'
+
+paths:
+  /api/v1/healthcheck:
+    get:
+      summary: 'Check the readiness of the server'
+      operationId: healthcheck
+      tags:
+        - system
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  
+  /api/v1/payload:
+    get:
+      summary: 'Retrieve the payload'
+      operationId: authGetPayload
+      tags:
+        - auth
+      responses:
+        '200':
+          description: 'Payload'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payload'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/auth:
+    post:
+      summary: 'Generate auth token'
+      operationId: authCheckProof
+      tags:
+        - auth
+      requestBody:
+        $ref: '#/components/requestBodies/ProofData'
+      responses:
+        '201':
+          description: 'Generated auth token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  
+  /api/v1/address/factory:
+    get:
+      summary: 'Returns the current DAO factory contract address'
+      operationId: getFactoryAddress
+      tags:
+        - dao
+      responses:
+        '200':
+          description: 'Factory address'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  
+  /api/v1/daos:
+    get:
+      summary: 'Get the list of all DAOs'
+      operationId: getAllDaos
+      tags:
+        - dao
+      parameters:
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+        - $ref: '#/components/parameters/DaoFilterQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/DaoList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}:
+    get:
+      summary: 'Retrieve detailed DAO information'
+      operationId: getDaoInfo
+      tags:
+        - dao
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+      responses:
+        '200':
+          description: 'DAO'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dao'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}/holders:
+    get:
+      summary: 'Get the list of DAO holders'
+      operationId: getDaoHolders
+      tags:
+        - dao
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/DaoHoldersList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  
+  /api/v1/proposals:
+    get:
+      summary: 'Get the list of proposals'
+      operationId: getProposals
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+        - $ref: '#/components/parameters/ProposalFilterQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProposalList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/proposals/{proposal_address}:
+    get:
+      summary: 'Retrieve detailed proposal information'
+      operationId: getProposalInfo
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/ProposalAddressPath'
+      responses:
+        '200':
+          description: 'Proposal'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Proposal'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}/proposals:
+    get:
+      summary: 'Get the list of DAO proposals'
+      operationId: getDaoProposals
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProposalList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/daos/{dao_address}/proposals/{proposal_address}/votes:
+    get:
+      summary: 'Returns votes for a DAO proposal'
+      operationId: getDaoProposalVotes
+      tags:
+        - proposal
+      parameters:
+        - $ref: '#/components/parameters/DaoAddressPath'
+        - $ref: '#/components/parameters/ProposalAddressPath'
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProposalVotesList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  
+  parameters:
+    DaoAddressPath:
+      description: 'Dao Address'
+      in: path
+      name: dao_address
+      required: true
+      schema:
+        type: string
+    ProposalAddressPath:
+      description: 'Proposal Address'
+      in: path
+      name: proposal_address
+      required: true
+      schema:
+        type: string
+    LimitQuery:
+      description: 'Limit'
+      in: query
+      name: limit
+      schema:
+        type: integer
+        default: 100
+        maximum: 1000
+    OffsetQuery:
+      description: 'Offset'
+      in: query
+      name: offset
+      schema:
+        type: integer
+    DaoFilterQuery:
+      description: Filter DAOs by type
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+        enum:
+          - all
+          - mine
+        default: all
+    ProposalFilterQuery:
+      description: Filter proposals by type
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+        enum:
+          - all
+          - active
+          - rejected
+          - executed
+          - mine
+        default: all
+  
+  requestBodies:
+    ProofData:
+      description: 'Data that is expected'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - address
+              - proof
+            properties:
+              address:
+                type: string
+              proof:
+                $ref: '#/components/schemas/Proof'
+
+  schemas:
+    Ok:
+      type: object
+      required:
+        - ok
+      properties:
+        ok:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+    Address:
+      type: object
+      required:
+        - address
+      properties:
+        address:
+          type: string
+    Payload:
+      type: object
+      required:
+        - payload
+      properties:
+        payload:
+          type: string
+    AuthToken:
+      type: object
+      required:
+        - auth_token
+      properties:
+        auth_token:
+          type: string
+    Plugin:
+      type: object
+      required:
+        - address
+        - type
+      properties:
+        address:
+          type: string
+        type:
+          type: string
+    Proof:
+      type: object
+      required:
+        - timestamp
+        - domain
+        - signature
+        - payload
+        - state_init
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+        domain:
+          type: string
+        signature:
+          type: string
+        payload:
+          type: string
+        state_init:
+          type: string
+    Holder:
+      type: object
+      required:
+        - jetton_wallet_address
+        - owner_address
+        - balance
+      properties:
+        jetton_wallet_address:
+          type: string
+        owner_address:
+          type: string
+        balance:
+          type: string
+    Dao:
+      type: object
+      required:
+        - address
+        - jetton_address
+        - jetton_metadata
+        - success_percentage
+        - total_supply
+        - plugins
+      properties:
+        address:
+          type: string
+        jetton_address:
+          type: string
+        jetton_metadata:
+          type: object
+          additionalProperties: true
+        success_percentage:
+          type: number
+        total_supply:
+          type: string
+        plugins:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plugin'
+    Vote:
+      type: object
+      required:
+        - proposal_address
+        - voter_address
+        - amount
+        - date_create
+      properties:
+        proposal_address:
+          type: string
+        voter_address:
+          type: string
+        amount:
+          type: string
+        date_create:
+          type: string
+    Proposal:
+      type: object
+      required:
+        - address
+        - dao_address
+        - jetton_master_address
+        - initiated_by_address
+        - success_amount
+        - current_amount
+        - date_start
+        - date_expire
+        - type
+      properties:
+        address:
+          type: string
+        dao_address:
+          type: string
+        jetton_master_address:
+          type: string
+        initiated_by_address:
+          type: string
+        success_amount:
+          type: string
+        current_amount:
+          type: string
+        date_start:
+          type: string
+        date_expire:
+          type: string
+        type:
+          type: string
+
+  responses:
+    NotFound:
+      description: 'The specified resource was not found'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    InternalError:
+      description: 'Something went wrong on server side'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    BadRequest:
+      description: 'Something went wrong on client side'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    UnauthorizedError:
+      description: 'Access token is missing or invalid'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    Ok:
+      description: 'Ok'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Ok'
+    DaoList:
+      description: 'List of DAO'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - total
+              - items
+            properties:
+              total:
+                type: integer
+                format: int64
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dao'
+    DaoHoldersList:
+      description: 'List of holders DAO'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - total
+              - items
+            properties:
+              total:
+                type: integer
+                format: int64
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Holder'
+    ProposalList:
+      description: 'List of proposal'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - total
+              - items
+            properties:
+              total:
+                type: integer
+                format: int64
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Proposal'
+    ProposalVotesList:
+      description: 'List of proposal votes'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - total
+              - items
+            properties:
+              total:
+                type: integer
+                format: int64
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vote'

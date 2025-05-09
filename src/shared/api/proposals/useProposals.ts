@@ -1,87 +1,55 @@
-import { PROPOSALS } from "app/mocks/constants";
-import React from "react";
-import { IProposal, ProposalType } from "shared/types";
-import { ICreateProposalPayload } from "./payloads";
-
+import { IProposal } from 'shared/types';
+import { ICreateProposalPayload } from './payloads';
+import { useCreateProposalByType } from 'shared/hooks/createProposalByType';
+import { useState, useCallback } from 'react';
+import { getDaoProposals, getProposals } from './methods';
+import { FilterEnum1 } from 'app/api/codegen';
+import { store } from 'shared/store';
 export function useProposals() {
-  const [proposals, setProposals] = React.useState<IProposal[]>([]);
+  const [proposals, setProposals] = useState<IProposal[]>([]);
+  const { createProposalByType } = useCreateProposalByType();
+  const [hasMore, setHasMore] = useState(false);
+  const { token } = store.useAuth();
 
-  const mapper = React.useCallback((data: unknown[]): IProposal[] => {
-    //TODO: write a mapper for specific data (if needed)
-    const result = data as IProposal[];
-
-    return result;
+  const fetchDaoProposals = useCallback(async (daoAddress: string) => {
+    let proposals = await getDaoProposals(token ?? "", daoAddress);
+    setHasMore(proposals.length != 100)
+    setProposals(proposals);
   }, []);
 
-  const fetchProposals = React.useCallback(async () => {
-    //TODO: get source data
-    const sourceData = PROPOSALS;
+  const fetchProposals = useCallback(async (filter?: FilterEnum1) => {
+    let proposals = await getProposals(token ?? "", filter)
+    setHasMore(proposals.length != 100)
+    setProposals(proposals);
+  }, [token]);
 
-    const formatedData: IProposal[] = mapper(sourceData);
-    setProposals(formatedData);
-  }, [mapper]);
-
-  const createProposal = React.useCallback(
+  const createProposal = useCallback(
     async (payload: ICreateProposalPayload): Promise<void> => {
-      // create proposal or throw error
       try {
-        switch (payload.type) {
-          case ProposalType.AddGP: {
-            console.log("Proposal successfully created", payload); // TODO: replace with real implementation
-            break;
-          }
-
-          case ProposalType.RemoveGP: {
-            break;
-          }
-
-          case ProposalType.ChangeDAOName: {
-            break;
-          }
-
-          case ProposalType.ChangeGPTransferStatus: {
-            break;
-          }
-
-          case ProposalType.ChangeGeneralConsensus: {
-            break;
-          }
-
-          case ProposalType.CustomProposal: {
-            break;
-          }
-
-          case ProposalType.SendDAOFunds: {
-            break;
-          }
-
-          case ProposalType.TransferGPTokens: {
-            break;
-          }
-
-          default:
-            break;
-        }
+        console.log('createProposal 1');
+        console.log(payload, 123);
+        await createProposalByType(payload);
+        console.log('createProposal 3');
       } catch (error) {
-        console.error("Unable to create proposal", error);
+        console.error('Unable to create proposal', error);
         throw error;
       }
     },
-    []
+    [createProposalByType]
   );
 
-  const updateProposal = React.useCallback(
+  const updateProposal = useCallback(
     async (id: string, payload: unknown): Promise<void> => {
       // update proposal or throw error
       try {
-        console.log("Proposal successfully updated", id, payload); // TODO: replace with real implementation
+        console.log('Proposal successfully updated', id, payload); // TODO: replace with real implementation
       } catch (error) {
-        console.error("Unable to update proposal", error);
+        console.error('Unable to update proposal', error);
         throw error;
       }
     },
     []
   );
 
-  return { proposals, fetchProposals, createProposal, updateProposal };
+  return { proposals, fetchDaoProposals, fetchProposals, createProposal, updateProposal, hasMore };
 }

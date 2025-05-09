@@ -1,0 +1,9 @@
+export const OP_CREATE_MASTER = 0x17881d60;
+export const OP_CREATE_JETTON = 0x17881d61;
+export const OP_NOTIFY = 0x217bedc8;
+export const OP_BALANCE_NOTIFICATION = 0xf185cd7c;
+export const OP_CREATE_ELECTIONS = 0x3af8dd2b;
+export const OP_CALL_JETTON_MINT = 0xac867e8d;
+export const OP_CALL_JETTON_BURN = 0xfacc90e8;
+export const OP_VOTE = 0x5a108564;
+export const OP_CALL_JETTON_TRANSFER = 0x9cdbcc7e;

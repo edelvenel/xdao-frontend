@@ -1,4 +1,6 @@
-import { IDao, IToken, ProposalType } from 'shared/types';
+import { Address } from "@ton/core";
+import { JettonBuilder, ProposalsBuilder } from "shared/cell-builders";
+import { IDao, IToken, ProposalType } from "shared/types";
 
 export type ICreateProposalPayload =
 	| ICreateAddGPProposalPayload
@@ -86,3 +88,35 @@ export type ICreateTransferGPProposalPayload = {
 	tokenAmount: number;
 	toWalletAddress: string;
 };
+
+export const proposalsBuilders = (responseDestination: Address) => ({
+  [ProposalType.AddGP]: (payload: ICreateAddGPProposalPayload) => (
+    console.log(payload.walletAddress, 'walletAddress'),
+    ProposalsBuilder.buildCallJettonMint(
+      JettonBuilder.buildJettonMint({
+        amount: payload.tokenAmount,
+        fromAddress: Address.parse(payload.walletAddress),
+        responseDestination: responseDestination,
+      })
+    )
+  ),
+  [ProposalType.RemoveGP]: (payload: ICreateRemoveGPProposalPayload) => 
+    ProposalsBuilder.buildCallJettonBurn(JettonBuilder.buildJettonBurn(
+      {
+        amount: parseInt(payload.gpToRemove),
+        responseDestination: responseDestination,
+      }
+    )
+  ),
+  [ProposalType.TransferGPTokens]: (payload: ICreateTransferGPProposalPayload) =>  ProposalsBuilder.buildCallJettonTransfer(
+    JettonBuilder.buildJettonTransfer(
+      {
+        amount: payload.tokenAmount,
+        forwardTonAmount: 1n,
+        responseDestination: responseDestination,
+        destination: Address.parse(payload.toWalletAddress),
+      }
+    )
+  ),
+  [ProposalType.ChangeGeneralConsensus]: (payload: ICreateChangeGeneralConsensusProposalPayload) =>  ProposalsBuilder.buildChangeSuccessPercentage(BigInt(payload.currentConsensus)),
+});

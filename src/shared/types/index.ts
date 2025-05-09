@@ -9,7 +9,7 @@ export type IDao = {
 	logo: string;
 	name: string;
 	activeProposals: number;
-	LPTokens: number;
+	LPTokens: string;
 	description?: string;
 	email?: string;
 	social: ISocial[];

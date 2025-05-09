@@ -1,10 +1,11 @@
-import React from 'react';
-import toast from 'react-hot-toast';
-import { Icon } from 'shared/icons';
-import { IDao } from 'shared/types';
-import { EditableInput } from 'shared/ui/EditableInput';
-import { EditableTextarea } from 'shared/ui/EditableTextarea';
-import css from './styles.module.scss';
+import { Address } from "@ton/core";
+import React from "react";
+import toast from "react-hot-toast";
+import { Icon } from "shared/icons";
+import { IDao } from "shared/types";
+import { EditableInput } from "shared/ui/EditableInput";
+import { EditableTextarea } from "shared/ui/EditableTextarea";
+import css from "./styles.module.scss";
 
 interface IOverviewTabProps {
 	dao: IDao;
@@ -48,9 +49,9 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 				<div className={css.header}>
 					<div className={css.logo} style={{ backgroundImage: `url(${dao.logo})` }} />
 					<div className={css.blockList}>
-						<div className={css.addressBlock}>
-							<span className={css.text}>{dao.address}</span>
-						</div>
+					<div className={css.addressBlock}>
+              			<span className={css.text}>{dao.address && Address.parseRaw(dao.address).toString({ bounceable: true })}</span>
+            		</div>
 						<div className={css.iconBlock} onClick={() => toast.error('Unimplemented')}>
 							<Icon.Common.Scan />
 						</div>
