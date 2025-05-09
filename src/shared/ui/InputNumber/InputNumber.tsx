@@ -8,6 +8,7 @@ interface IInputAmountProps
 	extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
 	fieldName?: string;
 	variant?: 'primary' | 'error';
+	sizeVariant?: 'default' | 'small';
 	onMaxAmount?: () => void;
 	onUpdate: (value: string) => void;
 }
@@ -22,6 +23,7 @@ export function InputNumber({
 	placeholder,
 	max,
 	min,
+	sizeVariant ='default',
 	...props
 }: IInputAmountProps) {
 	const [isFocused, setIsFocused] = React.useState<boolean>(false);
@@ -72,7 +74,7 @@ export function InputNumber({
 	}, [onMaxAmount]);
 
 	return (
-		<div className={cn(css.inputNumber, className)}>
+		<div className={cn(css.inputNumber, css[sizeVariant], className)}>
 			<AnimatePresence initial={false}>
 				{!isFocused && !value && (
 					<motion.div

@@ -47,6 +47,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	return (
 		<div className={css.page}>
       <div className={css.list}>
+	  {proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
         <InfiniteScroll 
           dataLength={proposals.length}
           next={fetchProposals}

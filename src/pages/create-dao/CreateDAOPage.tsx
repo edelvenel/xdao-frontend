@@ -18,7 +18,7 @@ import { TabProportional } from './components/TabProportional';
 import { Tabs } from './components/Tabs';
 import { ITab } from './components/Tabs/types';
 import css from './styles.module.scss';
-import { getValidationSchema, IForm, initialValues } from './types';
+import { getInitialValues, getValidationSchema, IForm } from './types';
 
 const getErrors = (errors: string | string[] | FormikErrors<IDistributionRule>[]) => {
 	switch (typeof errors) {
@@ -50,6 +50,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
 	const { setIsHeaderShown, setIsMenuShown } = store.useApp();
 	const { createDao } = useDaos();
+	const {walletAddress}= store.useWallet();
 
 	const navigate = useNavigate();
 
@@ -142,7 +143,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	}, [selectedTabIdx]);
 
 	return (
-		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
+		<Formik initialValues={getInitialValues(walletAddress)} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
 				<div className={css.page}>
 					<div className={css.block}>

@@ -53,24 +53,25 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	return (
 		<div className={css.page}>
 			      <div className={css.list}>
-      <InfiniteScroll 
-        dataLength={daos.length}
-        next={fetchDaos}
-        hasMore={hasMore}
-        loader={<div>Loading...</div>}
-      >
-        {daos.map((dao) => (
-          <DAO
-            key={dao.id}
-            dao={dao}
-            onOpen={() =>
-              navigate(
-                generatePath(routes.dao, { id: dao.id, tab: "overview" })
-              )
-            }
-          />
-        ))}
-      </InfiniteScroll>
+				  {daos.length === 0 && <div className={css.placeholder}>No DAOs</div>}
+				<InfiniteScroll 
+					dataLength={daos.length}
+					next={fetchDaos}
+					hasMore={hasMore}
+					loader={<div>Loading...</div>}
+				>
+					{daos.map((dao) => (
+					<DAO
+						key={dao.id}
+						dao={dao}
+						onOpen={() =>
+						navigate(
+							generatePath(routes.dao, { id: dao.id, tab: "overview" })
+						)
+						}
+					/>
+					))}
+				</InfiniteScroll>
       </div>
 			<TopContent>
 				<SearchBlock

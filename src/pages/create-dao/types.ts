@@ -12,16 +12,17 @@ export interface IForm {
 	currentConsensusManual: string;
 }
 
-export const initialValues: IForm = {
+export function getInitialValues (userAddress: string | null): IForm  {return {
 	name: '',
 	tokenName: '',
 	tokenSymbol: '',
-	walletAddresses: ['', '', ''],
-	distributionRules: [{ walletAddress: '', tokens: null, percent: 30 }],
+	walletAddresses: [userAddress === null ? '' : userAddress, '', ''],
+	distributionRules: [{ walletAddress: userAddress === null ? '' : userAddress, tokens: null, percent: 0 },
+						{walletAddress: '', tokens: null, percent: 0}],
 	consensus: 1,
 	consensusPercent: 50,
 	currentConsensusManual: '',
-};
+}};
 
 const requiredDistributionRule = yup.object().shape({
 	walletAddress: yup.string().required('Wallet address cannot be empty'),

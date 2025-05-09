@@ -1,11 +1,19 @@
 .inputNumber {
 	flex: 1;
-	min-height: 52px;
+	
 	border-radius: 50px;
 	overflow: hidden;
 	position: relative;
 	overflow: hidden;
 	background-color: var(--semantic-background-tetriary);
+
+	&.default {
+		min-height: 52px;
+	}
+
+	&.small {
+		min-height: 44px;
+	}
 
 	.placeholder {
 		top: 0;
