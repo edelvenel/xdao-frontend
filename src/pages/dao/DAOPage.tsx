@@ -38,7 +38,7 @@ export const DAOPage = React.memo(function DAOPage() {
     };
 
     fetchDao();
-  }, [id]);
+  }, [id, token]);
 
 	const selectedTabIdx = React.useMemo(() => mapTabNumber(tab), [tab]);
 

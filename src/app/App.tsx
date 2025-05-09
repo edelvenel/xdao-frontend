@@ -9,7 +9,7 @@ import { SplashScreen } from "./splash";
 import "./styles/root.scss";
 
 export function App() {
-  const { token } = store.useAuth();
+  // const { token } = store.useAuth();
   const { isWalletConnected } = store.useWallet();
 
   return (
