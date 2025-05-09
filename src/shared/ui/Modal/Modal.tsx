@@ -13,7 +13,7 @@ interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
 	isBackgroundOn?: boolean;
 	title?: string;
 	titleAlign?: 'left' | 'center';
-	onClose: () => void;
+	onClose?: () => void;
 }
 
 export function Modal({
@@ -23,7 +23,7 @@ export function Modal({
 	titleAlign = 'left',
 	className,
 	isBackgroundOn = false,
-	onClose,
+	onClose=()=>{},
 }: IModalProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const handleOnClose = React.useCallback(() => {

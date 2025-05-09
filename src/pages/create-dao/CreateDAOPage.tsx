@@ -1,8 +1,9 @@
 import { TopContent } from 'app/navigation/components/top-content';
+import { routes } from 'app/router/routes';
 import { Formik, FormikErrors, FormikProps } from 'formik';
 import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { generatePath, useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos';
 import { ICreateDaoEqualPayload, ICreateDaoProportionalPayload } from 'shared/api/daos/payloads';
 import { useBackButton } from 'shared/hooks/useBackButton';
@@ -12,6 +13,7 @@ import { Button } from 'shared/ui/Button';
 import { Input } from 'shared/ui/Input';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
+import { DaoCreateLoader } from './components/DaoCreateLoader';
 import { DaoCreateResult } from './components/DaoCreateResult';
 import { TabEqual } from './components/TabEqual';
 import { TabProportional } from './components/TabProportional';
@@ -46,8 +48,10 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [validationSchema, setValidationSchema] = React.useState(getValidationSchema(0));
 	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
+	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
+	const [createdDaoId, setCreatedDaoId] = React.useState<string>('');
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { createDao } = useDaos();
 	const {walletAddress}= store.useWallet();
@@ -121,9 +125,8 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					consensusPercent: values.consensusPercent,
 				};
 				try {
+					setIsLoading(true);
 					await createDao(payload);
-					setIsSuccess(true);
-					setIsResultOpen(true);
 				} catch {
 					setIsSuccess(false);
 					setIsResultOpen(true);
@@ -224,8 +227,21 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 						</div>
 					</Modal>
 
-					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={true}>
-						<DaoCreateResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
+					<Modal isOpen={isLoading}>
+						<DaoCreateLoader onDone={(value)=>{
+							setIsSuccess(true);
+							setIsResultOpen(true);
+							setCreatedDaoId(value)}} onTimeOut={()=>{
+							setIsLoading(false);
+							setIsSuccess(false);
+							setIsResultOpen(true);
+						}}/>
+					</Modal>
+
+					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={isSuccess}>
+						<DaoCreateResult success={isSuccess} 
+						onDone={() => navigate(generatePath(routes.dao, {id: createdDaoId, tab: 'overview'}))} 
+						onRetry={() => setIsResultOpen(false)} />
 					</Modal>
 				</div>
 			)}

@@ -1,4 +1,5 @@
 import { ProposalTypes } from 'app/mocks/constants';
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { useDaos } from 'shared/api/daos';
 import { store } from 'shared/store';
@@ -36,6 +37,10 @@ export function CreateProposalOpen({
 	React.useEffect(() => {
 		fetchDaos();
 	}, [fetchDaos]);
+
+	if (daos === null) {
+		return <ScreenLoader/>
+	}
 
 	return (
 		<div className={css.createProposalOpen}>
