@@ -81,6 +81,13 @@
 
 		.optionsPadding {
 			padding: 8px;
+
+			.placeholder {
+				flex: 1;
+				text-align: center;
+				padding: 20px;
+				color: var(--semantic-text-placeholder);
+			}
 		}
 
 		.option {

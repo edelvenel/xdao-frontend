@@ -132,6 +132,7 @@ export function Dropdown<T>({
 									</div>
 								);
 							})}
+							{options.length === 0 && <div className={css.placeholder}>No options</div>}
 						</div>
 					</motion.div>
 				)}

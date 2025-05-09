@@ -48,7 +48,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
-	const { setIsHeaderShown, setIsMenuShown } = store.useApp();
+	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { createDao } = useDaos();
 	const {walletAddress}= store.useWallet();
 
@@ -136,7 +136,8 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	React.useEffect(() => {
 		setIsHeaderShown(true);
 		setIsMenuShown(true);
-	}, [setIsHeaderShown, setIsMenuShown]);
+		setIsBackground(false)
+	}, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 
 	React.useEffect(() => {
 		setValidationSchema(getValidationSchema(selectedTabIdx));
