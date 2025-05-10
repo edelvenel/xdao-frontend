@@ -1,14 +1,16 @@
-import { DaoType } from "shared/types";
+import { DaoType, IDistributionRule } from "shared/types";
 
 export type ICreateDaoPayload =
   | ICreateDaoProportionalPayload
   | ICreateDaoEqualPayload;
+
 
 export type ICreateDaoProportionalPayload = {
   type: DaoType.Proportional;
   daoName: string;
   daoTokenName: string;
   daoTokenSymbol: string;
+  distributionRules: IDistributionRule[];
   consensusPercent: number;
 };
 

@@ -122,6 +122,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					daoName: values.name,
 					daoTokenName: values.tokenName,
 					daoTokenSymbol: values.tokenSymbol,
+					distributionRules: values.distributionRules,
 					consensusPercent: values.consensusPercent,
 				};
 				try {

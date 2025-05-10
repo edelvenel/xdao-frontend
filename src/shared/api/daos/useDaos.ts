@@ -49,6 +49,10 @@ export function useDaos() {
       );
       successPercentage = Math.floor((payload.consensus / payload.walletAddresses.length) * 10000);
     } else {
+      if (payload.distributionRules.some((rule) => !rule.tokens)) {
+        throw new Error('Please fill all distribution rules');
+      }
+      payload.distributionRules.forEach((rule) => holders.set(Address.parse(rule.walletAddress), toNano(rule.tokens!)));
       successPercentage = payload.consensusPercent * 100;
     }
 
