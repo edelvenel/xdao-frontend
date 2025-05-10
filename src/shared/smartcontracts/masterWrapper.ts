@@ -23,8 +23,8 @@ export class Master implements Contract {
       .storeUint(Number(options.start_time.toFixed()), 64)
       .storeUint(Number(options.expiration_time.toFixed()), 64)
       .storeRef(options.action_message_body)
-      .storeStringTail(options.name)
-      .storeStringTail(options.description)
+      .storeMaybeStringRefTail(options.name)
+      .storeMaybeStringRefTail(options.description)
       .endCell();
   }
 }
