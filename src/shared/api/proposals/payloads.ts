@@ -1,4 +1,4 @@
-import {Address, beginCell, Dictionary, toNano} from "@ton/core";
+import { Address, beginCell, Dictionary, toNano } from "@ton/core";
 import { ProposalsBuilder } from "shared/cell-builders";
 import { IDao, IToken, ProposalType } from "shared/types";
 
@@ -8,7 +8,7 @@ export type ICreateProposalPayload =
 	| ICreateChangeDAONameProposalPayload
 	| ICreateChangeGeneralConsensusProposalPayload
 	| ICreateChangeGPTransferStatusProposalPayload
-	| ICreateCustomProposalPayload
+	// | ICreateCustomProposalPayload
 	| ICreateSendFundsProposalPayload
 	| ICreateTransferGPProposalPayload;
 
@@ -54,19 +54,19 @@ export type ICreateChangeGPTransferStatusProposalPayload = {
 	newStatus: string;
 };
 
-export type ICreateCustomProposalPayload = {
-	type: ProposalType.CustomProposal;
-	name: string;
-	description: string;
-	votingDuration: number;
-	newName: string;
-	votingType: string;
-	token: string;
-	lpPool: number | null;
-	tokenAddress: string | null;
-	tokenSymbol: string | null;
-	minTokens: number;
-};
+// export type ICreateCustomProposalPayload = {
+// 	type: ProposalType.CustomProposal;
+// 	name: string;
+// 	description: string;
+// 	votingDuration: number;
+// 	newName: string;
+// 	votingType: string;
+// 	token: string;
+// 	lpPool: number | null;
+// 	tokenAddress: string | null;
+// 	tokenSymbol: string | null;
+// 	minTokens: number;
+// };
 
 export type ICreateSendFundsProposalPayload = {
 	type: ProposalType.SendDAOFunds;

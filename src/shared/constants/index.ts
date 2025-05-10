@@ -1,4 +1,4 @@
-import { IOptionWithNote } from 'shared/types';
+import { IOptionWithNote, ProposalKey, ProposalType } from 'shared/types';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 export const TOAST_DURATION = 5000;
@@ -10,3 +10,34 @@ export const TOKENS: IOptionWithNote[] = [
 ];
 
 export const VOTING_TYPES: string[] = ['One wallet = one vote', 'Proportional to token amount'];
+
+export const proposalTypeMapper = {
+	[ProposalKey.CallJettonMint]: ProposalType.AddGP,
+	[ProposalKey.CallJettonBurn]: ProposalType.RemoveGP,
+	[ProposalKey.CallJettonTransfer]: ProposalType.TransferGPTokens,
+	[ProposalKey.ChangeTransferStatus]: ProposalType.ChangeGPTransferStatus,
+	[ProposalKey.ChangeSuccessPercentage]: ProposalType.ChangeGeneralConsensus,
+	[ProposalKey.CallPlugin]: ProposalType.SendDAOFunds,
+	[ProposalKey.ChangeMetadata]: ProposalType.ChangeDAOName,
+	// ['']: ProposalTypes[7],
+}
+
+export const proposalNameMapper = {
+	[ProposalType.AddGP]: 'Add General Partner',
+	[ProposalType.RemoveGP]: 'Remove General Partner',
+	[ProposalType.TransferGPTokens]: 'Transfer GP Tokens',
+	[ProposalType.ChangeGPTransferStatus]: 'Change GP Transfer Status',
+	[ProposalType.ChangeGeneralConsensus]: 'Change General Consensus',
+	[ProposalType.SendDAOFunds]: 'Send DAO Funds',
+	[ProposalType.ChangeDAOName]: 'Change DAO Name'
+}
+
+export const proposalTypeOptions = [
+	ProposalType.AddGP,
+	ProposalType.RemoveGP,
+	ProposalType.TransferGPTokens,
+	ProposalType.ChangeGPTransferStatus,
+	ProposalType.ChangeGeneralConsensus,
+	ProposalType.SendDAOFunds,
+	ProposalType.ChangeDAOName,
+]

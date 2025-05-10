@@ -39,11 +39,6 @@ export type INft = {
 	imgUrl: string;
 };
 
-export type IProposalType = {
-	id: number;
-	name: string;
-};
-
 export enum Social {
 	Telegram = 'telegram',
 	Youtube = 'youtube',
@@ -58,7 +53,17 @@ export enum ProposalType {
 	ChangeGeneralConsensus = 'change_general_consensus',
 	SendDAOFunds = 'send_dao_funds',
 	ChangeDAOName = 'change_dao_name',
-	CustomProposal = 'custom_proposal',
+	// CustomProposal = 'custom_proposal',
+}
+
+export enum ProposalKey {
+	CallJettonMint = 'MasterDAO_CallJettonMint',
+	CallJettonBurn = 'MasterDAO_CallJettonBurn',
+	CallJettonTransfer = 'MasterDAO_CallJettonTransfer',
+	ChangeTransferStatus = 'MasterDAO_ChangeTransferStatus',
+	ChangeSuccessPercentage = 'MasterDAO_ChangeSuccessPercentage',
+	CallPlugin = 'MasterDAO_CallPlugin',
+	ChangeMetadata = 'MasterDAO_ChangeMetadata'
 }
 
 export enum DaoType {
@@ -83,7 +88,7 @@ export interface IProposal {
 	createdAt: Date;
 	votes: IVote;
 	status: IProposalStatus;
-	type: IProposalType;
+	type: ProposalType;
 	dao: IDao;
 	votingType?: IVotingType;
 	userVote: IUserVote | null;

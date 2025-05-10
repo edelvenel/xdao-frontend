@@ -33,13 +33,13 @@ export function ChangeGPTransferStatusForm({ onResponse }: IChangeGPTransferStat
 			};
 
 			try {
-				await createProposal(payload);
+				await createProposal(payload, dao?.address ?? '');
 				onResponse(true);
 			} catch {
 				onResponse(false);
 			}
 		},
-		[createProposal, onResponse]
+		[createProposal, dao, onResponse]
 	);
 
 	if (!dao) {

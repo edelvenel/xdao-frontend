@@ -1,17 +1,6 @@
 import { addDays, subDays } from 'date-fns';
-import { DaoStatus, IDao, INft, IProposal, IToken, IVotingType, Social } from 'shared/types';
+import { DaoStatus, IDao, INft, IProposal, IToken, IVotingType, ProposalType, Social } from 'shared/types';
 import logoExample from '../../assets/images/logo-example.png';
-
-export const ProposalTypes = [
-	{ type: "MasterDAO_CallJettonMint", name: 'Add General Partner' },
-	{ type: "MasterDAO_CallJettonBurn", name: 'Remove General Partner' },
-	{ type: "MasterDAO_CallJettonTransfer", name: 'Transfer GP Tokens' },
-	{ type: "MasterDAO_ChangeTransferStatus", name: 'Change GP Transfer Status' },
-	{ type: "MasterDAO_ChangeSuccessPercentage", name: 'Change General Consensus' },
-	{ type: "MasterDAO_CallPlugin", name: 'Send DAO Funds' },
-	{ type: "MasterDAO_ChangeMetadata", name: 'Change DAO Name' },
-	// { id: 8, name: 'Custom proposal' },
-];
 
 export const DAOS_MOCK: IDao[] = [
 	{
@@ -37,6 +26,7 @@ export const DAOS_MOCK: IDao[] = [
 			reserved: 2,
 			total: 5,
 		},
+		jetton_address: '',
 	},
 	{
 		id: '2',
@@ -60,6 +50,7 @@ export const DAOS_MOCK: IDao[] = [
 			reserved: 1,
 			total: 5,
 		},
+		jetton_address: '',
 	},
 	{
 		id: '3',
@@ -80,6 +71,7 @@ export const DAOS_MOCK: IDao[] = [
 			reserved: 5,
 			total: 5,
 		},
+		jetton_address: '',
 	},
 ];
 
@@ -95,7 +87,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'Let’s add Bob, he’s new specialist in our team',
 		consensus: 51,
 		endDate: addDays(new Date(), 3),
-		type: ProposalTypes[0],
+		type: ProposalType.AddGP,
 		status: { id: 1, label: 'active' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -114,7 +106,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'Let’s remove Bob, he’s out of our team anymore',
 		consensus: 51,
 		endDate: addDays(new Date(), 5),
-		type: ProposalTypes[1],
+		type: ProposalType.RemoveGP,
 		status: { id: 2, label: 'pending' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -133,7 +125,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'I propose transfering 500 GP tokens to fund project X',
 		consensus: 51,
 		endDate: addDays(new Date(), 1),
-		type: ProposalTypes[2],
+		type: ProposalType.TransferGPTokens,
 		status: { id: 3, label: 'executed' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -152,7 +144,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'Let’s changing the GP token transfer status to Transferable',
 		consensus: 51,
 		endDate: addDays(new Date(), 2),
-		type: ProposalTypes[3],
+		type: ProposalType.ChangeGPTransferStatus,
 		status: { id: 4, label: 'rejected' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -170,7 +162,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'I propose updating the general consensus rules',
 		consensus: 51,
 		endDate: addDays(new Date(), 7),
-		type: ProposalTypes[4],
+		type: ProposalType.ChangeGeneralConsensus,
 		status: { id: 1, label: 'active' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -188,7 +180,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'Let’s sending 1000 USDT to pay a contractor',
 		consensus: 51,
 		endDate: addDays(new Date(), 10),
-		type: ProposalTypes[5],
+		type: ProposalType.SendDAOFunds,
 		status: { id: 1, label: 'active' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -206,7 +198,7 @@ export const PROPOSALS: IProposal[] = [
 		description: 'Let’s changing the DAO name for better branding',
 		consensus: 51,
 		endDate: addDays(new Date(), 14),
-		type: ProposalTypes[6],
+		type: ProposalType.ChangeDAOName,
 		status: { id: 1, label: 'active' },
 		dao: DAOS_MOCK[0],
 		votes: {
@@ -218,24 +210,24 @@ export const PROPOSALS: IProposal[] = [
 		userVote: null,
 		createdAt: subDays(new Date(), 1),
 	},
-	{
-		id: '8',
-		name: 'Should we launch a new campaign?',
-		description: 'Let’s voting on launching a new marketing campaign',
-		consensus: 51,
-		endDate: addDays(new Date(), 1),
-		type: ProposalTypes[7],
-		status: { id: 1, label: 'active' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 10 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 10 },
-			],
-		},
-		userVote: null,
-		createdAt: subDays(new Date(), 1),
-	},
+	// {
+	// 	id: '8',
+	// 	name: 'Should we launch a new campaign?',
+	// 	description: 'Let’s voting on launching a new marketing campaign',
+	// 	consensus: 51,
+	// 	endDate: addDays(new Date(), 1),
+	// 	type: ProposalType.,
+	// 	status: { id: 1, label: 'active' },
+	// 	dao: DAOS_MOCK[0],
+	// 	votes: {
+	// 		agree: [
+	// 			{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 10 },
+	// 			{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 10 },
+	// 		],
+	// 	},
+	// 	userVote: null,
+	// 	createdAt: subDays(new Date(), 1),
+	// },
 ];
 
 export const NFTS: INft[] = [

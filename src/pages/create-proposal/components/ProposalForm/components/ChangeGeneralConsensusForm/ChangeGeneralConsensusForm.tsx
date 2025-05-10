@@ -42,13 +42,13 @@ export function ChangeGeneralConsensusForm({ onResponse }: IChangeGeneralConsens
 			};
 
 			try {
-				await createProposal(payload);
+				await createProposal(payload, dao?.address ?? '');
 				onResponse(true);
 			} catch {
 				onResponse(false);
 			}
 		},
-		[createProposal, onResponse]
+		[createProposal, onResponse, dao]
 	);
 
 	if (!dao) {
