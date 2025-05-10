@@ -17,11 +17,13 @@ export const useCreateProposalByType = () => {
 		daoAddress: string,
 		holder: IHolder
 	) => {
-		const makeElectionsMsg = (body: Cell) =>
+		const makeElectionsMsg = (body: Cell, name: string, description: string) =>
 			Master.createElectionsMessage({
-				start_time: Date.now(),
-				expiration_time: Date.now() + payload.votingDuration * 24 * 60 * 60 * 1000,
+				start_time: Date.now() / 1000,
+				expiration_time: Date.now() / 1000 + payload.votingDuration * 24 * 60 * 60,
 				action_message_body: body,
+				name: name,
+				description: description,
 			});
 
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address)
@@ -34,7 +36,7 @@ export const useCreateProposalByType = () => {
 			sender,
 			toNano('0.1'),
 			Address.parse(daoAddress),
-			makeElectionsMsg(body),
+			makeElectionsMsg(body, payload.name, payload.description),
 			0n
 		);
 	};

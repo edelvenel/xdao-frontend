@@ -15,12 +15,16 @@ export class Master implements Contract {
     start_time: number;
     expiration_time: number;
     action_message_body: Cell; // success message body
+    name: string;
+    description: string;
   }): Cell {
     return beginCell()
       .storeUint(OP_CREATE_ELECTIONS, 32)
       .storeUint(Number(options.start_time.toFixed()), 64)
       .storeUint(Number(options.expiration_time.toFixed()), 64)
       .storeRef(options.action_message_body)
+      .storeStringTail(options.name)
+      .storeStringTail(options.description)
       .endCell();
   }
 }
