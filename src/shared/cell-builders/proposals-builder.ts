@@ -1,4 +1,4 @@
-import { Address, beginCell, Cell } from "@ton/core";
+import { Address, beginCell, Cell, Dictionary} from "@ton/core";
 import { Builder } from "./utils";
 
 export enum ProposalsBuilderOpCodes {
@@ -12,7 +12,7 @@ export enum ProposalsBuilderOpCodes {
 }
 
 export class ProposalsBuilder extends Builder {
-    static buildChangeSuccessPercentage(successPercentage: bigint) {
+    static buildChangeSuccessPercentage(successPercentage: number) {
         return beginCell()
             .store(this.storeOpcode(ProposalsBuilderOpCodes.CHANGE_SUCCESS_PERCENTAGE))
             .storeUint(successPercentage, 14)
@@ -42,15 +42,26 @@ export class ProposalsBuilder extends Builder {
         .asCell();
     }
 
-    static buildCallJettonBurn(burnBody: Cell) {
-        return this.buildWithRef(ProposalsBuilderOpCodes.CALL_JETTON_BURN, burnBody);
+    static buildCallJettonBurn(amount: bigint, jettonWalletAddress: Address) {
+        return beginCell()
+            .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_BURN))
+            .storeCoins(amount)
+            .storeAddress(jettonWalletAddress)
+        .endCell()
+
     }
 
-    static buildCallJettonTransfer(transferBody: Cell) {
-        return this.buildWithRef(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER, transferBody);
+    static buildCallJettonTransfer(payload) {
+        console.log(payload)
+        return beginCell()
+            .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER))
+            .endCell() // TODO CallJettonTransfer
     }
 
-    static buildCallJettonMint(mintBody: Cell) {
-        return this.buildWithRef(ProposalsBuilderOpCodes.CALL_JETTON_MINT, mintBody);
+    static buildCallJettonMint(holders: Dictionary<Address, bigint>) {
+        return beginCell()
+            .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_MINT))
+            .storeDict(holders)
+        .endCell()
     }
 }

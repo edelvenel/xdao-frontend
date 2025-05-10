@@ -8,6 +8,7 @@ export type IDao = {
 	address: string;
 	logo: string;
 	name: string;
+	jetton_address: string;
 	activeProposals: number;
 	LPTokens: string;
 	description?: string;
@@ -117,4 +118,10 @@ export type IVote = {
 export type IUserVote = {
 	label: string;
 	impact: number;
+};
+
+export type IHolder = {
+	jetton_wallet_address: string;
+	owner_address: string;
+	balance: string;
 };

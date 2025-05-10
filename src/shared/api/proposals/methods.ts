@@ -12,6 +12,7 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		id: proposal.address,
 		dao: {
 			address: proposal.dao_address,
+			jetton_address: proposal.jetton_master_address,
 			id: '',
 			logo: '',
 			name: '',
@@ -60,4 +61,13 @@ export const getProposals = async (token: string, filter?: FilterEnum1): Promise
 	);
 
 	return response.items.map(proposalMapper);
+};
+
+export const getDaoHolders = async (token: string, daoAddress: string): Promise<any> => {
+	const response = await api.v1.getDaoHolders(
+		{ daoAddress },
+		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
+	);
+
+	return response.items
 };

@@ -54,22 +54,22 @@ export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Add GP tokens</div>
-							<div className={css.value}>500</div>
+							<div className={css.value}>todo</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New GP Address</div>
-							<div className={css.value}>43fjYR48JEfkfof83436437DJfewlr8</div>
+							<div className={css.value}>todo</div>
 						</div>
-						<Copy text="43fjYR48JEfkfof83436437DJfewlr8" />
+						<Copy text="todo" />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ</div>
+							<div className={css.value}>todo</div>
 						</div>
-						<Copy text="TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ" />
+						<Copy text="todo" />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

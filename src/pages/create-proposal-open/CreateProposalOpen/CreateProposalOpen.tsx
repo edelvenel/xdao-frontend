@@ -28,6 +28,8 @@ export function CreateProposalOpen({
 }: ICreateProposalOpen) {
 	const { setIsBackground } = store.useApp();
 	const { daos, fetchDaos } = useDaos();
+	const { fetchHolders } = store.useFormType();
+	const { token } = store.useAuth();
 
 	React.useEffect(() => {
 		setIsBackground(true);
@@ -35,7 +37,10 @@ export function CreateProposalOpen({
 
 	React.useEffect(() => {
 		fetchDaos();
-	}, [fetchDaos]);
+		if (dao?.address) {
+			fetchHolders(token ?? '', dao.address);
+		}
+	}, [fetchDaos, dao, fetchHolders, token]);
 
 	return (
 		<div className={css.createProposalOpen}>

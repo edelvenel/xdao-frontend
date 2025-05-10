@@ -65,7 +65,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	React.useEffect(() => {
 		fetchDaos();
 		fetchProposals();
-	}, [fetchDaos, fetchProposals]);
+	}, [fetchDaos, fetchProposals, selectedDao]);
 
 	return (
 		<div className={css.page}>
