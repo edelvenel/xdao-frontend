@@ -1,9 +1,10 @@
-import { ProposalTypes } from 'app/mocks/constants';
+
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { useDaos } from 'shared/api/daos';
+import { proposalNameMapper, proposalTypeOptions } from 'shared/constants';
 import { store } from 'shared/store';
-import { IDao, IProposalType } from 'shared/types';
+import { IDao, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { Title } from 'shared/ui/Title';
@@ -12,9 +13,9 @@ import css from './styles.module.scss';
 
 interface ICreateProposalOpen {
 	dao: IDao | null;
-	proposalType: IProposalType | null;
+	proposalType: ProposalType | null;
 	onSelectDao: (dao: IDao) => void;
-	onSelectProposalType: (proposalType: IProposalType) => void;
+	onSelectProposalType: (proposalType: ProposalType) => void;
 	onBack: () => void;
 	onCreate: () => void;
 }
@@ -64,9 +65,9 @@ export function CreateProposalOpen({
 				/>
 				<Dropdown
 					selected={proposalType}
-					options={ProposalTypes}
-					optionLabel={(option) => option.name}
-					matcher={objectIdMatcher}
+					options={proposalTypeOptions}
+					optionLabel={(option) => proposalNameMapper[option]}
+					// matcher={}
 					onSelect={onSelectProposalType}
 					placeholder="Select proposal type"
 				/>

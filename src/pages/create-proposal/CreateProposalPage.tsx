@@ -1,16 +1,16 @@
 import { backButton } from '@telegram-apps/sdk';
-import { ProposalTypes } from 'app/mocks/constants';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { useBackButton } from 'shared/hooks/useBackButton';
 import { store } from 'shared/store';
+import { ProposalType } from 'shared/types';
 import { Modal } from 'shared/ui/Modal';
 import { ProposalCreateResult } from './components/ProposalCreateResult';
 import { ProposalForm } from './components/ProposalForm';
 import css from './styles.module.scss';
 
 export const CreateProposalPage = React.memo(function CreateProposalPage() {
-	const [formType, setFormType] = React.useState<number | null>(null);
+	const [formType, setFormType] = React.useState<ProposalType | null>(null);
 	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const { dao, setDao, proposalType, setProposalType, formData, setFormData } = store.useFormType();
@@ -37,8 +37,7 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 
 	React.useEffect(() => {
 		if (dao !== null && proposalType !== null) {
-			const currentType = ProposalTypes.find((type) => type.id === proposalType.id);
-			setFormType(currentType?.id || null);
+			setFormType(proposalType);
 		} else {
 			navigate(-1);
 		}

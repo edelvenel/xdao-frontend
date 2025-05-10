@@ -1,12 +1,13 @@
 import { api } from 'app/api';
 import { FilterEnum1, Proposal } from 'app/api/codegen';
-import { DAOS_MOCK, ProposalTypes, VOTING_TYPE } from 'app/mocks/constants';
+import { DAOS_MOCK, VOTING_TYPE } from 'app/mocks/constants';
+import { proposalTypeMapper } from 'shared/constants';
 import { DaoStatus, IProposal } from 'shared/types';
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
-		name: '',
-		description: '',
+		name: proposal.name,
+		description: proposal.description,
 		endDate: new Date(proposal.date_expire),
 		consensus: Number(proposal.success_amount),
 		id: proposal.address,
@@ -28,12 +29,12 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 			},
 		},
 		// currentVotes: proposal.current_amount,
-		createdAt: new Date(), //TODO: replace with real data
+		createdAt: new Date(proposal.date_start), //TODO: replace with real data
 		status: {
 			id: 1,
 			label: 'active',
 		},
-		type: ProposalTypes[0],
+		type: proposalTypeMapper[proposal.type],
 		userVote: null,
 		votingType: VOTING_TYPE[0],
 		votes: {
@@ -63,11 +64,11 @@ export const getProposals = async (token: string, filter?: FilterEnum1): Promise
 	return response.items.map(proposalMapper);
 };
 
-export const getDaoHolders = async (token: string, daoAddress: string): Promise<any> => {
+export const getDaoHolders = async (token: string, daoAddress: string): Promise<unknown> => {
 	const response = await api.v1.getDaoHolders(
 		{ daoAddress },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return response.items
+	return response.items;
 };

@@ -1,4 +1,3 @@
-import { ProposalTypes } from 'app/mocks/constants';
 import { routes } from 'app/router/routes';
 import cn from 'classnames';
 import React from 'react';
@@ -6,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { IDao } from 'shared/types';
+import { IDao, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import css from './styles.module.scss';
 
@@ -46,7 +45,7 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 		(walletAddress: string) => {
 			if (walletAddress) {
 				setDao(dao);
-				setProposalType(ProposalTypes.find((type) => type.id === 2) ?? null);
+				setProposalType(ProposalType.RemoveGP);
 				navigate(routes.createProposalForm);
 			}
 		},
@@ -55,13 +54,13 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 
 	const handleOnAdd = React.useCallback(() => {
 		setDao(dao);
-		setProposalType(ProposalTypes.find((type) => type.id === 1) ?? null);
+		setProposalType(ProposalType.AddGP);
 		navigate(routes.createProposalForm);
 	}, [dao, navigate, setDao, setProposalType]);
 
 	const handleOnChangeTransferStatus = React.useCallback(() => {
 		setDao(dao);
-		setProposalType(ProposalTypes.find((type) => type.id === 4) ?? null);
+		setProposalType(ProposalType.ChangeGPTransferStatus);
 		navigate(routes.createProposalForm);
 	}, [dao, navigate, setDao, setProposalType]);
 

@@ -1,15 +1,15 @@
 import { getDaoHolders } from 'shared/api/proposals/methods';
 import { ICreateProposalPayload } from 'shared/api/proposals/payloads';
-import { IDao, IHolder, IProposalType } from 'shared/types';
+import { IDao, IHolder, ProposalType } from 'shared/types';
 import { create } from 'zustand';
 interface IFormTypeStore {
 	dao: IDao | null;
-	proposalType: IProposalType | null;
+	proposalType: ProposalType | null;
 	formData: ICreateProposalPayload | null;
 	holders: IHolder[];
 	setFormData: (data: ICreateProposalPayload | null) => void;
 	setDao: (dao: IDao | null) => void;
-	setProposalType: (proposalType: IProposalType | null) => void;
+	setProposalType: (proposalType: ProposalType | null) => void;
 	setHolders: (holders: IHolder[]) => void;
 	fetchHolders: (token: string, daoAddress: string) => Promise<void>;
 }

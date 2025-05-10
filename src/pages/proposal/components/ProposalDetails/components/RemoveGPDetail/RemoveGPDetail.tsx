@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IProposal } from 'shared/types';
 import { Collapse } from 'shared/ui/Collapse';
@@ -40,7 +41,7 @@ export function RemoveGPDetail({ proposal, onVote }: IRemoveGPDetailProps) {
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Proposal type</div>
-							<div className={css.value}>{proposal.type.name}</div>
+							<div className={css.value}>{proposalNameMapper[proposal.type]}</div>
 						</div>
 					</div>
 					{proposal.votingType && (

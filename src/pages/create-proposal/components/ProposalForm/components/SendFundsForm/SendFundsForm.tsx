@@ -44,13 +44,13 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 			};
 
 			try {
-				await createProposal(payload);
+				await createProposal(payload, dao?.address ?? '');
 				onResponse(true);
 			} catch {
 				onResponse(false);
 			}
 		},
-		[createProposal, onResponse]
+		[createProposal, onResponse, dao]
 	);
 
 	React.useEffect(() => {

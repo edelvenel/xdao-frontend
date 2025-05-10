@@ -10,6 +10,8 @@
  * ---------------------------------------------------------------
  */
 
+import { ProposalKey } from 'shared/types';
+
 export interface Ok {
 	/** @example true */
 	ok: boolean;
@@ -68,6 +70,8 @@ export interface Vote {
 }
 
 export interface Proposal {
+	name: string;
+	description: string;
 	address: string;
 	dao_address: string;
 	jetton_master_address: string;
@@ -76,7 +80,7 @@ export interface Proposal {
 	current_amount: string;
 	date_start: string;
 	date_expire: string;
-	type: string;
+	type: ProposalKey;
 }
 
 export interface GetAllDaosParams {

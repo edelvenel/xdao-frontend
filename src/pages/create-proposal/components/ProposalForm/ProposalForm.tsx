@@ -6,14 +6,13 @@ import { AddGPForm } from './components/AddGPForm';
 import { ChangeDAONameForm } from './components/ChangeDAONameForm';
 import { ChangeGeneralConsensusForm } from './components/ChangeGeneralConsensusForm';
 import { ChangeGPTransferStatusForm } from './components/ChangeGPTransferStatusForm';
-import { CustomProposalForm } from './components/CustomProposalForm';
 import { RemoveGPForm } from './components/RemoveGPForm';
 import { SendFundsForm } from './components/SendFundsForm';
 import { TransferGPForm } from './components/TransferGPForm';
 
 interface IProposalFormProps {
 	data: ICreateProposalPayload | null;
-	type: number;
+	type: ProposalType;
 	onResponse: (value: boolean) => void;
 }
 
@@ -25,29 +24,29 @@ export function ProposalForm({ data, type, onResponse }: IProposalFormProps): JS
 	}, [setIsBackground]);
 
 	switch (type) {
-		case 1:
+		case ProposalType.AddGP:
 			return <AddGPForm onResponse={onResponse} />;
 
-		case 2:
+		case ProposalType.RemoveGP:
 			return <RemoveGPForm data={data?.type === ProposalType.RemoveGP ? data : null} onResponse={onResponse} />;
 
-		case 3:
+		case ProposalType.TransferGPTokens:
 			return <TransferGPForm onResponse={onResponse} />;
 
-		case 4:
+		case ProposalType.ChangeGPTransferStatus:
 			return <ChangeGPTransferStatusForm onResponse={onResponse} />;
 
-		case 5:
+		case ProposalType.ChangeGeneralConsensus:
 			return <ChangeGeneralConsensusForm onResponse={onResponse} />;
 
-		case 6:
+		case ProposalType.SendDAOFunds:
 			return <SendFundsForm onResponse={onResponse} />;
 
-		case 7:
+		case ProposalType.ChangeDAOName:
 			return <ChangeDAONameForm onResponse={onResponse} />;
 
-		case 8:
-			return <CustomProposalForm onResponse={onResponse} />;
+		// case ProposalType.Custom:
+		// 	return <CustomProposalForm onResponse={onResponse} />;
 		default:
 			return null;
 	}
