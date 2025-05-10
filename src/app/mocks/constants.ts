@@ -3,14 +3,14 @@ import { DaoStatus, IDao, INft, IProposal, IToken, IVotingType, Social } from 's
 import logoExample from '../../assets/images/logo-example.png';
 
 export const ProposalTypes = [
-	{ id: 1, name: 'Add General Partner' },
-	{ id: 2, name: 'Remove General Partner' },
-	{ id: 3, name: 'Transfer GP Tokens' },
-	{ id: 4, name: 'Change GP Transfer Status' },
-	{ id: 5, name: 'Change General Consensus' },
-	{ id: 6, name: 'Send DAO Funds' },
-	{ id: 7, name: 'Change DAO Name' },
-	{ id: 8, name: 'Custom proposal' },
+	{ type: "MasterDAO_CallJettonMint", name: 'Add General Partner' },
+	{ type: "MasterDAO_CallJettonBurn", name: 'Remove General Partner' },
+	{ type: "MasterDAO_CallJettonTransfer", name: 'Transfer GP Tokens' },
+	{ type: "MasterDAO_ChangeTransferStatus", name: 'Change GP Transfer Status' },
+	{ type: "MasterDAO_ChangeSuccessPercentage", name: 'Change General Consensus' },
+	{ type: "MasterDAO_CallPlugin", name: 'Send DAO Funds' },
+	{ type: "MasterDAO_ChangeMetadata", name: 'Change DAO Name' },
+	// { id: 8, name: 'Custom proposal' },
 ];
 
 export const DAOS_MOCK: IDao[] = [
