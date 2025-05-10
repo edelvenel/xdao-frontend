@@ -3,7 +3,7 @@ import { Address } from '@ton/core';
 import { client } from 'shared/smartcontracts/sender';
 import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/payloads';
 import { TonConnectSender } from 'shared/smartcontracts/sender';
-import { IHolder, ProposalType } from 'shared/types';
+import { IHolder } from 'shared/types';
 import { DAOJettonWallet } from 'shared/smartcontracts/DAOJettonWallet';
 import { Master } from 'shared/smartcontracts/masterWrapper';
 import { useTonConnectUI } from '@tonconnect/ui-react';
@@ -28,7 +28,7 @@ export const useCreateProposalByType = () => {
 		console.log(jettonWalletAddress.toRawString())
 
 		const jettonWallet = client.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
-		const body = proposalsBuilders(Address.parseRaw(daoAddress))[payload.type](payload);
+		const body = proposalsBuilders()[payload.type](payload);
 
 		await jettonWallet.sendBalanceNotification(
 			sender,
