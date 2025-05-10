@@ -10,13 +10,15 @@ import { VoteResult } from './components/VoteResult';
 import css from './styles.module.scss';
 
 export const ProposalPage = React.memo(function ProposalPage() {
-	const { proposals, fetchProposals } = useProposals();
+	const { proposals, fetchProposals, submitVote } = useProposals();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { setIsMenuShown, setIsHeaderShown } = store.useApp();
 	const [isOnVote, setIsOnVote] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
+	const { fetchHolders } = store.useFormType();
+	const { token } = store.useAuth();
 	useBackButton();
 
 	const proposal = React.useMemo(() => {
@@ -28,16 +30,27 @@ export const ProposalPage = React.memo(function ProposalPage() {
 		setIsHeaderShown(true);
 	}, [setIsHeaderShown, setIsMenuShown]);
 
-	const handleOnConfirm = React.useCallback(() => {
-		setIsOnVote(false);
-		const success = true; //TODO: voting integration
-		setIsSuccess(success);
-		setIsResultOpen(true);
-	}, []);
+	const handleOnConfirm = React.useCallback(async () => {
+		if (!proposal || !token) {
+			return;
+		}
+
+		try {
+			fetchHolders(token, proposal?.dao.address);
+			
+			await submitVote(proposal);
+			setIsOnVote(false);
+			setIsSuccess(true);
+			setIsResultOpen(true);
+		} catch (error) {
+			console.error('Unable to submit vote', error);
+			setIsSuccess(false);
+		}
+	}, [proposal, submitVote, token]);
 
 	React.useEffect(() => {
 		fetchProposals();
-	}, [fetchProposals]);
+	}, []);
 
 	if (!proposal) {
 		return null;
@@ -60,7 +73,6 @@ export const ProposalPage = React.memo(function ProposalPage() {
 					onConfirm={handleOnConfirm}
 				/>
 			</Modal>
-
 			<Modal isBackgroundOn={isSuccess} isOpen={isResultOpen} onClose={() => setIsResultOpen(false)}>
 				<VoteResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
 			</Modal>

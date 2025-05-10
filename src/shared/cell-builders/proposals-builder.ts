@@ -1,5 +1,6 @@
 import { Address, beginCell, Cell, Dictionary} from "@ton/core";
 import { Builder } from "./utils";
+import { ICreateTransferGPProposalPayload } from "shared/api/proposals/payloads";
 
 export enum ProposalsBuilderOpCodes {
     CALL_PLUGIN = 0x2cb6f6b6,
@@ -51,7 +52,7 @@ export class ProposalsBuilder extends Builder {
 
     }
 
-    static buildCallJettonTransfer(payload) {
+    static buildCallJettonTransfer(payload: ICreateTransferGPProposalPayload) {
         console.log(payload)
         return beginCell()
             .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER))

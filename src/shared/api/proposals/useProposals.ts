@@ -1,6 +1,6 @@
 import { IProposal } from 'shared/types';
 import { ICreateProposalPayload } from './payloads';
-import { useCreateProposalByType } from 'shared/hooks/createProposalByType';
+import { useProposalActions } from 'shared/hooks/useProposalActions';
 import { useState, useCallback } from 'react';
 import { getDaoProposals, getProposals } from './methods';
 import { FilterEnum1 } from 'app/api/codegen';
@@ -11,12 +11,11 @@ export function useProposals() {
 	const [proposals, setProposals] = useState<IProposal[]>([]);
 	const { holders } = store.useFormType();
 	const [hasMore, setHasMore] = useState(false);
-	const { createProposalByType } = useCreateProposalByType();
+	const { createProposalByType, makeVote } = useProposalActions();
 	const { token } = store.useAuth();
 	const address = useTonAddress(false);
 
 	const holder = holders.find((h) => h.owner_address === address);
-	console.log(holder)
 
 	const fetchDaoProposals = useCallback(async (daoAddress: string) => {
 		const proposals = await getDaoProposals(token ?? '', daoAddress);
@@ -39,9 +38,7 @@ export function useProposals() {
 				throw new Error('Holder not found');
 			}
 			try {
-				console.log('createProposal 1');
 				await createProposalByType(payload, daoAddress, holder);
-				console.log('createProposal 3');
 			} catch (error) {
 				console.error('Unable to create proposal', error);
 				throw error;
@@ -49,6 +46,18 @@ export function useProposals() {
 		},
 		[createProposalByType, holder]
 	);
+
+	const submitVote = useCallback(async (proposal: IProposal): Promise<void> => {
+		if (!holder) {
+			throw new Error('Holder not found');
+		}
+		try {
+			await makeVote(proposal, holder);
+		} catch (error) {
+			console.error('Unable to create proposal', error);
+			throw error;
+		}
+	}, []);
 
 	const updateProposal = useCallback(async (id: string, payload: unknown): Promise<void> => {
 		// update proposal or throw error
@@ -60,5 +69,5 @@ export function useProposals() {
 		}
 	}, []);
 
-	return { proposals, fetchDaoProposals, fetchProposals, createProposal, updateProposal, hasMore };
+	return { proposals, fetchDaoProposals, fetchProposals, createProposal, updateProposal, submitVote, hasMore };
 }

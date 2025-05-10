@@ -52,23 +52,6 @@ export function useDaos() {
       successPercentage = payload.consensusPercent * 100;
     }
 
-    try {
-      if (payload.type === 'equal' && payload.walletAddresses) {
-        for (const address of payload.walletAddresses) {
-          try {
-            const parsedAddress = Address.parse(address);
-            holders.set(parsedAddress, 1n);
-          } catch (error) {
-            console.error('Error parsing address:', address, error);
-            throw error;
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error in holders setup:', error);
-      throw error;
-    }
-
     const meta = JettonBuilder.buildOnchainMetadata({
       name: payload.daoTokenName,
       symbol: payload.daoTokenSymbol,
