@@ -1,5 +1,5 @@
 import { Address } from '@ton/core';
-import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useTonAddress, useTonConnectModal, useTonConnectUI } from '@tonconnect/ui-react';
 import { routes } from 'app/router/routes';
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -15,21 +15,27 @@ export function Header() {
 	const [isConnectWalletOpen, setIsConnectWalletOpen] = React.useState<boolean>(false);
 	const { walletAddress } = store.useWallet();
 
-  const userFriendlyAddress = React.useMemo(() => {
-    return walletAddress && Address.parseRaw(walletAddress).toString({ bounceable: false });
-  }, [walletAddress]);
+	const userFriendlyAddress = React.useMemo(() => {
+		return walletAddress && Address.parseRaw(walletAddress).toString({ bounceable: false });
+	}, [walletAddress]);
 
-  const [tonConnectUI] = useTonConnectUI();
+	const [tonConnectUI] = useTonConnectUI();
+	const { open } = useTonConnectModal();
+	const address = useTonAddress();
 
 	const handleOnAddressClick = React.useCallback(() => {
 		hapticFeedback('press');
 		setIsConnectWalletOpen(true);
 	}, []);
 
-	const handleOnWalletConnect = React.useCallback(async () => {
-		await tonConnectUI.disconnect();
-		await tonConnectUI.openModal();
-	}, [tonConnectUI]);
+	const disconnectWallet = async () => {
+		try {
+			await tonConnectUI.disconnect();
+			window.location.reload();
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<div className={css.header}>
@@ -60,8 +66,8 @@ export function Header() {
 					</div>
 
 					<div className={css.actions}>
-						<Button variant="primary" onClick={handleOnWalletConnect}>
-							Connect to TON
+						<Button variant="primary" onClick={address ? disconnectWallet : open}>
+							{address ? 'Disconnect wallet' : 'Connect to TON'}
 						</Button>
 					</div>
 				</div>
