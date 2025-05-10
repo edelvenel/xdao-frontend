@@ -8,7 +8,6 @@ import { IDao, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { Title } from 'shared/ui/Title';
-import { objectIdMatcher } from 'shared/utils/Mathcer';
 import css from './styles.module.scss';
 
 interface ICreateProposalOpen {
@@ -60,7 +59,7 @@ export function CreateProposalOpen({
 					options={daos}
 					optionLabel={(option) => option.name}
 					optionLogo={(option) => option.logo}
-					matcher={objectIdMatcher}
+					matcher={(a,b)=>a.address === b.address}
 					onSelect={onSelectDao}
 					placeholder="Select DAOs"
 				/>

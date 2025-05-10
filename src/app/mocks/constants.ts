@@ -1,10 +1,9 @@
 import { addDays, subDays } from 'date-fns';
-import { DaoStatus, IDao, INft, IProposal, IToken, IVotingType, ProposalType, Social } from 'shared/types';
+import { DaoStatus, IDao, INft, IProposal, IToken, IVotingType, ProposalStatus, ProposalType, Social } from 'shared/types';
 import logoExample from '../../assets/images/logo-example.png';
 
 export const DAOS_MOCK: IDao[] = [
 	{
-		id: '1',
 		address: 'Y4fk38458fme3f93mi3fc3ik44r6809',
 		logo: logoExample,
 		name: 'Example DAO 1',
@@ -29,7 +28,6 @@ export const DAOS_MOCK: IDao[] = [
 		jetton_address: '',
 	},
 	{
-		id: '2',
 		address: '774nKO993lf0999r473fUU4574',
 		logo: logoExample,
 		name: 'Example DAO 2',
@@ -53,7 +51,6 @@ export const DAOS_MOCK: IDao[] = [
 		jetton_address: '',
 	},
 	{
-		id: '3',
 		address: '9947wmvUrn38jf48003kKKD84723f53rc3',
 		logo: logoExample,
 		name: 'Example DAO 3',
@@ -88,17 +85,13 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 3),
 		type: ProposalType.AddGP,
-		status: { id: 1, label: 'active' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 25 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 25 },
-			],
-		},
+		status: ProposalStatus.Active,
+		daoAddress: DAOS_MOCK[0].address,
 		votingType: VOTING_TYPE[0],
 		userVote: null,
 		createdAt: subDays(new Date(), 1),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	{
 		id: '2',
@@ -107,17 +100,13 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 5),
 		type: ProposalType.RemoveGP,
-		status: { id: 2, label: 'pending' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 15 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 10 },
-			],
-		},
+		status: ProposalStatus.Pending,
+		daoAddress: DAOS_MOCK[0].address,
 		votingType: VOTING_TYPE[0],
 		userVote: { label: 'Yes', impact: 15 },
 		createdAt: subDays(new Date(), 3),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	{
 		id: '3',
@@ -126,17 +115,13 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 1),
 		type: ProposalType.TransferGPTokens,
-		status: { id: 3, label: 'executed' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 10 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 10 },
-			],
-		},
+		status: ProposalStatus.Executed,
+		daoAddress: DAOS_MOCK[0].address,
 		votingType: VOTING_TYPE[0],
 		userVote: null,
 		createdAt: subDays(new Date(), 2),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	{
 		id: '4',
@@ -145,16 +130,12 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 2),
 		type: ProposalType.ChangeGPTransferStatus,
-		status: { id: 4, label: 'rejected' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 30 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 15 },
-			],
-		},
+		status: ProposalStatus.Rejected,
+		daoAddress: DAOS_MOCK[0].address,
 		userVote: { label: 'Yes', impact: 15 },
 		createdAt: subDays(new Date(), 1),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	{
 		id: '5',
@@ -163,16 +144,12 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 7),
 		type: ProposalType.ChangeGeneralConsensus,
-		status: { id: 1, label: 'active' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 10 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 20 },
-			],
-		},
+		status: ProposalStatus.Active,
+		daoAddress: DAOS_MOCK[0].address,
 		userVote: null,
 		createdAt: subDays(new Date(), 1),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	{
 		id: '6',
@@ -181,16 +158,12 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 10),
 		type: ProposalType.SendDAOFunds,
-		status: { id: 1, label: 'active' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 10 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 15 },
-			],
-		},
+		status: ProposalStatus.Active,
+		daoAddress: DAOS_MOCK[0].address,
 		userVote: { label: 'Yes', impact: 15 },
 		createdAt: subDays(new Date(), 1),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	{
 		id: '7',
@@ -199,16 +172,12 @@ export const PROPOSALS: IProposal[] = [
 		consensus: 51,
 		endDate: addDays(new Date(), 14),
 		type: ProposalType.ChangeDAOName,
-		status: { id: 1, label: 'active' },
-		dao: DAOS_MOCK[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 10 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 10 },
-			],
-		},
+		status: ProposalStatus.Active,
+		daoAddress: DAOS_MOCK[0].address,
 		userVote: null,
 		createdAt: subDays(new Date(), 1),
+		createdBy: DAOS_MOCK[0].distributionRules[0].walletAddress,
+		data: null,
 	},
 	// {
 	// 	id: '8',

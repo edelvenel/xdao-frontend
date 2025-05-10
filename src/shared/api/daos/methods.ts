@@ -18,7 +18,6 @@ export const getFactoryAddress = async (token: string) => {
 
 export const daoMapper = (dao: Dao): IDao => {
 	return {
-		id: dao.address,
 		name: dao.jetton_metadata.metadata.name,
 		logo: dao.jetton_metadata['image'],
 		jetton_address: dao.jetton_address,

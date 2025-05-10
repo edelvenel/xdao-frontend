@@ -1,9 +1,13 @@
 import { format } from 'date-fns';
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { getDao } from 'shared/api/daos/methods';
+import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
-import { IProposal } from 'shared/types';
+import { store } from 'shared/store';
+import { IDao, IProposal, IVote } from 'shared/types';
 import { Collapse } from 'shared/ui/Collapse';
 import { Copy } from 'shared/ui/Copy';
 import css from '../../styles.module.scss';
@@ -17,9 +21,33 @@ interface ISendFundsDetailProps {
 
 export function SendFundsDetail({ proposal, onVote }: ISendFundsDetailProps) {
 	const [isOpen, setIsOpen] = React.useState<boolean>(false);
+	const [votes, setVotes] = React.useState<IVote[] | null>(null);
+	const [dao, setDao] = React.useState<IDao | null> (null);
+	const {token} = store.useAuth();
 
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
+
+		React.useEffect(()=>{
+			const fetchVotes = async() => {
+				if (token !== null) {
+					const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
+					setVotes(votes);
+				}
+			}
+			const fetchDao = async() => {
+				if (token !== null) {
+					const dao = await getDao(token, proposal.daoAddress);
+					setDao(dao);
+				}
+			}
+			 fetchVotes();
+			 fetchDao();
+		},[proposal.daoAddress, proposal.id, token])
+	
+		if (votes === null || dao === null) {
+			return <ScreenLoader/>
+		}
 
 	return (
 		<ProposalDetailLayout
@@ -61,9 +89,9 @@ export function SendFundsDetail({ proposal, onVote }: ISendFundsDetailProps) {
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ</div>
+							<div className={css.value}>{proposal.createdBy}</div>
 						</div>
-						<Copy text="TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ" />
+						<Copy text={proposal.createdBy} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
@@ -86,7 +114,7 @@ export function SendFundsDetail({ proposal, onVote }: ISendFundsDetailProps) {
 					</Collapse>
 				</div>
 
-				<SignaturesBlock votes={proposal.votes} />
+				<SignaturesBlock dao={dao} votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

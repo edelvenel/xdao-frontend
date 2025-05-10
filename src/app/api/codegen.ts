@@ -10,7 +10,7 @@
  * ---------------------------------------------------------------
  */
 
-import { ProposalKey } from 'shared/types';
+import { ProposalKey, ProposalStatus } from 'shared/types';
 
 export interface Ok {
 	/** @example true */
@@ -81,6 +81,8 @@ export interface Proposal {
 	date_start: string;
 	date_expire: string;
 	type: ProposalKey;
+	status: ProposalStatus;
+	data: any;
 }
 
 export interface GetAllDaosParams {

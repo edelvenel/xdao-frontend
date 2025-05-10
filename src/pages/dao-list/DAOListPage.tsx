@@ -65,14 +65,15 @@ export const DAOListPage = React.memo(function DAOListPage() {
 					next={fetchDaos}
 					hasMore={hasMore}
 					loader={<div>Loading...</div>}
+					className={css.list}
 				>
 					{daos.map((dao) => (
 					<DAO
-						key={dao.id}
+						key={dao.address}
 						dao={dao}
 						onOpen={() =>
 						navigate(
-							generatePath(routes.dao, { id: dao.id, tab: "overview" })
+							generatePath(routes.dao, { id: dao.address, tab: "overview" })
 						)
 						}
 					/>

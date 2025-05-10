@@ -1,9 +1,13 @@
 import { format } from 'date-fns';
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { getDao } from 'shared/api/daos/methods';
+import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
-import { IProposal } from 'shared/types';
+import { store } from 'shared/store';
+import { IDao, IProposal, IVote } from 'shared/types';
 import { Collapse } from 'shared/ui/Collapse';
 import { Copy } from 'shared/ui/Copy';
 import css from '../../styles.module.scss';
@@ -17,9 +21,34 @@ interface IAddGPDetailProps {
 
 export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 	const [isOpen, setIsOpen] = React.useState<boolean>(false);
+	const [dao, setDao] = React.useState<IDao | null>(null);
+	const [votes, setVotes] = React.useState<IVote[] | null>(null);
+	const {token} = store.useAuth();
+
 
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
+
+	React.useEffect(()=>{
+		const fetchVotes = async() => {
+			if (token !== null) {
+				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
+				setVotes(votes);
+			}
+		}
+		const fetchDao = async() => {
+			if (token !== null) {
+				const dao = await getDao(token, proposal.daoAddress);
+				setDao(dao);
+			}
+		}
+		 fetchVotes();
+		 fetchDao();
+	},[proposal.daoAddress, proposal.id, token])
+
+	if (votes === null || dao === null) {
+		return <ScreenLoader/>
+	}
 
 	return (
 		<ProposalDetailLayout
@@ -55,22 +84,22 @@ export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Add GP tokens</div>
-							<div className={css.value}>todo</div>
+							<div className={css.value}>{proposal.data.receivers[0].amount ?? 'Empty'}</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New GP Address</div>
-							<div className={css.value}>todo</div>
+							<div className={css.value}>{proposal.data.receivers[0].address ?? "Empty"}</div>
 						</div>
-						<Copy text="todo" />
+						<Copy text={proposal.data.receivers[0].address ?? ""} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>todo</div>
+							<div className={css.value}>{proposal.createdBy}</div>
 						</div>
-						<Copy text="todo" />
+						<Copy text={proposal.createdBy} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
@@ -93,7 +122,7 @@ export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 					</Collapse>
 				</div>
 
-				<SignaturesBlock votes={proposal.votes} />
+				<SignaturesBlock dao={dao} votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

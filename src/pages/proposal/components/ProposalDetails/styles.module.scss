@@ -10,6 +10,17 @@
 		padding: 12px;
 		border-radius: 32px;
 		background-color: var(--semantic-card-background);
+		overflow: hidden;
+
+		.placeholder {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100px;
+			font-size: 18px;
+			font-weight: 600;
+			color: var(--semantic-text-non-active);
+		}
 
 		.details {
 			display: flex;
