@@ -1,21 +1,19 @@
-export const getStatusVariant = (status: number): 'yellow' | 'blue' => {
+import { ProposalStatus } from "shared/types";
+
+export const getStatusVariant = (status: ProposalStatus): 'yellow' | 'blue' => {
 	switch (status) {
-		case 1: {
-			// active
+		case ProposalStatus.Active: {
 			return 'yellow';
 		}
-		case 2: {
-			// pending
+		case ProposalStatus.Pending: {
 			return 'blue';
 		}
 
-		case 3: {
-			// executed
+		case ProposalStatus.Executed: {
 			return 'blue';
 		}
 
-		case 4: {
-			// rejected
+		case ProposalStatus.Rejected: {
 			return 'blue';
 		}
 		default:

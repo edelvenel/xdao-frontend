@@ -150,7 +150,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				</div>
 				<div className={css.list}>
 					{(daoShowAll ? daos : daos.filter((_, index) => index < 2)).map((dao) => (
-						<DaoCard key={dao.id} dao={dao} />
+						<DaoCard key={dao.address} dao={dao} />
 					))}
 				</div>
 				<div className={css.seeMoreButton} onClick={() => setDaoShowAll(!daoShowAll)}>

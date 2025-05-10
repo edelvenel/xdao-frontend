@@ -15,7 +15,6 @@ import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { RadioToken } from 'shared/ui/RadioToken';
 import { Title } from 'shared/ui/Title';
-import { objectIdMatcher } from 'shared/utils/Mathcer';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -101,7 +100,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 									onSelect={(value) => props.setValues({ ...props.values, fromDAO: value })}
 									optionLabel={(option) => option.name}
 									optionLogo={(option) => option.logo}
-									matcher={objectIdMatcher}
+									matcher={(a,b)=>a.address === b.address}
 								/>
 								<Input
 									value={props.values.recipientAddress}

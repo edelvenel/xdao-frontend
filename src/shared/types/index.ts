@@ -4,7 +4,6 @@ export type IIconProps = React.SVGProps<SVGSVGElement>;
 export type IIconComponent = JSX.Element;
 
 export type IDao = {
-	id: string;
 	address: string;
 	logo: string;
 	name: string;
@@ -86,17 +85,20 @@ export interface IProposal {
 	consensus: number;
 	endDate: Date;
 	createdAt: Date;
-	votes: IVote;
-	status: IProposalStatus;
+	createdBy: string;
+	status: ProposalStatus;
 	type: ProposalType;
-	dao: IDao;
+	daoAddress: string;
 	votingType?: IVotingType;
 	userVote: IUserVote | null;
+	data: any;
 }
 
-export interface IProposalStatus {
-	id: number;
-	label: string;
+export enum ProposalStatus {
+	Active = 'active',
+	Rejected = 'rejected',
+	Pending = 'pending',
+	Executed = 'executed'
 }
 
 export interface IVotingType {
@@ -117,7 +119,8 @@ export type IDistributionRule = {
 };
 
 export type IVote = {
-	agree: { walletAddress: string; impact: number }[];
+	walletAddress: string; 
+	impact: number ;
 };
 
 export type IUserVote = {

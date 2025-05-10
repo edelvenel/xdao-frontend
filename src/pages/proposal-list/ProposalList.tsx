@@ -52,6 +52,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
           dataLength={proposals.length}
           next={fetchProposals}
           hasMore={hasMore}
+		  className={css.list}
           loader={<div>Loading...</div>}
         >
           {proposals.map((proposal, index) => (

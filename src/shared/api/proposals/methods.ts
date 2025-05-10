@@ -1,8 +1,8 @@
 import { api } from 'app/api';
-import { FilterEnum1, Proposal } from 'app/api/codegen';
-import { DAOS_MOCK, VOTING_TYPE } from 'app/mocks/constants';
+import { FilterEnum1, Proposal, Vote } from 'app/api/codegen';
+import { VOTING_TYPE } from 'app/mocks/constants';
 import { proposalTypeMapper } from 'shared/constants';
-import { DaoStatus, IHolder, IProposal } from 'shared/types';
+import { IHolder, IProposal, IVote } from 'shared/types';
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
@@ -11,38 +11,22 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		endDate: new Date(proposal.date_expire),
 		consensus: Number(proposal.success_amount),
 		id: proposal.address,
-		dao: {
-			address: proposal.dao_address,
-			jetton_address: proposal.jetton_master_address,
-			id: '',
-			logo: '',
-			name: '',
-			activeProposals: 0,
-			LPTokens: '',
-			social: [],
-			status: DaoStatus.Transferable,
-			consensus: 0,
-			distributionRules: [],
-			slots: {
-				total: 0,
-				reserved: 0,
-			},
-		},
+		daoAddress: proposal.dao_address,
 		// currentVotes: proposal.current_amount,
 		createdAt: new Date(proposal.date_start), //TODO: replace with real data
-		status: {
-			id: 1,
-			label: 'active',
-		},
+		createdBy: proposal.initiated_by_address,
+		status: proposal.status,
 		type: proposalTypeMapper[proposal.type],
 		userVote: null,
 		votingType: VOTING_TYPE[0],
-		votes: {
-			agree: [
-				{ walletAddress: DAOS_MOCK[0].distributionRules[0].walletAddress, impact: 25 },
-				{ walletAddress: DAOS_MOCK[0].distributionRules[1].walletAddress, impact: 25 },
-			],
-		},
+		data: proposal.data,
+	};
+};
+
+export const voteMapper = (vote: Vote): IVote => {
+	return {
+		walletAddress: vote.voter_address,
+		impact: Number(vote.amount),
 	};
 };
 
@@ -62,6 +46,19 @@ export const getProposals = async (token: string, filter?: FilterEnum1): Promise
 	);
 
 	return response.items.map(proposalMapper);
+};
+
+export const getDaoProposalVotes = async (
+	token: string,
+	daoAddress: string,
+	proposalAddress: string
+): Promise<IVote[]> => {
+	const response = await api.v1.getDaoProposalVotes(
+		{ daoAddress, proposalAddress },
+		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
+	);
+
+	return response.items.map(voteMapper);
 };
 
 export const getDaoHolders = async (token: string, daoAddress: string): Promise<IHolder[]> => {
