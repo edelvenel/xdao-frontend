@@ -29,7 +29,8 @@ export function CreateProposalOpen({
 	onCreate,
 }: ICreateProposalOpen) {
 	const { setIsBackground } = store.useApp();
-	const { daos, fetchDaos } = useDaos();
+	const { fetchDaos } = useDaos();
+	const {daos} = store.useDaos();
 	const { fetchHolders } = store.useFormType();
 	const { token } = store.useAuth();
 

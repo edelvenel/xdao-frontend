@@ -26,7 +26,8 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
 	const [filter, setFilter] = React.useState<number>(0);
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
-	const { daos, fetchDaos, hasMore } = useDaos();
+	const { fetchDaos, hasMore } = useDaos();
+	const {daos} = store.useDaos();
 
 	const navigate = useNavigate();
 
