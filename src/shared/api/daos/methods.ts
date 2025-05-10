@@ -1,5 +1,5 @@
 import { api } from 'app/api';
-import { Dao } from 'app/api/codegen';
+import { Dao, FilterEnum } from 'app/api/codegen';
 import { DaoStatus, IDao } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
@@ -38,7 +38,7 @@ export const daoMapper = (dao: Dao): IDao => {
 export const getDaos = async (token: string, offset: number): Promise<{ daos: IDao[]; hasMore: boolean }> => {
 	try {
 		const response = await api.v1.getAllDaos(
-			{ limit: 100, offset: offset },
+			{ limit: 100, offset: offset, filter: FilterEnum.Mine },
 			{ format: 'json', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
 		);
 
