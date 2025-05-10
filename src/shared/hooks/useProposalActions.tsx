@@ -28,7 +28,6 @@ export const useProposalActions = () => {
 			});
 
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address)
-		console.log(jettonWalletAddress.toRawString())
 
 		const jettonWallet = client.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
 		const body = proposalsBuilders()[payload.type](payload);
