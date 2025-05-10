@@ -2,7 +2,7 @@ import { api } from 'app/api';
 import { FilterEnum1, Proposal } from 'app/api/codegen';
 import { DAOS_MOCK, VOTING_TYPE } from 'app/mocks/constants';
 import { proposalTypeMapper } from 'shared/constants';
-import { DaoStatus, IProposal } from 'shared/types';
+import { DaoStatus, IHolder, IProposal } from 'shared/types';
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
@@ -64,7 +64,7 @@ export const getProposals = async (token: string, filter?: FilterEnum1): Promise
 	return response.items.map(proposalMapper);
 };
 
-export const getDaoHolders = async (token: string, daoAddress: string): Promise<unknown> => {
+export const getDaoHolders = async (token: string, daoAddress: string): Promise<IHolder[]> => {
 	const response = await api.v1.getDaoHolders(
 		{ daoAddress },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }

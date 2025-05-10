@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Formik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useProposals } from 'shared/api/proposals';
 import { ICreateRemoveGPProposalPayload } from 'shared/api/proposals/payloads';
 import { Icon } from 'shared/icons';
@@ -21,26 +21,35 @@ interface IRemoveGPFormProps {
 }
 
 export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
-	const { dao } = store.useFormType();
+	const { dao, fetchHolders, holders } = store.useFormType();
+	const { token } = store.useAuth();
 	const { createProposal } = useProposals();
 
-	const listDaoGp: string[] = React.useMemo(() => {
-		return dao ? dao.distributionRules.flatMap((rule) => rule.walletAddress) : [];
-	}, [dao]);
+	useEffect(() => {
+		if (dao && token) {
+			fetchHolders(token, dao.address);
+		}
+	}, [dao, fetchHolders, token]);
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
+			const jettonWalletAddressToRemove = holders.find(
+				(holder) => holder.owner_address === values.gpToRemove
+			)?.jetton_wallet_address;
+
+			if (!dao?.address || !jettonWalletAddressToRemove) return;
+
 			const payload: ICreateRemoveGPProposalPayload = {
 				type: ProposalType.RemoveGP,
 				name: values.name,
 				description: values.description,
-				gpToRemove: values.gpToRemove,
+				gpToRemove: jettonWalletAddressToRemove,
 				votingDuration: Number(values.votingDuration),
 				tokenAmount: Number(values.tokenAmount),
 			};
 
 			try {
-				await createProposal(payload, dao?.address ?? '');
+				await createProposal(payload, dao.address);
 				onResponse(true);
 			} catch {
 				onResponse(false);
@@ -78,7 +87,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
-									options={listDaoGp}
+									options={holders.map((holder) => holder.owner_address)}
 									variant={props.errors.gpToRemove && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}
