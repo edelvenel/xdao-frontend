@@ -1,4 +1,5 @@
 import { ProposalTypes } from 'app/mocks/constants';
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { useDaos } from 'shared/api/daos';
 import { store } from 'shared/store';
@@ -41,6 +42,10 @@ export function CreateProposalOpen({
 			fetchHolders(token ?? '', dao.address);
 		}
 	}, [fetchDaos, dao, fetchHolders, token]);
+
+	if (daos === null) {
+		return <ScreenLoader/>
+	}
 
 	return (
 		<div className={css.createProposalOpen}>

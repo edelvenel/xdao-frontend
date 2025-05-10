@@ -2,6 +2,7 @@ import { TopContent } from "app/navigation/components/top-content";
 import { routes } from "app/router/routes";
 import { Filter } from "pages/proposal-list/components/Filter";
 import { SearchBlock } from "pages/proposal-list/components/SearchBlock";
+import { ScreenLoader } from "pages/tech/sceen-loader";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { generatePath, useNavigate } from "react-router";
@@ -39,16 +40,20 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	}, [setIsHeaderShown, setIsMenuShown]);
 
 	React.useEffect(() => {
-		if (daos.length > 0) {
+		if (daos && daos.length > 0) {
 			setIsBackground(false);
 		} else {
 			setIsBackground(true);
 		}
-	}, [daos.length, setIsBackground]);
+	}, [daos, setIsBackground]);
 
 	React.useEffect(() => {
 		fetchDaos();
 	}, [fetchDaos]);
+
+	if (daos === null) {
+		return <ScreenLoader/>
+	}
 
 	return (
 		<div className={css.page}>

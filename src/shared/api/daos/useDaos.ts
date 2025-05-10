@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { DaoType, IDao } from 'shared/types';
-import { ICreateDaoPayload } from './payloads';
-import { useTonWallet } from 'shared/utils/useTonConnect';
-import { Dictionary, toNano, Address } from '@ton/core';
+import { Address, Dictionary, toNano } from '@ton/core';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-import { getDaos, getFactoryAddress } from './methods';
-import { JettonBuilder } from 'shared/cell-builders/common';
+import React, { useState } from 'react';
 import { DAOBuilder } from 'shared/cell-builders';
+import { JettonBuilder } from 'shared/cell-builders/common';
 import { store } from 'shared/store';
+import { DaoType, IDao } from 'shared/types';
+import { useTonWallet } from 'shared/utils/useTonConnect';
+import { getDaos, getFactoryAddress } from './methods';
+import { ICreateDaoPayload } from './payloads';
 
 export function useDaos() {
-  const [daos, setDaos] = React.useState<IDao[]>([]);
+  // const [daos, setDaos] = React.useState<IDao[]>([]);
+  const {daos} = store.useDaos();
   const [tonConnectUI] = useTonConnectUI();
   const { wallet, isConnected } = useTonWallet();
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -20,7 +21,10 @@ export function useDaos() {
   const fetchDaos = React.useCallback(async () => {
     const { daos, hasMore } = await getDaos(token ?? "", currentOffset);
 
-    setDaos((prevDaos) => [...prevDaos, ...daos]);
+
+  const {setDaos} = store.useDaos.getState();
+
+    setDaos(daos);
     setCurrentOffset((prevOffset) => prevOffset + daos.length);
     setHasMore(hasMore);
   }, [currentOffset, token]);

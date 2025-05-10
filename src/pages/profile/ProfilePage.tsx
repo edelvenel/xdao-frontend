@@ -1,6 +1,7 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import { Filter } from 'pages/proposal-list/components/Filter';
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router';
@@ -45,7 +46,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const { setIsMenuShown, setIsHeaderShown, setIsBackground } = store.useApp();
 
 	const selectedDao = React.useMemo(() => {
-		return selectedDaoIdx !== null ? daos[selectedDaoIdx] : null;
+		return (selectedDaoIdx !== null && daos !== null) ? daos[selectedDaoIdx] : null;
 	}, [daos, selectedDaoIdx]);
 
 	const handleOnApplyDao = React.useCallback((idx: number | null) => {
@@ -66,6 +67,10 @@ export const ProfilePage = React.memo(function ProfilePage() {
 		fetchDaos();
 		fetchProposals();
 	}, [fetchDaos, fetchProposals, selectedDao]);
+
+	if (daos === null) {
+		return <ScreenLoader/>;
+	}
 
 	return (
 		<div className={css.page}>

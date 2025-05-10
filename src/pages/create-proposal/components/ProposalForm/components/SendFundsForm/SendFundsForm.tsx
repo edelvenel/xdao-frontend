@@ -1,5 +1,6 @@
 import { TOKENS } from 'app/mocks/constants';
 import { Formik } from 'formik';
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { useDaos } from 'shared/api/daos';
@@ -58,6 +59,10 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 
 	if (!dao) {
 		return;
+	}
+
+	if (daos === null) {
+		return <ScreenLoader/>
 	}
 
 	const initialValues = getInitialValues(dao);
