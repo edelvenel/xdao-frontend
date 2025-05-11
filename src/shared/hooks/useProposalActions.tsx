@@ -1,6 +1,6 @@
 import { Cell, toNano } from '@ton/core';
 import { Address } from '@ton/core';
-import { client } from 'shared/smartcontracts/sender';
+import { tonClient } from 'shared/smartcontracts/client';
 import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/payloads';
 import { TonConnectSender } from 'shared/smartcontracts/sender';
 import { IHolder, IProposal } from 'shared/types';
@@ -29,7 +29,7 @@ export const useProposalActions = () => {
 
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address)
 
-		const jettonWallet = client.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
+		const jettonWallet = tonClient.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
 		const body = proposalsBuilders()[payload.type](payload);
 
 		await jettonWallet.sendBalanceNotification(
@@ -43,7 +43,7 @@ export const useProposalActions = () => {
 
 	const makeVote = async (proposal: IProposal, holder: IHolder) => {
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address)
-		const jettonWallet = client.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
+		const jettonWallet = tonClient.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
 		
 		await jettonWallet.sendBalanceNotification(
 			sender,

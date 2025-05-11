@@ -8,6 +8,8 @@ import { DaoType, IDao } from 'shared/types';
 import { useTonWallet } from 'shared/utils/useTonConnect';
 import { getDaos, getFactoryAddress } from './methods';
 import { ICreateDaoPayload } from './payloads';
+import { tonClient } from 'shared/smartcontracts/client';
+import { DAOFactoryContract } from 'shared/smartcontracts/factory.wrapper';
 
 export function useDaos() {
   // const [daos, setDaos] = React.useState<IDao[]>([]);
@@ -35,7 +37,8 @@ export function useDaos() {
 
     console.log("token", token);
     const factoryAddress = await getFactoryAddress(token ?? "");
-
+    const factoryContract = tonClient.open(DAOFactoryContract.createFromAddress(Address.parse(factoryAddress)));
+    const serviceFee = await factoryContract.getServiceFee();
     const holders = Dictionary.empty(
       Dictionary.Keys.Address(),
       Dictionary.Values.BigVarUint(4)
@@ -71,7 +74,7 @@ export function useDaos() {
       messages: [
         {
           address: factoryAddress.toString(),
-          amount: toNano('1').toString(),
+          amount: serviceFee.toString(),
           payload: body.toBoc().toString('base64'),
         },
       ],

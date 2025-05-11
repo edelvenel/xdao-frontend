@@ -1,12 +1,9 @@
-import { TonClient, JettonMaster, Address } from '@ton/ton';
+import { JettonMaster, Address } from '@ton/ton';
 import { Sender, SenderArguments, beginCell, storeStateInit } from '@ton/core';
 import { TonConnectUI } from '@tonconnect/ui-react';
+import { tonClient } from './client';
 
-export const client = new TonClient({
-  endpoint: 'https://testnet.toncenter.com/api/v2/jsonRPC', // TODO: config
-});
-
-export const jettonMaster = (jettonMasterAddress: string) => client.open(
+export const jettonMaster = (jettonMasterAddress: string) => tonClient.open(
   JettonMaster.create(
     Address.parse(jettonMasterAddress)
   )
