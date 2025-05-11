@@ -74,7 +74,10 @@ export function useDaos() {
       messages: [
         {
           address: factoryAddress.toString(),
-          amount: serviceFee.toString(),
+          amount: (
+            serviceFee
+            + toNano('1') // TON for gas
+          ).toString(),
           payload: body.toBoc().toString('base64'),
         },
       ],
