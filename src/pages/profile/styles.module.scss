@@ -62,6 +62,7 @@
 			min-height: 62px;
 			gap: 8px;
 			background-color: var(--semantic-background-tetriary);
+			overflow: hidden;
 
 			.logo {
 				width: 32px;
@@ -137,7 +138,19 @@
 		.list {
 			display: flex;
 			flex-direction: column;
-			gap: 12px;
+
+			.animationBlock {
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+			}
+
+			.partList {
+				display: flex;
+				flex-direction: column;
+				padding-top: 12px;
+				gap: 12px;
+			}
 
 			.placeholder {
 				display: flex;
@@ -182,7 +195,19 @@
 		.list {
 			display: flex;
 			flex-direction: column;
-			gap: 12px;
+
+			.animationBlock {
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+			}
+
+			.partList {
+				display: flex;
+				flex-direction: column;
+				padding-top: 12px;
+				gap: 12px;
+			}
 
 			.placeholder {
 				display: flex;
