@@ -62,6 +62,16 @@ export interface Dao {
 	plugins: Plugin[];
 }
 
+export interface Jetton {
+	event_id: string;
+	timestamp: string;
+	actions: {}[];
+	value_flow: {}[];
+	is_scam: boolean;
+	lt: integerint64;
+	in_progress: boolean;
+}
+
 export interface Vote {
 	proposal_address: string;
 	voter_address: string;
@@ -99,6 +109,19 @@ export interface GetAllDaosParams {
 	 * @default "all"
 	 */
 	filter?: FilterEnum;
+}
+
+export interface GetJettonsEventsParams {
+	/**
+	 * Limit
+	 * @max 1000
+	 * @default 100
+	 */
+	limit?: number;
+	/** Offset */
+	offset?: number;
+	/** Wallet Address */
+	walletAddress: string;
 }
 
 /**
@@ -707,5 +730,42 @@ export class Api<SecurityDataType extends unknown> {
 		linkWallet: (payload: any) => {
 			return response;
 		},
+	};
+}
+
+/**
+ * @title TON API
+ * @version 2.0.0
+ * @baseUrl https://tonapi.io
+ * @contact Support <contact@xdao.org>
+ */
+export class TonApi<SecurityDataType extends unknown> {
+	http: HttpClient<SecurityDataType>;
+
+	constructor(http: HttpClient<SecurityDataType>) {
+		this.http = http;
+	}
+
+	v2 = {
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getJettonsEvents
+		 * @summary Get only jetton transfers in the event
+		 * @request GET:/v2/events/{event_id}/jettons
+		 */
+		getJettonsEvents: ({ walletAddress, ...query }: GetJettonsEventsParams, params: RequestParams = {}) =>
+			this.http.request<
+				Ok,
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/events/${walletAddress}/jettons`,
+				method: 'GET',
+				...params,
+			}),
 	};
 }

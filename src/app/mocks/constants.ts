@@ -36,6 +36,7 @@ export const DAOS_MOCK: IDao[] = [
 			total: 5,
 		},
 		jetton_address: '',
+		plugins: [],
 	},
 	{
 		address: '774nKO993lf0999r473fUU4574',
@@ -59,6 +60,7 @@ export const DAOS_MOCK: IDao[] = [
 			total: 5,
 		},
 		jetton_address: '',
+		plugins: [],
 	},
 	{
 		address: '9947wmvUrn38jf48003kKKD84723f53rc3',
@@ -79,66 +81,7 @@ export const DAOS_MOCK: IDao[] = [
 			total: 5,
 		},
 		jetton_address: '',
-	},
-	{
-		address: '9947wmvUrn38jf48003kKKD82723f53rc3',
-		logo: logoExample,
-		name: 'Example DAO 3',
-		consensus: 76,
-		activeProposals: 4,
-		LPTokens: '1000',
-		status: DaoStatus.NonTransferable,
-		email: 'example@mail.com',
-		social: [{ type: Social.Telegram, url: 'http://t.me/' }],
-		distributionRules: [
-			{ walletAddress: '43fjYR48JEfkfof83436437DJfewlr8', tokens: 100, percent: 30 },
-			{ walletAddress: '4343878ffr3ufjrn8rfufHJR48fufj33f', tokens: 100, percent: 30 },
-		],
-		slots: {
-			reserved: 5,
-			total: 5,
-		},
-		jetton_address: '',
-	},
-	{
-		address: '9947wmvUrn38jf48003kKKD84723f53r43',
-		logo: logoExample,
-		name: 'Example DAO 3',
-		consensus: 76,
-		activeProposals: 4,
-		LPTokens: '1000',
-		status: DaoStatus.NonTransferable,
-		email: 'example@mail.com',
-		social: [{ type: Social.Telegram, url: 'http://t.me/' }],
-		distributionRules: [
-			{ walletAddress: '43fjYR48JEfkfof83436437DJfewlr8', tokens: 100, percent: 30 },
-			{ walletAddress: '4343878ffr3ufjrn8rfufHJR48fufj33f', tokens: 100, percent: 30 },
-		],
-		slots: {
-			reserved: 5,
-			total: 5,
-		},
-		jetton_address: '',
-	},
-	{
-		address: '9947wmvUrn38jf48003kKKD84723f535c3',
-		logo: logoExample,
-		name: 'Example DAO 3',
-		consensus: 76,
-		activeProposals: 4,
-		LPTokens: '1000',
-		status: DaoStatus.NonTransferable,
-		email: 'example@mail.com',
-		social: [{ type: Social.Telegram, url: 'http://t.me/' }],
-		distributionRules: [
-			{ walletAddress: '43fjYR48JEfkfof83436437DJfewlr8', tokens: 100, percent: 30 },
-			{ walletAddress: '4343878ffr3ufjrn8rfufHJR48fufj33f', tokens: 100, percent: 30 },
-		],
-		slots: {
-			reserved: 5,
-			total: 5,
-		},
-		jetton_address: '',
+		plugins: [],
 	},
 ];
 

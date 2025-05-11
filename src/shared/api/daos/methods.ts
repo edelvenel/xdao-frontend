@@ -1,6 +1,6 @@
-import { api } from 'app/api';
-import { Dao, FilterEnum } from 'app/api/codegen';
-import { DaoStatus, IDao } from 'shared/types';
+import { api, tonApi } from 'app/api';
+import { Dao, FilterEnum, Jetton } from 'app/api/codegen';
+import { DaoStatus, IDao, IJetton } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
 	try {
@@ -31,7 +31,15 @@ export const daoMapper = (dao: Dao): IDao => {
 		slots: { total: 1, reserved: 0 },
 		status: DaoStatus.Transferable,
 		description: '',
+		plugins: dao.plugins,
 	};
+};
+
+export const jettonMapper = (jettons: Jetton[]): IJetton[] => {
+	const mappedJettons: IJetton[] = jettons.map((jetton) => {
+		return { name: '', amount: 0, imgUrl: '', url: '' };
+	});
+	return mappedJettons;
 };
 
 export const getDaos = async (token: string, offset: number): Promise<{ daos: IDao[]; hasMore: boolean }> => {
@@ -56,6 +64,23 @@ export const getDao = async (token: string, id: string): Promise<IDao> => {
 		});
 
 		return daoMapper(response);
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+};
+
+export const getJettons = async (token: string, walletAddress: string): Promise<IJetton[]> => {
+	try {
+		const response = await tonApi.v2.getJettonsEvents(
+			{ walletAddress },
+			{
+				format: 'json',
+				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+			}
+		);
+
+		return jettonMapper(response);
 	} catch (error) {
 		console.error(error);
 		throw error;
