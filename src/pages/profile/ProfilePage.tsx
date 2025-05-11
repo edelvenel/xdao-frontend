@@ -1,12 +1,12 @@
+import { DAOS_MOCK, PROPOSALS } from 'app/mocks/constants';
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Filter } from 'pages/proposal-list/components/Filter';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router';
-import { useDaos } from 'shared/api/daos';
-import { useProposals } from 'shared/api/proposals';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { Badge } from 'shared/ui/Badge';
@@ -38,15 +38,18 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
 	const [isChangeSuccess, setIsChangeSuccess] = React.useState<boolean>(false);
 	const [isChangeResultOpen, setIsChangeResultOpen] = React.useState<boolean>(false);
-	const { daos, fetchDaos } = useDaos();
-	const { proposals, fetchProposals } = useProposals();
+	// const { daos, fetchDaos } = useDaos();
+	// const { proposals, fetchProposals } = useProposals();
+
+	const proposals = PROPOSALS;
+	const daos = DAOS_MOCK;
 
 	const { me } = store.useMe();
 
 	const { setIsMenuShown, setIsHeaderShown, setIsBackground } = store.useApp();
 
 	const selectedDao = React.useMemo(() => {
-		return (selectedDaoIdx !== null && daos !== null) ? daos[selectedDaoIdx] : null;
+		return selectedDaoIdx !== null && daos !== null ? daos[selectedDaoIdx] : null;
 	}, [daos, selectedDaoIdx]);
 
 	const handleOnApplyDao = React.useCallback((idx: number | null) => {
@@ -63,13 +66,13 @@ export const ProfilePage = React.memo(function ProfilePage() {
 		setIsMenuShown(true);
 	}, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 
-	React.useEffect(() => {
-		fetchDaos();
-		fetchProposals();
-	}, [fetchDaos, fetchProposals, selectedDao]);
+	// React.useEffect(() => {
+	// 	fetchDaos();
+	// 	fetchProposals();
+	// }, [fetchDaos, fetchProposals, selectedDao]);
 
 	if (daos === null) {
-		return <ScreenLoader/>;
+		return <ScreenLoader />;
 	}
 
 	return (
@@ -135,9 +138,10 @@ export const ProfilePage = React.memo(function ProfilePage() {
 					{(proposalShowAll ? proposals : proposals.filter((_, index) => index < 2)).map((proposal) => (
 						<ProposalCard key={proposal.id} proposal={proposal} />
 					))}
+					{proposals.length === 0 && <div className={css.placeholder}>No proposals</div>}
 				</div>
 				<div className={css.seeMoreButton} onClick={() => setProposalShowAll(!proposalShowAll)}>
-					{proposalShowAll ? 'Hide' : 'See more'}
+					{proposals.length > 3 && (proposalShowAll ? 'Hide' : 'See more')}
 				</div>
 			</div>
 
@@ -149,12 +153,29 @@ export const ProfilePage = React.memo(function ProfilePage() {
 					</IconButton>
 				</div>
 				<div className={css.list}>
-					{(daoShowAll ? daos : daos.filter((_, index) => index < 2)).map((dao) => (
-						<DaoCard key={dao.address} dao={dao} />
-					))}
+					{daos.length !== 0 && (
+						<div className={css.partList}>
+							{daos
+								.filter((_, index) => index < 2)
+								.map((dao) => (
+									<DaoCard key={dao.address} dao={dao} />
+								))}
+						</div>
+					)}
+					<AnimatePresence>
+						<motion.div
+							initial={{ opacity: 0, height: 0, paddingTop: 0 }}
+							animate={{ opacity: 1, height: 'auto', paddingTop: 9 }}
+							exit={{ opacity: 0, height: 0, paddingTop: 0 }}
+						>
+							{daoShowAll &&
+								daos.filter((_, index) => index >= 2).map((dao) => <DaoCard key={dao.address} dao={dao} />)}
+						</motion.div>
+					</AnimatePresence>
+					{daos.length === 0 && <div className={css.placeholder}>No daos</div>}
 				</div>
 				<div className={css.seeMoreButton} onClick={() => setDaoShowAll(!daoShowAll)}>
-					{daoShowAll ? 'Hide' : 'See more'}
+					{daos.length > 3 && (daoShowAll ? 'Hide' : 'See more')}
 				</div>
 			</div>
 
