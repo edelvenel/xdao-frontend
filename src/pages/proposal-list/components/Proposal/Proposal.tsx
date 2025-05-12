@@ -63,7 +63,7 @@ export function Proposal({ data }: IProposalProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{data.consensus}%</div>
+					<div className={css.value}>{data.consensus / Number(dao?.LPTokens) * 100}%</div>
 				</div>
 
 				<div className={css.row}>

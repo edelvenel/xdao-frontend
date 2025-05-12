@@ -61,7 +61,7 @@ const [votes, setVotes] = React.useState<IVote[] | null>(null);
 					name={proposal.name}
 					description={proposal.description}
 					status={proposal.status}
-					consensus={proposal.consensus}
+					consensus={proposal.consensus / Number(dao?.LPTokens) * 100}
 					endDate={proposal.endDate}
 				/>
 

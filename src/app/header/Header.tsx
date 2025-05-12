@@ -10,6 +10,7 @@ import { Button } from 'shared/ui/Button';
 import { Modal } from 'shared/ui/Modal';
 import { hapticFeedback } from 'shared/utils/haptic';
 import css from './styles.module.scss';
+import { shortenAddress } from 'shared/utils/formatters';
 
 export function Header() {
 	const [isConnectWalletOpen, setIsConnectWalletOpen] = React.useState<boolean>(false);
@@ -47,7 +48,7 @@ export function Header() {
 					<Icon.Common.Question />
 				</div>
 				<div className={css.user} onClick={handleOnAddressClick}>
-					<div className={css.text}>{userFriendlyAddress}</div>
+					<div className={css.text}>{shortenAddress(userFriendlyAddress ?? '')}</div>
 					<div className={css.icon}>
 						<Icon.Common.User />
 					</div>

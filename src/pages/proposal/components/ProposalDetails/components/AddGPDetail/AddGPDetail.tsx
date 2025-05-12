@@ -23,31 +23,30 @@ export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 	const [isOpen, setIsOpen] = React.useState<boolean>(false);
 	const [dao, setDao] = React.useState<IDao | null>(null);
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
-	const {token} = store.useAuth();
-
+	const { token } = store.useAuth();
 
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
-	React.useEffect(()=>{
-		const fetchVotes = async() => {
+	React.useEffect(() => {
+		const fetchVotes = async () => {
 			if (token !== null) {
 				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
 				setVotes(votes);
 			}
-		}
-		const fetchDao = async() => {
+		};
+		const fetchDao = async () => {
 			if (token !== null) {
 				const dao = await getDao(token, proposal.daoAddress);
 				setDao(dao);
 			}
-		}
-		 fetchVotes();
-		 fetchDao();
-	},[proposal.daoAddress, proposal.id, token])
+		};
+		fetchVotes();
+		fetchDao();
+	}, [proposal.daoAddress, proposal.id, token]);
 
 	if (votes === null || dao === null) {
-		return <ScreenLoader/>
+		return <ScreenLoader />;
 	}
 
 	return (
@@ -62,7 +61,7 @@ export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 					name={proposal.name}
 					description={proposal.description}
 					status={proposal.status}
-					consensus={proposal.consensus}
+					consensus={(proposal.consensus / Number(dao?.LPTokens)) * 100}
 					endDate={proposal.endDate}
 				/>
 
@@ -84,15 +83,15 @@ export function AddGPDetail({ proposal, onVote }: IAddGPDetailProps) {
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Add GP tokens</div>
-							<div className={css.value}>{proposal.data.receivers[0].amount ?? 'Empty'}</div>
+							<div className={css.value}>{proposal.data.receivers[0].amount / 10 ** 9 || 'Empty'}</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New GP Address</div>
-							<div className={css.value}>{proposal.data.receivers[0].address ?? "Empty"}</div>
+							<div className={css.value}>{proposal.data.receivers[0].address ?? 'Empty'}</div>
 						</div>
-						<Copy text={proposal.data.receivers[0].address ?? ""} />
+						<Copy text={proposal.data.receivers[0].address ?? ''} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

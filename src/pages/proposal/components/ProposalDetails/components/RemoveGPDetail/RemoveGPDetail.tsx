@@ -61,7 +61,7 @@ export function RemoveGPDetail({ proposal, onVote }: IRemoveGPDetailProps) {
 					name={proposal.name}
 					description={proposal.description}
 					status={proposal.status}
-					consensus={proposal.consensus}
+					consensus={proposal.consensus / Number(dao?.LPTokens) * 100}
 					endDate={proposal.endDate}
 				/>
 

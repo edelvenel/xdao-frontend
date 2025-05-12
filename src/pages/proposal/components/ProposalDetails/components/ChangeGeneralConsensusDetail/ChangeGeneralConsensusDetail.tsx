@@ -21,33 +21,33 @@ interface IChangeGeneralConsensusDetailProps {
 
 export function ChangeGeneralConsensusDetail({ proposal, onVote }: IChangeGeneralConsensusDetailProps) {
 	const [isOpen, setIsOpen] = React.useState<boolean>(false);
-const [votes, setVotes] = React.useState<IVote[] | null>(null);
-	const [dao, setDao] = React.useState<IDao | null> (null);
-	const {token} = store.useAuth();
+	const [votes, setVotes] = React.useState<IVote[] | null>(null);
+	const [dao, setDao] = React.useState<IDao | null>(null);
+	const { token } = store.useAuth();
 
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
-		React.useEffect(()=>{
-			const fetchVotes = async() => {
-				if (token !== null) {
-					const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
-					setVotes(votes);
-				}
+	React.useEffect(() => {
+		const fetchVotes = async () => {
+			if (token !== null) {
+				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
+				setVotes(votes);
 			}
-			const fetchDao = async() => {
-				if (token !== null) {
-					const dao = await getDao(token, proposal.daoAddress);
-					setDao(dao);
-				}
+		};
+		const fetchDao = async () => {
+			if (token !== null) {
+				const dao = await getDao(token, proposal.daoAddress);
+				setDao(dao);
 			}
-			 fetchVotes();
-			 fetchDao();
-		},[proposal.daoAddress, proposal.id, token])
-	
-		if (votes === null || dao === null) {
-			return <ScreenLoader/>
-		}
+		};
+		fetchVotes();
+		fetchDao();
+	}, [proposal.daoAddress, proposal.id, token]);
+
+	if (votes === null || dao === null) {
+		return <ScreenLoader />;
+	}
 
 	return (
 		<ProposalDetailLayout
@@ -61,7 +61,7 @@ const [votes, setVotes] = React.useState<IVote[] | null>(null);
 					name={proposal.name}
 					description={proposal.description}
 					status={proposal.status}
-					consensus={proposal.consensus}
+					consensus={proposal.consensus / Number(dao?.LPTokens) * 100}
 					endDate={proposal.endDate}
 				/>
 
@@ -76,14 +76,14 @@ const [votes, setVotes] = React.useState<IVote[] | null>(null);
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Current consensus</div>
-							<div className={css.value}>51%</div>
+							<div className={css.value}>{dao.consensus / 10000}%</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New consensus</div>
-							<div className={css.value}>54%</div>
+							<div className={css.value}>{proposal.data.success_percentage}%</div>
 						</div>
 					</div>
 					<div className={css.block}>

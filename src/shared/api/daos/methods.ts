@@ -26,7 +26,7 @@ export const daoMapper = (dao: Dao): IDao => {
 		LPTokens: dao.total_supply,
 		social: [],
 		email: dao.jetton_metadata['email'],
-		consensus: 50, //TODO: replace with real data
+		consensus: dao.success_percentage,
 		distributionRules: [],
 		slots: { total: 1, reserved: 0 },
 		status: DaoStatus.Transferable,
