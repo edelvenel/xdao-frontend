@@ -71,7 +71,7 @@ export enum DaoType {
 }
 
 export type IToken = {
-	id: string;
+	address	: string;
 	name: string;
 	imgUrl: string;
 	amount: number;

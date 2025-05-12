@@ -284,21 +284,21 @@ export const NFTS: INft[] = [
 
 export const TOKENS: IToken[] = [
 	{
-		id: '0',
+		address: 'native',
 		name: 'TON',
 		imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 		amount: 125,
 		rate: 10.0987,
 	},
 	{
-		id: '1',
+		address: '1',
 		name: 'BTC',
 		imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 		amount: 59,
 		rate: 3.0953,
 	},
 	{
-		id: '2',
+		address: '2',
 		name: 'USDT',
 		imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 		amount: 12,

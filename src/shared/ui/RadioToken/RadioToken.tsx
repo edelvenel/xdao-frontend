@@ -24,7 +24,7 @@ export function RadioToken({ selected, options, onSelect }: IRadioTokenProps) {
       {options.map((option, index) => (
         <Option
           key={index}
-          selected={selected.id === option.id}
+          selected={selected.address === option.address}
           onClick={() => handleOnSelect(option)}
           value={option}
         />
