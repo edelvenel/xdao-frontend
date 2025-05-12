@@ -37,13 +37,18 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 				(holder) => holder.owner_address === values.gpToRemove
 			)?.jetton_wallet_address;
 
-			if (!dao?.address || !jettonWalletAddressToRemove) return;
+			const jettonWalletOwnerAddressToRemove = holders.find(
+				(holder) => holder.owner_address === values.gpToRemove
+			)?.jetton_wallet_address;
+
+			if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove) return;
 
 			const payload: ICreateRemoveGPProposalPayload = {
 				type: ProposalType.RemoveGP,
 				name: values.name,
 				description: values.description,
-				gpToRemove: jettonWalletAddressToRemove,
+				jettonWalletAddressToRemove,
+				jettonWalletOwnerAddressToRemove,
 				votingDuration: Number(values.votingDuration),
 				tokenAmount: Number(values.tokenAmount),
 			};
@@ -55,7 +60,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 				onResponse(false);
 			}
 		},
-		[createProposal, onResponse, dao]
+		[holders, dao?.address, createProposal, onResponse]
 	);
 
 	return (

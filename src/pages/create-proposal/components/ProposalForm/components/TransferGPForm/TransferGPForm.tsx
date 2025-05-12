@@ -19,8 +19,15 @@ interface ITransferGPFormProps {
 }
 
 export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
-	const { dao } = store.useFormType();
+	const { dao, fetchHolders, holders } = store.useFormType();
+	const { token } = store.useAuth();
 	const { createProposal } = useProposals();
+
+	React.useEffect(() => {
+		if (dao && token) {
+			fetchHolders(token, dao.address);
+		}
+	}, [dao, fetchHolders, token]);
 
 	const listDaoGp: string[] = React.useMemo(() => {
 		return dao ? dao.distributionRules.flatMap((rule) => rule.walletAddress) : [];
@@ -28,12 +35,23 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
+			const fromJettonWalletAddress = holders.find(
+				(holder) => holder.owner_address === values.fromWalletAddress
+			)?.jetton_wallet_address;
+
+			const fromJettonWalletOwnerAddress = holders.find(
+				(holder) => holder.owner_address === values.fromWalletAddress
+			)?.jetton_wallet_address;
+
+			if (!dao?.address || !fromJettonWalletAddress || !fromJettonWalletOwnerAddress) return;
+
 			const payload: ICreateTransferGPProposalPayload = {
 				type: ProposalType.TransferGPTokens,
 				name: values.name,
 				description: values.description,
 				votingDuration: Number(values.votingDuration),
-				fromWalletAddress: values.fromWalletAddress,
+				fromJettonWalletAddress,
+				fromJettonWalletOwnerAddress,
 				toWalletAddress: values.toWalletAddress,
 				tokenAmount: Number(values.tokenAmount),
 			};

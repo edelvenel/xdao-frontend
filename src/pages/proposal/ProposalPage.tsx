@@ -36,8 +36,8 @@ export const ProposalPage = React.memo(function ProposalPage() {
 		}
 
 		try {
-			fetchHolders(token, proposal?.dao.address);
-			
+			fetchHolders(token, proposal?.daoAddress);
+
 			await submitVote(proposal);
 			setIsOnVote(false);
 			setIsSuccess(true);
@@ -46,7 +46,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 			console.error('Unable to submit vote', error);
 			setIsSuccess(false);
 		}
-	}, [proposal, submitVote, token]);
+	}, [fetchHolders, proposal, submitVote, token]);
 
 	React.useEffect(() => {
 		fetchProposals();
