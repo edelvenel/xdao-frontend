@@ -48,7 +48,7 @@ export const jettonMapper = (jettons: JettonsEvent[]): IJetton[] => {
 							name: element.jetton.name,
 							imgUrl: element.jetton.image,
 							url: '', //TODO: replace with real link
-							amount: Number(element.qty),
+							amount: Number(element.jetton.score.toFixed(element.jetton.decimals)),
 						};
 					});
 				});
@@ -102,6 +102,23 @@ export const getJettons = async (token: string, walletAddress: string): Promise<
 		);
 
 		return jettonMapper(response);
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+};
+
+export const getBalance = async (token: string, accountId: string): Promise<number> => {
+	try {
+		const response = await tonApi.v2.getAccount(
+			{ accountId },
+			{
+				format: 'json',
+				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+			}
+		);
+
+		return response.balance;
 	} catch (error) {
 		console.error(error);
 		throw error;

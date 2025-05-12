@@ -11,7 +11,7 @@
  */
 
 import { ProposalKey, ProposalStatus } from 'shared/types';
-import { JettonsEvent } from './types';
+import { AccountData, JettonsEvent } from './types';
 
 export interface Ok {
 	/** @example true */
@@ -103,16 +103,13 @@ export interface GetAllDaosParams {
 }
 
 export interface GetJettonsEventsParams {
-	/**
-	 * Limit
-	 * @max 1000
-	 * @default 100
-	 */
-	limit?: number;
-	/** Offset */
-	offset?: number;
 	/** Wallet Address */
 	walletAddress: string;
+}
+
+export interface GetAccountParams {
+	/** Wallet Address */
+	accountId: string;
 }
 
 /**
@@ -160,6 +157,18 @@ export interface GetProposalsParams {
 	 * @default "all"
 	 */
 	filter?: FilterEnum1;
+}
+
+export interface GetTokensParams {
+	/**
+	 * accept ton and jetton master addresses, separated by commas
+	 */
+	tokens: string[];
+
+	/**
+	 * accept ton and all possible fiat currencies, separated by commas
+	 */
+	currencies: string[];
 }
 
 /**
@@ -755,6 +764,48 @@ export class TonApi<SecurityDataType extends unknown> {
 				}
 			>({
 				path: `/v2/events/${walletAddress}/jettons`,
+				method: 'GET',
+				...params,
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getAccount
+		 * @summary Get human-friendly information about an account without low-level details.
+		 * @request GET:/v2/accounts/{account_id}
+		 */
+		getAccount: ({ accountId, ...query }: GetAccountIdParams, params: RequestParams = {}) =>
+			this.http.request<
+				AccountData,
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/accounts/${accountId}`,
+				method: 'GET',
+				...params,
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getRates
+		 * @summary Get the token price in the chosen currency for display only. Don’t use this for financial transactions.
+		 * @request GET:/v2/rates
+		 */
+		getRates: ({ tokens, ...query }: GetTokensParams, params: RequestParams = {}) =>
+			this.http.request<
+				TokensRate,
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/rates`,
 				method: 'GET',
 				...params,
 			}),

@@ -227,3 +227,53 @@ export interface JettonsEntity {
 	jetton: JettonMaster;
 	qty: string;
 }
+
+export interface AccountData {
+	address: string;
+	balance: number;
+	extra_balance?: ExtraBalanceEntity[] | null;
+	currencies_balance: any;
+	last_activity: number;
+	status: string;
+	interfaces?: string[] | null;
+	name: string;
+	is_scam: boolean;
+	icon: string;
+	memo_required: boolean;
+	get_methods?: string[] | null;
+	is_suspended: boolean;
+	is_wallet: boolean;
+}
+export interface ExtraBalanceEntity {
+	amount: string;
+	preview: Preview;
+}
+export interface Preview {
+	id: number;
+	symbol: string;
+	decimals: number;
+	image: string;
+}
+
+export interface TokensRate {
+	rates: Rates;
+}
+export interface Rates {
+	TON: Currency;
+}
+export interface Currency {
+	prices: Prices;
+	diff_24h: PricesDifference;
+	diff_7d: PricesDifference;
+	diff_30d: PricesDifference;
+}
+export interface Prices {
+	TON: number;
+	USD: number;
+	RUB: number;
+}
+export interface PricesDifference {
+	TON: string;
+	USD: string;
+	RUB: string;
+}

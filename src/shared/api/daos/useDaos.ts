@@ -8,7 +8,7 @@ import { DAOFactoryContract } from 'shared/smartcontracts/factory.wrapper';
 import { store } from 'shared/store';
 import { DaoType, IDao, IJetton } from 'shared/types';
 import { useTonWallet } from 'shared/utils/useTonConnect';
-import { getDaos, getFactoryAddress, getJettons } from './methods';
+import { getBalance, getDaos, getFactoryAddress, getJettons } from './methods';
 import { ICreateDaoPayload } from './payloads';
 
 export function useDaos() {
@@ -102,5 +102,21 @@ export function useDaos() {
 		[token]
 	);
 
-	return { daos, fetchDaos, createDao, updateDao, getDAOJettons, hasMore };
+	const getTONBalance = React.useCallback(
+		async (walletAddress: string): Promise<number> => {
+			try {
+				if (token) {
+					const balance = await getBalance(token, walletAddress);
+					return balance;
+				}
+				return 0;
+			} catch (error) {
+				console.error('Unable to get jettons', error);
+				throw error;
+			}
+		},
+		[token]
+	);
+
+	return { daos, fetchDaos, createDao, updateDao, getDAOJettons, getTONBalance, hasMore };
 }

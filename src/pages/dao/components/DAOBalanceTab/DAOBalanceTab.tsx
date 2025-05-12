@@ -7,7 +7,6 @@ import { useDaos } from 'shared/api/daos/useDaos';
 import { Icon } from 'shared/icons';
 import { IDao, IJetton } from 'shared/types';
 import { Button } from 'shared/ui/Button';
-import { IconButton } from 'shared/ui/IconButton';
 import css from './styles.module.scss';
 
 interface IDAOBalanceProps {
@@ -15,9 +14,11 @@ interface IDAOBalanceProps {
 	onInfo: () => void;
 }
 
-export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
+export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 	const [jettons, setJettons] = React.useState<IJetton[]>([]);
-	const { getDAOJettons } = useDaos();
+	const [tonBalance, setTonBalance] = React.useState<number>(0);
+	const [tonRate, setTonRate] = React.useState<number>(1);
+	const { getDAOJettons, getTONBalance } = useDaos();
 
 	React.useEffect(() => {
 		const fetchJettons = async () => {
@@ -25,8 +26,20 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 			setJettons(jettons);
 		};
 
+		const fetchTonBalance = async () => {
+			const balance = await getTONBalance(dao.plugins[0].address);
+			setTonBalance(balance);
+		};
+
 		fetchJettons();
-	}, [dao.plugins, getDAOJettons]);
+		fetchTonBalance();
+		setTonRate(1);
+	}, [dao.plugins, getDAOJettons, getTONBalance]);
+
+	const mainAccountTotal = React.useMemo(
+		() => tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0),
+		[jettons, tonBalance, tonRate]
+	);
 
 	//TODO: get data with dao
 	if (!dao) {
@@ -39,10 +52,10 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 				<div className={css.title}>Main account</div>
 				<div className={css.amount}>
 					<div className={css.dollar}>$</div>
-					<span>500 000</span>
+					<span>{mainAccountTotal}</span>
 				</div>
 			</div>
-			<div className={css.block}>
+			{/* <div className={css.block}>
 				<div className={css.title}>
 					Future $DAO tokens
 					<IconButton size="tiny" variant="secondary" onClick={onInfo}>
@@ -53,8 +66,20 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 					<div className={css.currency}>$DAO</div>
 					48,750,000
 				</div>
-			</div>
+			</div> */}
 			<div className={css.card}>
+				<div className={css.wallet}>
+					<div className={css.info}>
+						<div className={css.logo}>
+							<Icon.Crypto.Ton />
+						</div>
+						<div className={css.currency}>TON</div>
+						<div className={css.amount}>{tonBalance}</div>
+					</div>
+					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
+						<Icon.Common.LittleLink />
+					</div>
+				</div>
 				{jettons.map((jetton) => (
 					<div className={css.wallet}>
 						<div className={css.info}>
