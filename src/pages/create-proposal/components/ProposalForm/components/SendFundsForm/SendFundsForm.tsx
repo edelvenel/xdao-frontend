@@ -32,6 +32,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
 			const payload: ICreateSendFundsProposalPayload = {
+				pluginAddress: dao?.plugins[0].address ?? '',
 				type: ProposalType.SendDAOFunds,
 				name: values.name,
 				description: values.description,
@@ -54,7 +55,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 
 	React.useEffect(() => {
 		fetchDaos();
-	}, [daos, fetchDaos]);
+	}, [fetchDaos]);
 
 	if (!dao) {
 		return;

@@ -1,6 +1,5 @@
 import { api } from 'app/api';
 import { FilterEnum1, Proposal, Vote } from 'app/api/codegen';
-import { VOTING_TYPE } from 'app/mocks/constants';
 import { proposalTypeMapper } from 'shared/constants';
 import { IHolder, IProposal, IVote } from 'shared/types';
 
@@ -18,7 +17,10 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		status: proposal.status,
 		type: proposalTypeMapper[proposal.type],
 		userVote: null,
-		votingType: VOTING_TYPE[0],
+		votingType: {
+			id: 1,
+			label: 'One wallet = one vote',
+		},
 		data: proposal.data,
 	};
 };

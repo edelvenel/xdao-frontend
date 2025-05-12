@@ -78,6 +78,7 @@ export type ICreateSendFundsProposalPayload = {
 	recipientAddress: string;
 	token: IToken;
 	tokenAmount: number;
+	pluginAddress: string;
 };
 
 export type ICreateTransferGPProposalPayload = {
@@ -125,6 +126,8 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 		}
 
 		case ProposalType.SendDAOFunds: {
+			console.log(payload);
+			console.log(payload.pluginAddress);
 			return new Cell(); //TODO: replace (build fix)
 		}
 	}
