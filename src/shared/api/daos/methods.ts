@@ -1,5 +1,6 @@
 import { api, tonApi } from 'app/api';
-import { Dao, FilterEnum, Jetton } from 'app/api/codegen';
+import { Dao, FilterEnum } from 'app/api/codegen';
+import { JettonsEvent } from 'app/api/types';
 import { DaoStatus, IDao, IJetton } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
@@ -35,9 +36,29 @@ export const daoMapper = (dao: Dao): IDao => {
 	};
 };
 
-export const jettonMapper = (jettons: Jetton[]): IJetton[] => {
-	const mappedJettons: IJetton[] = jettons.map((jetton) => {
-		return { name: '', amount: 0, imgUrl: '', url: '' };
+export const jettonMapper = (jettons: JettonsEvent[]): IJetton[] => {
+	const mappedJettons: IJetton[] = jettons.flatMap((jetton) => {
+		if (jetton.value_flow) {
+			const jettonArray = jetton.value_flow.map((value) => value.jettons ?? []);
+
+			if (jettonArray) {
+				const convertedJettons: IJetton[] = jettonArray.flatMap((jetton) => {
+					return jetton.flatMap((element) => {
+						return {
+							name: element.jetton.name,
+							imgUrl: element.jetton.image,
+							url: '', //TODO: replace with real link
+							amount: Number(element.qty),
+						};
+					});
+				});
+				return convertedJettons;
+			}
+
+			return [];
+		}
+
+		return [];
 	});
 	return mappedJettons;
 };

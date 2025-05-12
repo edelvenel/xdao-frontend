@@ -1,9 +1,11 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
+import React from 'react';
 import toast from 'react-hot-toast';
 import { generatePath, Link } from 'react-router';
+import { useDaos } from 'shared/api/daos/useDaos';
 import { Icon } from 'shared/icons';
-import { IDao } from 'shared/types';
+import { IDao, IJetton } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { IconButton } from 'shared/ui/IconButton';
 import css from './styles.module.scss';
@@ -14,6 +16,18 @@ interface IDAOBalanceProps {
 }
 
 export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
+	const [jettons, setJettons] = React.useState<IJetton[]>([]);
+	const { getDAOJettons } = useDaos();
+
+	React.useEffect(() => {
+		const fetchJettons = async () => {
+			const jettons = await getDAOJettons(dao.plugins[0].address);
+			setJettons(jettons);
+		};
+
+		fetchJettons();
+	}, [dao.plugins, getDAOJettons]);
+
 	//TODO: get data with dao
 	if (!dao) {
 		return null;
@@ -41,7 +55,20 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 				</div>
 			</div>
 			<div className={css.card}>
-				<div className={css.wallet}>
+				{jettons.map((jetton) => (
+					<div className={css.wallet}>
+						<div className={css.info}>
+							<div className={css.logo} style={{ backgroundImage: `url(${jetton.imgUrl})` }} />
+							<div className={css.currency}>{jetton.name}</div>
+							<div className={css.amount}>{jetton.amount}</div>
+						</div>
+						<div className={css.link} onClick={() => toast.error('Unimplemented')}>
+							<Icon.Common.LittleLink />
+						</div>
+					</div>
+				))}
+
+				{/* <div className={css.wallet}>
 					<div className={css.info}>
 						<div className={css.logo} />
 						<div className={css.currency}>TON</div>
@@ -50,17 +77,7 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
 						<Icon.Common.LittleLink />
 					</div>
-				</div>
-				<div className={css.wallet}>
-					<div className={css.info}>
-						<div className={css.logo} />
-						<div className={css.currency}>TON</div>
-						<div className={css.amount}>20,000.00</div>
-					</div>
-					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
-						<Icon.Common.LittleLink />
-					</div>
-				</div>
+				</div> */}
 				<div className={css.wallet}>
 					<div className={css.info}>
 						<div className={css.currency}>NFTs</div>

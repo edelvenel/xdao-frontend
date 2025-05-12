@@ -11,6 +11,7 @@
  */
 
 import { ProposalKey, ProposalStatus } from 'shared/types';
+import { JettonsEvent } from './types';
 
 export interface Ok {
 	/** @example true */
@@ -60,16 +61,6 @@ export interface Dao {
 	success_percentage: number;
 	total_supply: string;
 	plugins: Plugin[];
-}
-
-export interface Jetton {
-	event_id: string;
-	timestamp: string;
-	actions: {}[];
-	value_flow: {}[];
-	is_scam: boolean;
-	lt: integerint64;
-	in_progress: boolean;
 }
 
 export interface Vote {
@@ -757,7 +748,7 @@ export class TonApi<SecurityDataType extends unknown> {
 		 */
 		getJettonsEvents: ({ walletAddress, ...query }: GetJettonsEventsParams, params: RequestParams = {}) =>
 			this.http.request<
-				Ok,
+				JettonsEvent[],
 				{
 					/** Error message */
 					error: string;
