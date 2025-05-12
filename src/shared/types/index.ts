@@ -20,6 +20,7 @@ export type IDao = {
 		total: number;
 		reserved: number;
 	};
+	plugins: IPlugin[];
 };
 
 export enum DaoStatus {
@@ -62,7 +63,7 @@ export enum ProposalKey {
 	ChangeTransferStatus = 'MasterDAO_ChangeTransferStatus',
 	ChangeSuccessPercentage = 'MasterDAO_ChangeSuccessPercentage',
 	CallPlugin = 'MasterDAO_CallPlugin',
-	ChangeMetadata = 'MasterDAO_ChangeMetadata'
+	ChangeMetadata = 'MasterDAO_ChangeMetadata',
 }
 
 export enum DaoType {
@@ -98,7 +99,7 @@ export enum ProposalStatus {
 	Active = 'active',
 	Rejected = 'rejected',
 	Pending = 'pending',
-	Executed = 'executed'
+	Executed = 'executed',
 }
 
 export interface IVotingType {
@@ -119,8 +120,8 @@ export type IDistributionRule = {
 };
 
 export type IVote = {
-	walletAddress: string; 
-	impact: number ;
+	walletAddress: string;
+	impact: number;
 };
 
 export type IUserVote = {
@@ -132,4 +133,21 @@ export type IHolder = {
 	jetton_wallet_address: string;
 	owner_address: string;
 	balance: string;
+};
+
+export type IPlugin = {
+	address: string;
+	type: string;
+};
+
+export type IJetton = {
+	name: string;
+	amount: number;
+	imgUrl: string;
+	url: string;
+};
+
+export type IRate = {
+	currency: string;
+	rate: number;
 };

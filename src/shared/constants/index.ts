@@ -1,6 +1,8 @@
 import { IOptionWithNote, ProposalKey, ProposalType } from 'shared/types';
 
 export const API_URL = import.meta.env.VITE_API_URL;
+export const TON_API_URL = import.meta.env.VITE_TON_API_URL;
+export const TON_API_TOKEN = import.meta.env.VITE_TON_API_TOKEN;
 export const TOAST_DURATION = 5000;
 
 export const TOKENS: IOptionWithNote[] = [
@@ -20,7 +22,7 @@ export const proposalTypeMapper = {
 	[ProposalKey.CallPlugin]: ProposalType.SendDAOFunds,
 	[ProposalKey.ChangeMetadata]: ProposalType.ChangeDAOName,
 	// ['']: ProposalTypes[7],
-}
+};
 
 export const proposalNameMapper = {
 	[ProposalType.AddGP]: 'Add General Partner',
@@ -29,8 +31,8 @@ export const proposalNameMapper = {
 	[ProposalType.ChangeGPTransferStatus]: 'Change GP Transfer Status',
 	[ProposalType.ChangeGeneralConsensus]: 'Change General Consensus',
 	[ProposalType.SendDAOFunds]: 'Send DAO Funds',
-	[ProposalType.ChangeDAOName]: 'Change DAO Name'
-}
+	[ProposalType.ChangeDAOName]: 'Change DAO Name',
+};
 
 export const proposalTypeOptions = [
 	ProposalType.AddGP,
@@ -40,4 +42,4 @@ export const proposalTypeOptions = [
 	ProposalType.ChangeGeneralConsensus,
 	ProposalType.SendDAOFunds,
 	ProposalType.ChangeDAOName,
-]
+];

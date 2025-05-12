@@ -1,11 +1,12 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
+import React from 'react';
 import toast from 'react-hot-toast';
 import { generatePath, Link } from 'react-router';
+import { useDaos } from 'shared/api/daos/useDaos';
 import { Icon } from 'shared/icons';
-import { IDao } from 'shared/types';
+import { IDao, IJetton } from 'shared/types';
 import { Button } from 'shared/ui/Button';
-import { IconButton } from 'shared/ui/IconButton';
 import css from './styles.module.scss';
 
 interface IDAOBalanceProps {
@@ -13,7 +14,38 @@ interface IDAOBalanceProps {
 	onInfo: () => void;
 }
 
-export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
+export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
+	const [jettons, setJettons] = React.useState<IJetton[]>([]);
+	const [tonBalance, setTonBalance] = React.useState<number>(0);
+	const [tonRate, setTonRate] = React.useState<number>(1);
+	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
+
+	React.useEffect(() => {
+		const fetchJettons = async () => {
+			const jettons = await getDAOJettons(dao.plugins[0].address);
+			setJettons(jettons);
+		};
+
+		const fetchTonBalance = async () => {
+			const balance = await getTONBalance(dao.plugins[0].address);
+			setTonBalance(balance);
+		};
+
+		const fetchRates = async () => {
+			const rate = await getTokenRates(['ton'], ['usd']);
+			setTonRate(rate[0].rate);
+		};
+
+		fetchJettons();
+		fetchTonBalance();
+		fetchRates();
+	}, [dao.plugins, getDAOJettons, getTONBalance, getTokenRates]);
+
+	const mainAccountTotal = React.useMemo(
+		() => tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0),
+		[jettons, tonBalance, tonRate]
+	);
+
 	//TODO: get data with dao
 	if (!dao) {
 		return null;
@@ -25,10 +57,10 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 				<div className={css.title}>Main account</div>
 				<div className={css.amount}>
 					<div className={css.dollar}>$</div>
-					<span>500 000</span>
+					<span>{mainAccountTotal}</span>
 				</div>
 			</div>
-			<div className={css.block}>
+			{/* <div className={css.block}>
 				<div className={css.title}>
 					Future $DAO tokens
 					<IconButton size="tiny" variant="secondary" onClick={onInfo}>
@@ -39,19 +71,34 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 					<div className={css.currency}>$DAO</div>
 					48,750,000
 				</div>
-			</div>
+			</div> */}
 			<div className={css.card}>
 				<div className={css.wallet}>
 					<div className={css.info}>
-						<div className={css.logo} />
+						<div className={css.logo}>
+							<Icon.Crypto.Ton />
+						</div>
 						<div className={css.currency}>TON</div>
-						<div className={css.amount}>20,000.00</div>
+						<div className={css.amount}>{tonBalance}</div>
 					</div>
 					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
 						<Icon.Common.LittleLink />
 					</div>
 				</div>
-				<div className={css.wallet}>
+				{jettons.map((jetton) => (
+					<div className={css.wallet}>
+						<div className={css.info}>
+							<div className={css.logo} style={{ backgroundImage: `url(${jetton.imgUrl})` }} />
+							<div className={css.currency}>{jetton.name}</div>
+							<div className={css.amount}>{jetton.amount}</div>
+						</div>
+						<div className={css.link} onClick={() => toast.error('Unimplemented')}>
+							<Icon.Common.LittleLink />
+						</div>
+					</div>
+				))}
+
+				{/* <div className={css.wallet}>
 					<div className={css.info}>
 						<div className={css.logo} />
 						<div className={css.currency}>TON</div>
@@ -60,7 +107,7 @@ export function DAOBalanceTab({ dao, onInfo }: IDAOBalanceProps) {
 					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
 						<Icon.Common.LittleLink />
 					</div>
-				</div>
+				</div> */}
 				<div className={css.wallet}>
 					<div className={css.info}>
 						<div className={css.currency}>NFTs</div>

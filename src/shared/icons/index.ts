@@ -28,6 +28,7 @@ import { EyeIcon } from './common/See';
 import { TinyLinkIcon } from './common/TinyLink';
 import { UserIcon } from './common/User';
 import { ValidationErrorIcon } from './common/ValidationError';
+import { TonIcon } from './crypto/Ton';
 import { DAOsIcon } from './navigation/DAOs';
 import { HomeIcon } from './navigation/Home';
 import { ProfileIcon } from './navigation/Profile';
@@ -72,7 +73,9 @@ export const Icon = {
 		Restore: RestoreIcon,
 		ValidationError: ValidationErrorIcon,
 	},
-	Crypto: {},
+	Crypto: {
+		Ton: TonIcon,
+	},
 	Navigation: {
 		DAOs: DAOsIcon,
 		Profile: ProfileIcon,

@@ -11,6 +11,7 @@
  */
 
 import { ProposalKey, ProposalStatus } from 'shared/types';
+import { AccountData } from './types';
 
 export interface Ok {
 	/** @example true */
@@ -101,6 +102,21 @@ export interface GetAllDaosParams {
 	filter?: FilterEnum;
 }
 
+export interface GetAccountJettonsBalancesParams {
+	/**
+	 * accept ton and jetton master addresses, separated by commas
+	 */
+	tokens: string[];
+
+	/** Wallet Address */
+	accountId: string;
+}
+
+export interface GetAccountParams {
+	/** Wallet Address */
+	accountId: string;
+}
+
 /**
  * Filter DAOs by type
  * @default "all"
@@ -146,6 +162,18 @@ export interface GetProposalsParams {
 	 * @default "all"
 	 */
 	filter?: FilterEnum1;
+}
+
+export interface GetTokensParams {
+	/**
+	 * accept ton and jetton master addresses, separated by commas
+	 */
+	tokens: string;
+
+	/**
+	 * accept ton and all possible fiat currencies, separated by commas
+	 */
+	currencies: string;
 }
 
 /**
@@ -707,5 +735,85 @@ export class Api<SecurityDataType extends unknown> {
 		linkWallet: (payload: any) => {
 			return response;
 		},
+	};
+}
+
+/**
+ * @title TON API
+ * @version 2.0.0
+ * @baseUrl https://tonapi.io
+ * @contact Support <contact@xdao.org>
+ */
+export class TonApi<SecurityDataType extends unknown> {
+	http: HttpClient<SecurityDataType>;
+
+	constructor(http: HttpClient<SecurityDataType>) {
+		this.http = http;
+	}
+
+	v2 = {
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getAccountJettonsBalances
+		 * @summary Get all Jettons balances by owner address
+		 * @request GET:/v2/accounts/{account_id}/jettons
+		 */
+		getAccountJettonsBalances: ({ accountId, ...query }: GetAccountJettonsBalancesParams, params: RequestParams = {}) =>
+			this.http.request<
+				BalancesResponse,
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/accounts/${accountId}/jettons`,
+				method: 'GET',
+				...params,
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getAccount
+		 * @summary Get human-friendly information about an account without low-level details.
+		 * @request GET:/v2/accounts/{account_id}
+		 */
+		getAccount: ({ accountId, ...query }: GetAccountParams, params: RequestParams = {}) =>
+			this.http.request<
+				AccountData,
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/accounts/${accountId}`,
+				method: 'GET',
+				...params,
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getRates
+		 * @summary Get the token price in the chosen currency for display only. Don’t use this for financial transactions.
+		 * @request GET:/v2/rates
+		 */
+		getRates: ({ tokens, currencies, ...query }: GetTokensParams, params: RequestParams = {}) =>
+			this.http.request<
+				TokensRate,
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/rates`,
+				method: 'GET',
+				query: { tokens, currencies, ...query },
+				...params,
+			}),
 	};
 }
