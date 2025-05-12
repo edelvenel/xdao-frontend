@@ -94,34 +94,30 @@ export type ICreateTransferGPProposalPayload = {
 export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 	switch (payload.type) {
 		case ProposalType.RemoveGP: {
-			ProposalsBuilder.buildCallJettonBurn(
+			return ProposalsBuilder.buildCallJettonBurn(
 				toNano(payload.tokenAmount),
 				Address.parse(payload.jettonWalletAddressToRemove),
 				Address.parse(payload.jettonWalletOwnerAddressToRemove)
 			);
-			return new Cell(); //TODO: replace (build fix)
 		}
 		case ProposalType.TransferGPTokens: {
-			ProposalsBuilder.buildCallJettonTransfer(
+			return ProposalsBuilder.buildCallJettonTransfer(
 				payload,
 				Address.parse(payload.fromJettonWalletAddress),
 				Address.parse(payload.fromJettonWalletOwnerAddress)
 			);
-			return new Cell(); //TODO: replace (build fix)
 		}
 		case ProposalType.ChangeGeneralConsensus: {
-			ProposalsBuilder.buildChangeSuccessPercentage(payload.currentConsensus);
-			return new Cell(); //TODO: replace (build fix)
+			return ProposalsBuilder.buildChangeSuccessPercentage(payload.currentConsensus);
 		}
 		case ProposalType.AddGP: {
 			const dict = Dictionary.empty(Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4));
 			dict.set(Address.parse(payload.walletAddress), toNano(payload.tokenAmount));
-			return ProposalsBuilder.buildCallJettonMint(dict); // this method support dictionary, but payload only 1 object. So strange...
+			return ProposalsBuilder.buildCallJettonMint(dict); // this method support dictionary, but payload only 1 object.
 		}
 
 		case ProposalType.ChangeDAOName: {
-			ProposalsBuilder.buildChangeMetadata(payload);
-			return new Cell(); //TODO: replace (build fix)
+			return ProposalsBuilder.buildChangeMetadata(payload);
 		}
 
 		case ProposalType.ChangeGPTransferStatus: {

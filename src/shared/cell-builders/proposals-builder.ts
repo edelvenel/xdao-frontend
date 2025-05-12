@@ -1,4 +1,4 @@
-import { Address, beginCell, Cell, Dictionary } from '@ton/core';
+import {Address, beginCell, Cell, Dictionary, toNano} from '@ton/core';
 import { ICreateChangeDAONameProposalPayload, ICreateTransferGPProposalPayload } from 'shared/api/proposals/payloads';
 import { JettonBuilder } from 'shared/cell-builders/common';
 import { Builder } from './utils';
@@ -53,12 +53,19 @@ export class ProposalsBuilder extends Builder {
 		fromJettonWalletAddress: Address,
 		fromJettonWalletOwnerAddress: Address
 	) {
-		console.log(payload); //TODO: use payload and delete this code (build fix)
+        const toWalletAddress = Address.parse(payload.toWalletAddress);
+        const transfer_data = beginCell()
+            .storeCoins(toNano(payload.tokenAmount))
+            .storeAddress(toWalletAddress) // destination
+            .storeAddress(toWalletAddress) // response_destination
+            .storeCoins(1) // forward_amount (1 nTON to simplify job for indexers)
+        .endCell()
 		return beginCell()
 			.store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER))
 			.storeAddress(fromJettonWalletAddress)
 			.storeAddress(fromJettonWalletOwnerAddress)
-			.endCell(); // TODO: CallJettonTransfer
+            .storeRef(transfer_data)
+			.endCell();
 	}
 
 	static buildCallJettonMint(holders: Dictionary<Address, bigint>) {
