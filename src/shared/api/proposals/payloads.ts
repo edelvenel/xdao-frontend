@@ -92,9 +92,12 @@ export type ICreateTransferGPProposalPayload = {
 
 export const proposalsBuilders = () => ({
 	[ProposalType.RemoveGP]: (payload: ICreateRemoveGPProposalPayload) =>
-		ProposalsBuilder.buildCallJettonBurn(toNano(payload.tokenAmount), Address.parse(payload.gpToRemove)),
+		// TODO: 1. gpToRemove -> jettonWalletAddressToRemove
+	    // TODO: 2. gpToRemove -> jettonWalletOwnerAddressToRemove
+		ProposalsBuilder.buildCallJettonBurn(toNano(payload.tokenAmount), Address.parse(payload.gpToRemove), Address.parse(payload.gpToRemove)),
 	[ProposalType.TransferGPTokens]: (payload: ICreateTransferGPProposalPayload) =>
-		ProposalsBuilder.buildCallJettonTransfer(payload),
+		// TODO: fromWalletAddress -> fromJettonWalletAddress
+		ProposalsBuilder.buildCallJettonTransfer(payload, Address.parse(payload.fromWalletAddress)),
 	[ProposalType.ChangeGeneralConsensus]: (payload: ICreateChangeGeneralConsensusProposalPayload) =>
 		ProposalsBuilder.buildChangeSuccessPercentage(payload.currentConsensus),
 	[ProposalType.AddGP]: (payload: ICreateAddGPProposalPayload) => {

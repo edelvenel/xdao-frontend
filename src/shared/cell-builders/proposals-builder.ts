@@ -45,19 +45,20 @@ export class ProposalsBuilder extends Builder {
         .asCell();
     }
 
-    static buildCallJettonBurn(amount: bigint, jettonWalletAddress: Address) {
+    static buildCallJettonBurn(amount: bigint, jettonWalletAddress: Address, ownerAddress: Address) {
         return beginCell()
             .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_BURN))
             .storeCoins(amount)
             .storeAddress(jettonWalletAddress)
+            .storeAddress(ownerAddress)
         .endCell()
 
     }
 
-    static buildCallJettonTransfer(payload: ICreateTransferGPProposalPayload) {
-        console.log(payload)
+    static buildCallJettonTransfer(payload: ICreateTransferGPProposalPayload, fromJettonWalletAddress: Address) {
         return beginCell()
             .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER))
+            .storeAddress(fromJettonWalletAddress)
             .endCell() // TODO CallJettonTransfer
     }
 
