@@ -3,12 +3,13 @@ import { useTonConnectUI } from '@tonconnect/ui-react';
 import React, { useState } from 'react';
 import { DAOBuilder } from 'shared/cell-builders';
 import { JettonBuilder } from 'shared/cell-builders/common';
+import { TON_API_TOKEN } from 'shared/constants';
 import { tonClient } from 'shared/smartcontracts/client';
 import { DAOFactoryContract } from 'shared/smartcontracts/factory.wrapper';
 import { store } from 'shared/store';
-import { DaoType, IDao, IJetton } from 'shared/types';
+import { DaoType, IDao, IJetton, IRate } from 'shared/types';
 import { useTonWallet } from 'shared/utils/useTonConnect';
-import { getBalance, getDaos, getFactoryAddress, getJettons } from './methods';
+import { getBalance, getDaos, getFactoryAddress, getJettons, getRates } from './methods';
 import { ICreateDaoPayload } from './payloads';
 
 export function useDaos() {
@@ -86,37 +87,35 @@ export function useDaos() {
 		}
 	}, []);
 
-	const getDAOJettons = React.useCallback(
-		async (walletAddress: string): Promise<IJetton[]> => {
-			try {
-				if (token) {
-					const jettons = await getJettons(token, walletAddress);
-					return jettons;
-				}
-				return [];
-			} catch (error) {
-				console.error('Unable to get jettons', error);
-				throw error;
-			}
-		},
-		[token]
-	);
+	const getDAOJettons = React.useCallback(async (walletAddress: string): Promise<IJetton[]> => {
+		try {
+			const jettons = await getJettons(TON_API_TOKEN, ['ton', 'usd'], walletAddress);
+			return jettons;
+		} catch (error) {
+			console.error('Unable to get jettons', error);
+			throw error;
+		}
+	}, []);
 
-	const getTONBalance = React.useCallback(
-		async (walletAddress: string): Promise<number> => {
-			try {
-				if (token) {
-					const balance = await getBalance(token, walletAddress);
-					return balance;
-				}
-				return 0;
-			} catch (error) {
-				console.error('Unable to get jettons', error);
-				throw error;
-			}
-		},
-		[token]
-	);
+	const getTONBalance = React.useCallback(async (walletAddress: string): Promise<number> => {
+		try {
+			const balance = await getBalance(TON_API_TOKEN, walletAddress);
+			return balance;
+		} catch (error) {
+			console.error('Unable to get account', error);
+			throw error;
+		}
+	}, []);
 
-	return { daos, fetchDaos, createDao, updateDao, getDAOJettons, getTONBalance, hasMore };
+	const getTokenRates = React.useCallback(async (tokens: string[], currencies: string[]): Promise<IRate[]> => {
+		try {
+			const rates = await getRates(TON_API_TOKEN, tokens, currencies);
+			return rates;
+		} catch (error) {
+			console.error('Unable to get rates', error);
+			throw error;
+		}
+	}, []);
+
+	return { daos, fetchDaos, createDao, updateDao, getDAOJettons, getTONBalance, getTokenRates, hasMore };
 }

@@ -146,3 +146,8 @@ export type IJetton = {
 	imgUrl: string;
 	url: string;
 };
+
+export type IRate = {
+	currency: string;
+	rate: number;
+};

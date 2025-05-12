@@ -1,7 +1,7 @@
 import { api, tonApi } from 'app/api';
 import { Dao, FilterEnum } from 'app/api/codegen';
-import { JettonsEvent } from 'app/api/types';
-import { DaoStatus, IDao, IJetton } from 'shared/types';
+import { BalancesResponse, TokensRate } from 'app/api/types';
+import { DaoStatus, IDao, IJetton, IRate } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
 	try {
@@ -36,30 +36,18 @@ export const daoMapper = (dao: Dao): IDao => {
 	};
 };
 
-export const jettonMapper = (jettons: JettonsEvent[]): IJetton[] => {
-	const mappedJettons: IJetton[] = jettons.flatMap((jetton) => {
-		if (jetton.value_flow) {
-			const jettonArray = jetton.value_flow.map((value) => value.jettons ?? []);
+export const jettonMapper = (balances: BalancesResponse[]): IJetton[] => {
+	const mappedJettons: IJetton[] = balances.flatMap((item) =>
+		item.balances.flatMap((balance) => {
+			return {
+				name: balance.jetton.name,
+				imgUrl: balance.jetton.image,
+				url: '', //TODO: replace with real url,
+				amount: Number(balance.balance) / 10 ** balance.jetton.decimals,
+			};
+		})
+	);
 
-			if (jettonArray) {
-				const convertedJettons: IJetton[] = jettonArray.flatMap((jetton) => {
-					return jetton.flatMap((element) => {
-						return {
-							name: element.jetton.name,
-							imgUrl: element.jetton.image,
-							url: '', //TODO: replace with real link
-							amount: Number(element.jetton.score.toFixed(element.jetton.decimals)),
-						};
-					});
-				});
-				return convertedJettons;
-			}
-
-			return [];
-		}
-
-		return [];
-	});
 	return mappedJettons;
 };
 
@@ -91,10 +79,10 @@ export const getDao = async (token: string, id: string): Promise<IDao> => {
 	}
 };
 
-export const getJettons = async (token: string, walletAddress: string): Promise<IJetton[]> => {
+export const getJettons = async (token: string, tokens: string[], accountId: string): Promise<IJetton[]> => {
 	try {
-		const response = await tonApi.v2.getJettonsEvents(
-			{ walletAddress },
+		const response = await tonApi.v2.getAccountJettonsBalances(
+			{ accountId, tokens },
 			{
 				format: 'json',
 				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -118,7 +106,30 @@ export const getBalance = async (token: string, accountId: string): Promise<numb
 			}
 		);
 
-		return response.balance;
+		return response.balance / 10 ** 9;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+};
+
+export const getRates = async (token: string, tokens: string[], currencies: string[]): Promise<IRate[]> => {
+	const tokensString = tokens.join(',');
+	const currenciesString = currencies.join(',');
+	try {
+		const response: TokensRate = await tonApi.v2.getRates(
+			{ tokens: tokensString, currencies: currenciesString },
+			{
+				format: 'json',
+				headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+			}
+		);
+
+		const rateArray: { currency: string; rate: number }[] = Object.entries(response.rates.TON.prices).map(
+			([currency, rate]) => ({ currency, rate })
+		);
+
+		return rateArray;
 	} catch (error) {
 		console.error(error);
 		throw error;

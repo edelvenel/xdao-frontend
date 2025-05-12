@@ -18,7 +18,7 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 	const [jettons, setJettons] = React.useState<IJetton[]>([]);
 	const [tonBalance, setTonBalance] = React.useState<number>(0);
 	const [tonRate, setTonRate] = React.useState<number>(1);
-	const { getDAOJettons, getTONBalance } = useDaos();
+	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
 
 	React.useEffect(() => {
 		const fetchJettons = async () => {
@@ -31,10 +31,15 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 			setTonBalance(balance);
 		};
 
+		const fetchRates = async () => {
+			const rate = await getTokenRates(['ton'], ['usd']);
+			setTonRate(rate[0].rate);
+		};
+
 		fetchJettons();
 		fetchTonBalance();
-		setTonRate(1);
-	}, [dao.plugins, getDAOJettons, getTONBalance]);
+		fetchRates();
+	}, [dao.plugins, getDAOJettons, getTONBalance, getTokenRates]);
 
 	const mainAccountTotal = React.useMemo(
 		() => tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0),

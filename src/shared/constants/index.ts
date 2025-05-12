@@ -2,6 +2,7 @@ import { IOptionWithNote, ProposalKey, ProposalType } from 'shared/types';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 export const TON_API_URL = import.meta.env.VITE_TON_API_URL;
+export const TON_API_TOKEN = import.meta.env.VITE_TON_API_TOKEN;
 export const TOAST_DURATION = 5000;
 
 export const TOKENS: IOptionWithNote[] = [

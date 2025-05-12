@@ -11,7 +11,7 @@
  */
 
 import { ProposalKey, ProposalStatus } from 'shared/types';
-import { AccountData, JettonsEvent } from './types';
+import { AccountData } from './types';
 
 export interface Ok {
 	/** @example true */
@@ -102,9 +102,14 @@ export interface GetAllDaosParams {
 	filter?: FilterEnum;
 }
 
-export interface GetJettonsEventsParams {
+export interface GetAccountJettonsBalancesParams {
+	/**
+	 * accept ton and jetton master addresses, separated by commas
+	 */
+	tokens: string[];
+
 	/** Wallet Address */
-	walletAddress: string;
+	accountId: string;
 }
 
 export interface GetAccountParams {
@@ -163,12 +168,12 @@ export interface GetTokensParams {
 	/**
 	 * accept ton and jetton master addresses, separated by commas
 	 */
-	tokens: string[];
+	tokens: string;
 
 	/**
 	 * accept ton and all possible fiat currencies, separated by commas
 	 */
-	currencies: string[];
+	currencies: string;
 }
 
 /**
@@ -751,19 +756,19 @@ export class TonApi<SecurityDataType extends unknown> {
 		 * No description
 		 *
 		 * @tags system
-		 * @name getJettonsEvents
-		 * @summary Get only jetton transfers in the event
-		 * @request GET:/v2/events/{event_id}/jettons
+		 * @name getAccountJettonsBalances
+		 * @summary Get all Jettons balances by owner address
+		 * @request GET:/v2/accounts/{account_id}/jettons
 		 */
-		getJettonsEvents: ({ walletAddress, ...query }: GetJettonsEventsParams, params: RequestParams = {}) =>
+		getAccountJettonsBalances: ({ accountId, ...query }: GetAccountJettonsBalancesParams, params: RequestParams = {}) =>
 			this.http.request<
-				JettonsEvent[],
+				BalancesResponse,
 				{
 					/** Error message */
 					error: string;
 				}
 			>({
-				path: `/v2/events/${walletAddress}/jettons`,
+				path: `/v2/accounts/${accountId}/jettons`,
 				method: 'GET',
 				...params,
 			}),
@@ -776,7 +781,7 @@ export class TonApi<SecurityDataType extends unknown> {
 		 * @summary Get human-friendly information about an account without low-level details.
 		 * @request GET:/v2/accounts/{account_id}
 		 */
-		getAccount: ({ accountId, ...query }: GetAccountIdParams, params: RequestParams = {}) =>
+		getAccount: ({ accountId, ...query }: GetAccountParams, params: RequestParams = {}) =>
 			this.http.request<
 				AccountData,
 				{
@@ -797,7 +802,7 @@ export class TonApi<SecurityDataType extends unknown> {
 		 * @summary Get the token price in the chosen currency for display only. Don’t use this for financial transactions.
 		 * @request GET:/v2/rates
 		 */
-		getRates: ({ tokens, ...query }: GetTokensParams, params: RequestParams = {}) =>
+		getRates: ({ tokens, currencies, ...query }: GetTokensParams, params: RequestParams = {}) =>
 			this.http.request<
 				TokensRate,
 				{
@@ -807,6 +812,7 @@ export class TonApi<SecurityDataType extends unknown> {
 			>({
 				path: `/v2/rates`,
 				method: 'GET',
+				query: { tokens, currencies, ...query },
 				...params,
 			}),
 	};
