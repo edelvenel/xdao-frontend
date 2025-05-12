@@ -1,6 +1,7 @@
 import { Address, beginCell, Cell, Dictionary} from "@ton/core";
 import { Builder } from "./utils";
-import { ICreateTransferGPProposalPayload } from "shared/api/proposals/payloads";
+import {ICreateChangeDAONameProposalPayload, ICreateTransferGPProposalPayload} from "shared/api/proposals/payloads";
+import {JettonBuilder} from "shared/cell-builders/common";
 
 export enum ProposalsBuilderOpCodes {
     CALL_PLUGIN = 0x2cb6f6b6,
@@ -9,7 +10,8 @@ export enum ProposalsBuilderOpCodes {
     CHANGE_SUCCESS_PERCENTAGE = 0xece13675,
     CALL_JETTON_MINT = 0xac867e8d,
     CALL_JETTON_TRANSFER = 0x9cdbcc7e,
-    CALL_JETTON_BURN = 0xfacc90e8
+    CALL_JETTON_BURN = 0xfacc90e8,
+    CHANGE_METADATA = 0xe0ee28fa,
 }
 
 export class ProposalsBuilder extends Builder {
@@ -63,6 +65,20 @@ export class ProposalsBuilder extends Builder {
         return beginCell()
             .store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_MINT))
             .storeDict(holders)
+        .endCell()
+    }
+
+    static buildChangeMetadata(payload: ICreateChangeDAONameProposalPayload) {
+        const content = JettonBuilder.buildOnchainMetadata({
+            name: payload.newName,
+            symbol: payload.newName, // TODO: daoTokenSymbol
+            description: payload.newName, // TODO: daoDescription
+            image: 'https://ton.org/download/ton_symbol.png',
+            decimals: '9',
+        });
+        return beginCell()
+            .store(this.storeOpcode(ProposalsBuilderOpCodes.CHANGE_METADATA))
+            .storeRef(content)
         .endCell()
     }
 }

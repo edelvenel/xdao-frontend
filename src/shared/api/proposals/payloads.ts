@@ -102,4 +102,6 @@ export const proposalsBuilders = () => ({
 		dict.set(Address.parse(payload.walletAddress), toNano(payload.tokenAmount));
 		return ProposalsBuilder.buildCallJettonMint(dict); // this method support dictionary, but payload only 1 object. So strange...
 	},
+	[ProposalType.ChangeDAOName]: (payload: ICreateChangeDAONameProposalPayload) =>
+		ProposalsBuilder.buildChangeMetadata(payload)
 });
