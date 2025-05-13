@@ -214,14 +214,14 @@ export const PROPOSALS: IProposal[] = [
 
 export const NFTS: INft[] = [
 	{
-		id: 'ABC12345',
-		hash: '123456',
+		id: 1,
 		imgUrl: logoExample,
+		tonScan: '',
 	},
 	{
-		id: 'DEF12345',
-		hash: '324323234',
+		id: 2,
 		imgUrl: logoExample,
+		tonScan: '',
 	},
 ];
 

@@ -3,6 +3,7 @@ import { useAuth } from './useAuth';
 import { useDaos } from './useDaos';
 import { useFormType } from './useFormType';
 import { useMe } from './useMe';
+import { useNfts } from './useNfts';
 import { useWallet } from './useWallet';
 
 export const store = {
@@ -11,5 +12,6 @@ export const store = {
 	useMe,
 	useWallet,
 	useFormType,
-	useDaos
+	useDaos,
+	useNfts,
 };

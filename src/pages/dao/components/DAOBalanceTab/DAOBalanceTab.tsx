@@ -1,10 +1,13 @@
+import WebApp from '@twa-dev/sdk';
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { generatePath, Link } from 'react-router';
 import { useDaos } from 'shared/api/daos/useDaos';
+import { useNfts } from 'shared/api/nfts';
 import { Icon } from 'shared/icons';
+import { store } from 'shared/store';
 import { IDao, IJetton } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import css from './styles.module.scss';
@@ -17,8 +20,10 @@ interface IDAOBalanceProps {
 export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 	const [jettons, setJettons] = React.useState<IJetton[]>([]);
 	const [tonBalance, setTonBalance] = React.useState<number>(0);
-	const [tonRate, setTonRate] = React.useState<number>(1);
+	const [tonRate, setTonRate] = React.useState<number>(0);
 	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
+	const { total } = store.useNfts();
+	const { getNfts } = useNfts();
 
 	React.useEffect(() => {
 		const fetchJettons = async () => {
@@ -36,10 +41,15 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 			setTonRate(rate[0].rate);
 		};
 
+		const fetchNfts = async () => {
+			await getNfts(dao.plugins[0].address);
+		};
+
 		fetchJettons();
 		fetchTonBalance();
 		fetchRates();
-	}, [dao.plugins, getDAOJettons, getTONBalance, getTokenRates]);
+		fetchNfts();
+	}, [dao.plugins, getDAOJettons, getNfts, getTONBalance, getTokenRates]);
 
 	const mainAccountTotal = React.useMemo(
 		() => tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0),
@@ -81,7 +91,7 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 						<div className={css.currency}>TON</div>
 						<div className={css.amount}>{tonBalance}</div>
 					</div>
-					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
+					<div className={css.link} onClick={() => WebApp.openLink(`https://tonviewer.com/${dao.plugins[0].address}`)}>
 						<Icon.Common.LittleLink />
 					</div>
 				</div>
@@ -92,28 +102,20 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 							<div className={css.currency}>{jetton.name}</div>
 							<div className={css.amount}>{jetton.amount}</div>
 						</div>
-						<div className={css.link} onClick={() => toast.error('Unimplemented')}>
+						<div
+							className={css.link}
+							onClick={() => WebApp.openLink(`https://tonviewer.com/${dao.plugins[0].address}`)}
+						>
 							<Icon.Common.LittleLink />
 						</div>
 					</div>
 				))}
-
-				{/* <div className={css.wallet}>
-					<div className={css.info}>
-						<div className={css.logo} />
-						<div className={css.currency}>TON</div>
-						<div className={css.amount}>20,000.00</div>
-					</div>
-					<div className={css.link} onClick={() => toast.error('Unimplemented')}>
-						<Icon.Common.LittleLink />
-					</div>
-				</div> */}
 				<div className={css.wallet}>
 					<div className={css.info}>
 						<div className={css.currency}>NFTs</div>
-						<div className={css.amount}>5</div>
+						<div className={css.amount}>{total ?? 0}</div>
 					</div>
-					<Link to={generatePath(routes.nft, { id: '1' })} className={css.link}>
+					<Link to={generatePath(routes.nft, { id: dao.plugins[0].address })} className={css.link}>
 						<Icon.Common.Eye />
 					</Link>
 				</div>

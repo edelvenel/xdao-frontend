@@ -34,9 +34,9 @@ export type ISocial = {
 };
 
 export type INft = {
-	id: string;
-	hash: string;
+	id: number;
 	imgUrl: string;
+	tonScan: string;
 };
 
 export enum Social {
