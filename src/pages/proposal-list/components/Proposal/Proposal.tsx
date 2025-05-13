@@ -20,29 +20,29 @@ interface IProposalProps {
 export function Proposal({ data }: IProposalProps) {
 	const formatDate = formatDistance(new Date(), data.endDate, { includeSeconds: false });
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
-	const [dao, setDao] = React.useState<IDao | null> (null);
-	const {token} = store.useAuth();
+	const [dao, setDao] = React.useState<IDao | null>(null);
+	const { token } = store.useAuth();
 
-		React.useEffect(()=>{
-			const fetchVotes = async() => {
-				if (token !== null) {
-					const votes = await getDaoProposalVotes(token, data.daoAddress, data.id);
-					setVotes(votes);
-				}
+	React.useEffect(() => {
+		const fetchVotes = async () => {
+			if (token !== null) {
+				const votes = await getDaoProposalVotes(token, data.daoAddress, data.id);
+				setVotes(votes);
 			}
-			const fetchDao = async() => {
-				if (token !== null) {
-					const dao = await getDao(token, data.daoAddress);
-					setDao(dao);
-				}
+		};
+		const fetchDao = async () => {
+			if (token !== null) {
+				const dao = await getDao(token, data.daoAddress);
+				setDao(dao);
 			}
-			 fetchVotes();
-			 fetchDao();
-		},[data.daoAddress, data.id, token])
-	
-		if (votes === null || dao === null) {
-			return <ScreenLoader/>
-		}
+		};
+		fetchVotes();
+		fetchDao();
+	}, [data.daoAddress, data.id, token]);
+
+	if (votes === null || dao === null) {
+		return <ScreenLoader />;
+	}
 	const agree = votes.reduce((acc, curr) => acc + curr.impact, 0);
 
 	return (
@@ -63,7 +63,7 @@ export function Proposal({ data }: IProposalProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{data.consensus / Number(dao?.LPTokens) * 100}%</div>
+					<div className={css.value}>{(data.consensus / Number(dao?.LPTokens)) * 100}%</div>
 				</div>
 
 				<div className={css.row}>

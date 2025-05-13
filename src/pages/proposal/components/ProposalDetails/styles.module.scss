@@ -12,16 +12,6 @@
 		background-color: var(--semantic-card-background);
 		overflow: hidden;
 
-		.placeholder {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100px;
-			font-size: 18px;
-			font-weight: 600;
-			color: var(--semantic-text-non-active);
-		}
-
 		.details {
 			display: flex;
 			flex-direction: column;
@@ -144,4 +134,33 @@
 			}
 		}
 	}
+}
+
+.error {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.placeholder {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--semantic-text-non-active);
+}
+
+.backButton {
+	display: flex;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 60px;
+	padding: 16px;
+	align-items: center;
+	justify-content: center;
 }

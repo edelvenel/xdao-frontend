@@ -1,9 +1,12 @@
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router';
 import { proposalNameMapper } from 'shared/constants';
+import { Icon } from 'shared/icons';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
+import { Button } from 'shared/ui/Button';
 import { Copy } from 'shared/ui/Copy';
+import { Title } from 'shared/ui/Title';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -18,6 +21,24 @@ interface IAddGPDetailProps {
 export function AddGPDetail({ votes, dao, proposal, onVote }: IAddGPDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
+
+	if (proposal.data.receivers.length > 1) {
+		return (
+			<div className={css.page}>
+				<div className={css.error}>
+					<Icon.Special.Error />
+				</div>
+				<Title value="Error!" variant="large" />
+				<div className={css.placeholder}>Proposal seems to be falsified</div>
+
+				<div className={css.backButton}>
+					<Button variant="secondary" onClick={() => navigate(-1)}>
+						Back
+					</Button>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<ProposalDetailLayout
