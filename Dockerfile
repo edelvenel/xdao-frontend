@@ -14,7 +14,7 @@ FROM deps-stage AS build-stage
 
 # TODO: move to separate code, workaround to get stage works
 ENV VITE_API_URL=https://new-app.dev.tonxdao.app
-ENV VITE_MANIFEST_URL=https://xdao.fra1.digitaloceanspaces.com/manifest.json
+ENV VITE_MANIFEST_URL=https://new-app.dev.tonxdao.app/manifest.json
 
 RUN yarn run build
 
