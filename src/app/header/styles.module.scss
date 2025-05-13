@@ -41,6 +41,7 @@
 				color: var(--semantic-text-primary);
 				max-width: 120px;
 				overflow: hidden;
+				white-space: nowrap;
 				text-overflow: ellipsis;
 				user-select: none;
 				cursor: pointer;
