@@ -1,6 +1,9 @@
+import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React, { JSX } from 'react';
+import { getDao } from 'shared/api/daos/methods';
+import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { store } from 'shared/store';
-import { IProposal, ProposalType } from 'shared/types';
+import { IDao, IProposal, IVote, ProposalType } from 'shared/types';
 import { AddGPDetail } from './components/AddGPDetail';
 import { ChangeDAONameDetail } from './components/ChangeDAONameDetail';
 import { ChangeGPTransferStatusDetail } from './components/ChangeGPTransferStatusDetail';
@@ -16,32 +19,56 @@ interface IProposalDetailsProps {
 
 export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JSX.Element | null {
 	const { setIsBackground } = store.useApp();
+	const [dao, setDao] = React.useState<IDao | null>(null);
+	const [votes, setVotes] = React.useState<IVote[] | null>(null);
+	const { token } = store.useAuth();
+
+	React.useEffect(() => {
+		const fetchVotes = async () => {
+			if (token !== null) {
+				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
+				setVotes(votes);
+			}
+		};
+		const fetchDao = async () => {
+			if (token !== null) {
+				const dao = await getDao(token, proposal.daoAddress);
+				setDao(dao);
+			}
+		};
+		fetchVotes();
+		fetchDao();
+	}, [proposal.daoAddress, proposal.id, token]);
 
 	React.useEffect(() => {
 		setIsBackground(false);
 	}, [setIsBackground]);
 
+	if (votes === null || dao === null) {
+		return <ScreenLoader />;
+	}
+
 	switch (proposal.type) {
 		case ProposalType.AddGP:
-			return <AddGPDetail proposal={proposal} onVote={onVote} />;
+			return <AddGPDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		case ProposalType.RemoveGP:
-			return <RemoveGPDetail proposal={proposal} onVote={onVote} />;
+			return <RemoveGPDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		case ProposalType.TransferGPTokens:
-			return <TransferGPDetail proposal={proposal} onVote={onVote} />;
+			return <TransferGPDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		case ProposalType.ChangeGPTransferStatus:
-			return <ChangeGPTransferStatusDetail proposal={proposal} onVote={onVote} />;
+			return <ChangeGPTransferStatusDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		case ProposalType.ChangeGeneralConsensus:
-			return <ChangeGeneralConsensusDetail proposal={proposal} onVote={onVote} />;
+			return <ChangeGeneralConsensusDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		case ProposalType.SendDAOFunds:
-			return <SendFundsDetail proposal={proposal} onVote={onVote} />;
+			return <SendFundsDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		case ProposalType.ChangeDAOName:
-			return <ChangeDAONameDetail proposal={proposal} onVote={onVote} />;
+			return <ChangeDAONameDetail dao={dao} proposal={proposal} votes={votes} onVote={onVote} />;
 
 		// case 8:
 		//   return <CustomProposalDetail proposal={proposal} onVote={onVote} />;
