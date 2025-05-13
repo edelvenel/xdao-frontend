@@ -1,4 +1,14 @@
-import { Address, Cell, Dictionary, toNano } from '@ton/core';
+import {
+	Address,
+	beginCell,
+	Cell,
+	Dictionary,
+	internal,
+	SendMode,
+	toNano,
+	storeMessageRelaxed,
+	MessageRelaxed
+} from '@ton/ton';
 import { ProposalsBuilder } from 'shared/cell-builders';
 import { IDao, IToken, ProposalType } from 'shared/types';
 
@@ -126,9 +136,24 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 		}
 
 		case ProposalType.SendDAOFunds: {
-			console.log(payload);
-			console.log(payload.pluginAddress);
-			return new Cell(); //TODO: replace (build fix)
+			const pluginAddr = Address.parse(payload.pluginAddress);
+			let msg: MessageRelaxed
+			if (payload.token.address == "native") {
+				msg = internal({
+					to: Address.parse(payload.recipientAddress),
+					value: toNano(payload.tokenAmount)
+				})
+			} else {
+				throw new Error("not implemented")
+			}
+			const writer = storeMessageRelaxed(msg);
+			const internalMessage = beginCell().store(writer)
+			return ProposalsBuilder.buildCallPlugin(pluginAddr, beginCell()
+				.storeUint(0, 32) // simple send
+				.storeRef(internalMessage) // 1st message
+				.storeUint(SendMode.PAY_GAS_SEPARATELY, 8)
+				.endCell()
+			);
 		}
 	}
 };
