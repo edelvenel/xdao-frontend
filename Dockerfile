@@ -12,8 +12,11 @@ COPY ./ /app/
 # Stage 1, "build-stage", to build and compile the frontend
 FROM deps-stage AS build-stage
 
-RUN yarn run build
+# TODO: move to separate code, workaround to get stage works
+ENV VITE_API_URL=https://xdao-api.theopengeeks.com
+ENV VITE_MANIFEST_URL=https://xdao.fra1.digitaloceanspaces.com/manifest.json
 
+RUN yarn run build
 
 # Stage 2, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.27.5-alpine
