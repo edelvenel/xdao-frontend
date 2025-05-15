@@ -8,9 +8,9 @@ import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { Button } from 'shared/ui/Button';
 import { Modal } from 'shared/ui/Modal';
+import { shortenAddress } from 'shared/utils/formatters';
 import { hapticFeedback } from 'shared/utils/haptic';
 import css from './styles.module.scss';
-import { shortenAddress } from 'shared/utils/formatters';
 
 export function Header() {
 	const [isConnectWalletOpen, setIsConnectWalletOpen] = React.useState<boolean>(false);
@@ -63,6 +63,9 @@ export function Header() {
 			>
 				<div className={css.connectWalletModal}>
 					<div className={css.currentWallet}>
+						<div className={css.icon}>
+							<Icon.Special.Wallet />
+						</div>
 						<div className={css.text}>{userFriendlyAddress}</div>
 					</div>
 
