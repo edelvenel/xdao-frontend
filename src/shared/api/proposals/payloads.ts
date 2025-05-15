@@ -4,10 +4,10 @@ import {
 	Cell,
 	Dictionary,
 	internal,
+	MessageRelaxed,
 	SendMode,
-	toNano,
 	storeMessageRelaxed,
-	MessageRelaxed
+	toNano,
 } from '@ton/ton';
 import { ProposalsBuilder } from 'shared/cell-builders';
 import { IDao, IToken, ProposalType } from 'shared/types';
@@ -137,22 +137,24 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 
 		case ProposalType.SendDAOFunds: {
 			const pluginAddr = Address.parse(payload.pluginAddress);
-			let msg: MessageRelaxed
-			if (payload.token.address == "native") {
+			let msg: MessageRelaxed;
+			if (payload.token.address == 'native') {
 				msg = internal({
 					to: Address.parse(payload.recipientAddress),
-					value: toNano(payload.tokenAmount)
-				})
+					value: toNano(payload.tokenAmount),
+				});
 			} else {
-				throw new Error("not implemented")
+				throw Error('not implemented');
 			}
 			const writer = storeMessageRelaxed(msg);
-			const internalMessage = beginCell().store(writer)
-			return ProposalsBuilder.buildCallPlugin(pluginAddr, beginCell()
-				.storeUint(0, 32) // simple send
-				.storeRef(internalMessage) // 1st message
-				.storeUint(SendMode.PAY_GAS_SEPARATELY, 8)
-				.endCell()
+			const internalMessage = beginCell().store(writer);
+			return ProposalsBuilder.buildCallPlugin(
+				pluginAddr,
+				beginCell()
+					.storeUint(0, 32) // simple send
+					.storeRef(internalMessage) // 1st message
+					.storeUint(SendMode.PAY_GAS_SEPARATELY, 8)
+					.endCell()
 			);
 		}
 	}

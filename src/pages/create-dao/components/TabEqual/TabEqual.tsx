@@ -24,8 +24,12 @@ export function TabEqual({
 }: ITabEqualProps) {
 	const handleOnDelete = React.useCallback(
 		(idx: number) => {
-			const newWalletAddresses = walletAddresses.filter((_, index) => index !== idx);
-			setWalletAddresses([...newWalletAddresses]);
+			if (walletAddresses.length > 1) {
+				const newWalletAddresses = walletAddresses.filter((_, index) => index !== idx);
+				setWalletAddresses([...newWalletAddresses]);
+			} else {
+				setWalletAddresses(['']);
+			}
 		},
 		[setWalletAddresses, walletAddresses]
 	);
@@ -49,11 +53,10 @@ export function TabEqual({
 								])
 							}
 						/>
-						{walletAddresses.length > 2 && (
-							<div className={css.deleteButton} onClick={() => handleOnDelete(index)}>
-								<Icon.Common.Cancel />
-							</div>
-						)}
+
+						<div className={css.deleteButton} onClick={() => handleOnDelete(index)}>
+							<Icon.Common.Cancel />
+						</div>
 					</div>
 				))}
 
