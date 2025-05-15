@@ -15,7 +15,7 @@ import { DAO } from './components/DAO';
 import css from './styles.module.scss';
 
 export const DAOListPage = React.memo(function DAOListPage() {
-	const [searchText, setSearchText] = React.useState<string>('');
+	const [searchText, setSearchText] = React.useState<string | null>(null);
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
 	const [filter, setFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
@@ -58,6 +58,9 @@ export const DAOListPage = React.memo(function DAOListPage() {
 		(text: string) => {
 			resetDaos();
 			fetchDaos(text ?? '', filter);
+			if (text === '') {
+				setSearchText(null);
+			}
 		},
 		[fetchDaos, filter, resetDaos]
 	);
@@ -67,7 +70,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	}, [handleOnSearch]);
 
 	React.useEffect(() => {
-		if (searchText !== '') {
+		if (searchText !== null) {
 			debouncedResults(searchText);
 		}
 
@@ -102,7 +105,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 			</div>
 			<TopContent>
 				<SearchBlock
-					searchText={searchText}
+					searchText={searchText ?? ''}
 					onChange={setSearchText}
 					onFilter={() => setIsFilterOpen(true)}
 					onCreate={handleOnCreate}
