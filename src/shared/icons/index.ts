@@ -40,6 +40,7 @@ import { FilledRadioIcon } from './special/FilledRadio';
 import { FilledRadioCheckIcon } from './special/FilledRadioCheck';
 import { LogoIcon } from './special/Logo';
 import { SuccessIcon } from './special/Success';
+import { WalletIcon } from './special/Wallet';
 
 export const Icon = {
 	Common: {
@@ -95,5 +96,6 @@ export const Icon = {
 		Success: SuccessIcon,
 		Error: ErrorIcon,
 		FilledRadioCheck: FilledRadioCheckIcon,
+		Wallet: WalletIcon,
 	},
 };
