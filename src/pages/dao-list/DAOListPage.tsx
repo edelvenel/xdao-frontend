@@ -1,5 +1,7 @@
+import { FilterEnum } from 'app/api/codegen';
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
+import debounce from 'lodash.debounce';
 import { Filter } from 'pages/proposal-list/components/Filter';
 import { SearchBlock } from 'pages/proposal-list/components/SearchBlock';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
@@ -12,21 +14,12 @@ import { Modal } from 'shared/ui/Modal';
 import { DAO } from './components/DAO';
 import css from './styles.module.scss';
 
-const FILTER_OPTIONS: string[] = [
-	'All DAOs',
-	'My DAOs',
-	'With my LP tokens',
-	'With my GP role',
-	'Rejected',
-	'With active proposals',
-];
-
 export const DAOListPage = React.memo(function DAOListPage() {
 	const [searchText, setSearchText] = React.useState<string>('');
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
-	const [filter, setFilter] = React.useState<number>(0);
+	const [filter, setFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
-	const { fetchDaos, hasMore } = useDaos();
+	const { fetchDaos, resetDaos, hasMore } = useDaos();
 	const { daos } = store.useDaos();
 
 	const navigate = useNavigate();
@@ -49,8 +42,39 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	}, [daos, setIsBackground]);
 
 	React.useEffect(() => {
-		fetchDaos();
+		fetchDaos(searchText ?? '', filter);
 	}, []);
+
+	const handleOnApplyFilter = React.useCallback(
+		(value: FilterEnum) => {
+			resetDaos();
+			setFilter(value);
+			fetchDaos(searchText ?? '', filter);
+		},
+		[fetchDaos, filter, resetDaos, searchText]
+	);
+
+	const handleOnSearch = React.useCallback(
+		(text: string) => {
+			resetDaos();
+			fetchDaos(text ?? '', filter);
+		},
+		[fetchDaos, filter, resetDaos]
+	);
+
+	const debouncedResults = React.useMemo(() => {
+		return debounce(handleOnSearch, 500);
+	}, [handleOnSearch]);
+
+	React.useEffect(() => {
+		if (searchText !== '') {
+			debouncedResults(searchText);
+		}
+
+		return () => {
+			debouncedResults.cancel();
+		};
+	}, [debouncedResults, searchText]);
 
 	if (daos === null) {
 		return <ScreenLoader />;
@@ -86,7 +110,19 @@ export const DAOListPage = React.memo(function DAOListPage() {
 			</TopContent>
 
 			<Modal isOpen={isFilterOpen} title="Filter" onClose={() => setIsFilterOpen(false)}>
-				<Filter selected={filter} options={FILTER_OPTIONS} onApply={setFilter} onClose={() => setIsFilterOpen(false)} />
+				<Filter
+					selected={filter}
+					options={Object.values(FilterEnum)}
+					mapper={(value) => {
+						const result = Object.entries(FilterEnum).find((entry) => entry[1] === value);
+						if (result) {
+							return result[1];
+						}
+						return FilterEnum.All;
+					}}
+					onApply={handleOnApplyFilter}
+					onClose={() => setIsFilterOpen(false)}
+				/>
 			</Modal>
 		</div>
 	);

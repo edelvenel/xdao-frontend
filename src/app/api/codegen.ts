@@ -100,6 +100,11 @@ export interface GetAllDaosParams {
 	 * @default "all"
 	 */
 	filter?: FilterEnum;
+	/**
+	 * Search by DAO name
+	 * @default ""
+	 */
+	search?: string;
 }
 
 export interface GetAccountJettonsBalancesParams {

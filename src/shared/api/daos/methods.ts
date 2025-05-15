@@ -51,10 +51,15 @@ export const jettonMapper = (balances: BalancesResponse[]): IJetton[] => {
 	return mappedJettons;
 };
 
-export const getDaos = async (token: string, offset: number): Promise<{ daos: IDao[]; hasMore: boolean }> => {
+export const getDaos = async (
+	token: string,
+	offset: number,
+	filter?: FilterEnum,
+	search?: string
+): Promise<{ daos: IDao[]; hasMore: boolean }> => {
 	try {
 		const response = await api.v1.getAllDaos(
-			{ limit: 100, offset: offset, filter: FilterEnum.Mine },
+			{ limit: 100, offset: offset, filter, search },
 			{ format: 'json', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
 		);
 
