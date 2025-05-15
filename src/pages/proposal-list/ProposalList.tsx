@@ -6,18 +6,17 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { store } from 'shared/store';
+import { ProposalFilter } from 'shared/types';
+import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
-import { Filter } from './components/Filter';
+import { SearchBlock } from '../../shared/ui/SearchBlock';
 import { Proposal } from './components/Proposal';
-import { SearchBlock } from './components/SearchBlock';
 import css from './styles.module.scss';
-
-const FILTER_OPTIONS: string[] = ['All proposals', 'Active', 'Pending', 'Executed', 'Rejected', 'My Proposals'];
 
 export const ProposalListPage = React.memo(function ProposalListPage() {
 	const [searchText, setSearchText] = React.useState<string>('');
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
-	const [filter, setFilter] = React.useState<number>(0);
+	const [filter, setFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
 	const { proposals, fetchProposals, hasMore } = useProposals();
 
 	const navigate = useNavigate();
@@ -64,6 +63,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 			<TopContent>
 				<SearchBlock
 					searchText={searchText}
+					placeholder="Search proposals"
 					onChange={setSearchText}
 					onFilter={() => setIsFilterOpen(true)}
 					onCreate={handleOnCreate}
@@ -71,7 +71,19 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 			</TopContent>
 
 			<Modal isOpen={isFilterOpen} title="Filter" onClose={() => setIsFilterOpen(false)}>
-				<Filter selected={filter} options={FILTER_OPTIONS} onApply={setFilter} onClose={() => setIsFilterOpen(false)} />
+				<Filter
+					selected={filter}
+					options={Object.values(ProposalFilter)}
+					mapper={(value) => {
+						const result = Object.entries(ProposalFilter).find((entry) => entry[1] === value);
+						if (result) {
+							return result[1];
+						}
+						return ProposalFilter.AllProposals;
+					}}
+					onApply={setFilter}
+					onClose={() => setIsFilterOpen(false)}
+				/>
 			</Modal>
 		</div>
 	);

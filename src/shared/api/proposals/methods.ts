@@ -32,22 +32,30 @@ export const voteMapper = (vote: Vote): IVote => {
 	};
 };
 
-export const getDaoProposals = async (token: string, offset: number, daoAddress: string): Promise<IProposal[]> => {
+export const getDaoProposals = async (
+	token: string,
+	offset: number,
+	daoAddress: string
+): Promise<{ proposals: IProposal[]; hasMore: boolean }> => {
 	const response = await api.v1.getDaoProposals(
-		{ offset, daoAddress },
+		{ limit: 100, offset: offset, daoAddress },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return response.items.map(proposalMapper);
+	return { proposals: response.items.map(proposalMapper), hasMore: response.total > offset + response.items.length };
 };
 
-export const getProposals = async (token: string, offset: number, filter?: FilterEnum): Promise<IProposal[]> => {
+export const getProposals = async (
+	token: string,
+	offset: number,
+	filter?: FilterEnum
+): Promise<{ proposals: IProposal[]; hasMore: boolean }> => {
 	const response = await api.v1.getProposals(
 		{ limit: 100, offset: offset, filter: filter },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return response.items.map(proposalMapper);
+	return { proposals: response.items.map(proposalMapper), hasMore: response.total > offset + response.items.length };
 };
 
 export const getDaoProposalVotes = async (

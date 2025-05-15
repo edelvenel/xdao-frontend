@@ -1,5 +1,6 @@
 import { Address, Dictionary, toNano } from '@ton/core';
 import { useTonConnectUI } from '@tonconnect/ui-react';
+import { FilterEnum } from 'app/api/codegen';
 import React, { useState } from 'react';
 import { DAOBuilder } from 'shared/cell-builders';
 import { JettonBuilder } from 'shared/cell-builders/common';
@@ -21,17 +22,32 @@ export function useDaos() {
 	const [hasMore, setHasMore] = useState(false);
 	const { token } = store.useAuth();
 
-	const fetchDaos = React.useCallback(async () => {
-		const { daos, hasMore } = await getDaos(token ?? '', currentOffset);
+	const resetDaos = React.useCallback(async () => {
+		const { setDaos, setOldDaos } = store.useDaos.getState();
+		setDaos(null);
+		setOldDaos(null);
+		setCurrentOffset(0);
+		setHasMore(false);
+	}, []);
 
-		const { setDaos, oldDaos, setOldDaos } = store.useDaos.getState();
-		setDaos([...(oldDaos ?? []), ...daos]);
-		setOldDaos([...daos]);
-		if (daos.length === 100) {
-			setCurrentOffset((prevOffset) => prevOffset + daos.length);
+	const fetchDaos = React.useCallback(
+		async (searchText?: string, filter?: FilterEnum) => {
+			const { daos, hasMore } = await getDaos(token ?? '', currentOffset, filter, searchText);
+
+			const { setDaos, oldDaos, setOldDaos } = store.useDaos.getState();
+
+			if (daos.length === 100) {
+				setDaos([...(oldDaos ?? []), ...daos]);
+				setOldDaos([...daos]);
+				setCurrentOffset((prevOffset) => prevOffset + daos.length);
+			} else {
+				setDaos([...daos]);
+				setOldDaos([...daos]);
+			}
 			setHasMore(hasMore);
-		}
-	}, [currentOffset, token]);
+		},
+		[currentOffset, token]
+	);
 
 	const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
 		if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');
@@ -118,14 +134,5 @@ export function useDaos() {
 		}
 	}, []);
 
-	return {
-		daos,
-		fetchDaos,
-		createDao,
-		updateDao,
-		getDAOJettons,
-		getTONBalance,
-		getTokenRates,
-		hasMore,
-	};
+	return { daos, resetDaos, fetchDaos, createDao, updateDao, getDAOJettons, getTONBalance, getTokenRates, hasMore };
 }

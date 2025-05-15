@@ -4,26 +4,27 @@ import { Icon } from 'shared/icons';
 import { Button } from 'shared/ui/Button';
 import css from './styles.module.scss';
 
-interface IFilterProps {
-	selected: number;
+interface IFilterProps<T> {
+	selected: string;
 	options: string[];
-	onApply: (index: number) => void;
+	mapper: (value: string) => T;
+	onApply: (value: T) => void;
 	onClose: () => void;
 }
 
-export function Filter({ selected, options, onApply, onClose }: IFilterProps) {
-	const [selectedIdx, setSelectedIdx] = React.useState<number>(selected);
+export function Filter<T>({ selected, options, mapper, onApply, onClose }: IFilterProps<T>) {
+	const [currentSelected, setCurrentSelected] = React.useState<string>(selected);
 
 	const handleOnApply = React.useCallback(() => {
-		onApply(selectedIdx);
+		onApply(mapper(currentSelected));
 		onClose();
-	}, [onApply, onClose, selectedIdx]);
+	}, [currentSelected, mapper, onApply, onClose]);
 
 	return (
 		<div className={css.filter}>
 			<div className={css.filterList}>
 				{options.map((option, index) => (
-					<FilterOption key={index} selected={index === selectedIdx} onClick={() => setSelectedIdx(index)}>
+					<FilterOption key={index} selected={option === currentSelected} onClick={() => setCurrentSelected(option)}>
 						{option}
 					</FilterOption>
 				))}

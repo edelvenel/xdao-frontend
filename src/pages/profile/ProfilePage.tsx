@@ -1,7 +1,6 @@
-import { TopContent } from 'app/navigation/components/top-content';
+import { FilterEnum } from 'app/api/codegen';
 import { routes } from 'app/router/routes';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Filter } from 'pages/proposal-list/components/Filter';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -10,31 +9,27 @@ import { useDaos } from 'shared/api/daos';
 import { useProposals } from 'shared/api/proposals';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
+import { ProposalFilter } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
 import { Button } from 'shared/ui/Button';
+import { Filter } from 'shared/ui/Filter';
 import { IconButton } from 'shared/ui/IconButton';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
 import { ChangeDaoResult } from './components/ChangeDaoResult';
 import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
-import { SearchBlock } from './components/SearchBlock';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
-
-const PROPOSALS_FILTER_OPTIONS: string[] = ['All proposals', 'Active', "Where I'm a GP", 'Confirmed', 'Rejected'];
-
-const DAOS_FILTER_OPTIONS: string[] = ['All DAOs', "Where I'm a GP", "Where I'm a LP", 'With active proposals'];
 
 export const ProfilePage = React.memo(function ProfilePage() {
 	const [isProposalsFilterOpen, setIsProposalsFilterOpen] = React.useState<boolean>(false);
 	const [isSelectDaoOpen, setIsSelectDaoOpen] = React.useState<boolean>(false);
-	const [proposalsFilter, setProposalsFilter] = React.useState<number>(0);
+	const [proposalsFilter, setProposalsFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
 	const [isDAOsFilterOpen, setIsDAOsFilterOpen] = React.useState<boolean>(false);
-	const [daosFilter, setDaosFilter] = React.useState<number>(0);
+	const [daosFilter, setDaosFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const [proposalShowAll, setProposalShowAll] = React.useState<boolean>(false);
 	const [daoShowAll, setDaoShowAll] = React.useState<boolean>(false);
-	const [searchText, setSearchText] = React.useState<string>('');
 	const [selectedDaoIdx, setSelectedDaoIdx] = React.useState<null | number>(null);
 	const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
 	const [isChangeSuccess, setIsChangeSuccess] = React.useState<boolean>(false);
@@ -212,14 +207,17 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				</div>
 			</div>
 
-			<TopContent>
-				<SearchBlock searchText={searchText} onChange={setSearchText} onCreate={() => setIsCreateOpen(true)} />
-			</TopContent>
-
 			<Modal isOpen={isProposalsFilterOpen} title="Filter proposals" onClose={() => setIsProposalsFilterOpen(false)}>
 				<Filter
 					selected={proposalsFilter}
-					options={PROPOSALS_FILTER_OPTIONS}
+					options={Object.values(ProposalFilter)}
+					mapper={(value) => {
+						const result = Object.entries(ProposalFilter).find((entry) => entry[1] === value);
+						if (result) {
+							return result[1];
+						}
+						return ProposalFilter.AllProposals;
+					}}
 					onApply={setProposalsFilter}
 					onClose={() => setIsProposalsFilterOpen(false)}
 				/>
@@ -228,7 +226,14 @@ export const ProfilePage = React.memo(function ProfilePage() {
 			<Modal isOpen={isDAOsFilterOpen} title="Filter DAOs" onClose={() => setIsDAOsFilterOpen(false)}>
 				<Filter
 					selected={daosFilter}
-					options={DAOS_FILTER_OPTIONS}
+					options={Object.values(FilterEnum)}
+					mapper={(value) => {
+						const result = Object.entries(FilterEnum).find((entry) => entry[1] === value);
+						if (result) {
+							return result[1];
+						}
+						return FilterEnum.All;
+					}}
 					onApply={setDaosFilter}
 					onClose={() => setIsDAOsFilterOpen(false)}
 				/>
