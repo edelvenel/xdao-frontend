@@ -1,4 +1,4 @@
-import { IOptionWithNote, ProposalKey, ProposalType } from 'shared/types';
+import { IOptionWithNote, ProposalFilter, ProposalKey, ProposalType } from 'shared/types';
 
 export const API_URL = import.meta.env.VITE_API_URL;
 export const TON_API_URL = import.meta.env.VITE_TON_API_URL;
@@ -43,3 +43,12 @@ export const proposalTypeOptions = [
 	ProposalType.SendDAOFunds,
 	ProposalType.ChangeDAOName,
 ];
+
+export const proposalFilterMapp = {
+	[ProposalFilter.AllProposals]: 'all',
+	[ProposalFilter.Active]: 'active',
+	[ProposalFilter.MyProposals]: 'mine',
+	[ProposalFilter.Executed]: 'executed',
+	[ProposalFilter.Pending]: 'pending',
+	[ProposalFilter.Rejected]: 'rejected',
+};
