@@ -12,17 +12,21 @@ export interface IForm {
 	currentConsensusManual: string;
 }
 
-export function getInitialValues (userAddress: string | null): IForm  {return {
-	name: '',
-	tokenName: '',
-	tokenSymbol: '',
-	walletAddresses: [userAddress === null ? '' : userAddress, '', ''],
-	distributionRules: [{ walletAddress: userAddress === null ? '' : userAddress, tokens: null, percent: 0 },
-						{walletAddress: '', tokens: null, percent: 0}],
-	consensus: 1,
-	consensusPercent: 50,
-	currentConsensusManual: '',
-}};
+export function getInitialValues(userAddress: string | null): IForm {
+	return {
+		name: '',
+		tokenName: '',
+		tokenSymbol: '',
+		walletAddresses: [userAddress === null ? '' : userAddress, '', ''],
+		distributionRules: [
+			{ walletAddress: userAddress === null ? '' : userAddress, tokens: null, percent: 0 },
+			{ walletAddress: '', tokens: null, percent: 0 },
+		],
+		consensus: 1,
+		consensusPercent: 50,
+		currentConsensusManual: '',
+	};
+}
 
 const requiredDistributionRule = yup.object().shape({
 	walletAddress: yup.string().required('Wallet address cannot be empty'),
@@ -48,14 +52,14 @@ export function getValidationSchema(tabIdx: number) {
 			return yup.object().shape({
 				...commonFields,
 				consensus: yup.number().min(1, 'Consensus must be at least 1').required('Select consensus'),
-				walletAddresses: yup.array().of(requiredString).min(2).required('Enter wallet addresses'),
+				walletAddresses: yup.array().of(requiredString).min(1).required('Enter at least one wallet address'),
 			});
 		}
 		case 1: {
 			return yup.object().shape({
 				...commonFields,
 				consensusPercent: yup.number().min(0).max(100).required('Consensus percent is required field'),
-				distributionRules: yup.array().of(requiredDistributionRule).min(2).required('Distribution rules are required'),
+				distributionRules: yup.array().of(requiredDistributionRule).min(1).required('Distribution rules are required'),
 			});
 		}
 		default:
