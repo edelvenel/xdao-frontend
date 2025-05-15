@@ -1,35 +1,51 @@
-import { IProposal } from 'shared/types';
-import { ICreateProposalPayload } from './payloads';
-import { useProposalActions } from 'shared/hooks/useProposalActions';
-import { useState, useCallback } from 'react';
-import { getDaoProposals, getProposals } from './methods';
-import { FilterEnum1 } from 'app/api/codegen';
-import { store } from 'shared/store';
 import { useTonAddress } from '@tonconnect/ui-react';
+import { FilterEnum } from 'app/api/codegen';
+import { useCallback, useState } from 'react';
+import { useProposalActions } from 'shared/hooks/useProposalActions';
+import { store } from 'shared/store';
+import { IProposal } from 'shared/types';
+import { getDaoProposals, getProposals } from './methods';
+import { ICreateProposalPayload } from './payloads';
 
 export function useProposals() {
 	const [proposals, setProposals] = useState<IProposal[]>([]);
 	const { holders } = store.useFormType();
 	const [hasMore, setHasMore] = useState(false);
+	const [currentOffset, setCurrentOffset] = useState(0);
 	const { createProposalByType, makeVote } = useProposalActions();
 	const { token } = store.useAuth();
 	const address = useTonAddress(false);
 
 	const holder = holders.find((h) => h.owner_address === address);
 
-	const fetchDaoProposals = useCallback(async (daoAddress: string) => {
-		const proposals = await getDaoProposals(token ?? '', daoAddress);
-		setHasMore(proposals.length != 100);
-		setProposals(proposals);
+	const resetProposals = useCallback(() => {
+		setHasMore(false);
+		setCurrentOffset(0);
+		setProposals([]);
 	}, []);
 
-	const fetchProposals = useCallback(
-		async (filter?: FilterEnum1) => {
-			const proposals = await getProposals(token ?? '', filter);
-			setHasMore(proposals.length != 100);
-			setProposals(proposals);
+	const fetchDaoProposals = useCallback(
+		async (daoAddress: string) => {
+			const proposals = await getDaoProposals(token ?? '', currentOffset, daoAddress);
+			if (proposals.length === 100) {
+				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
+				setHasMore(true);
+			}
+			setProposals((prev) => [...prev, ...proposals]);
 		},
-		[token]
+		[currentOffset, token]
+	);
+
+	const fetchProposals = useCallback(
+		async (filter?: FilterEnum) => {
+			const proposals = await getProposals(token ?? '', currentOffset, filter);
+			if (proposals.length === 100) {
+				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
+				setHasMore(true);
+			}
+			setProposals((prev) => [...prev, ...proposals]);
+		},
+		[currentOffset, token]
 	);
 
 	const createProposal = useCallback(
@@ -69,5 +85,14 @@ export function useProposals() {
 		}
 	}, []);
 
-	return { proposals, fetchDaoProposals, fetchProposals, createProposal, updateProposal, submitVote, hasMore };
+	return {
+		proposals,
+		resetProposals,
+		fetchDaoProposals,
+		fetchProposals,
+		createProposal,
+		updateProposal,
+		submitVote,
+		hasMore,
+	};
 }

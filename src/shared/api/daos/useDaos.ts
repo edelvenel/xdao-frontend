@@ -25,11 +25,12 @@ export function useDaos() {
 		const { daos, hasMore } = await getDaos(token ?? '', currentOffset);
 
 		const { setDaos, oldDaos, setOldDaos } = store.useDaos.getState();
-		console.log('fetchDaos', daos);
 		setDaos([...(oldDaos ?? []), ...daos]);
 		setOldDaos([...daos]);
-		setCurrentOffset((prevOffset) => prevOffset + daos.length);
-		setHasMore(hasMore);
+		if (daos.length === 100) {
+			setCurrentOffset((prevOffset) => prevOffset + daos.length);
+			setHasMore(hasMore);
+		}
 	}, [currentOffset, token]);
 
 	const createDao = async (payload: ICreateDaoPayload): Promise<void> => {

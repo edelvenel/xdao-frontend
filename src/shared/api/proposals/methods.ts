@@ -1,5 +1,5 @@
 import { api } from 'app/api';
-import { FilterEnum1, Proposal, Vote } from 'app/api/codegen';
+import { FilterEnum, Proposal, Vote } from 'app/api/codegen';
 import { proposalTypeMapper } from 'shared/constants';
 import { IHolder, IProposal, IVote } from 'shared/types';
 
@@ -32,18 +32,18 @@ export const voteMapper = (vote: Vote): IVote => {
 	};
 };
 
-export const getDaoProposals = async (token: string, daoAddress: string): Promise<IProposal[]> => {
+export const getDaoProposals = async (token: string, offset: number, daoAddress: string): Promise<IProposal[]> => {
 	const response = await api.v1.getDaoProposals(
-		{ daoAddress },
+		{ offset, daoAddress },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
 	return response.items.map(proposalMapper);
 };
 
-export const getProposals = async (token: string, filter?: FilterEnum1): Promise<IProposal[]> => {
+export const getProposals = async (token: string, offset: number, filter?: FilterEnum): Promise<IProposal[]> => {
 	const response = await api.v1.getProposals(
-		{ filter: filter },
+		{ limit: 100, offset: offset, filter: filter },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 

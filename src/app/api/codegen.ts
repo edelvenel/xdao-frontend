@@ -161,7 +161,7 @@ export interface GetProposalsParams {
 	 * Filter proposals by type
 	 * @default "all"
 	 */
-	filter?: FilterEnum1;
+	filter?: FilterEnum;
 }
 
 export interface GetTokensParams {
@@ -349,8 +349,8 @@ export class HttpClient<SecurityDataType = unknown> {
 					property instanceof Blob
 						? property
 						: typeof property === 'object' && property !== null
-						? JSON.stringify(property)
-						: `${property}`
+							? JSON.stringify(property)
+							: `${property}`
 				);
 				return formData;
 			}, new FormData()),
