@@ -1,4 +1,4 @@
-import {Address, beginCell, Cell, Dictionary, toNano} from '@ton/core';
+import { Address, beginCell, Cell, Dictionary, toNano } from '@ton/core';
 import { ICreateChangeDAONameProposalPayload, ICreateTransferGPProposalPayload } from 'shared/api/proposals/payloads';
 import { JettonBuilder } from 'shared/cell-builders/common';
 import { Builder } from './utils';
@@ -27,7 +27,11 @@ export class ProposalsBuilder extends Builder {
 	}
 
 	static buildCallPlugin(pluginAddr: Address, body: Cell) {
-		beginCell().store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_PLUGIN)).storeAddress(pluginAddr).storeRef(body);
+		return beginCell()
+			.store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_PLUGIN))
+			.storeAddress(pluginAddr)
+			.storeRef(body)
+			.asCell();
 	}
 
 	static buildInstallPlugin(code: Cell, data: Cell | null = null, body: Cell | null = null) {
@@ -53,18 +57,18 @@ export class ProposalsBuilder extends Builder {
 		fromJettonWalletAddress: Address,
 		fromJettonWalletOwnerAddress: Address
 	) {
-        const toWalletAddress = Address.parse(payload.toWalletAddress);
-        const transfer_data = beginCell()
-            .storeCoins(toNano(payload.tokenAmount))
-            .storeAddress(toWalletAddress) // destination
-            .storeAddress(toWalletAddress) // response_destination
-            .storeCoins(1) // forward_amount (1 nTON to simplify job for indexers)
-        .endCell()
+		const toWalletAddress = Address.parse(payload.toWalletAddress);
+		const transfer_data = beginCell()
+			.storeCoins(toNano(payload.tokenAmount))
+			.storeAddress(toWalletAddress) // destination
+			.storeAddress(toWalletAddress) // response_destination
+			.storeCoins(1) // forward_amount (1 nTON to simplify job for indexers)
+			.endCell();
 		return beginCell()
 			.store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER))
 			.storeAddress(fromJettonWalletAddress)
 			.storeAddress(fromJettonWalletOwnerAddress)
-            .storeRef(transfer_data)
+			.storeRef(transfer_data)
 			.endCell();
 	}
 
