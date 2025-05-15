@@ -35,12 +35,16 @@ export function useDaos() {
 			const { daos, hasMore } = await getDaos(token ?? '', currentOffset, filter, searchText);
 
 			const { setDaos, oldDaos, setOldDaos } = store.useDaos.getState();
-			setDaos([...(oldDaos ?? []), ...daos]);
-			setOldDaos([...daos]);
+
 			if (daos.length === 100) {
+				setDaos([...(oldDaos ?? []), ...daos]);
+				setOldDaos([...daos]);
 				setCurrentOffset((prevOffset) => prevOffset + daos.length);
-				setHasMore(hasMore);
+			} else {
+				setDaos([...daos]);
+				setOldDaos([...daos]);
 			}
+			setHasMore(hasMore);
 		},
 		[currentOffset, token]
 	);

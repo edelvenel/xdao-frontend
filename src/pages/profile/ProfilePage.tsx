@@ -1,8 +1,6 @@
 import { FilterEnum } from 'app/api/codegen';
-import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Filter } from 'pages/proposal-list/components/Filter';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -14,13 +12,13 @@ import { store } from 'shared/store';
 import { ProposalFilter } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
 import { Button } from 'shared/ui/Button';
+import { Filter } from 'shared/ui/Filter';
 import { IconButton } from 'shared/ui/IconButton';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
 import { ChangeDaoResult } from './components/ChangeDaoResult';
 import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
-import { SearchBlock } from './components/SearchBlock';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
 
@@ -32,7 +30,6 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const [daosFilter, setDaosFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const [proposalShowAll, setProposalShowAll] = React.useState<boolean>(false);
 	const [daoShowAll, setDaoShowAll] = React.useState<boolean>(false);
-	const [searchText, setSearchText] = React.useState<string>('');
 	const [selectedDaoIdx, setSelectedDaoIdx] = React.useState<null | number>(null);
 	const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
 	const [isChangeSuccess, setIsChangeSuccess] = React.useState<boolean>(false);
@@ -209,10 +206,6 @@ export const ProfilePage = React.memo(function ProfilePage() {
 					{daos.length > 3 && (daoShowAll ? 'Hide' : 'See more')}
 				</div>
 			</div>
-
-			<TopContent>
-				<SearchBlock searchText={searchText} onChange={setSearchText} onCreate={() => setIsCreateOpen(true)} />
-			</TopContent>
 
 			<Modal isOpen={isProposalsFilterOpen} title="Filter proposals" onClose={() => setIsProposalsFilterOpen(false)}>
 				<Filter

@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { store } from 'shared/store';
 import { ProposalFilter } from 'shared/types';
+import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
-import { Filter } from './components/Filter';
+import { SearchBlock } from '../../shared/ui/SearchBlock';
 import { Proposal } from './components/Proposal';
-import { SearchBlock } from './components/SearchBlock';
 import css from './styles.module.scss';
 
 export const ProposalListPage = React.memo(function ProposalListPage() {
@@ -63,6 +63,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 			<TopContent>
 				<SearchBlock
 					searchText={searchText}
+					placeholder="Search proposals"
 					onChange={setSearchText}
 					onFilter={() => setIsFilterOpen(true)}
 					onCreate={handleOnCreate}

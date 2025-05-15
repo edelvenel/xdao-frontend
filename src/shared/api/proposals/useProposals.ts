@@ -26,24 +26,28 @@ export function useProposals() {
 
 	const fetchDaoProposals = useCallback(
 		async (daoAddress: string) => {
-			const proposals = await getDaoProposals(token ?? '', currentOffset, daoAddress);
+			const { proposals, hasMore } = await getDaoProposals(token ?? '', currentOffset, daoAddress);
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
-				setHasMore(true);
+				setProposals((prev) => [...prev, ...proposals]);
+			} else {
+				setProposals([...proposals]);
 			}
-			setProposals((prev) => [...prev, ...proposals]);
+			setHasMore(hasMore);
 		},
 		[currentOffset, token]
 	);
 
 	const fetchProposals = useCallback(
 		async (filter?: FilterEnum) => {
-			const proposals = await getProposals(token ?? '', currentOffset, filter);
+			const { proposals, hasMore } = await getProposals(token ?? '', currentOffset, filter);
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
-				setHasMore(true);
+				setProposals((prev) => [...prev, ...proposals]);
+			} else {
+				setProposals([...proposals]);
 			}
-			setProposals((prev) => [...prev, ...proposals]);
+			setHasMore(hasMore);
 		},
 		[currentOffset, token]
 	);

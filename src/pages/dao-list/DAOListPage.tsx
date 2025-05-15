@@ -2,15 +2,15 @@ import { FilterEnum } from 'app/api/codegen';
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import debounce from 'lodash.debounce';
-import { Filter } from 'pages/proposal-list/components/Filter';
-import { SearchBlock } from 'pages/proposal-list/components/SearchBlock';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { generatePath, useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos/useDaos';
 import { store } from 'shared/store';
+import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
+import { SearchBlock } from 'shared/ui/SearchBlock';
 import { DAO } from './components/DAO';
 import css from './styles.module.scss';
 
@@ -106,6 +106,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 			<TopContent>
 				<SearchBlock
 					searchText={searchText ?? ''}
+					placeholder="Search DAOs"
 					onChange={setSearchText}
 					onFilter={() => setIsFilterOpen(true)}
 					onCreate={handleOnCreate}
