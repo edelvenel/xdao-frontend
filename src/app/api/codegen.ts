@@ -176,6 +176,21 @@ export interface GetTokensParams {
 	currencies: string;
 }
 
+export interface GetAccountNftItemsParams {
+	/**
+	 * Limit
+	 * @max 1000
+	 * @default 100
+	 */
+	limit?: number;
+	/** Offset */
+	offset?: number;
+	/**
+	 * Wallet address
+	 */
+	accountId: string;
+}
+
 /**
  * Filter proposals by type
  * @default "all"
@@ -813,6 +828,31 @@ export class TonApi<SecurityDataType extends unknown> {
 				path: `/v2/rates`,
 				method: 'GET',
 				query: { tokens, currencies, ...query },
+				...params,
+			}),
+		/**
+		 * No description
+		 *
+		 * @tags system
+		 * @name getAccountNftItems
+		 * @summary Get all NFT items by owner address
+		 * @request GET:/v2/accounts/{account_id}/nfts
+		 */
+		getAccountNftItems: ({ accountId, ...query }: GetAccountNftItemsParams, params: RequestParams = {}) =>
+			this.http.request<
+				{
+					/** @format int64 */
+					total: number;
+					nft_items: NftItem[];
+				},
+				{
+					/** Error message */
+					error: string;
+				}
+			>({
+				path: `/v2/accounts/${accountId}/nfts`,
+				method: 'GET',
+				query: query,
 				...params,
 			}),
 	};

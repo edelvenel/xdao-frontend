@@ -117,5 +117,14 @@ export function useDaos() {
 		}
 	}, []);
 
-	return { daos, fetchDaos, createDao, updateDao, getDAOJettons, getTONBalance, getTokenRates, hasMore };
+	return {
+		daos,
+		fetchDaos,
+		createDao,
+		updateDao,
+		getDAOJettons,
+		getTONBalance,
+		getTokenRates,
+		hasMore,
+	};
 }

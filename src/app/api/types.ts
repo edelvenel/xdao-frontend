@@ -91,3 +91,52 @@ export interface PricesDifference {
 	USD: string;
 	RUB: string;
 }
+
+export interface NftItemsResponse {
+	nft_items: NftItem[];
+}
+
+export interface NftItem {
+	address: string;
+	index: number;
+	owner: WalletAddress;
+	collection: Collection;
+	verified: boolean;
+	metadata: Record<string, any>; // empty object in your example; you can refine if structure known
+	sale: NftSale;
+	previews: Preview[];
+	dns: string;
+	include_cnft: boolean;
+	trust: string;
+}
+
+export interface WalletAddress {
+	address: string;
+	name: string;
+	is_scam: boolean;
+	icon: string;
+	is_wallet: boolean;
+}
+
+export interface Collection {
+	address: string;
+	name: string;
+	description: string;
+}
+
+export interface NftSale {
+	address: string;
+	market: WalletAddress;
+	owner: WalletAddress;
+	price: SalePrice;
+}
+
+export interface SalePrice {
+	value: string;
+	token_name: string;
+}
+
+export interface Preview {
+	resolution: string;
+	url: string;
+}
