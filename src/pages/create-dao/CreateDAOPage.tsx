@@ -54,7 +54,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [createdDaoId, setCreatedDaoId] = React.useState<string>('');
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { createDao } = useDaos();
-	const {walletAddress}= store.useWallet();
+	const { walletAddress } = store.useWallet();
 
 	const navigate = useNavigate();
 
@@ -140,7 +140,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	React.useEffect(() => {
 		setIsHeaderShown(true);
 		setIsMenuShown(true);
-		setIsBackground(false)
+		setIsBackground(false);
 	}, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 
 	React.useEffect(() => {
@@ -148,7 +148,11 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	}, [selectedTabIdx]);
 
 	return (
-		<Formik initialValues={getInitialValues(walletAddress)} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
+		<Formik
+			initialValues={getInitialValues(walletAddress)}
+			validationSchema={validationSchema}
+			onSubmit={handleOnSubmit}
+		>
 			{(props) => (
 				<div className={css.page}>
 					<div className={css.block}>
@@ -198,8 +202,11 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					) : null}
 
 					<TopContent>
-						<div className={css.createButton}>
-							<Button type="submit" onClick={() => props.handleSubmit()}>
+						<div className={css.actions}>
+							<Button variant="secondary" onClick={() => navigate(-1)}>
+								Back
+							</Button>
+							<Button variant="primary" onClick={() => props.handleSubmit()}>
 								Create
 							</Button>
 						</div>
@@ -229,20 +236,26 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					</Modal>
 
 					<Modal isOpen={isLoading}>
-						<DaoCreateLoader onDone={(value)=>{
-							setIsSuccess(true);
-							setIsResultOpen(true);
-							setCreatedDaoId(value)}} onTimeOut={()=>{
-							setIsLoading(false);
-							setIsSuccess(false);
-							setIsResultOpen(true);
-						}}/>
+						<DaoCreateLoader
+							onDone={(value) => {
+								setIsSuccess(true);
+								setIsResultOpen(true);
+								setCreatedDaoId(value);
+							}}
+							onTimeOut={() => {
+								setIsLoading(false);
+								setIsSuccess(false);
+								setIsResultOpen(true);
+							}}
+						/>
 					</Modal>
 
 					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={isSuccess}>
-						<DaoCreateResult success={isSuccess} 
-						onDone={() => navigate(generatePath(routes.dao, {id: createdDaoId, tab: 'overview'}))} 
-						onRetry={() => setIsResultOpen(false)} />
+						<DaoCreateResult
+							success={isSuccess}
+							onDone={() => navigate(generatePath(routes.dao, { id: createdDaoId, tab: 'overview' }))}
+							onRetry={() => setIsResultOpen(false)}
+						/>
 					</Modal>
 				</div>
 			)}
