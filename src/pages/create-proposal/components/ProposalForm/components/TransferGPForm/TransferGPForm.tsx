@@ -63,7 +63,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 				onResponse(false);
 			}
 		},
-		[createProposal, dao?.address, onResponse]
+		[createProposal, dao?.address, holders, onResponse]
 	);
 
 	return (
@@ -76,39 +76,47 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 								<Title variant={'medium'} value="Transfer general partner" />
 								<Input
 									value={props.values.name}
-									variant={props.errors.name && props.touched.name ? 'error' : 'primary'}
+									variant={props.errors.name !== undefined && props.touched.name ? 'error' : 'primary'}
 									fieldName="Proposal name"
 									placeholder="Create proposal name"
 									onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 								/>
 								<Input
 									value={props.values.description}
-									variant={props.errors.description && props.touched.description ? 'error' : 'primary'}
+									variant={props.errors.description !== undefined && props.touched.description ? 'error' : 'primary'}
 									fieldName="Description"
 									placeholder="Description"
 									onChange={(e) => props.setValues({ ...props.values, description: e.target.value })}
 								/>
 								<VotingDuration
 									value={props.values.votingDuration}
-									variant={props.errors.votingDuration && props.touched.votingDuration ? 'error' : 'primary'}
+									variant={
+										props.errors.votingDuration !== undefined && props.touched.votingDuration ? 'error' : 'primary'
+									}
 									setValue={(value) => props.setValues({ ...props.values, votingDuration: value })}
 								/>
 								<Dropdown
 									selected={props.values.fromWalletAddress}
 									options={listDaoGp}
-									variant={props.errors.fromWalletAddress && props.touched.fromWalletAddress ? 'error' : 'primary'}
+									variant={
+										props.errors.fromWalletAddress !== undefined && props.touched.fromWalletAddress
+											? 'error'
+											: 'primary'
+									}
 									placeholder="From wallet address"
 									onSelect={(value) => props.setValues({ ...props.values, fromWalletAddress: value })}
 								/>
 								<Dropdown
 									placeholder="To wallet address"
 									options={listDaoGp}
-									variant={props.errors.toWalletAddress && props.touched.toWalletAddress ? 'error' : 'primary'}
+									variant={
+										props.errors.toWalletAddress !== undefined && props.touched.toWalletAddress ? 'error' : 'primary'
+									}
 									selected={props.values.toWalletAddress}
 									onSelect={(value) => props.setValues({ ...props.values, toWalletAddress: value })}
 								/>
 								<InputNumber
-									variant={props.errors.tokenAmount && props.touched.tokenAmount ? 'error' : 'primary'}
+									variant={props.errors.tokenAmount !== undefined && props.touched.tokenAmount ? 'error' : 'primary'}
 									value={String(props.values.tokenAmount ?? '')}
 									fieldName="Token amount"
 									placeholder="Add token amount"

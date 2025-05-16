@@ -1,3 +1,5 @@
+import { FormikErrors } from 'formik';
+import { IForm } from 'pages/create-dao/types';
 import React from 'react';
 import { Icon } from 'shared/icons';
 import { Button } from 'shared/ui/Button';
@@ -10,6 +12,7 @@ import css from './styles.module.scss';
 interface ITabEqualProps {
 	walletAddresses: string[];
 	consensus: number;
+	errors: FormikErrors<IForm>;
 	setWalletAddresses: (addresses: string[]) => void;
 	setConsensus: (value: number) => void;
 	onSetupInfo: () => void;
@@ -18,6 +21,7 @@ interface ITabEqualProps {
 export function TabEqual({
 	walletAddresses,
 	consensus,
+	errors,
 	setWalletAddresses,
 	setConsensus,
 	onSetupInfo,
@@ -45,6 +49,7 @@ export function TabEqual({
 							value={waddr}
 							className={css.input}
 							placeholder="Wallet Address"
+							variant={errors.walletAddresses && errors.walletAddresses[index] ? 'error' : 'primary'}
 							onChange={(e) =>
 								setWalletAddresses([
 									...walletAddresses.filter((_, idx) => idx < index),

@@ -15,16 +15,12 @@ export const initialValues: IForm = {
 };
 
 export const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.min(2, 'Proposal name is too short')
-		.max(50, 'Proposal name is too long')
-		.required('Proposal name is required field'),
+	name: yup.string().min(2, 'Proposal name is too short').max(50, 'Proposal name is too long').required(''),
 	description: yup.string(),
-	newName: yup.string().required('New name is required field'),
+	newName: yup.string().required(''),
 	votingDuration: yup
 		.number()
 		.min(1, 'Voting duration must be at least 1 day long')
 		.max(36525, 'Voting duration is too long')
-		.required('Select voting duration'),
+		.required(''),
 });

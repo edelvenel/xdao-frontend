@@ -54,33 +54,37 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 							<div className={css.block}>
 								<Title variant={'medium'} value="Add general partner" />
 								<Input
-									variant={props.errors.name && props.touched.name ? 'error' : 'primary'}
+									variant={props.errors.name !== undefined && props.touched.name ? 'error' : 'primary'}
 									value={props.values.name}
 									fieldName="Proposal name"
 									placeholder="Create proposal name"
 									onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 								/>
 								<Input
-									variant={props.errors.description && props.touched.description ? 'error' : 'primary'}
+									variant={props.errors.description !== undefined && props.touched.description ? 'error' : 'primary'}
 									value={props.values.description}
 									fieldName="Description"
 									placeholder="Description"
 									onChange={(e) => props.setValues({ ...props.values, description: e.target.value })}
 								/>
 								<VotingDuration
-									variant={props.errors.votingDuration && props.touched.votingDuration ? 'error' : 'primary'}
+									variant={
+										props.errors.votingDuration !== undefined && props.touched.votingDuration ? 'error' : 'primary'
+									}
 									value={props.values.votingDuration}
 									setValue={(value) => props.setValues({ ...props.values, votingDuration: value })}
 								/>
 								<Input
-									variant={props.errors.walletAddress && props.touched.walletAddress ? 'error' : 'primary'}
+									variant={
+										props.errors.walletAddress !== undefined && props.touched.walletAddress ? 'error' : 'primary'
+									}
 									value={props.values.walletAddress}
 									fieldName="Wallet address"
 									placeholder="Add wallet address"
 									onChange={(e) => props.setValues({ ...props.values, walletAddress: e.target.value })}
 								/>
 								<InputNumber
-									variant={props.errors.tokenAmount && props.touched.tokenAmount ? 'error' : 'primary'}
+									variant={props.errors.tokenAmount !== undefined && props.touched.tokenAmount ? 'error' : 'primary'}
 									value={String(props.values.tokenAmount ?? '')}
 									fieldName="Token amount"
 									placeholder="Add token amount"

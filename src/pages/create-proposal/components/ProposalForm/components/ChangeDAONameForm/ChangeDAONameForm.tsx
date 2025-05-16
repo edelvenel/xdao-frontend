@@ -54,14 +54,14 @@ export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
 							<div className={css.block}>
 								<Title variant={'medium'} value="Change DAO name" />
 								<Input
-									variant={props.errors.name && props.touched.name ? 'error' : 'primary'}
+									variant={props.errors.name !== undefined && props.touched.name ? 'error' : 'primary'}
 									value={props.values.name}
 									fieldName="Proposal name"
 									placeholder="Create proposal name"
 									onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 								/>
 								<Input
-									variant={props.errors.description && props.touched.description ? 'error' : 'primary'}
+									variant={props.errors.description !== undefined && props.touched.description ? 'error' : 'primary'}
 									value={props.values.description}
 									fieldName="Description"
 									placeholder="Description"
@@ -69,6 +69,9 @@ export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
 								/>
 								<VotingDuration
 									value={props.values.votingDuration}
+									variant={
+										props.errors.votingDuration !== undefined && props.touched.votingDuration ? 'error' : 'primary'
+									}
 									setValue={(value) => props.setValues({ ...props.values, votingDuration: value })}
 								/>
 								<div className={css.currentName}>
@@ -77,7 +80,7 @@ export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
 								</div>
 								<Input
 									value={props.values.newName}
-									variant={props.errors.newName && props.touched.newName ? 'error' : 'primary'}
+									variant={props.errors.newName !== undefined && props.touched.newName ? 'error' : 'primary'}
 									fieldName="New name"
 									placeholder="New name"
 									onChange={(e) => props.setValues({ ...props.values, newName: e.target.value })}

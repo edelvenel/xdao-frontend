@@ -46,6 +46,10 @@
 		&.secondary {
 			color: var(--semantic-text-non-active);
 		}
+
+		&.error {
+			color: var(--semantic-text-error);
+		}
 	}
 
 	.field {

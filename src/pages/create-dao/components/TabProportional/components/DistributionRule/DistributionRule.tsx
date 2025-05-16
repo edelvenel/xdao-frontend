@@ -7,15 +7,17 @@ import css from './styles.module.scss';
 
 interface IDistributionRuleProps {
 	rule: IDistributionRule;
+	variant?: 'error' | 'default';
 	onChange: (rule: IDistributionRule) => void;
 	onDelete: () => void;
 }
 
-export function DistributionRule({ rule, onChange, onDelete }: IDistributionRuleProps) {
+export function DistributionRule({ rule, variant = 'default', onChange, onDelete }: IDistributionRuleProps) {
 	return (
 		<div className={css.distributionRule}>
 			<Input
 				className={cn(css.item, css.wallet)}
+				variant={variant === 'error' && rule.walletAddress === '' ? 'error' : undefined}
 				value={rule.walletAddress}
 				placeholder="wallet address"
 				onChange={(e) => onChange({ ...rule, walletAddress: e.target.value })}
@@ -24,6 +26,7 @@ export function DistributionRule({ rule, onChange, onDelete }: IDistributionRule
 				className={cn(css.item, css.gpTokens)}
 				value={rule.tokens ?? ''}
 				placeholder="GP tokens"
+				variant={variant === 'error' && !rule.tokens ? 'error' : undefined}
 				sizeVariant="small"
 				onUpdate={(value) => onChange({ ...rule, tokens: Number(value) })}
 			/>

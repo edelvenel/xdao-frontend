@@ -29,37 +29,33 @@ export function getInitialValues(userAddress: string | null): IForm {
 }
 
 const requiredDistributionRule = yup.object().shape({
-	walletAddress: yup.string().required('Wallet address cannot be empty'),
-	tokens: yup.number().min(0).required('Enter tokens'),
-	percent: yup.number().min(0).max(100).required('Enter percent'),
+	walletAddress: yup.string().required(),
+	tokens: yup.number().min(0).required(),
+	percent: yup.number().min(0).max(100).required(),
 });
 
-const requiredString = yup.string().required('Wallet address is required field');
+const requiredString = yup.string().required();
 
 export function getValidationSchema(tabIdx: number) {
 	const commonFields = {
-		name: yup
-			.string()
-			.min(2, 'DAO name is too short')
-			.max(50, 'DAO name is too long')
-			.required('DAO name is required field'),
-		tokenName: yup.string().required('DAO token name is required field'),
-		tokenSymbol: yup.string().required('DAO token symbol is required field'),
+		name: yup.string().min(2, 'DAO name is too short').max(50, 'DAO name is too long').required(''),
+		tokenName: yup.string().required(''),
+		tokenSymbol: yup.string().required(''),
 	};
 
 	switch (tabIdx) {
 		case 0: {
 			return yup.object().shape({
 				...commonFields,
-				consensus: yup.number().min(1, 'Consensus must be at least 1').required('Select consensus'),
-				walletAddresses: yup.array().of(requiredString).min(1).required('Enter at least one wallet address'),
+				consensus: yup.number().min(1, 'Consensus must be at least 1').required(''),
+				walletAddresses: yup.array().of(requiredString).min(1).required(''),
 			});
 		}
 		case 1: {
 			return yup.object().shape({
 				...commonFields,
-				consensusPercent: yup.number().min(0).max(100).required('Consensus percent is required field'),
-				distributionRules: yup.array().of(requiredDistributionRule).min(1).required('Distribution rules are required'),
+				consensusPercent: yup.number().min(0).max(100).required(''),
+				distributionRules: yup.array().of(requiredDistributionRule).min(1).required(''),
 			});
 		}
 		default:

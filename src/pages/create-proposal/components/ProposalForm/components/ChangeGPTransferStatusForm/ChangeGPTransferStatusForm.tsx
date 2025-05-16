@@ -57,21 +57,23 @@ export function ChangeGPTransferStatusForm({ onResponse }: IChangeGPTransferStat
 							<div className={css.block}>
 								<Title variant={'medium'} value="Change GP transfer status" />
 								<Input
-									variant={props.errors.name && props.touched.name ? 'error' : 'primary'}
+									variant={props.errors.name !== undefined && props.touched.name ? 'error' : 'primary'}
 									value={props.values.name}
 									fieldName="Proposal name"
 									placeholder="Create proposal name"
 									onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 								/>
 								<Input
-									variant={props.errors.description && props.touched.description ? 'error' : 'primary'}
+									variant={props.errors.description !== undefined && props.touched.description ? 'error' : 'primary'}
 									value={props.values.description}
 									fieldName="Description"
 									placeholder="Description"
 									onChange={(e) => props.setValues({ ...props.values, description: e.target.value })}
 								/>
 								<VotingDuration
-									variant={props.errors.votingDuration && props.touched.votingDuration ? 'error' : 'primary'}
+									variant={
+										props.errors.votingDuration !== undefined && props.touched.votingDuration ? 'error' : 'primary'
+									}
 									value={props.values.votingDuration}
 									setValue={(value) => props.setValues({ ...props.values, votingDuration: value })}
 								/>
@@ -81,6 +83,7 @@ export function ChangeGPTransferStatusForm({ onResponse }: IChangeGPTransferStat
 								</div>
 								<Dropdown
 									selected={props.values.newStatus}
+									variant={props.errors.newStatus !== undefined && props.touched.newStatus ? 'error' : 'primary'}
 									options={[DaoStatus.Transferable, DaoStatus.NonTransferable]}
 									placeholder="Select new status"
 									onSelect={(value) => props.setValues({ ...props.values, newStatus: value })}

@@ -1,3 +1,5 @@
+import { FormikErrors } from 'formik';
+import { IForm } from 'pages/create-dao/types';
 import React from 'react';
 import { Icon } from 'shared/icons';
 import { IDistributionRule } from 'shared/types';
@@ -24,6 +26,7 @@ interface ITabProportionalProps {
 	currentConsensus: number;
 	isManualConsensus: boolean;
 	distributionRules: IDistributionRule[];
+	errors: FormikErrors<IForm>;
 	setDistributionRules: (rules: IDistributionRule[]) => void;
 	setCurrentConsensus: (value: number) => void;
 	setIsManualConsensus: (value: boolean) => void;
@@ -34,6 +37,7 @@ export function TabProportional({
 	currentConsensus,
 	isManualConsensus,
 	distributionRules,
+	errors,
 	setCurrentConsensus,
 	setIsManualConsensus,
 	setDistributionRules,
@@ -81,6 +85,7 @@ export function TabProportional({
 					<DistributionRule
 						key={index}
 						rule={rule}
+						variant={errors.distributionRules && errors.distributionRules[index] ? 'error' : 'default'}
 						onChange={(value) => handleOnChange(value, index)}
 						onDelete={() => handleOnDelete(index)}
 					/>
@@ -109,6 +114,7 @@ export function TabProportional({
 					<InputNumber
 						max={100}
 						min={0}
+						variant={errors.consensusPercent && errors.consensusPercent ? 'error' : 'primary'}
 						onUpdate={(value) => setCurrentConsensus(Number(value))}
 						onFocus={() => setIsManualConsensus(true)}
 						value={isManualConsensus ? currentConsensus : ''}
