@@ -73,32 +73,34 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								<Title variant={'medium'} value="Remove general partner" />
 								<Input
 									value={props.values.name}
-									variant={props.errors.name && props.touched.name ? 'error' : 'primary'}
+									variant={props.errors.name !== undefined && props.touched.name ? 'error' : 'primary'}
 									fieldName="Proposal name"
 									placeholder="Create proposal name"
 									onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 								/>
 								<Input
 									value={props.values.description}
-									variant={props.errors.description && props.touched.description ? 'error' : 'primary'}
+									variant={props.errors.description !== undefined && props.touched.description ? 'error' : 'primary'}
 									fieldName="Description"
 									placeholder="Description"
 									onChange={(e) => props.setValues({ ...props.values, description: e.target.value })}
 								/>
 								<VotingDuration
 									value={props.values.votingDuration}
-									variant={props.errors.votingDuration && props.touched.votingDuration ? 'error' : 'primary'}
+									variant={
+										props.errors.votingDuration !== undefined && props.touched.votingDuration ? 'error' : 'primary'
+									}
 									setValue={(value) => props.setValues({ ...props.values, votingDuration: value })}
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
 									options={holders.map((holder) => holder.owner_address)}
-									variant={props.errors.gpToRemove && props.touched.gpToRemove ? 'error' : 'primary'}
+									variant={props.errors.gpToRemove !== undefined && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}
 								/>
 								<InputNumber
-									variant={props.errors.tokenAmount && props.touched.tokenAmount ? 'error' : 'primary'}
+									variant={props.errors.tokenAmount !== undefined && props.touched.tokenAmount ? 'error' : 'primary'}
 									value={String(props.values.tokenAmount ?? '')}
 									fieldName="Token amount"
 									placeholder="Add token amount"

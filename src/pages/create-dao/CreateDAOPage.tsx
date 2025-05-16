@@ -1,6 +1,6 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
-import { Formik, FormikErrors, FormikProps } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
 import { generatePath, useNavigate } from 'react-router';
@@ -8,7 +8,7 @@ import { useDaos } from 'shared/api/daos';
 import { ICreateDaoEqualPayload, ICreateDaoProportionalPayload } from 'shared/api/daos/payloads';
 import { useBackButton } from 'shared/hooks/useBackButton';
 import { store } from 'shared/store';
-import { DaoType, IDistributionRule } from 'shared/types';
+import { DaoType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Input } from 'shared/ui/Input';
 import { Modal } from 'shared/ui/Modal';
@@ -21,27 +21,6 @@ import { Tabs } from './components/Tabs';
 import { ITab } from './components/Tabs/types';
 import css from './styles.module.scss';
 import { getInitialValues, getValidationSchema, IForm } from './types';
-
-const getErrors = (errors: string | string[] | FormikErrors<IDistributionRule>[]) => {
-	switch (typeof errors) {
-		case 'string': {
-			return [errors];
-		}
-		case 'object': {
-			if (Array.isArray(errors)) {
-				return Array.from(
-					errors.flatMap((e, idx) => {
-						if (typeof e === 'string') {
-							return e;
-						} else {
-							return idx === 0 ? [e.walletAddress, e.tokens, e.percent].join('; ') : [];
-						}
-					})
-				);
-			}
-		}
-	}
-};
 
 export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [selectedTabIdx, setSelectedTabIdx] = React.useState<number>(0);
@@ -72,6 +51,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 								props.setValues({ ...props.values, walletAddresses: value });
 								setValidationSchema(getValidationSchema(selectedTabIdx));
 							}}
+							errors={props.errors}
 							consensus={props.values.consensus}
 							setConsensus={(value) => props.setValues({ ...props.values, consensus: value })}
 							onSetupInfo={() => setIsOpenSetupInfoModal(true)}
@@ -84,6 +64,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 						<TabProportional
 							isManualConsensus={props.touched.currentConsensusManual ?? false}
 							setIsManualConsensus={() => props.setTouched({ currentConsensusManual: true })}
+							errors={props.errors}
 							onInfo={() => setIsInfoOpen(true)}
 							currentConsensus={props.values.consensusPercent}
 							setCurrentConsensus={(value) => props.setValues({ ...props.values, consensusPercent: value })}
@@ -159,21 +140,21 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 						<Title value="Create DAO" variant="medium" />
 						<Input
 							value={props.values.name}
-							variant={props.touched.name && props.errors.name ? 'error' : 'primary'}
+							variant={props.touched.name && props.errors.name !== undefined ? 'error' : 'primary'}
 							fieldName="DAO name"
 							placeholder="Create DAO name"
 							onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 						/>
 						<Input
 							value={props.values.tokenName}
-							variant={props.touched.tokenName && props.errors.tokenName ? 'error' : 'primary'}
+							variant={props.touched.tokenName && props.errors.tokenName !== undefined ? 'error' : 'primary'}
 							fieldName="DAO token name"
 							placeholder="Create DAO token name"
 							onChange={(e) => props.setValues({ ...props.values, tokenName: e.target.value })}
 						/>
 						<Input
 							value={props.values.tokenSymbol}
-							variant={props.touched.tokenSymbol && props.errors.tokenSymbol ? 'error' : 'primary'}
+							variant={props.touched.tokenSymbol && props.errors.tokenSymbol !== undefined ? 'error' : 'primary'}
 							fieldName="DAO token symbol"
 							placeholder="Create DAO token symbol"
 							onChange={(e) => props.setValues({ ...props.values, tokenSymbol: e.target.value })}
@@ -188,18 +169,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					</div>
 
 					<Tabs selectedTabIdx={selectedTabIdx} onSelect={setSelectedTabIdx} tabs={getTabs(props)} />
-					{selectedTabIdx === 0 && props.errors.consensus && props.touched.consensus ? (
-						<ValidationError>{props.errors.consensus}</ValidationError>
-					) : null}
-					{selectedTabIdx === 0 && props.errors.walletAddresses && props.touched.walletAddresses ? (
-						<ValidationError>{props.errors.walletAddresses[0]}</ValidationError>
-					) : null}
-					{selectedTabIdx === 1 && props.errors.consensusPercent && props.touched.consensusPercent ? (
-						<ValidationError>{props.errors.consensusPercent}</ValidationError>
-					) : null}
-					{selectedTabIdx === 1 && props.errors.distributionRules && props.touched.distributionRules ? (
-						<ValidationError>{'Distribution rule error: ' + getErrors(props.errors.distributionRules)}</ValidationError>
-					) : null}
 
 					<TopContent>
 						<div className={css.actions}>

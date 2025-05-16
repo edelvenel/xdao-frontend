@@ -25,19 +25,15 @@ export const getInitialValues = (dao: IDao): IForm => {
 };
 
 export const validationSchema = yup.object().shape({
-	name: yup
-		.string()
-		.min(2, 'Proposal name is too short')
-		.max(50, 'Proposal name is too long')
-		.required('Proposal name is required field'),
+	name: yup.string().min(2, 'Proposal name is too short').max(50, 'Proposal name is too long').required(''),
 	description: yup.string(),
 	votingDuration: yup
 		.number()
 		.min(1, 'Voting duration must be at least 1 day long')
 		.max(36525, 'Voting duration is too long')
-		.required('Select voting duration'),
-	fromDAO: yup.object().required('From DAO is required field'),
-	recipientAddress: yup.string().required('Recipient address is required field'),
-	token: yup.object().required('Token is required field'),
-	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required('Token amount is required field'),
+		.required(''),
+	fromDAO: yup.object().required(''),
+	recipientAddress: yup.string().required(''),
+	token: yup.object().required(''),
+	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required(''),
 });
