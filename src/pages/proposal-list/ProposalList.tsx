@@ -1,5 +1,6 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
+import debounce from 'lodash.debounce';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,10 +15,10 @@ import { Proposal } from './components/Proposal';
 import css from './styles.module.scss';
 
 export const ProposalListPage = React.memo(function ProposalListPage() {
-	const [searchText, setSearchText] = React.useState<string>('');
+	const [searchText, setSearchText] = React.useState<string | null>(null);
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
 	const [filter, setFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
-	const { proposals, fetchProposals, hasMore } = useProposals();
+	const { proposals, fetchProposals, resetProposals, hasMore } = useProposals();
 
 	const navigate = useNavigate();
 
@@ -33,8 +34,8 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	}, [setIsHeaderShown, setIsMenuShown]);
 
 	React.useEffect(() => {
-		fetchProposals();
-	}, [fetchProposals]);
+		fetchProposals(searchText ?? '', filter);
+	}, []);
 
 	React.useEffect(() => {
 		if (proposals.length > 0) {
@@ -44,13 +45,47 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 		}
 	}, [proposals.length, setIsBackground]);
 
+	const handleOnSearch = React.useCallback(
+		(text: string) => {
+			resetProposals();
+			fetchProposals(text ?? '', filter);
+			if (text === '') {
+				setSearchText(null);
+			}
+		},
+		[fetchProposals, filter, resetProposals]
+	);
+
+	const handleOnApplyFilter = React.useCallback(
+		(value: ProposalFilter) => {
+			resetProposals();
+			setFilter(value);
+			fetchProposals(searchText ?? '', value);
+		},
+		[fetchProposals, resetProposals, searchText]
+	);
+
+	const debouncedResults = React.useMemo(() => {
+		return debounce(handleOnSearch, 500);
+	}, [handleOnSearch]);
+
+	React.useEffect(() => {
+		if (searchText !== null) {
+			debouncedResults(searchText);
+		}
+
+		return () => {
+			debouncedResults.cancel();
+		};
+	}, [debouncedResults, searchText]);
+
 	return (
 		<div className={css.page}>
 			<div className={css.list}>
 				{proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
 				<InfiniteScroll
 					dataLength={proposals.length}
-					next={fetchProposals}
+					next={() => fetchProposals(searchText ?? '', filter)}
 					hasMore={hasMore}
 					className={css.list}
 					loader={<ScreenLoader />}
@@ -62,7 +97,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 			</div>
 			<TopContent>
 				<SearchBlock
-					searchText={searchText}
+					searchText={searchText ?? ''}
 					placeholder="Search proposals"
 					onChange={setSearchText}
 					onFilter={() => setIsFilterOpen(true)}
@@ -81,7 +116,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 						}
 						return ProposalFilter.AllProposals;
 					}}
-					onApply={setFilter}
+					onApply={handleOnApplyFilter}
 					onClose={() => setIsFilterOpen(false)}
 				/>
 			</Modal>

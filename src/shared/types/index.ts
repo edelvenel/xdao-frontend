@@ -106,10 +106,8 @@ export enum ProposalStatus {
 export enum ProposalFilter {
 	AllProposals = 'all proposals',
 	Active = 'active',
-	Pending = 'pending',
 	Executed = 'executed',
 	Rejected = 'rejected',
-	MyProposals = 'my proposals',
 }
 
 export interface IVotingType {

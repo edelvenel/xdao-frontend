@@ -1,7 +1,7 @@
 import { api } from 'app/api';
-import { FilterEnum, Proposal, Vote } from 'app/api/codegen';
-import { proposalTypeMapper } from 'shared/constants';
-import { IHolder, IProposal, IVote } from 'shared/types';
+import { Proposal, Vote } from 'app/api/codegen';
+import { proposalFilterMapp, proposalTypeMapper } from 'shared/constants';
+import { IHolder, IProposal, IVote, ProposalFilter } from 'shared/types';
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
@@ -48,10 +48,11 @@ export const getDaoProposals = async (
 export const getProposals = async (
 	token: string,
 	offset: number,
-	filter?: FilterEnum
+	filter?: ProposalFilter,
+	search?: string
 ): Promise<{ proposals: IProposal[]; hasMore: boolean }> => {
 	const response = await api.v1.getProposals(
-		{ limit: 100, offset: offset, filter: filter },
+		{ limit: 100, offset: offset, filter: filter !== undefined ? proposalFilterMapp[filter] : undefined, search },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 

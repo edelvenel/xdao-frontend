@@ -1,9 +1,8 @@
 import { useTonAddress } from '@tonconnect/ui-react';
-import { FilterEnum } from 'app/api/codegen';
 import { useCallback, useState } from 'react';
 import { useProposalActions } from 'shared/hooks/useProposalActions';
 import { store } from 'shared/store';
-import { IProposal } from 'shared/types';
+import { IProposal, ProposalFilter } from 'shared/types';
 import { getDaoProposals, getProposals } from './methods';
 import { ICreateProposalPayload } from './payloads';
 
@@ -39,8 +38,13 @@ export function useProposals() {
 	);
 
 	const fetchProposals = useCallback(
-		async (filter?: FilterEnum) => {
-			const { proposals, hasMore } = await getProposals(token ?? '', currentOffset, filter);
+		async (search?: string, filter?: ProposalFilter) => {
+			const { proposals, hasMore } = await getProposals(
+				token ?? '',
+				currentOffset,
+				filter === ProposalFilter.AllProposals ? undefined : filter,
+				search
+			);
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
 				setProposals((prev) => [...prev, ...proposals]);

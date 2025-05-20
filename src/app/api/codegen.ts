@@ -166,7 +166,12 @@ export interface GetProposalsParams {
 	 * Filter proposals by type
 	 * @default "all"
 	 */
-	filter?: FilterEnum;
+	filter?: string;
+	/**
+	 * Search by Proposal name
+	 * @default ""
+	 */
+	search?: string;
 }
 
 export interface GetTokensParams {
@@ -648,7 +653,7 @@ export class Api<SecurityDataType extends unknown> {
 		 * @summary Get the list of proposals
 		 * @request GET:/api/v1/proposals
 		 */
-		getProposals: (query: GetProposalsParams, params: RequestParams = {}) =>
+		getProposals: ({ ...query }: GetProposalsParams, params: RequestParams = {}) =>
 			this.http.request<
 				{
 					/** @format int64 */
@@ -674,7 +679,7 @@ export class Api<SecurityDataType extends unknown> {
 		 * @summary Retrieve detailed proposal information
 		 * @request GET:/api/v1/proposals/{proposal_address}
 		 */
-		getProposalInfo: (proposalAddress: string, params: RequestParams = {}) =>
+		getProposalInfo: (proposalAddress: string, query: GetProposalsParams, params: RequestParams = {}) =>
 			this.http.request<
 				Proposal,
 				{
