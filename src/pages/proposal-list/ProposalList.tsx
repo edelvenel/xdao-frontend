@@ -56,6 +56,15 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 		[fetchProposals, filter, resetProposals]
 	);
 
+	const handleOnApplyFilter = React.useCallback(
+		(value: ProposalFilter) => {
+			resetProposals();
+			setFilter(value);
+			fetchProposals(searchText ?? '', value);
+		},
+		[fetchProposals, resetProposals, searchText]
+	);
+
 	const debouncedResults = React.useMemo(() => {
 		return debounce(handleOnSearch, 500);
 	}, [handleOnSearch]);
@@ -107,7 +116,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 						}
 						return ProposalFilter.AllProposals;
 					}}
-					onApply={setFilter}
+					onApply={handleOnApplyFilter}
 					onClose={() => setIsFilterOpen(false)}
 				/>
 			</Modal>

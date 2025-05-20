@@ -47,8 +47,6 @@ export const proposalTypeOptions = [
 export const proposalFilterMapp = {
 	[ProposalFilter.AllProposals]: 'all',
 	[ProposalFilter.Active]: 'active',
-	[ProposalFilter.MyProposals]: 'mine',
 	[ProposalFilter.Executed]: 'executed',
-	[ProposalFilter.Pending]: 'pending',
 	[ProposalFilter.Rejected]: 'rejected',
 };

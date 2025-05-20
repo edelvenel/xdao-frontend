@@ -49,9 +49,9 @@ export const DAOListPage = React.memo(function DAOListPage() {
 		(value: FilterEnum) => {
 			resetDaos();
 			setFilter(value);
-			fetchDaos(searchText ?? '', filter);
+			fetchDaos(searchText ?? '', value);
 		},
-		[fetchDaos, filter, resetDaos, searchText]
+		[fetchDaos, resetDaos, searchText]
 	);
 
 	const handleOnSearch = React.useCallback(

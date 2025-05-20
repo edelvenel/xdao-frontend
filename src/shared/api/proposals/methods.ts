@@ -52,7 +52,7 @@ export const getProposals = async (
 	search?: string
 ): Promise<{ proposals: IProposal[]; hasMore: boolean }> => {
 	const response = await api.v1.getProposals(
-		{ limit: 100, offset: offset, filter: proposalFilterMapp[filter ?? ProposalFilter.AllProposals], search },
+		{ limit: 100, offset: offset, filter: filter !== undefined ? proposalFilterMapp[filter] : undefined, search },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 

@@ -39,7 +39,12 @@ export function useProposals() {
 
 	const fetchProposals = useCallback(
 		async (search?: string, filter?: ProposalFilter) => {
-			const { proposals, hasMore } = await getProposals(token ?? '', currentOffset, filter, search);
+			const { proposals, hasMore } = await getProposals(
+				token ?? '',
+				currentOffset,
+				filter === ProposalFilter.AllProposals ? undefined : filter,
+				search
+			);
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
 				setProposals((prev) => [...prev, ...proposals]);
