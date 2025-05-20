@@ -1,4 +1,5 @@
 import { IDistributionRule } from 'shared/types';
+import TonWeb from 'tonweb';
 import * as yup from 'yup';
 
 export interface IForm {
@@ -29,12 +30,24 @@ export function getInitialValues(userAddress: string | null): IForm {
 }
 
 const requiredDistributionRule = yup.object().shape({
-	walletAddress: yup.string().required(),
-	tokens: yup.number().min(0).required(),
-	percent: yup.number().min(0).max(100).required(),
+	walletAddress: yup
+		.string()
+		.required('')
+		.test('is-valid-ton-address', 'Invalid wallet address', function (value) {
+			if (!value) return true;
+			return TonWeb.utils.Address.isValid(value);
+		}),
+	tokens: yup.number().min(0).required(''),
+	percent: yup.number().min(0).max(100).required(''),
 });
 
-const requiredString = yup.string().required();
+const requiredWalletAddress = yup
+	.string()
+	.required('')
+	.test('is-valid-ton-address', 'Invalid wallet address', function (value) {
+		if (!value) return true;
+		return TonWeb.utils.Address.isValid(value);
+	});
 
 export function getValidationSchema(tabIdx: number) {
 	const commonFields = {
@@ -48,7 +61,7 @@ export function getValidationSchema(tabIdx: number) {
 			return yup.object().shape({
 				...commonFields,
 				consensus: yup.number().min(1, 'Consensus must be at least 1').required(''),
-				walletAddresses: yup.array().of(requiredString).min(1).required(''),
+				walletAddresses: yup.array().of(requiredWalletAddress).min(1).required(''),
 			});
 		}
 		case 1: {

@@ -1,5 +1,6 @@
 import { FormikErrors } from 'formik';
 import { IForm } from 'pages/create-dao/types';
+import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
 import { Icon } from 'shared/icons';
 import { IDistributionRule } from 'shared/types';
@@ -77,6 +78,8 @@ export function TabProportional({
 		[distributionRules, setDistributionRules]
 	);
 
+	console.log(errors);
+
 	return (
 		<div className={css.tab}>
 			<div className={css.block}>
@@ -85,7 +88,7 @@ export function TabProportional({
 					<DistributionRule
 						key={index}
 						rule={rule}
-						variant={errors.distributionRules && errors.distributionRules[index] ? 'error' : 'default'}
+						variant={errors.distributionRules && errors.distributionRules[index] !== undefined ? 'error' : 'default'}
 						onChange={(value) => handleOnChange(value, index)}
 						onDelete={() => handleOnDelete(index)}
 					/>
@@ -93,6 +96,32 @@ export function TabProportional({
 				<Button variant="primary" onClick={handleOnAdd}>
 					Add more
 				</Button>
+
+				{errors.distributionRules
+					? typeof errors.distributionRules !== 'string' &&
+					  errors.distributionRules.map(
+							(error) =>
+								error &&
+								typeof error !== 'string' &&
+								error.walletAddress && <ValidationError>{error.walletAddress}</ValidationError>
+					  )
+					: null}
+				{errors.distributionRules
+					? typeof errors.distributionRules !== 'string' &&
+					  errors.distributionRules.map(
+							(error) =>
+								error && typeof error !== 'string' && error.tokens && <ValidationError>{error.tokens}</ValidationError>
+					  )
+					: null}
+				{errors.distributionRules
+					? typeof errors.distributionRules !== 'string' &&
+					  errors.distributionRules.map(
+							(error) =>
+								error &&
+								typeof error !== 'string' &&
+								error.percent && <ValidationError>{error.percent}</ValidationError>
+					  )
+					: null}
 			</div>
 			<div className={css.block}>
 				<div className={css.setConsensusBlock}>

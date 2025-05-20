@@ -1,5 +1,6 @@
 import { FormikErrors } from 'formik';
 import { IForm } from 'pages/create-dao/types';
+import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
 import { Icon } from 'shared/icons';
 import { Button } from 'shared/ui/Button';
@@ -49,7 +50,7 @@ export function TabEqual({
 							value={waddr}
 							className={css.input}
 							placeholder="Wallet Address"
-							variant={errors.walletAddresses && errors.walletAddresses[index] ? 'error' : 'primary'}
+							variant={errors.walletAddresses && errors.walletAddresses[index] !== undefined ? 'error' : 'primary'}
 							onChange={(e) =>
 								setWalletAddresses([
 									...walletAddresses.filter((_, idx) => idx < index),
@@ -86,6 +87,11 @@ export function TabEqual({
 					renderLabel={(value) => `${value} of ${walletAddresses.length}`}
 				/>
 			</div>
+
+			{errors.walletAddresses
+				? typeof errors.walletAddresses !== 'string' &&
+				  errors.walletAddresses.map((error) => error && <ValidationError>{error}</ValidationError>)
+				: null}
 		</div>
 	);
 }

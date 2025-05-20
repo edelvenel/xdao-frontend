@@ -34,6 +34,7 @@
 		"react-infinite-scroll-component": "^6.1.0",
 		"react-router": "^7.4.0",
 		"storybook": "^8.6.11",
+		"tonweb": "^0.0.66",
 		"vite-plugin-node-polyfills": "^0.23.0",
 		"yup": "^1.6.1",
 		"zustand": "^5.0.3"

@@ -1,3 +1,4 @@
+import TonWeb from 'tonweb';
 import * as yup from 'yup';
 
 export interface IForm {
@@ -19,7 +20,13 @@ export const initialValues: IForm = {
 export const validationSchema = yup.object().shape({
 	name: yup.string().min(2, 'Proposal name is too short').max(50, 'Proposal name is too long').required(''),
 	description: yup.string(),
-	gpToRemove: yup.string().required(''),
+	gpToRemove: yup
+		.string()
+		.required('')
+		.test('is-valid-ton-address', 'Invalid wallet address', function (value) {
+			if (!value) return true;
+			return TonWeb.utils.Address.isValid(value);
+		}),
 	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required(''),
 	votingDuration: yup
 		.number()

@@ -1,3 +1,4 @@
+import TonWeb from 'tonweb';
 import * as yup from 'yup';
 
 export interface IForm {
@@ -24,6 +25,12 @@ export const validationSchema = yup.object().shape({
 		.min(1, 'Voting duration must be at least 1 day long')
 		.max(36525, 'Voting duration is too long')
 		.required(''),
-	walletAddress: yup.string().required(''),
+	walletAddress: yup
+		.string()
+		.required('')
+		.test('is-valid-ton-address', 'Invalid wallet address', function (value) {
+			if (!value) return true;
+			return TonWeb.utils.Address.isValid(value);
+		}),
 	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required(''),
 });
