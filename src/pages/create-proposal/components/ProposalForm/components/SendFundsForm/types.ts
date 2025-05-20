@@ -1,5 +1,6 @@
 import { TOKENS } from 'app/mocks/constants';
 import { IDao, IToken } from 'shared/types';
+import TonWeb from 'tonweb';
 import * as yup from 'yup';
 
 export interface IForm {
@@ -33,7 +34,13 @@ export const validationSchema = yup.object().shape({
 		.max(36525, 'Voting duration is too long')
 		.required(''),
 	fromDAO: yup.object().required(''),
-	recipientAddress: yup.string().required(''),
+	recipientAddress: yup
+		.string()
+		.required('')
+		.test('is-valid-ton-address', 'Invalid wallet address', function (value) {
+			if (!value) return true;
+			return TonWeb.utils.Address.isValid(value);
+		}),
 	token: yup.object().required(''),
 	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required(''),
 });
