@@ -1,3 +1,4 @@
+import { Address } from '@ton/core';
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import { Formik, FormikProps } from 'formik';
@@ -38,6 +39,10 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const navigate = useNavigate();
 
 	useBackButton();
+
+	const userFriendlyAddress = React.useMemo(() => {
+		return walletAddress && Address.parseRaw(walletAddress).toString({ bounceable: false });
+	}, [walletAddress]);
 
 	const getTabs = React.useCallback(
 		(props: FormikProps<IForm>): ITab[] => {
@@ -130,7 +135,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 
 	return (
 		<Formik
-			initialValues={getInitialValues(walletAddress)}
+			initialValues={getInitialValues(userFriendlyAddress)}
 			validationSchema={validationSchema}
 			onSubmit={handleOnSubmit}
 		>
