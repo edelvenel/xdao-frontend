@@ -69,6 +69,11 @@ export function TabEqual({
 				<Button variant="primary" onClick={() => setWalletAddresses([...walletAddresses, ''])}>
 					Add more
 				</Button>
+
+				{errors.walletAddresses
+					? typeof errors.walletAddresses !== 'string' &&
+					  errors.walletAddresses.map((error) => error && <ValidationError>{error}</ValidationError>)
+					: null}
 			</div>
 
 			<div className={css.block}>
@@ -87,11 +92,6 @@ export function TabEqual({
 					renderLabel={(value) => `${value} of ${walletAddresses.length}`}
 				/>
 			</div>
-
-			{errors.walletAddresses
-				? typeof errors.walletAddresses !== 'string' &&
-				  errors.walletAddresses.map((error) => error && <ValidationError>{error}</ValidationError>)
-				: null}
 		</div>
 	);
 }
