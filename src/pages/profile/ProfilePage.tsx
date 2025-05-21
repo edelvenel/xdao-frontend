@@ -80,6 +80,22 @@ export const ProfilePage = React.memo(function ProfilePage() {
 					Edit
 				</div>
 			</div>
+			<div className={css.telegramInfo}>
+  			<div className={css.telegramInfoData}>
+          <div className={css.telegramLinkedStatus}>
+            <div className={css.telegramIcon}><Icon.Social.telegram width="24" height="24" /></div>
+            <div>Linked</div>
+          </div>
+          <div className={css.telegramLinkedAccount}>
+            Linked to <span className={css.telegramLinkedAccountUsername}>@username</span>
+          </div>
+  			</div>
+  			<div className={css.telegramInfoLinkButtonContainer}>
+  				<Button variant="secondary" onClick={() => toast('TBD')}>
+  				  Link
+  				</Button>
+  			</div>
+			</div>
 
 			<div className={css.block}>
 				<div className={css.title}>

@@ -6,6 +6,44 @@
 	overflow: auto;
 	padding-bottom: 60px;
 
+	.telegramInfo {
+		display: flex;
+		gap: 20px;
+		padding: 40px 20px 40px 20px;
+		border-radius: 32px;
+		background-color: var(--semantic-card-background);
+		align-items: center;
+		justify-content: space-between;
+
+		.telegramInfoLinkButtonContainer {
+            width: 95px;
+		}
+		.telegramInfoData {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+		}
+		.telegramIcon {
+		    display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.telegramLinkedStatus {
+            display: flex;
+            flex-direction: row;
+            color: white;
+            font-size: 20px;
+            line-height: 28px;
+		}
+		.telegramLinkedAccountUsername {
+            color: #0C7CFF;
+		}
+        .telegramLinkedAccount {
+            color: #B5B5B5;
+            font-size: 15px;
+        }
+	}
+
 	.userInfo {
 		display: flex;
 		gap: 20px;
