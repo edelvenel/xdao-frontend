@@ -1,0 +1,14 @@
+.textLoader {
+	width: 100px;
+	height: 20px;
+	aspect-ratio: 1;
+	border-radius: 30px;
+	background: linear-gradient(to bottom right, #0000 calc(50% - 40px), #4f4f4f 50%, #0000 calc(50% + 40px)) bottom
+		right/calc(200% + 80px) calc(200% + 80px) #d9d1c2;
+	animation: l8 1s infinite;
+}
+@keyframes l8 {
+	100% {
+		background-position: top left;
+	}
+}

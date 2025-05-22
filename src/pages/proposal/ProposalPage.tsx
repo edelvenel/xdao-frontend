@@ -22,7 +22,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	useBackButton();
 
 	const proposal = React.useMemo(() => {
-		return proposals.find((proposal) => proposal.id === id);
+		return proposals ? proposals.find((proposal) => proposal.id === id) : null;
 	}, [id, proposals]);
 
 	React.useEffect(() => {

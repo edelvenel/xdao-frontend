@@ -157,8 +157,10 @@
 				align-items: center;
 				justify-content: center;
 				padding: 20px;
+				padding-top: 32px;
 				font-size: 18px;
 				font-weight: 600;
+				min-height: 66px;
 				color: var(--semantic-text-placeholder);
 			}
 		}
@@ -214,6 +216,7 @@
 				align-items: center;
 				justify-content: center;
 				padding: 20px;
+				padding-top: 32px;
 				font-size: 18px;
 				font-weight: 600;
 				color: var(--semantic-text-placeholder);

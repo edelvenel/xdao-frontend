@@ -16,6 +16,7 @@ import { Filter } from 'shared/ui/Filter';
 import { IconButton } from 'shared/ui/IconButton';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
+import { CardLoader } from './components/CardLoader';
 import { ChangeDaoResult } from './components/ChangeDaoResult';
 import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
@@ -129,7 +130,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				</div>
 
 				<div className={css.list}>
-					{proposals.length !== 0 && (
+					{proposals && proposals.length !== 0 && (
 						<div className={css.partList}>
 							{proposals
 								.filter((_, index) => index < 2)
@@ -138,8 +139,13 @@ export const ProfilePage = React.memo(function ProfilePage() {
 								))}
 						</div>
 					)}
+					{!proposals && (
+						<div className={css.partList}>
+							<CardLoader />
+						</div>
+					)}
 					<AnimatePresence initial={true}>
-						{proposalShowAll && (
+						{proposals && proposalShowAll && (
 							<motion.div
 								className={css.animationBlock}
 								transition={{ duration: 0.3 }}
@@ -157,10 +163,10 @@ export const ProfilePage = React.memo(function ProfilePage() {
 							</motion.div>
 						)}
 					</AnimatePresence>
-					{proposals.length === 0 && <div className={css.placeholder}>No proposals</div>}
+					{proposals && proposals.length === 0 && <div className={css.placeholder}>No proposals</div>}
 				</div>
 				<div className={css.seeMoreButton} onClick={() => setProposalShowAll(!proposalShowAll)}>
-					{proposals.length > 3 && (proposalShowAll ? 'Hide' : 'See more')}
+					{proposals && proposals.length > 3 && (proposalShowAll ? 'Hide' : 'See more')}
 				</div>
 			</div>
 
@@ -172,13 +178,18 @@ export const ProfilePage = React.memo(function ProfilePage() {
 					</IconButton>
 				</div>
 				<div className={css.list}>
-					{daos.length !== 0 && (
+					{daos && daos.length !== 0 && (
 						<div className={css.partList}>
 							{daos
 								.filter((_, index) => index < 2)
 								.map((dao) => (
 									<DaoCard key={dao.address} dao={dao} />
 								))}
+						</div>
+					)}
+					{!daos && (
+						<div className={css.partList}>
+							<CardLoader />
 						</div>
 					)}
 					<AnimatePresence initial={true}>

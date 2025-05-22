@@ -1,63 +1,63 @@
 .dao {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 32px;
-  background-color: var(--semantic-card-background);
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 12px;
+	border-radius: 32px;
+	background-color: var(--semantic-card-background);
 
-  .block {
-    display: flex;
-    gap: 12px;
-    border-radius: 32px;
-    border: 1px solid var(--semantic-background-tetriary);
-    min-height: 64px;
-    background-color: var(--semantic-background-tetriary);
+	.block {
+		display: flex;
+		gap: 12px;
+		border-radius: 32px;
+		border: 1px solid var(--semantic-background-tetriary);
+		min-height: 64px;
+		background-color: var(--semantic-background-tetriary);
 
-    &.header {
-      align-items: center;
-      justify-content: flex-start;
-      padding: 7px;
+		&.header {
+			align-items: center;
+			justify-content: flex-start;
+			padding: 6px;
 
-      .name {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-      }
+			.name {
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 20px;
+			}
 
-      .logo {
-        border-radius: 32px;
-        width: 50px;
-        height: 50px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-      }
-    }
-    &.field {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      border-radius: 32px;
-      border: 1px solid var(--semantic-background-tetriary);
-      padding: 12px 20px;
-      min-height: 64px;
-      background-color: var(--semantic-background-tetriary);
+			.logo {
+				border-radius: 32px;
+				width: 50px;
+				height: 50px;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
+		&.field {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 10px;
+			border-radius: 32px;
+			border: 1px solid var(--semantic-background-tetriary);
+			padding: 12px 20px;
+			min-height: 64px;
+			background-color: var(--semantic-background-tetriary);
 
-      .name {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-        color: var(--semantic-text-secondary);
-      }
+			.name {
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 20px;
+				color: var(--semantic-text-secondary);
+			}
 
-      .value {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-        color: var(--semantic-text-primary);
-      }
-    }
-  }
+			.value {
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 20px;
+				color: var(--semantic-text-primary);
+			}
+		}
+	}
 }

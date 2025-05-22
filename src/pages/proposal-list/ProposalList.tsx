@@ -1,7 +1,6 @@
 import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import debounce from 'lodash.debounce';
-import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router';
@@ -12,6 +11,7 @@ import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
 import { SearchBlock } from '../../shared/ui/SearchBlock';
 import { Proposal } from './components/Proposal';
+import { ProposalLoader } from './components/ProposalLoader';
 import css from './styles.module.scss';
 
 export const ProposalListPage = React.memo(function ProposalListPage() {
@@ -38,12 +38,12 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	}, []);
 
 	React.useEffect(() => {
-		if (proposals.length > 0) {
+		if (proposals === null || proposals.length > 0) {
 			setIsBackground(false);
 		} else {
 			setIsBackground(true);
 		}
-	}, [proposals.length, setIsBackground]);
+	}, [proposals, setIsBackground]);
 
 	const handleOnSearch = React.useCallback(
 		(text: string) => {
@@ -82,18 +82,31 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	return (
 		<div className={css.page}>
 			<div className={css.list}>
-				{proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
-				<InfiniteScroll
-					dataLength={proposals.length}
-					next={() => fetchProposals(searchText ?? '', filter)}
-					hasMore={hasMore}
-					className={css.list}
-					loader={<ScreenLoader />}
-				>
-					{proposals.map((proposal, index) => (
-						<Proposal data={proposal} key={index} />
-					))}
-				</InfiniteScroll>
+				{!proposals && (
+					<>
+						<ProposalLoader />
+						<ProposalLoader />
+					</>
+				)}
+				{proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
+				{proposals && (
+					<InfiniteScroll
+						dataLength={proposals.length}
+						next={() => fetchProposals(searchText ?? '', filter)}
+						hasMore={hasMore}
+						className={css.list}
+						loader={
+							<>
+								<ProposalLoader />
+								<ProposalLoader />
+							</>
+						}
+					>
+						{proposals.map((proposal, index) => (
+							<Proposal data={proposal} key={index} />
+						))}
+					</InfiniteScroll>
+				)}
 			</div>
 			<TopContent>
 				<SearchBlock

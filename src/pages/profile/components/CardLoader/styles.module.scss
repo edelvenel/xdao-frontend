@@ -1,0 +1,23 @@
+.cardLoader {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	border-radius: 32px;
+	border: 1px solid var(--semantic-background-tetriary);
+	padding: 12px 20px;
+	min-height: 64px;
+	background: linear-gradient(
+			to bottom right,
+			var(--semantic-background-tetriary) calc(50% - 40px),
+			var(--color-base-neutral-7) 50%,
+			var(--semantic-background-tetriary) calc(50% + 40px)
+		)
+		bottom right/calc(200% + 80px) calc(200% + 80px) #525252;
+	animation: l8 1s infinite;
+}
+
+@keyframes l8 {
+	100% {
+		background-position: top left;
+	}
+}
