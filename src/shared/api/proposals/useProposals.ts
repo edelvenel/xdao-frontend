@@ -7,7 +7,7 @@ import { getDaoProposals, getProposals } from './methods';
 import { ICreateProposalPayload } from './payloads';
 
 export function useProposals() {
-	const [proposals, setProposals] = useState<IProposal[]>([]);
+	const [proposals, setProposals] = useState<IProposal[] | null>(null);
 	const { holders } = store.useFormType();
 	const [hasMore, setHasMore] = useState(false);
 	const [currentOffset, setCurrentOffset] = useState(0);
@@ -28,7 +28,7 @@ export function useProposals() {
 			const { proposals, hasMore } = await getDaoProposals(token ?? '', currentOffset, daoAddress);
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
-				setProposals((prev) => [...prev, ...proposals]);
+				setProposals((prev) => [...(prev ?? []), ...proposals]);
 			} else {
 				setProposals([...proposals]);
 			}
@@ -47,7 +47,7 @@ export function useProposals() {
 			);
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
-				setProposals((prev) => [...prev, ...proposals]);
+				setProposals((prev) => [...(prev ?? []), ...proposals]);
 			} else {
 				setProposals([...proposals]);
 			}

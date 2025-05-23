@@ -74,6 +74,7 @@
 		.wallet {
 			display: flex;
 			flex-direction: row;
+
 			.info {
 				display: flex;
 				align-items: center;
@@ -83,6 +84,7 @@
 				gap: 8px;
 				align-items: center;
 				flex: 1;
+				max-height: 60px;
 				padding: 15px;
 
 				.logo {
@@ -108,10 +110,18 @@
 				}
 
 				.amount {
+					display: flex;
+					justify-content: flex-end;
 					flex: 1;
 					font-size: 17px;
 					font-weight: 600;
 					text-align: right;
+				}
+
+				.loader {
+					flex: 1;
+					max-width: 150px;
+					min-width: 50px;
 				}
 			}
 			.link {
@@ -123,6 +133,8 @@
 				width: 60px;
 				height: 60px;
 				color: var(--semantic-text-accent);
+				cursor: pointer;
+				user-select: none;
 			}
 		}
 	}

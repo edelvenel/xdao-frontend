@@ -1,0 +1,14 @@
+.textLoader {
+	flex: 1;
+	width: 100%;
+	aspect-ratio: 1;
+	border-radius: 30px;
+	background: var(--loader-background);
+	animation: l8 1s infinite;
+}
+
+@keyframes l8 {
+	100% {
+		background-position: top left;
+	}
+}

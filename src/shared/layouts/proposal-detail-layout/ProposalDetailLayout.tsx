@@ -8,7 +8,7 @@ import css from './styles.module.scss';
 interface IProposalDetailProps extends PropsWithChildren {
 	isVotingEnabled: boolean;
 	userVote: IUserVote | null;
-	onVote: () => void;
+	onVote?: () => void;
 	onBack: () => void;
 }
 
@@ -21,7 +21,7 @@ export function ProposalDetailLayout({ isVotingEnabled, userVote, onVote, onBack
 					<Button onClick={onBack} variant="secondary">
 						Back
 					</Button>
-					<Button onClick={onVote}>Vote</Button>
+					{onVote !== undefined && <Button onClick={onVote}>Vote</Button>}
 				</div>
 			)}
 			{userVote !== null && (

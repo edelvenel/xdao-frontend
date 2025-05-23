@@ -1,0 +1,38 @@
+.daoLoader {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 12px;
+	border-radius: 32px;
+	background-color: var(--semantic-card-background);
+
+	.block {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		border-radius: 32px;
+		border: 1px solid var(--semantic-background-tetriary);
+		padding: 12px 20px;
+		min-height: 64px;
+		background: var(--loader-background);
+		animation: l8 1s infinite;
+	}
+
+	.button {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		border-radius: 32px;
+		border: 1px solid var(--semantic-background-tetriary);
+		padding: 12px 20px;
+		min-height: 48px;
+		background: var(--loader-background);
+		animation: l8 1s infinite;
+	}
+
+	@keyframes l8 {
+		100% {
+			background-position: top left;
+		}
+	}
+}

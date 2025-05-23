@@ -36,17 +36,15 @@ export const daoMapper = (dao: Dao): IDao => {
 	};
 };
 
-export const jettonMapper = (balances: BalancesResponse[]): IJetton[] => {
-	const mappedJettons: IJetton[] = balances.flatMap((item) =>
-		item.balances.flatMap((balance) => {
-			return {
-				name: balance.jetton.name,
-				imgUrl: balance.jetton.image,
-				url: '', //TODO: replace with real url,
-				amount: Number(balance.balance) / 10 ** balance.jetton.decimals,
-			};
-		})
-	);
+export const jettonMapper = (balances: BalancesResponse): IJetton[] => {
+	const mappedJettons: IJetton[] = balances.balances.map((balance) => {
+		return {
+			name: balance.jetton.name,
+			imgUrl: balance.jetton.image,
+			url: '', //TODO: replace with real url,
+			amount: Number(balance.balance) / 10 ** balance.jetton.decimals,
+		};
+	});
 
 	return mappedJettons;
 };

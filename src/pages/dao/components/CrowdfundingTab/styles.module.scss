@@ -6,5 +6,14 @@
 	padding-left: 16px;
 	padding-right: 16px;
 	overflow: hidden;
-	color: var(--semantic-text-placeholder);
+
+	.placeholder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 160px;
+		font-size: 18px;
+		font-weight: 600;
+		color: var(--semantic-text-placeholder);
+	}
 }
