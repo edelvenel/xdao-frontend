@@ -1,44 +1,43 @@
-
-import { routes } from "app/router/routes";
+import { routes } from 'app/router/routes';
 import React, { useEffect, useState } from 'react';
-import { generatePath, useNavigate, useParams } from "react-router";
-import { getDao } from "shared/api/daos/methods";
-import { useBackButton } from "shared/hooks/useBackButton";
-import { store } from "shared/store";
-import { IDao } from "shared/types";
+import { generatePath, useNavigate, useParams } from 'react-router';
+import { getDao } from 'shared/api/daos/methods';
+import { useBackButton } from 'shared/hooks/useBackButton';
+import { store } from 'shared/store';
+import { IDao } from 'shared/types';
 import { Modal } from 'shared/ui/Modal';
-import { CrowdfundingTab } from "./components/CrowdfundingTab";
-import { DAOBalanceTab } from "./components/DAOBalanceTab";
-import { OverviewTab } from "./components/OverviewTab";
-import { SettingsTab } from "./components/Settings";
-import { Tabs } from "./components/Tabs";
-import { ITab } from "./components/Tabs/types";
-import { VotesTab } from "./components/VotesTab";
-import { mapNumberTab, mapTabNumber } from "./methods";
-import css from "./styles.module.scss";
+import { CrowdfundingTab } from './components/CrowdfundingTab';
+import { DAOBalanceTab } from './components/DAOBalanceTab';
+import { OverviewTab } from './components/OverviewTab';
+import { SettingsTab } from './components/Settings';
+import { Tabs } from './components/Tabs';
+import { ITab } from './components/Tabs/types';
+import { VotesTab } from './components/VotesTab';
+import { mapNumberTab, mapTabNumber } from './methods';
+import css from './styles.module.scss';
 
 export const DAOPage = React.memo(function DAOPage() {
 	const { id, tab } = useParams();
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
-  const [dao, setDao] = useState<IDao | undefined>(undefined);
-  const { token } = store.useAuth();
+	const [dao, setDao] = useState<IDao | undefined>(undefined);
+	const { token } = store.useAuth();
 
 	const navigate = useNavigate();
 	useBackButton();
 
-  useEffect(() => {
-    const fetchDao = async () => {
-      if (!id) {
-        return;
-      }
+	useEffect(() => {
+		const fetchDao = async () => {
+			if (!id) {
+				return;
+			}
 
-      const dao = await getDao(token ?? "", id);
-      setDao(dao);
-    };
+			const dao = await getDao(token ?? '', id);
+			setDao(dao);
+		};
 
-    fetchDao();
-  }, [id, token]);
+		fetchDao();
+	}, [id, token]);
 
 	const selectedTabIdx = React.useMemo(() => mapTabNumber(tab), [tab]);
 
@@ -57,11 +56,7 @@ export const DAOPage = React.memo(function DAOPage() {
 		setIsBackground(false);
 	}, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 
-  const tabs: ITab[] = React.useMemo(() => {
-    if (!dao) {
-      return [];
-    }
-
+	const tabs: ITab[] = React.useMemo(() => {
 		return [
 			{
 				title: 'Overview',
@@ -85,10 +80,6 @@ export const DAOPage = React.memo(function DAOPage() {
 			},
 		];
 	}, [dao]);
-
-	if (!dao) {
-		return null;
-	}
 
 	return (
 		<div className={css.page}>

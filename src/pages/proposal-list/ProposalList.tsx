@@ -88,7 +88,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 						<ProposalLoader />
 					</>
 				)}
-				{proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
+				{proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes yet</div>}
 				{proposals && (
 					<InfiniteScroll
 						dataLength={proposals.length}

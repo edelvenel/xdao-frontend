@@ -6,7 +6,7 @@ interface INftsStore {
 	oldNfts: INft[] | null;
 	hasMore: boolean;
 	offset: number;
-	total: number;
+	total: number | null;
 	setNfts: (value: INft[] | null) => void;
 	setOldNfts: (value: INft[] | null) => void;
 	setHasMore: (value: boolean) => void;
@@ -19,7 +19,7 @@ export const useNfts = create<INftsStore>((set) => ({
 	oldNfts: null,
 	hasMore: false,
 	offset: 0,
-	total: 0,
+	total: null,
 	setNfts: (nfts) => {
 		set({ nfts });
 	},

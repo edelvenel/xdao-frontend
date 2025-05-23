@@ -3,6 +3,13 @@
 	--font-secondary: 'Work Sans', sans-serif;
 
 	--fixed-background: linear-gradient(to top, rgba(28, 28, 28, 1) 70%, rgba(28, 28, 28, 0));
+	--loader-background: linear-gradient(
+			to bottom right,
+			var(--semantic-background-tetriary) calc(50% - 40px),
+			var(--color-base-neutral-7) 50%,
+			var(--semantic-background-tetriary) calc(50% + 40px)
+		)
+		bottom right/calc(200% + 80px) calc(200% + 80px) #525252;
 
 	--color-base-neutral-0: #000000;
 	--color-base-neutral-1: #070707;

@@ -87,6 +87,16 @@
 			color: var(--semantic-text-non-active);
 		}
 
+		.placeholder {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 44px;
+			font-size: 18px;
+			font-weight: 600;
+			color: var(--semantic-text-placeholder);
+		}
+
 		.distributionRule {
 			display: flex;
 			justify-content: center;

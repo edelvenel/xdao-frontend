@@ -163,11 +163,13 @@ export const ProfilePage = React.memo(function ProfilePage() {
 							</motion.div>
 						)}
 					</AnimatePresence>
-					{proposals && proposals.length === 0 && <div className={css.placeholder}>No proposals</div>}
+					{proposals && proposals.length === 0 && <div className={css.placeholder}>No proposals yet</div>}
 				</div>
-				<div className={css.seeMoreButton} onClick={() => setProposalShowAll(!proposalShowAll)}>
-					{proposals && proposals.length > 3 && (proposalShowAll ? 'Hide' : 'See more')}
-				</div>
+				{proposals && proposals.length > 3 && (
+					<div className={css.seeMoreButton} onClick={() => setProposalShowAll(!proposalShowAll)}>
+						{proposalShowAll ? 'Hide' : 'See more'}
+					</div>
+				)}
 			</div>
 
 			<div className={css.daoList}>
@@ -211,11 +213,13 @@ export const ProfilePage = React.memo(function ProfilePage() {
 							</motion.div>
 						)}
 					</AnimatePresence>
-					{daos.length === 0 && <div className={css.placeholder}>No daos</div>}
+					{daos.length === 0 && <div className={css.placeholder}>No DAOs yet</div>}
 				</div>
-				<div className={css.seeMoreButton} onClick={() => setDaoShowAll(!daoShowAll)}>
-					{daos.length > 3 && (daoShowAll ? 'Hide' : 'See more')}
-				</div>
+				{daos.length > 3 && (
+					<div className={css.seeMoreButton} onClick={() => setDaoShowAll(!daoShowAll)}>
+						{daoShowAll ? 'Hide' : 'See more'}
+					</div>
+				)}
 			</div>
 
 			<Modal isOpen={isProposalsFilterOpen} title="Filter proposals" onClose={() => setIsProposalsFilterOpen(false)}>

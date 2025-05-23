@@ -7,25 +7,22 @@ import { IDao } from 'shared/types';
 import css from './styles.module.scss';
 
 interface IVotesTabProps {
-	dao: IDao;
+	dao?: IDao;
 }
 
 export function VotesTab({ dao }: IVotesTabProps) {
 	const { proposals, fetchDaoProposals, hasMore } = useProposals();
 
 	React.useEffect(() => {
-		fetchDaoProposals(dao.address);
-	}, [fetchDaoProposals, dao.address]);
-
-	//TODO: get proposals with dao
-	if (!dao) {
-		return null;
-	}
+		if (dao) {
+			fetchDaoProposals(dao.address);
+		}
+	}, [fetchDaoProposals, dao, dao?.address]);
 
 	return (
 		<div className={css.tab}>
 			<div className={css.list}>
-				{proposals && (
+				{dao && proposals && (
 					<InfiniteScroll
 						className={css.list}
 						dataLength={proposals.length}
@@ -43,13 +40,13 @@ export function VotesTab({ dao }: IVotesTabProps) {
 						))}
 					</InfiniteScroll>
 				)}
-				{!proposals && (
+				{(!proposals || !dao) && (
 					<>
 						<ProposalLoader />
 						<ProposalLoader />
 					</>
 				)}
-				{proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
+				{dao && proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
 			</div>
 		</div>
 	);

@@ -10,30 +10,36 @@ import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { IDao, IJetton } from 'shared/types';
 import { Button } from 'shared/ui/Button';
+import { TextLoader } from 'shared/ui/TextLoader';
+import { JettonLoader } from './components/JettonLoader';
 import css from './styles.module.scss';
 
 interface IDAOBalanceProps {
-	dao: IDao;
+	dao?: IDao;
 	onInfo: () => void;
 }
 
 export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
-	const [jettons, setJettons] = React.useState<IJetton[]>([]);
-	const [tonBalance, setTonBalance] = React.useState<number>(0);
-	const [tonRate, setTonRate] = React.useState<number>(0);
+	const [jettons, setJettons] = React.useState<IJetton[] | null>(null);
+	const [tonBalance, setTonBalance] = React.useState<number | null>(null);
+	const [tonRate, setTonRate] = React.useState<number | null>(null);
 	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
 	const { total } = store.useNfts();
 	const { getNfts } = useNfts();
 
 	React.useEffect(() => {
 		const fetchJettons = async () => {
-			const jettons = await getDAOJettons(dao.plugins[0].address);
-			setJettons(jettons);
+			if (dao) {
+				const jettons = await getDAOJettons(dao.plugins[0].address);
+				setJettons(jettons);
+			}
 		};
 
 		const fetchTonBalance = async () => {
-			const balance = await getTONBalance(dao.plugins[0].address);
-			setTonBalance(balance);
+			if (dao) {
+				const balance = await getTONBalance(dao.plugins[0].address);
+				setTonBalance(balance);
+			}
 		};
 
 		const fetchRates = async () => {
@@ -42,34 +48,41 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 		};
 
 		const fetchNfts = async () => {
-			await getNfts(dao.plugins[0].address);
+			if (dao) {
+				await getNfts(dao.plugins[0].address);
+			}
 		};
 
 		fetchJettons();
 		fetchTonBalance();
 		fetchRates();
 		fetchNfts();
-	}, [dao.plugins, getDAOJettons, getNfts, getTONBalance, getTokenRates]);
+	}, [dao, getDAOJettons, getNfts, getTONBalance, getTokenRates]);
 
-	const mainAccountTotal = React.useMemo(
-		() => tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0),
-		[jettons, tonBalance, tonRate]
-	);
-
-	//TODO: get data with dao
-	if (!dao) {
-		return null;
-	}
+	const mainAccountTotal = React.useMemo(() => {
+		if (tonRate === null || tonBalance === null || jettons === null) {
+			return null;
+		} else {
+			return tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0);
+		}
+	}, [jettons, tonBalance, tonRate]);
 
 	return (
 		<div className={css.tab}>
-			<div className={css.block}>
-				<div className={css.title}>Main account</div>
-				<div className={css.amount}>
-					<div className={css.dollar}>$</div>
-					<span>{mainAccountTotal}</span>
+			{mainAccountTotal !== null && (
+				<div className={css.block}>
+					<div className={css.title}>Main account</div>
+					<div className={css.amount}>
+						<div className={css.dollar}>$</div>
+						<span>{mainAccountTotal}</span>
+					</div>
 				</div>
-			</div>
+			)}
+			{!mainAccountTotal && (
+				<div>
+					<TextLoader lineHeight={108} />
+				</div>
+			)}
 			{/* <div className={css.block}>
 				<div className={css.title}>
 					Future $DAO tokens
@@ -83,24 +96,14 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 				</div>
 			</div> */}
 			<div className={css.card}>
-				<div className={css.wallet}>
-					<div className={css.info}>
-						<div className={css.logo}>
-							<Icon.Crypto.Ton />
-						</div>
-						<div className={css.currency}>TON</div>
-						<div className={css.amount}>{tonBalance}</div>
-					</div>
-					<div className={css.link} onClick={() => WebApp.openLink(`https://tonviewer.com/${dao.plugins[0].address}`)}>
-						<Icon.Common.LittleLink />
-					</div>
-				</div>
-				{jettons.map((jetton) => (
+				{dao && tonBalance !== null && (
 					<div className={css.wallet}>
 						<div className={css.info}>
-							<div className={css.logo} style={{ backgroundImage: `url(${jetton.imgUrl})` }} />
-							<div className={css.currency}>{jetton.name}</div>
-							<div className={css.amount}>{jetton.amount}</div>
+							<div className={css.logo}>
+								<Icon.Crypto.Ton />
+							</div>
+							<div className={css.currency}>TON</div>
+							<div className={css.amount}>{tonBalance}</div>
 						</div>
 						<div
 							className={css.link}
@@ -109,16 +112,37 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 							<Icon.Common.LittleLink />
 						</div>
 					</div>
-				))}
-				<div className={css.wallet}>
-					<div className={css.info}>
-						<div className={css.currency}>NFTs</div>
-						<div className={css.amount}>{total ?? 0}</div>
+				)}
+				{tonBalance === null && <JettonLoader />}
+				{dao &&
+					jettons &&
+					jettons.map((jetton) => (
+						<div className={css.wallet}>
+							<div className={css.info}>
+								<div className={css.logo} style={{ backgroundImage: `url(${jetton.imgUrl})` }} />
+								<div className={css.currency}>{jetton.name}</div>
+								<div className={css.amount}>{jetton.amount}</div>
+							</div>
+							<div
+								className={css.link}
+								onClick={() => WebApp.openLink(`https://tonviewer.com/${dao.plugins[0].address}`)}
+							>
+								<Icon.Common.LittleLink />
+							</div>
+						</div>
+					))}
+				{dao && total !== null && (
+					<div className={css.wallet}>
+						<div className={css.info}>
+							<div className={css.currency}>NFTs</div>
+							<div className={css.amount}>{total ?? 0}</div>
+						</div>
+						<Link to={generatePath(routes.nft, { id: dao.plugins[0].address })} className={css.link}>
+							<Icon.Common.Eye />
+						</Link>
 					</div>
-					<Link to={generatePath(routes.nft, { id: dao.plugins[0].address })} className={css.link}>
-						<Icon.Common.Eye />
-					</Link>
-				</div>
+				)}
+				{total === null && <JettonLoader />}
 			</div>
 			<TopContent>
 				<div className={css.actions}>
