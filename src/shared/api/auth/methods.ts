@@ -1,5 +1,4 @@
 import { api } from 'app/api';
-import { tgDataApi } from 'app/api';
 import { AuthToken, Payload, Proof } from 'app/api/codegen';
 
 export const login = async (address: string, proof: Proof): Promise<AuthToken | void> => {

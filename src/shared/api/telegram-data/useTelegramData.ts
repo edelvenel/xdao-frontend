@@ -32,11 +32,11 @@ export const useTelegramData = () => {
 
 	const toggleTelegramLink = React.useCallback(() => {
 		if (isTelegramLinked) {
-			API.TelegramData.unlinkWalletFromTelegram().then((res) => {
+			API.TelegramData.unlinkWalletFromTelegram().then(() => {
 				fetchTelegramData();
 			});
 		} else {
-			API.TelegramData.linkWalletToTelegram(WebApp.initData).then((res) => {
+			API.TelegramData.linkWalletToTelegram(WebApp.initData).then(() => {
 				fetchTelegramData();
 			});
 		}
