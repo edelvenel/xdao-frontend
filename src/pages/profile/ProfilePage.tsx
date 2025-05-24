@@ -21,8 +21,6 @@ import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
-import WebApp from '@twa-dev/sdk';
-import { API } from 'shared/api';
 import { useTelegramData } from 'shared/api/telegram-data';
 
 export const ProfilePage = React.memo(function ProfilePage() {
