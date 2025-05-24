@@ -1,0 +1,438 @@
+openapi: 3.0.0
+info:
+  title: XDAO Telegram Data API
+  version: 1.0.0
+  description: API for managing wallet and Telegram user associations
+
+paths:
+  /api/v1/tg-data/proof-link:
+    post:
+      summary: Link a wallet to a Telegram user
+      description: Associates a wallet address with a Telegram user ID
+      operationId: linkProofWalletToTelegram
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - telegramInitData
+                - wallet
+              properties:
+                telegramInitData:
+                  type: string
+                  description: Telegram WebApp InitData string
+                wallet:
+                  type: string
+                  description: URL encoded TonProof callback data
+      responses:
+        "200":
+          description: Wallet successfully linked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request body
+        "401":
+          description: Invalid Telegram init data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid Telegram init data
+
+    delete:
+      summary: Unlink a wallet from a Telegram user
+      description: Removes the association between a wallet address and a Telegram user ID
+      operationId: unlinkProofWalletFromTelegram
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - wallet
+              properties:
+                wallet:
+                  type: string
+                  description: URL encoded TonProof callback data
+      responses:
+        "200":
+          description: Wallet successfully unlinked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+
+  /api/v1/tg-data/link:
+    get:
+      summary: Get a Telegram user linked to the wallet from Auth Token
+      description: Retrieves Telegram user DATA
+      operationId: getTelegramData
+      responses:
+        "200":
+          description: Telegram user data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramDataResponse'
+
+        "404":
+          description: Telegram user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Telegram user not found
+    post:
+      summary: Link a wallet to a Telegram user using auth token
+      description: Associates a wallet address with a Telegram user ID using auth token
+      operationId: linkWalletToTelegram
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - telegramInitData
+                - wallet
+              properties:
+                telegramInitData:
+                  type: string
+                  description: Telegram WebApp InitData string
+      responses:
+        "200":
+          description: Wallet successfully linked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request body
+        "401":
+          description: Invalid Telegram init data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid Telegram init data
+
+    delete:
+      summary: Unlink a wallet from a Telegram user using auth token
+      description: Removes the association between a wallet address and a Telegram user ID using auth token
+      operationId: unlinkWalletFromTelegram
+      responses:
+        "200":
+          description: Wallet successfully unlinked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+
+  /:
+    get:
+      summary: Health check endpoint
+      description: Returns an empty response to verify the API is running
+      operationId: healthCheck
+      responses:
+        "200":
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+
+  /api/v1/tg-data/proof-payload:
+    get:
+      summary: 'Retrieve the payload'
+      operationId: tonProofGetPayload
+      responses:
+        '200':
+          description: 'Payload'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payload'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/tg-data/wallets/{telegramId}:
+    get:
+      summary: 'Get wallets for Telegram ID'
+      operationId: walletsForTelegramId
+      parameters:
+        - name: telegramId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'WalletsResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/tg-data/telegram/{wallet}:
+    get:
+      summary: 'Get Telegram ID for wallet'
+      operationId: telegramIdForWallet
+      parameters:
+        - name: wallet
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'TelegramId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramId'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  requestBodies:
+    ProofData:
+      description: 'Data that is expected'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - address
+              - proof
+            properties:
+              address:
+                type: string
+              proof:
+                $ref: '#/components/schemas/Proof'
+  schemas:
+    Ok:
+      type: object
+      required:
+        - ok
+      properties:
+        ok:
+          type: boolean
+          example: true
+    Status:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          example: success
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+    Address:
+      type: object
+      required:
+        - address
+      properties:
+        address:
+          type: string
+    Payload:
+      type: object
+      required:
+        - payload
+      properties:
+        payload:
+          type: string
+    TelegramId:
+      type: object
+      required:
+        - telegramId
+      properties:
+        telegramId:
+          type: string
+    WalletsResponse:
+      type: object
+      required:
+        - wallets
+      properties:
+        wallets:
+          type: array
+          items:
+            type: string
+
+    AuthToken:
+      type: object
+      required:
+        - auth_token
+      properties:
+        auth_token:
+          type: string
+    Plugin:
+      type: object
+      required:
+        - address
+        - type
+      properties:
+        address:
+          type: string
+        type:
+          type: string
+    Proof:
+      type: object
+      required:
+        - timestamp
+        - domain
+        - signature
+        - payload
+        - state_init
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+        domain:
+          type: string
+        signature:
+          type: string
+        payload:
+          type: string
+        state_init:
+          type: string
+
+    TelegramDataResponse:
+      type: object
+      required:
+        - telegramId
+        - username
+        - firstName
+        - lastName
+      properties:
+        telegramId:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+  responses:
+    TelegramDataResponse:
+      description: 'Telegram data'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TelegramDataResponse'
+    NotFound:
+      description: 'The specified resource was not found'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    InternalError:
+      description: 'Something went wrong on server side'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    BadRequest:
+      description: 'Something went wrong on client side'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    UnauthorizedError:
+      description: 'Access token is missing or invalid'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: 'Error message'
+    Ok:
+      description: 'Ok'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Ok'
+    Status:
+      description: 'Status'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'

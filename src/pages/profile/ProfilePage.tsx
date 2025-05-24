@@ -21,6 +21,9 @@ import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
+import WebApp from '@twa-dev/sdk';
+import { API } from 'shared/api';
+import { useTelegramData } from 'shared/api/telegram-data';
 
 export const ProfilePage = React.memo(function ProfilePage() {
 	const [isProposalsFilterOpen, setIsProposalsFilterOpen] = React.useState<boolean>(false);
@@ -36,7 +39,6 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const [isChangeResultOpen, setIsChangeResultOpen] = React.useState<boolean>(false);
 	const { daos, fetchDaos } = useDaos();
 	const { proposals, fetchProposals } = useProposals();
-
 	const { me } = store.useMe();
 
 	const { setIsMenuShown, setIsHeaderShown, setIsBackground } = store.useApp();
@@ -58,11 +60,12 @@ export const ProfilePage = React.memo(function ProfilePage() {
 		setIsHeaderShown(true);
 		setIsMenuShown(true);
 	}, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
-
+	const { isTelegramLinked, toggleTelegramLink, fetchTelegramData, linkedTelegramUsername } = useTelegramData();
 	React.useEffect(() => {
 		fetchDaos();
 		fetchProposals();
-	}, [fetchDaos, fetchProposals, selectedDao]);
+		fetchTelegramData();
+	}, [fetchDaos, fetchProposals, selectedDao, fetchTelegramData]);
 
 	if (daos === null) {
 		return <ScreenLoader />;
@@ -81,20 +84,25 @@ export const ProfilePage = React.memo(function ProfilePage() {
 				</div>
 			</div>
 			<div className={css.telegramInfo}>
-  			<div className={css.telegramInfoData}>
-          <div className={css.telegramLinkedStatus}>
-            <div className={css.telegramIcon}><Icon.Social.telegram width="24" height="24" /></div>
-            <div>Linked</div>
-          </div>
-          <div className={css.telegramLinkedAccount}>
-            Linked to <span className={css.telegramLinkedAccountUsername}>@username</span>
-          </div>
-  			</div>
-  			<div className={css.telegramInfoLinkButtonContainer}>
-  				<Button variant="secondary" onClick={() => toast('TBD')}>
-  				  Link
-  				</Button>
-  			</div>
+				<div className={css.telegramInfoData}>
+					<div className={css.telegramLinkedStatus}>
+						<div className={css.telegramIcon}>
+							<Icon.Social.telegram width="24" height="24" />
+						</div>
+						<div>{isTelegramLinked ? 'Linked' : 'Not Linked'}</div>
+					</div>
+					{isTelegramLinked && (
+						<div className={css.telegramLinkedAccount}>
+							Linked to <span className={css.telegramLinkedAccountUsername}>@{linkedTelegramUsername}</span>
+						</div>
+					)}
+					{!isTelegramLinked && <div className={css.telegramLinkedAccount}>Link your Telegram account.</div>}
+				</div>
+				<div className={css.telegramInfoLinkButtonContainer}>
+					<Button variant="secondary" onClick={toggleTelegramLink}>
+						{isTelegramLinked ? 'Unlink' : 'Link'}
+					</Button>
+				</div>
 			</div>
 
 			<div className={css.block}>
