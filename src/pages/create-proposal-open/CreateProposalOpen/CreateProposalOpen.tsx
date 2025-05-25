@@ -1,4 +1,3 @@
-
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { useDaos } from 'shared/api/daos';
@@ -29,7 +28,7 @@ export function CreateProposalOpen({
 }: ICreateProposalOpen) {
 	const { setIsBackground } = store.useApp();
 	const { fetchDaos } = useDaos();
-	const {daos} = store.useDaos();
+	const { daos } = store.useDaos();
 	const { fetchHolders } = store.useFormType();
 	const { token } = store.useAuth();
 
@@ -45,7 +44,7 @@ export function CreateProposalOpen({
 	}, [fetchDaos, dao, fetchHolders, token]);
 
 	if (daos === null) {
-		return <ScreenLoader/>
+		return <ScreenLoader />;
 	}
 
 	return (
@@ -59,7 +58,7 @@ export function CreateProposalOpen({
 					options={daos}
 					optionLabel={(option) => option.name}
 					optionLogo={(option) => option.logo}
-					matcher={(a,b)=>a.address === b.address}
+					matcher={(a, b) => a.address === b.address}
 					onSelect={onSelectDao}
 					placeholder="Select DAOs"
 				/>

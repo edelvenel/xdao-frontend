@@ -1,6 +1,7 @@
 import { api, tonApi } from 'app/api';
 import { Dao, FilterEnum } from 'app/api/codegen';
 import { BalancesResponse, TokensRate } from 'app/api/types';
+import logoExample from 'assets/images/logo-example.png';
 import { DaoStatus, IDao, IJetton, IRate } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
@@ -20,7 +21,8 @@ export const getFactoryAddress = async (token: string) => {
 export const daoMapper = (dao: Dao): IDao => {
 	return {
 		name: dao.jetton_metadata.metadata.name,
-		logo: dao.jetton_metadata['image'],
+		logo:
+			dao.jetton_metadata['image'] && dao.jetton_metadata['image'] !== '' ? dao.jetton_metadata['image'] : logoExample,
 		jetton_address: dao.jetton_address,
 		address: dao.address,
 		activeProposals: 0,

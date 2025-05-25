@@ -183,7 +183,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 					{daos && daos.length !== 0 && (
 						<div className={css.partList}>
 							{daos
-								.filter((_, index) => index < 2)
+								.filter((_, index) => index <= 2)
 								.map((dao) => (
 									<DaoCard key={dao.address} dao={dao} />
 								))}

@@ -4,6 +4,7 @@ import debounce from 'lodash.debounce';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router';
+import { useDaos } from 'shared/api/daos';
 import { useProposals } from 'shared/api/proposals';
 import { store } from 'shared/store';
 import { ProposalFilter } from 'shared/types';
@@ -19,6 +20,8 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
 	const [filter, setFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
 	const { proposals, fetchProposals, resetProposals, hasMore } = useProposals();
+	const { daos } = store.useDaos();
+	const { fetchDaos } = useDaos();
 
 	const navigate = useNavigate();
 
@@ -34,8 +37,9 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	}, [setIsHeaderShown, setIsMenuShown]);
 
 	React.useEffect(() => {
+		fetchDaos();
 		fetchProposals(searchText ?? '', filter);
-	}, []);
+	}, [fetchDaos, fetchProposals]);
 
 	React.useEffect(() => {
 		if (proposals === null || proposals.length > 0) {
@@ -112,6 +116,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 				<SearchBlock
 					searchText={searchText ?? ''}
 					placeholder="Search proposals"
+					isCreateShown={!!daos && daos.length > 0}
 					onChange={setSearchText}
 					onFilter={() => setIsFilterOpen(true)}
 					onCreate={handleOnCreate}

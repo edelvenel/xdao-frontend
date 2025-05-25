@@ -55,12 +55,7 @@
 			}
 		}
 
-		.button {
-			color: var(--semantic-text-placeholder);
-			user-select: none;
-			cursor: pointer;
-		}
-		.confirmButton {
+		.textButton {
 			font-size: 15px;
 			font-weight: 600;
 			color: var(--semantic-text-accent-2);

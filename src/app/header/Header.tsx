@@ -70,7 +70,7 @@ export function Header() {
 					</div>
 
 					<div className={css.actions}>
-						<Button variant="primary" onClick={address ? disconnectWallet : open}>
+						<Button variant="secondary" onClick={address ? disconnectWallet : open}>
 							{address ? 'Disconnect wallet' : 'Connect to TON'}
 						</Button>
 					</div>
