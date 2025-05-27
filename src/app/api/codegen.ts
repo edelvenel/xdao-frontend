@@ -748,17 +748,33 @@ export class Api<SecurityDataType extends unknown> {
 				...params,
 			}),
 		// TODO: mock methods, replace
+		// FIXME: CODE IS AUTO GENERATED, MODIFICATIONS ARE NOT ALLOWED!!!!
 		getMe: () => {
-			return {};
+			return {
+				data: {
+					id: 0,
+					walletAddress: null,
+					firstName: '',
+					lastName: null,
+					languageCode: '',
+					username: null,
+					isPremium: false,
+					addedToAttachmentMenu: false,
+					allowsWriteToPm: false,
+					photoUrl: null,
+					isBot: false,
+				},
+				status: 200,
+			};
 		},
 		getBalance: () => {
-			return {};
+			return { data: [], status: 200 };
 		},
 		getNfts: () => {
-			return {};
+			return { data: [], status: 200 };
 		},
 		linkWallet: (payload: any) => {
-			return {};
+			return { data: {}, status: 204 };
 		},
 	};
 }
