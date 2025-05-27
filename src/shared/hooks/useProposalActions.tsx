@@ -46,7 +46,7 @@ export const useProposalActions = () => {
 
 		await jettonWallet.sendBalanceNotification(
 			sender,
-			toNano('0.1') + serviceFee,
+			toNano('0.2') + serviceFee,
 			proposalAddress,
 			ElectionsBuilder.buildVote(),
 			0n
