@@ -1,4 +1,4 @@
-import { Address, beginCell, Cell, Contract, ContractProvider, Sender, SendMode, TupleBuilder } from '@ton/core';
+import { Address, beginCell, Cell, Contract, ContractProvider, Sender, SendMode } from '@ton/core';
 import { OP_NOTIFY } from './constants';
 
 export class DAOJettonWallet implements Contract {
@@ -6,13 +6,6 @@ export class DAOJettonWallet implements Contract {
 
 	static createFromAddress(address: Address) {
 		return new DAOJettonWallet(address);
-	}
-
-	async getEstimateServiceFee(provider: ContractProvider, tokens_amount: bigint) {
-		const tupleBuilder = new TupleBuilder();
-		tupleBuilder.writeNumber(tokens_amount);
-		const res = await provider.get('estimate_service_fee', tupleBuilder.build());
-		return res.stack.readBigNumber();
 	}
 
 	async sendBalanceNotification(

@@ -4,7 +4,8 @@ import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/
 import { ElectionsBuilder } from 'shared/cell-builders/elections-builder';
 import { tonClient } from 'shared/smartcontracts/client';
 import { DAOJettonWallet } from 'shared/smartcontracts/DAOJettonWallet';
-import { Master } from 'shared/smartcontracts/masterWrapper';
+import { ElectionsMaster } from 'shared/smartcontracts/ElectionsMaster';
+import { Master } from 'shared/smartcontracts/Master';
 import { TonConnectSender } from 'shared/smartcontracts/sender';
 import { IHolder, IProposal } from 'shared/types';
 
@@ -39,7 +40,8 @@ export const useProposalActions = () => {
 	const makeVote = async (proposal: IProposal, holder: IHolder) => {
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address);
 		const jettonWallet = tonClient.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
-		const serviceFee: bigint = await jettonWallet.getEstimateServiceFee(BigInt(holder.balance));
+		const electionsMaster = tonClient.open(ElectionsMaster.createFromAddress(Address.parse(proposal.id)));
+		const serviceFee: bigint = await electionsMaster.getEstimateServiceFee(BigInt(holder.balance));
 
 		await jettonWallet.sendBalanceNotification(
 			sender,
