@@ -26,7 +26,7 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 	React.useEffect(() => {
 		const fetchVotes = async () => {
 			if (token !== null) {
-				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.id);
+				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.address);
 				setVotes(votes);
 			}
 		};
@@ -38,7 +38,7 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 		};
 		fetchVotes();
 		fetchDao();
-	}, [proposal.daoAddress, proposal.id, token]);
+	}, [proposal.daoAddress, proposal.address, token]);
 
 	React.useEffect(() => {
 		setIsBackground(false);

@@ -15,7 +15,7 @@ import css from './styles.module.scss';
 
 export const ProposalPage = React.memo(function ProposalPage() {
 	const { proposals, fetchProposals, submitVote } = useProposals();
-	const { id } = useParams();
+	const { proposalAddress } = useParams();
 	const navigate = useNavigate();
 	const { setIsMenuShown, setIsHeaderShown } = store.useApp();
 	const [isOnVote, setIsOnVote] = React.useState<boolean>(false);
@@ -26,8 +26,8 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	useBackButton();
 
 	const proposal = React.useMemo(() => {
-		return proposals !== null ? proposals.find((proposal) => proposal.id === id) : null;
-	}, [id, proposals]);
+		return proposals !== null ? proposals.find((proposal) => proposal.address === proposalAddress) : null;
+	}, [proposalAddress, proposals]);
 
 	React.useEffect(() => {
 		setIsMenuShown(false);

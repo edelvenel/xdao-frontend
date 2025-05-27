@@ -14,11 +14,11 @@ import { Badge } from '../../../../shared/ui/Badge';
 import css from './styles.module.scss';
 
 interface IProposalProps {
-	data: IProposal;
+	proposal: IProposal;
 }
 
-export function Proposal({ data }: IProposalProps) {
-	const formatDate = formatDistance(new Date(), data.endDate, { includeSeconds: false });
+export function Proposal({ proposal }: IProposalProps) {
+	const formatDate = formatDistance(new Date(), proposal.endDate, { includeSeconds: false });
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
 	const [dao, setDao] = React.useState<IDao | null>(null);
 	const { token } = store.useAuth();
@@ -26,19 +26,19 @@ export function Proposal({ data }: IProposalProps) {
 	React.useEffect(() => {
 		const fetchVotes = async () => {
 			if (token !== null) {
-				const votes = await getDaoProposalVotes(token, data.daoAddress, data.id);
+				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.address);
 				setVotes(votes);
 			}
 		};
 		const fetchDao = async () => {
 			if (token !== null) {
-				const dao = await getDao(token, data.daoAddress);
+				const dao = await getDao(token, proposal.daoAddress);
 				setDao(dao);
 			}
 		};
 		fetchVotes();
 		fetchDao();
-	}, [data.daoAddress, data.id, token]);
+	}, [proposal.daoAddress, proposal.address, token]);
 
 	if (votes === null || dao === null) {
 		return <ScreenLoader />;
@@ -50,20 +50,20 @@ export function Proposal({ data }: IProposalProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Proposal name:</div>
-					<div className={css.name}>{data.name}</div>
+					<div className={css.name}>{proposal.name}</div>
 				</div>
-				<Badge text={data.status} variant={getStatusVariant(data.status)} />
+				<Badge text={proposal.status} variant={getStatusVariant(proposal.status)} />
 			</div>
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Description:</div>
-					<div className={css.description}>{data.description}</div>
+					<div className={css.description}>{proposal.description}</div>
 				</div>
 			</div>
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{(data.consensus / Number(dao?.LPTokens)) * 100}%</div>
+					<div className={css.value}>{(proposal.consensus / Number(dao?.LPTokens)) * 100}%</div>
 				</div>
 
 				<div className={css.row}>
@@ -77,18 +77,18 @@ export function Proposal({ data }: IProposalProps) {
 					<Icon.Common.Agree />
 					<span>{agree}%</span>
 				</div>
-				{data.userVote === null && (
-					<Link to={generatePath(routes.proposal, { id: data.id })} className={css.button}>
+				{proposal.userVote === null && (
+					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button>Vote</Button>
 					</Link>
 				)}
-				{data.userVote !== null && (
-					<Link to={generatePath(routes.proposal, { id: data.id })} className={css.button}>
+				{proposal.userVote !== null && (
+					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button className={css.voted} variant="secondary">
 							<div className={css.votedIcon}>
 								<Icon.Common.Agree />
 							</div>
-							<span className={css.votedText}>{`You voted: ${data.userVote.label}`}</span>
+							<span className={css.votedText}>{`You voted: ${proposal.userVote.label}`}</span>
 						</Button>
 					</Link>
 				)}

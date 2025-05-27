@@ -9,7 +9,7 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		description: proposal.description,
 		endDate: new Date(proposal.date_expire),
 		consensus: Number(proposal.success_amount),
-		id: proposal.address,
+		address: proposal.address,
 		daoAddress: proposal.dao_address,
 		// currentVotes: proposal.current_amount,
 		createdAt: new Date(proposal.date_start), //TODO: replace with real data

@@ -107,7 +107,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 						}
 					>
 						{proposals.map((proposal, index) => (
-							<Proposal data={proposal} key={index} />
+							<Proposal proposal={proposal} key={index} />
 						))}
 					</InfiniteScroll>
 				)}

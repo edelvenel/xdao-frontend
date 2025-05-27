@@ -39,14 +39,15 @@ export const useProposalActions = () => {
 
 	const makeVote = async (proposal: IProposal, holder: IHolder) => {
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address);
+		const proposalAddress = Address.parse(proposal.address);
 		const jettonWallet = tonClient.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
-		const electionsMaster = tonClient.open(ElectionsMaster.createFromAddress(Address.parse(proposal.id)));
+		const electionsMaster = tonClient.open(ElectionsMaster.createFromAddress(proposalAddress));
 		const serviceFee: bigint = await electionsMaster.getEstimateServiceFee(BigInt(holder.balance));
 
 		await jettonWallet.sendBalanceNotification(
 			sender,
 			toNano('0.1') + serviceFee,
-			Address.parse(proposal.id),
+			proposalAddress,
 			ElectionsBuilder.buildVote(),
 			0n
 		);

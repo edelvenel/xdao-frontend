@@ -92,7 +92,7 @@ export const VOTING_TYPE: IVotingType[] = [
 
 export const PROPOSALS: IProposal[] = [
 	{
-		id: '1',
+		address: '1',
 		name: 'Add new GP - Bob',
 		description: 'Let’s add Bob, he’s new specialist in our team',
 		consensus: 51,
@@ -107,7 +107,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		id: '2',
+		address: '2',
 		name: 'Remove GP - Bob',
 		description: 'Let’s remove Bob, he’s out of our team anymore',
 		consensus: 51,
@@ -122,7 +122,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		id: '3',
+		address: '3',
 		name: 'Transfer GP tokens',
 		description: 'I propose transfering 500 GP tokens to fund project X',
 		consensus: 51,
@@ -137,7 +137,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		id: '4',
+		address: '4',
 		name: 'Change transfer status',
 		description: 'Let’s changing the GP token transfer status to Transferable',
 		consensus: 51,
@@ -151,7 +151,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		id: '5',
+		address: '5',
 		name: 'Change general consensus',
 		description: 'I propose updating the general consensus rules',
 		consensus: 51,
@@ -165,7 +165,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		id: '6',
+		address: '6',
 		name: 'Send funds',
 		description: 'Let’s sending 1000 USDT to pay a contractor',
 		consensus: 51,
@@ -179,7 +179,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		id: '7',
+		address: '7',
 		name: 'Change DAO name',
 		description: 'Let’s changing the DAO name for better branding',
 		consensus: 51,

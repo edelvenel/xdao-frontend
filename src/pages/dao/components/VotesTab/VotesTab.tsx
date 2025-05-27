@@ -47,7 +47,7 @@ export function VotesTab({ dao }: IVotesTabProps) {
 						}
 					>
 						{proposals.map((proposal, index) => (
-							<Proposal data={proposal} key={index} />
+							<Proposal proposal={proposal} key={index} />
 						))}
 					</InfiniteScroll>
 				)}
