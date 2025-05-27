@@ -6,13 +6,9 @@ interface ICrowdfundingTabProps {
 }
 
 export function CrowdfundingTab({ dao }: ICrowdfundingTabProps) {
-	//TODO: get data with dao
-	if (!dao) {
-		return null;
-	}
-
 	return (
 		<div className={css.tab}>
+			{dao && <></>}
 			<div className={css.placeholder}>Crowdfunding is unimplemented</div>
 		</div>
 	);

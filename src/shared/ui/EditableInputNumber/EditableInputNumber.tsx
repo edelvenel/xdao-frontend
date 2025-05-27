@@ -1,71 +1,57 @@
-import React from "react";
-import { Icon } from "shared/icons";
-import { hapticFeedback } from "shared/utils/haptic";
-import { InputNumber } from "../InputNumber";
-import css from "./styles.module.scss";
+import React from 'react';
+import { hapticFeedback } from 'shared/utils/haptic';
+import { InputNumber } from '../InputNumber';
+import css from './styles.module.scss';
 
 interface IEditableInputNumberProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
-  fieldName?: string;
-  onMaxAmount?: () => void;
-  onUpdate: (value: string) => void;
-  onSave: () => void;
-  onCancel: () => void;
+	extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+	fieldName?: string;
+	onMaxAmount?: () => void;
+	onUpdate: (value: string) => void;
+	onSave: () => void;
+	onCancel: () => void;
 }
 
 export function EditableInputNumber({
-  fieldName,
-  onMaxAmount,
-  onUpdate,
-  onSave,
-  onCancel,
-  ...props
+	fieldName,
+	onMaxAmount,
+	onUpdate,
+	onSave,
+	onCancel,
+	...props
 }: IEditableInputNumberProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [isEdit, setIsEdit] = React.useState<boolean>(false);
-  const handleOnClick = React.useCallback(() => {
-    hapticFeedback("press");
-    if (isEdit) {
-      onSave();
-    }
-    setIsEdit(!isEdit);
-  }, [isEdit, onSave]);
+	const ref = React.useRef<HTMLDivElement>(null);
+	const [isEdit, setIsEdit] = React.useState<boolean>(false);
+	const handleOnClick = React.useCallback(() => {
+		hapticFeedback('press');
+		if (isEdit) {
+			onSave();
+		}
+		setIsEdit(!isEdit);
+	}, [isEdit, onSave]);
 
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsEdit(false);
-        onCancel();
-      }
-    };
+	React.useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (ref.current && !ref.current.contains(event.target as Node)) {
+				setIsEdit(false);
+				onCancel();
+			}
+		};
 
-    document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener('mousedown', handleClickOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onCancel]);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [onCancel]);
 
-  return (
-    <div ref={ref} className={css.editableInputNumber}>
-      <InputNumber
-        fieldName={fieldName}
-        value={props.value}
-        onMaxAmount={onMaxAmount}
-        onUpdate={onUpdate}
-        {...props}
-      />
+	return (
+		<div ref={ref} className={css.editableInputNumber}>
+			<InputNumber fieldName={fieldName} value={props.value} onMaxAmount={onMaxAmount} onUpdate={onUpdate} {...props} />
 
-      <div className={css.modeButton} onClick={handleOnClick}>
-        {!isEdit ? (
-          <Icon.Common.Edit />
-        ) : (
-          <div className={css.confirmButton}>Confirm</div>
-        )}
-      </div>
-    </div>
-  );
+			<div className={css.modeButton} onClick={handleOnClick}>
+				{!isEdit ? <div className={css.textButton}>Edit</div> : <div className={css.textButton}>Confirm</div>}
+			</div>
+		</div>
+	);
 }

@@ -30,7 +30,7 @@ export function SplashScreen() {
 							<Svg.Background.Splash />
 						</div>
 						<div className={css.button} onClick={open}>
-							<span>Connect Wallet</span>
+							<span className={css.buttonText}>Connect Wallet</span>
 						</div>
 					</div>
 				</div>

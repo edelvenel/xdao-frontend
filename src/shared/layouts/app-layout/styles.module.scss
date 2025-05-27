@@ -5,12 +5,18 @@
 	gap: 20px;
 	padding-top: 20px;
 
-&.background {
-	background: url('../../svg/backgrounds/BackgroundSvg.svg');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
+	.children {
+		display: flex;
+		flex-direction: column;
+		overflow: auto;
+	}
+
+	&.background {
+		background: url('../../svg/backgrounds/BackgroundSvg.svg');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
 }
 
 body {

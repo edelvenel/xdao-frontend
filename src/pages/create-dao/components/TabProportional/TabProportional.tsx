@@ -78,8 +78,6 @@ export function TabProportional({
 		[distributionRules, setDistributionRules]
 	);
 
-	console.log(errors);
-
 	return (
 		<div className={css.tab}>
 			<div className={css.block}>

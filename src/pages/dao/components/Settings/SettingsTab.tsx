@@ -106,8 +106,8 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 						)}
 					</div>
 					{!isConsensusEdit && (
-						<div className={css.button} onClick={() => setIsConsensusEdit(true)}>
-							<Icon.Common.Edit />
+						<div className={css.textButton} onClick={() => setIsConsensusEdit(true)}>
+							Confirm
 						</div>
 					)}
 					{isConsensusEdit && (

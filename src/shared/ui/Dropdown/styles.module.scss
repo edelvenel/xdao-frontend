@@ -34,6 +34,7 @@
 			overflow: hidden;
 
 			.text {
+				color: var(--semantic-text-primary);
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				overflow: hidden;

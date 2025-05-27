@@ -3,7 +3,9 @@ import { ProposalLoader } from 'pages/proposal-list/components/ProposalLoader';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useProposals } from 'shared/api/proposals';
+import { store } from 'shared/store';
 import { IDao } from 'shared/types';
+import { Button } from 'shared/ui/Button';
 import css from './styles.module.scss';
 
 interface IVotesTabProps {
@@ -12,12 +14,21 @@ interface IVotesTabProps {
 
 export function VotesTab({ dao }: IVotesTabProps) {
 	const { proposals, fetchDaoProposals, hasMore } = useProposals();
+	const { setIsBackground } = store.useApp();
 
 	React.useEffect(() => {
 		if (dao) {
 			fetchDaoProposals(dao.address);
 		}
 	}, [fetchDaoProposals, dao, dao?.address]);
+
+	React.useEffect(() => {
+		if (proposals?.length === 0) {
+			setIsBackground(true);
+		} else {
+			setIsBackground(false);
+		}
+	}, [proposals?.length, setIsBackground]);
 
 	return (
 		<div className={css.tab}>
@@ -46,7 +57,14 @@ export function VotesTab({ dao }: IVotesTabProps) {
 						<ProposalLoader />
 					</>
 				)}
-				{dao && proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes</div>}
+				{dao && proposals && proposals.length === 0 && (
+					<div className={css.block}>
+						<div className={css.placeholder}>No active votes</div>
+						<div className={css.button}>
+							<Button variant="primary">Create</Button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
