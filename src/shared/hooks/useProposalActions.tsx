@@ -30,7 +30,7 @@ export const useProposalActions = () => {
 
 		await jettonWallet.sendBalanceNotification(
 			sender,
-			toNano('0.1'),
+			toNano('0.25'),
 			Address.parse(daoAddress),
 			makeElectionsMsg(body, payload.name, payload.description),
 			0n
