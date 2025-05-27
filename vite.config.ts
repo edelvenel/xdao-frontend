@@ -7,7 +7,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 export default defineConfig({
   server: { 
     host: "0.0.0.0",
-    allowedHosts: ["2fb6-151-0-21-138.ngrok-free.app"]
+    allowedHosts: ["2fb6-151-0-21-138.ngrok-free.app", "white.tailc4a5e.ts.net"]
   },
   plugins: [tsconfigPaths(), react(), nodePolyfills()],
   css: {
