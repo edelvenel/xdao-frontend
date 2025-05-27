@@ -54,9 +54,13 @@ export const ProposalPage = React.memo(function ProposalPage() {
 
 	React.useEffect(() => {
 		fetchProposals();
-	}, []);
+	}, [fetchProposals]);
 
-	console.log(proposal);
+	React.useEffect(() => {
+		if (proposal && token) {
+			fetchHolders(token, proposal?.daoAddress);
+		}
+	}, [fetchHolders, proposal, token]);
 
 	if (proposal === undefined) {
 		return (
