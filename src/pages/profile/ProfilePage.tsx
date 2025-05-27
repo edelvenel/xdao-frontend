@@ -157,7 +157,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 							{proposals
 								.filter((_, index) => index < 2)
 								.map((proposal) => (
-									<ProposalCard key={proposal.id} proposal={proposal} />
+									<ProposalCard key={proposal.address} proposal={proposal} />
 								))}
 						</div>
 					)}
@@ -179,7 +179,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 									{proposals
 										.filter((_, index) => index >= 2)
 										.map((proposal) => (
-											<ProposalCard key={proposal.id} proposal={proposal} />
+											<ProposalCard key={proposal.address} proposal={proposal} />
 										))}
 								</div>
 							</motion.div>

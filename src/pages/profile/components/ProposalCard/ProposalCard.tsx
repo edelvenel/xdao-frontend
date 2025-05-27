@@ -1,24 +1,21 @@
-import { routes } from "app/router/routes";
-import { generatePath, Link } from "react-router";
-import { IProposal } from "shared/types";
-import { Badge } from "shared/ui/Badge";
-import css from "./styles.module.scss";
+import { routes } from 'app/router/routes';
+import { generatePath, Link } from 'react-router';
+import { IProposal } from 'shared/types';
+import { Badge } from 'shared/ui/Badge';
+import css from './styles.module.scss';
 
 interface IProposalCardProps {
-  proposal: IProposal;
+	proposal: IProposal;
 }
 
 export function ProposalCard({ proposal }: IProposalCardProps) {
-  return (
-    <Link
-      to={generatePath(routes.proposal, { id: proposal.id })}
-      className={css.proposalCard}
-    >
-      <div className={css.column}>
-        <div className={css.label}>Proposal name:</div>
-        <div className={css.name}>{proposal.name}</div>
-      </div>
-      <Badge text="pending" variant="blue" />
-    </Link>
-  );
+	return (
+		<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.proposalCard}>
+			<div className={css.column}>
+				<div className={css.label}>Proposal name:</div>
+				<div className={css.name}>{proposal.name}</div>
+			</div>
+			<Badge text="pending" variant="blue" />
+		</Link>
+	);
 }

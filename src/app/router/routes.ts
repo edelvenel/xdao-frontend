@@ -15,7 +15,7 @@ export enum Route {
 export const routes = {
 	[Route.Root]: '/',
 
-	[Route.Proposal]: '/proposals/:id',
+	[Route.Proposal]: '/proposals/:proposalAddress',
 
 	[Route.CreateProposal]: '/proposals/create',
 

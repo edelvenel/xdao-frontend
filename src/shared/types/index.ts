@@ -81,7 +81,7 @@ export type IToken = {
 };
 
 export interface IProposal {
-	id: string;
+	address: string;
 	name: string;
 	description: string;
 	consensus: number;
