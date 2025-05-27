@@ -14,7 +14,7 @@ import logoExample from '../../assets/images/logo-example.png';
 
 export const DAOS_MOCK: IDao[] = [
 	{
-		address: 'NBAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVrt',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786f',
 		logo: logoExample,
 		name: 'Example DAO 1',
 		activeProposals: 2,
@@ -39,7 +39,7 @@ export const DAOS_MOCK: IDao[] = [
 		plugins: [],
 	},
 	{
-		address: 'NVAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVwe',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786r',
 		logo: logoExample,
 		name: 'Example DAO 2',
 		activeProposals: 1,
@@ -63,7 +63,7 @@ export const DAOS_MOCK: IDao[] = [
 		plugins: [],
 	},
 	{
-		address: 'MKAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVqw',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786e',
 		logo: logoExample,
 		name: 'Example DAO 3',
 		consensus: 76,
@@ -92,7 +92,7 @@ export const VOTING_TYPE: IVotingType[] = [
 
 export const PROPOSALS: IProposal[] = [
 	{
-		address: 'UQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVht',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094785r',
 		name: 'Add new GP - Bob',
 		description: 'Let’s add Bob, he’s new specialist in our team',
 		consensus: 51,
@@ -107,7 +107,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		address: 'SQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVhy',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094789o',
 		name: 'Remove GP - Bob',
 		description: 'Let’s remove Bob, he’s out of our team anymore',
 		consensus: 51,
@@ -122,7 +122,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		address: 'AQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVhu',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094782w',
 		name: 'Transfer GP tokens',
 		description: 'I propose transfering 500 GP tokens to fund project X',
 		consensus: 51,
@@ -137,7 +137,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		address: 'KQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVht',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094785g',
 		name: 'Change transfer status',
 		description: 'Let’s changing the GP token transfer status to Transferable',
 		consensus: 51,
@@ -151,7 +151,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		address: 'ZQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVho',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094780h',
 		name: 'Change general consensus',
 		description: 'I propose updating the general consensus rules',
 		consensus: 51,
@@ -165,7 +165,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		address: 'PQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVhb',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094781q',
 		name: 'Send funds',
 		description: 'Let’s sending 1000 USDT to pay a contractor',
 		consensus: 51,
@@ -179,7 +179,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 	},
 	{
-		address: 'WQAnTon5VVNKup8v0EUT0SvCKsRmEpotr_3eSpqYJTneIVh',
+		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094788n',
 		name: 'Change DAO name',
 		description: 'Let’s changing the DAO name for better branding',
 		consensus: 51,
