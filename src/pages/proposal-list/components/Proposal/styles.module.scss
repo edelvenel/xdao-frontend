@@ -19,6 +19,7 @@
 		padding: 12px 20px;
 		min-height: 64px;
 		background-color: var(--semantic-background-tetriary);
+		overflow: hidden;
 
 		.label {
 			font-size: 12px;
@@ -31,11 +32,13 @@
 			font-size: 16px;
 			font-weight: 500;
 			line-height: 21px;
+			word-break: break-all;
 		}
 
 		.value {
 			font-size: 15px;
 			font-weight: 500;
+			word-break: break-all;
 		}
 	}
 

@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router';
 import { useDaos } from 'shared/api/daos';
 import { useProposals } from 'shared/api/proposals';
+import { useTelegramData } from 'shared/api/telegram-data';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { ProposalFilter } from 'shared/types';
@@ -22,7 +23,6 @@ import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
-import { useTelegramData } from 'shared/api/telegram-data';
 
 export const ProfilePage = React.memo(function ProfilePage() {
 	const [isProposalsFilterOpen, setIsProposalsFilterOpen] = React.useState<boolean>(false);
@@ -64,7 +64,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 		fetchDaos();
 		fetchProposals();
 		fetchTelegramData();
-	}, [fetchDaos, fetchProposals, selectedDao, fetchTelegramData]);
+	}, [fetchDaos, fetchProposals, fetchTelegramData]);
 
 	if (daos === null) {
 		return <ScreenLoader />;
