@@ -19,14 +19,14 @@ export function AppLayout({ children }: IAppLayoutProps) {
 	);
 
 	return (
-		<AnimationPage animationKey={pathname}>
-            <div className={cn(css.layout, isBackground && css.background)}>
-                {isHeaderShown && <Header />}
-                <div className={css.children} style={{ paddingBottom }}>
-                    {children}
-                </div>
-                {isMenuShown && <Navigation />}
-            </div>
-		</AnimationPage>
+		<div className={cn(css.layout, isBackground && css.background)}>
+			{isHeaderShown && <Header />}
+			<AnimationPage animationKey={pathname}>
+				<div className={css.children} style={{ paddingBottom }}>
+					{children}
+				</div>
+			</AnimationPage>
+			{isMenuShown && <Navigation />}
+		</div>
 	);
 }
