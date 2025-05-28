@@ -21,11 +21,9 @@ export function AppLayout({ children }: IAppLayoutProps) {
 	return (
 		<div className={cn(css.layout, isBackground && css.background)}>
 			{isHeaderShown && <Header />}
-			<AnimationPage animationKey={pathname}>
-				<div className={css.children} style={{ paddingBottom }}>
-					{children}
-				</div>
-			</AnimationPage>
+			<div className={css.children} style={{ paddingBottom }}>
+				<AnimationPage animationKey={pathname}>{children}</AnimationPage>
+			</div>
 			{isMenuShown && <Navigation />}
 		</div>
 	);
