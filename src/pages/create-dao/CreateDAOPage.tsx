@@ -4,7 +4,7 @@ import { routes } from 'app/router/routes';
 import { Formik, FormikProps } from 'formik';
 import { ValidationError } from 'pages/create-proposal/components/ProposalForm/components/ValidationError';
 import React from 'react';
-import { generatePath, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos';
 import { ICreateDaoEqualPayload, ICreateDaoProportionalPayload } from 'shared/api/daos/payloads';
 import { useBackButton } from 'shared/hooks/useBackButton';
@@ -31,7 +31,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
-	const [createdDaoId, setCreatedDaoId] = React.useState<string>('');
+	// const [createdDaoId, setCreatedDaoId] = React.useState<string>('');
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { createDao } = useDaos();
 	const { walletAddress } = store.useWallet();
@@ -211,10 +211,10 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 
 					<Modal isOpen={isLoading}>
 						<DaoCreateLoader
-							onDone={(value) => {
+							onDone={() => {
 								setIsSuccess(true);
 								setIsResultOpen(true);
-								setCreatedDaoId(value);
+								// setCreatedDaoId(value);
 							}}
 							onTimeOut={() => {
 								setIsLoading(false);
@@ -227,7 +227,7 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={isSuccess}>
 						<DaoCreateResult
 							success={isSuccess}
-							onDone={() => navigate(generatePath(routes.dao, { id: createdDaoId, tab: 'overview' }))}
+							onDone={() => navigate(routes.daoList)}
 							onRetry={() => setIsResultOpen(false)}
 						/>
 					</Modal>
