@@ -92,6 +92,7 @@ export interface IProposal {
 	type: ProposalType;
 	daoAddress: string;
 	votingType?: IVotingType;
+	currentVotes: number;
 	userVote: IUserVote | null;
 	data: any;
 }

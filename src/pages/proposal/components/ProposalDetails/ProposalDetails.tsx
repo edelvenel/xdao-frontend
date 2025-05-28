@@ -14,13 +14,14 @@ import { TransferGPDetail } from './components/TransferGPDetail';
 
 interface IProposalDetailsProps {
 	proposal: IProposal;
+	setDao: (dao: IDao) => void;
 	onVote: () => void;
 }
 
 export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JSX.Element | null {
 	const { setIsBackground } = store.useApp();
-	const [dao, setDao] = React.useState<IDao | null>(null);
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
+	const [dao, setDaoState] = React.useState<IDao | null>(null);
 	const { token } = store.useAuth();
 
 	React.useEffect(() => {
@@ -33,7 +34,7 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 		const fetchDao = async () => {
 			if (token !== null) {
 				const dao = await getDao(token, proposal.daoAddress);
-				setDao(dao);
+				setDaoState(dao);
 			}
 		};
 		fetchVotes();

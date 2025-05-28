@@ -23,6 +23,7 @@ import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
+import { InitialsAvatar } from '@twa-dev/mark42';
 
 export const ProfilePage = React.memo(function ProfilePage() {
 	const [isProposalsFilterOpen, setIsProposalsFilterOpen] = React.useState<boolean>(false);
@@ -38,7 +39,8 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const [isChangeResultOpen, setIsChangeResultOpen] = React.useState<boolean>(false);
 	const { daos, fetchDaos } = useDaos();
 	const { proposals, fetchProposals } = useProposals();
-	const { me } = store.useMe();
+
+	const { me, fetchMe } = store.useMe();
 
 	const { setIsMenuShown, setIsHeaderShown, setIsBackground } = store.useApp();
 
@@ -48,7 +50,6 @@ export const ProfilePage = React.memo(function ProfilePage() {
 
 	const handleOnApplyDao = React.useCallback((idx: number | null) => {
 		// TODO: change DAO and get response
-
 		setSelectedDaoIdx(idx);
 		setIsChangeSuccess(true);
 		setIsChangeResultOpen(true);
@@ -61,6 +62,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	}, [setIsBackground, setIsHeaderShown, setIsMenuShown]);
 	const { isTelegramLinked, toggleTelegramLink, fetchTelegramData, linkedTelegramUsername } = useTelegramData();
 	React.useEffect(() => {
+		fetchMe();
 		fetchDaos();
 		fetchProposals();
 		fetchTelegramData();
@@ -72,16 +74,18 @@ export const ProfilePage = React.memo(function ProfilePage() {
 
 	return (
 		<div className={css.page}>
-			<div className={css.userInfo}>
-				<div className={css.avatar} style={{ backgroundImage: `url(${me?.photoUrl})` }} />
-				<div className={css.name}>
-					{me?.firstName ?? ''}
-					{me?.lastName ?? ''}
+			{me && (
+				<div className={css.userInfo}>
+					<InitialsAvatar size={40} className={css.avatar} entityName={me?.firstName ?? ''} entityId={me?.id ?? 0} />
+					<div className={css.name}>
+						{me?.firstName ?? ''}
+						{me?.lastName ?? ''}
+					</div>
+					<div className={css.editButton} onClick={() => toast.error('Unimplemented')}>
+						Edit
+					</div>
 				</div>
-				<div className={css.editButton} onClick={() => toast.error('Unimplemented')}>
-					Edit
-				</div>
-			</div>
+			)}
 			<div className={css.telegramInfo}>
 				<div className={css.telegramInfoData}>
 					<div className={css.telegramLinkedStatus}>

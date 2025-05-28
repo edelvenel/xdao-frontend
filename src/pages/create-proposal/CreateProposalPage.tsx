@@ -39,6 +39,7 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 		if (dao !== null && proposalType !== null) {
 			setFormType(proposalType);
 		} else {
+			// FIXME: broke transaction sending
 			navigate(-1);
 		}
 	}, [dao, navigate, proposalType]);
