@@ -75,17 +75,20 @@ export function useProposals() {
 		[createProposalByType, holder]
 	);
 
-	const submitVote = useCallback(async (proposal: IProposal): Promise<void> => {
-		if (!holder) {
-			throw new Error('Holder not found');
-		}
-		try {
-			await makeVote(proposal, holder);
-		} catch (error) {
-			console.error('Unable to create proposal', error);
-			throw error;
-		}
-	}, []);
+	const submitVote = useCallback(
+		async (proposal: IProposal): Promise<void> => {
+			if (!holder) {
+				throw new Error('Holder not found');
+			}
+			try {
+				await makeVote(proposal, holder);
+			} catch (error) {
+				console.error('Unable to create proposal', error);
+				throw error;
+			}
+		},
+		[holder, makeVote]
+	);
 
 	const updateProposal = useCallback(async (id: string, payload: unknown): Promise<void> => {
 		// update proposal or throw error
