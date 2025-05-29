@@ -7,6 +7,7 @@ import { Copy } from 'shared/ui/Copy';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
+import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 
 interface IRemoveGPDetailProps {
 	dao: IDao;
@@ -18,7 +19,6 @@ interface IRemoveGPDetailProps {
 export function RemoveGPDetail({ dao, votes, proposal, onVote }: IRemoveGPDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
-
 	return (
 		<ProposalDetailLayout
 			isVotingEnabled={true}
@@ -53,22 +53,22 @@ export function RemoveGPDetail({ dao, votes, proposal, onVote }: IRemoveGPDetail
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Remove GP tokens</div>
-							<div className={css.value}>500</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>GP Address</div>
-							<div className={css.value}>43fjYR48JEfkfof83436437DJfewlr8</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
-						<Copy text="43fjYR48JEfkfof83436437DJfewlr8" />
+						<Copy text={'NO DATA'} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{friendlyWallet(proposal.createdBy)}</div>
 						</div>
-						<Copy text={proposal.createdBy} />
+						<Copy text={friendlyWallet(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

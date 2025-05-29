@@ -7,6 +7,7 @@ import { Copy } from 'shared/ui/Copy';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
+import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 
 interface IChangeDAONameDetailProps {
 	dao: IDao;
@@ -18,7 +19,6 @@ interface IChangeDAONameDetailProps {
 export function ChangeDAONameDetail({ dao, votes, proposal, onVote }: IChangeDAONameDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
-
 	return (
 		<ProposalDetailLayout
 			isVotingEnabled={true}
@@ -46,23 +46,23 @@ export function ChangeDAONameDetail({ dao, votes, proposal, onVote }: IChangeDAO
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Current name</div>
-							<div className={css.value}>ExampleDAO</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New name</div>
-							<div className={css.value}>NewDAO</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{friendlyWallet(proposal.createdBy)}</div>
 						</div>
-						<Copy text={proposal.createdBy} />
+						<Copy text={friendlyWallet(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

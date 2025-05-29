@@ -10,6 +10,7 @@ import { Title } from 'shared/ui/Title';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
+import { friendlyWallet, Wallet } from 'shared/ui/Wallet/Wallet';
 
 interface IAddGPDetailProps {
 	dao: IDao;
@@ -80,16 +81,18 @@ export function AddGPDetail({ votes, dao, proposal, onVote }: IAddGPDetailProps)
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New GP Address</div>
-							<div className={css.value}>{proposal.data.receivers[0].address ?? 'Empty'}</div>
+							<div className={css.value}>
+								{proposal.data.receivers[0].address ? <Wallet raw={proposal.data.receivers[0].address} /> : 'Empty'}
+							</div>
 						</div>
-						<Copy text={proposal.data.receivers[0].address ?? ''} />
+						{proposal.data.receivers[0].address && <Copy text={friendlyWallet(proposal.data.receivers[0].address)} />}
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{friendlyWallet(proposal.createdBy)}</div>
 						</div>
-						<Copy text={proposal.createdBy} />
+						<Copy text={friendlyWallet(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

@@ -15,6 +15,7 @@ import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
 import { IForm, initialValues, validationSchema } from './types';
+import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 interface IRemoveGPFormProps {
 	data: ICreateRemoveGPProposalPayload | null;
 	onResponse: (value: boolean) => void;
@@ -98,7 +99,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
-									options={holders ? holders.map((holder) => holder.owner_address) : []}
+									options={holders ? holders.map((holder) => friendlyWallet(holder.owner_address)) : []}
 									variant={props.errors.gpToRemove !== undefined && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}
@@ -130,7 +131,9 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								<div className={css.block}>
 									<Title variant={'medium'} value="Update GP distribution" />
 									<DistributionRules
-										holders={holders ? [...holders.filter((holder) => holder.owner_address !== props.values.gpToRemove)] : []}
+										holders={
+											holders ? [...holders.filter((holder) => holder.owner_address !== props.values.gpToRemove)] : []
+										}
 										oldHolders={holders ? [...holders] : []}
 									/>
 								</div>
