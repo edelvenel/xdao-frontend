@@ -130,8 +130,8 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								<div className={css.block}>
 									<Title variant={'medium'} value="Update GP distribution" />
 									<DistributionRules
-										holders={[...holders.filter((holder) => holder.owner_address !== props.values.gpToRemove)]}
-										oldHolders={[...holders]}
+										holders={holders ? [...holders.filter((holder) => holder.owner_address !== props.values.gpToRemove)] : []}
+										oldHolders={holders ? [...holders] : []}
 									/>
 								</div>
 							)}

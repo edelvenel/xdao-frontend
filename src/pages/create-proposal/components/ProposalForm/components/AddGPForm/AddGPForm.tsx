@@ -113,15 +113,15 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 								<div className={css.block}>
 									<Title variant={'medium'} value="Update GP distribution" />
 									<DistributionRules
-										holders={[
+										holders={holders ? [
 											...holders,
 											{
 												jetton_wallet_address: props.values.walletAddress,
 												balance: String(Number(props.values.tokenAmount) * 10 ** 9),
 												owner_address: props.values.walletAddress,
 											},
-										]}
-										oldHolders={[...holders]}
+										] : []}
+										oldHolders={holders ? [...holders] : []}
 									/>
 								</div>
 							)}

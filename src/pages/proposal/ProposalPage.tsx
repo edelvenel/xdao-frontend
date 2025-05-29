@@ -97,7 +97,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 			</div>
 		);
 	}
-	const holderBalance = holders.find((h) => h.owner_address === address)?.balance;
+	const holderBalance = holders ? holders.find((h) => h.owner_address === address)?.balance : undefined;
 
 	const voteImpact = Number(holderBalance) / Number(dao?.LPTokens) * 100;
 
