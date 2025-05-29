@@ -74,7 +74,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 
 	return (
 		<div className={css.page}>
-			{me && (
+			{/* {me && (
 				<div className={css.userInfo}>
 					<InitialsAvatar size={40} className={css.avatar} entityName={me?.firstName ?? ''} entityId={me?.id ?? 0} />
 					<div className={css.name}>
@@ -85,7 +85,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 						Edit
 					</div>
 				</div>
-			)}
+			)} */}
 			<div className={css.telegramInfo}>
 				<div className={css.telegramInfoData}>
 					<div className={css.telegramLinkedStatus}>
