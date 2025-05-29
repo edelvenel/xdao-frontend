@@ -38,6 +38,11 @@ export function Header() {
 		}
 	};
 
+	const onClickAddress = React.useCallback(() => {
+		navigator.clipboard.writeText(userFriendlyAddress ?? '');
+		toast.success('Address copied');
+	}, []);
+
 	return (
 		<div className={css.header}>
 			<Link className={css.logo} to={routes.root}>
@@ -62,7 +67,7 @@ export function Header() {
 				onClose={() => setIsConnectWalletOpen(false)}
 			>
 				<div className={css.connectWalletModal}>
-					<div className={css.currentWallet}>
+					<div className={css.currentWallet} onClick={onClickAddress}>
 						<div className={css.icon}>
 							<Icon.Special.Wallet />
 						</div>
