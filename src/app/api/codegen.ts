@@ -143,7 +143,6 @@ export enum GetAllDaosParams1FilterEnum {
 export interface GetDaoHoldersParams {
 	/**
 	 * Limit
-	 * @max 1000
 	 * @default 100
 	 */
 	limit?: number;

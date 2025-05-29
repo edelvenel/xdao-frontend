@@ -32,14 +32,17 @@ export function useDaos() {
 
 	const fetchDaos = React.useCallback(
 		async (searchText?: string, filter?: FilterEnum) => {
-			const { daos, hasMore } = await getDaos(token ?? '', currentOffset, filter, searchText);
+			const { daos, hasMore, total } = await getDaos(token ?? '', currentOffset, filter, searchText);
 
 			const { setDaos, oldDaos, setOldDaos } = store.useDaos.getState();
 
-			if (daos.length === 100) {
-				setDaos([...(oldDaos ?? []), ...daos]);
-				setOldDaos([...daos]);
-				setCurrentOffset((prevOffset) => prevOffset + daos.length);
+			if (total > 100) {
+				const newDaos = [...(oldDaos ?? []), ...daos];
+				setDaos([...newDaos]);
+				setOldDaos([...newDaos]);
+				if (hasMore) {
+					setCurrentOffset((prevOffset) => prevOffset + daos.length);
+				}
 			} else {
 				setDaos([...daos]);
 				setOldDaos([...daos]);

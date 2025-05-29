@@ -38,32 +38,34 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
-			const fromJettonWalletAddress = holders.find(
-				(holder) => holder.owner_address === values.fromWalletAddress
-			)?.jetton_wallet_address;
+			if (holders !== null) {
+				const fromJettonWalletAddress = holders.find(
+					(holder) => holder.owner_address === values.fromWalletAddress
+				)?.jetton_wallet_address;
 
-			const fromJettonWalletOwnerAddress = holders.find(
-				(holder) => holder.owner_address === values.fromWalletAddress
-			)?.jetton_wallet_address;
+				const fromJettonWalletOwnerAddress = holders.find(
+					(holder) => holder.owner_address === values.fromWalletAddress
+				)?.jetton_wallet_address;
 
-			if (!dao?.address || !fromJettonWalletAddress || !fromJettonWalletOwnerAddress) return;
+				if (!dao?.address || !fromJettonWalletAddress || !fromJettonWalletOwnerAddress) return;
 
-			const payload: ICreateTransferGPProposalPayload = {
-				type: ProposalType.TransferGPTokens,
-				name: values.name,
-				description: values.description,
-				votingDuration: Number(values.votingDuration),
-				fromJettonWalletAddress,
-				fromJettonWalletOwnerAddress,
-				toWalletAddress: values.toWalletAddress,
-				tokenAmount: Number(values.tokenAmount),
-			};
+				const payload: ICreateTransferGPProposalPayload = {
+					type: ProposalType.TransferGPTokens,
+					name: values.name,
+					description: values.description,
+					votingDuration: Number(values.votingDuration),
+					fromJettonWalletAddress,
+					fromJettonWalletOwnerAddress,
+					toWalletAddress: values.toWalletAddress,
+					tokenAmount: Number(values.tokenAmount),
+				};
 
-			try {
-				await createProposal(payload, dao?.address ?? '');
-				onResponse(true);
-			} catch {
-				onResponse(false);
+				try {
+					await createProposal(payload, dao?.address ?? '');
+					onResponse(true);
+				} catch {
+					onResponse(false);
+				}
 			}
 		},
 		[createProposal, dao?.address, holders, onResponse]

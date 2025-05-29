@@ -50,13 +50,17 @@ export const getProposals = async (
 	offset: number,
 	filter?: ProposalFilter,
 	search?: string
-): Promise<{ proposals: IProposal[]; hasMore: boolean }> => {
+): Promise<{ proposals: IProposal[]; hasMore: boolean; total: number }> => {
 	const response = await api.v1.getProposals(
 		{ limit: 100, offset: offset, filter: filter !== undefined ? proposalFilterMapp[filter] : undefined, search },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return { proposals: response.items.map(proposalMapper), hasMore: response.total > offset + response.items.length };
+	return {
+		proposals: response.items.map(proposalMapper),
+		hasMore: response.total > offset + response.items.length,
+		total: response.total,
+	};
 };
 
 export const getDaoProposalVotes = async (
@@ -72,11 +76,15 @@ export const getDaoProposalVotes = async (
 	return response.items.map(voteMapper);
 };
 
-export const getDaoHolders = async (token: string, daoAddress: string): Promise<IHolder[]> => {
+export const getDaoHolders = async (
+	token: string,
+	daoAddress: string,
+	offset: number
+): Promise<{ holders: IHolder[]; hasMore: boolean }> => {
 	const response = await api.v1.getDaoHolders(
-		{ daoAddress },
+		{ daoAddress, offset },
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return response.items;
+	return { holders: response.items, hasMore: response.total > offset + response.items.length };
 };

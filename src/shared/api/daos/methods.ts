@@ -56,14 +56,18 @@ export const getDaos = async (
 	offset: number,
 	filter?: FilterEnum,
 	search?: string
-): Promise<{ daos: IDao[]; hasMore: boolean }> => {
+): Promise<{ daos: IDao[]; hasMore: boolean; total: number }> => {
 	try {
 		const response = await api.v1.getAllDaos(
 			{ limit: 100, offset: offset, filter, search },
 			{ format: 'json', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
 		);
 
-		return { daos: response.items.map(daoMapper), hasMore: response.total > offset + response.items.length };
+		return {
+			daos: response.items.map(daoMapper),
+			hasMore: response.total > offset + response.items.length,
+			total: response.total,
+		};
 	} catch (error) {
 		console.error(error);
 		throw error;

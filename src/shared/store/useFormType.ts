@@ -6,23 +6,35 @@ interface IFormTypeStore {
 	dao: IDao | null;
 	proposalType: ProposalType | null;
 	formData: ICreateProposalPayload | null;
-	holders: IHolder[];
+	holders: IHolder[] | null;
+	oldHolders: IHolder[] | null;
+	holdersOffset: number;
+	holdersHasMore: boolean;
 	setFormData: (data: ICreateProposalPayload | null) => void;
 	setDao: (dao: IDao | null) => void;
 	setProposalType: (proposalType: ProposalType | null) => void;
-	setHolders: (holders: IHolder[]) => void;
+	setOldHolders: () => void;
 	fetchHolders: (token: string, daoAddress: string) => Promise<void>;
 }
 
-export const useFormType = create<IFormTypeStore>((set) => ({
+export const useFormType = create<IFormTypeStore>((set, get) => ({
 	dao: null,
-	holders: [],
+	holders: null,
+	oldHolders: null,
 	proposalType: null,
 	formData: null,
-
+	holdersOffset: 0,
+	holdersHasMore: false,
 	fetchHolders: async (token: string, daoAddress: string) => {
-		const holders = await getDaoHolders(token, daoAddress);
-		set({ holders });
+		const { holdersOffset, oldHolders, setOldHolders } = get();
+		const { holders, hasMore } = await getDaoHolders(token, daoAddress, holdersOffset);
+
+		set({
+			holders: [...(oldHolders ?? []), ...holders],
+			holdersOffset: hasMore ? holdersOffset + holders.length : holdersOffset,
+			holdersHasMore: hasMore,
+		});
+		setOldHolders();
 	},
 
 	setFormData: (data) => {
@@ -34,7 +46,8 @@ export const useFormType = create<IFormTypeStore>((set) => ({
 	setProposalType: (proposalType) => {
 		set({ proposalType });
 	},
-	setHolders: (holders) => {
-		set({ holders });
+	setOldHolders: () => {
+		const { holders } = get();
+		set({ oldHolders: holders });
 	},
 }));

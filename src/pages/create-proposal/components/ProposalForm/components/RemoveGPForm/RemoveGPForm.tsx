@@ -35,31 +35,33 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
-			const jettonWalletAddressToRemove = holders.find(
-				(holder) => holder.owner_address === values.gpToRemove
-			)?.jetton_wallet_address;
+			if (holders !== null) {
+				const jettonWalletAddressToRemove = holders.find(
+					(holder) => holder.owner_address === values.gpToRemove
+				)?.jetton_wallet_address;
 
-			const jettonWalletOwnerAddressToRemove = holders.find(
-				(holder) => holder.owner_address === values.gpToRemove
-			)?.jetton_wallet_address;
+				const jettonWalletOwnerAddressToRemove = holders.find(
+					(holder) => holder.owner_address === values.gpToRemove
+				)?.jetton_wallet_address;
 
-			if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove) return;
+				if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove) return;
 
-			const payload: ICreateRemoveGPProposalPayload = {
-				type: ProposalType.RemoveGP,
-				name: values.name,
-				description: values.description,
-				jettonWalletAddressToRemove,
-				jettonWalletOwnerAddressToRemove,
-				votingDuration: Number(values.votingDuration),
-				tokenAmount: Number(values.tokenAmount),
-			};
+				const payload: ICreateRemoveGPProposalPayload = {
+					type: ProposalType.RemoveGP,
+					name: values.name,
+					description: values.description,
+					jettonWalletAddressToRemove,
+					jettonWalletOwnerAddressToRemove,
+					votingDuration: Number(values.votingDuration),
+					tokenAmount: Number(values.tokenAmount),
+				};
 
-			try {
-				await createProposal(payload, dao.address);
-				onResponse(true);
-			} catch {
-				onResponse(false);
+				try {
+					await createProposal(payload, dao.address);
+					onResponse(true);
+				} catch {
+					onResponse(false);
+				}
 			}
 		},
 		[holders, dao?.address, createProposal, onResponse]
@@ -96,7 +98,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
-									options={holders.map((holder) => holder.owner_address)}
+									options={holders ? holders.map((holder) => holder.owner_address) : []}
 									variant={props.errors.gpToRemove !== undefined && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}

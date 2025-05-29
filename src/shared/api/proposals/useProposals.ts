@@ -1,5 +1,5 @@
 import { useTonAddress } from '@tonconnect/ui-react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useProposalActions } from 'shared/hooks/useProposalActions';
 import { store } from 'shared/store';
 import { IProposal, ProposalFilter } from 'shared/types';
@@ -15,7 +15,7 @@ export function useProposals() {
 	const { token } = store.useAuth();
 	const address = useTonAddress(false);
 
-	const holder = holders.find((h) => h.owner_address === address);
+	const holder = React.useMemo(() => holders?.find((h) => h.owner_address === address), [address, holders]);
 
 	const resetProposals = useCallback(() => {
 		setHasMore(false);
@@ -39,18 +39,22 @@ export function useProposals() {
 
 	const fetchProposals = useCallback(
 		async (search?: string, filter?: ProposalFilter) => {
-			const { proposals, hasMore } = await getProposals(
+			const { proposals, hasMore, total } = await getProposals(
 				token ?? '',
 				currentOffset,
 				filter === ProposalFilter.AllProposals ? undefined : filter,
 				search
 			);
-			if (proposals.length === 100) {
-				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
+
+			if (total > 100) {
+				if (hasMore) {
+					setCurrentOffset((prevOffset) => prevOffset + proposals.length);
+				}
 				setProposals((prev) => [...(prev ?? []), ...proposals]);
 			} else {
 				setProposals([...proposals]);
 			}
+
 			setHasMore(hasMore);
 		},
 		[currentOffset, token]
