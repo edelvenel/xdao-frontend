@@ -43,7 +43,7 @@ export function Proposal({ proposal }: IProposalProps) {
 	if (votes === null || dao === null) {
 		return <ScreenLoader />;
 	}
-	const agree = votes.reduce((acc, curr) => acc + curr.impact, 0);
+	const agree = votes.reduce((acc, curr) => acc + curr.impact / 10000000, 0);
 
 	return (
 		<div className={css.proposal}>
