@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { ICreateChangeDAONameProposalPayload } from 'shared/api/proposals/payloads';
 import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
@@ -20,6 +21,8 @@ interface IChangeDAONameFormProps {
 export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
 	const { dao } = store.useFormType();
 	const { createProposal } = useProposals();
+
+	const navigate = useNavigate();
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
@@ -48,7 +51,7 @@ export function ChangeDAONameForm({ onResponse }: IChangeDAONameFormProps) {
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
-				<ProposalCreateLayout disabled={false} onClick={props.handleSubmit}>
+				<ProposalCreateLayout onBack={() => navigate(-1)} onSubmit={props.handleSubmit}>
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>

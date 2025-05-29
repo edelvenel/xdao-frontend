@@ -1,9 +1,8 @@
-import cn from 'classnames';
 import { Formik } from 'formik';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { ICreateRemoveGPProposalPayload } from 'shared/api/proposals/payloads';
-import { Icon } from 'shared/icons';
 import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
 import { store } from 'shared/store';
 import { ProposalType } from 'shared/types';
@@ -11,6 +10,7 @@ import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
+import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -24,6 +24,8 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 	const { dao, fetchHolders, holders } = store.useFormType();
 	const { token } = store.useAuth();
 	const { createProposal } = useProposals();
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (dao && token) {
@@ -66,7 +68,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
-				<ProposalCreateLayout disabled={false} onClick={props.handleSubmit}>
+				<ProposalCreateLayout onBack={() => navigate(-1)} onSubmit={props.handleSubmit}>
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>
@@ -125,17 +127,10 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 							{props.values.gpToRemove && dao && (
 								<div className={css.block}>
 									<Title variant={'medium'} value="Update GP distribution" />
-									{dao.distributionRules.map((rule) => (
-										<div className={css.distributionRule}>
-											<div className={cn(css.item, css.wallet)}>
-												<span className={css.text}>{rule.walletAddress}</span>
-											</div>
-											<div className={cn(css.item, css.gpTokens)}>{rule.tokens}</div>
-											<div className={cn(css.item, css.percent)}>{rule.percent}%</div>
-											<Icon.Common.Arrow />
-											<div className={cn(css.item, css.percent)}>30%</div> {/*TODO: calc and replace */}
-										</div>
-									))}
+									<DistributionRules
+										holders={[...holders.filter((holder) => holder.owner_address !== props.values.gpToRemove)]}
+										oldHolders={[...holders]}
+									/>
 								</div>
 							)}
 						</div>

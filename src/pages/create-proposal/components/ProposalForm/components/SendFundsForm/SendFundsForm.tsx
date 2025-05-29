@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos';
 import { useProposals } from 'shared/api/proposals';
 import { ICreateSendFundsProposalPayload } from 'shared/api/proposals/payloads';
@@ -28,6 +29,8 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 	const { daos, fetchDaos } = useDaos();
 	const { dao } = store.useFormType();
 	const { createProposal } = useProposals();
+
+	const navigate = useNavigate();
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
@@ -70,7 +73,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
-				<ProposalCreateLayout disabled={false} onClick={props.handleSubmit}>
+				<ProposalCreateLayout onBack={() => navigate(-1)} onSubmit={props.handleSubmit}>
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>

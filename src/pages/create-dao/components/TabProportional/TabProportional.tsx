@@ -9,19 +9,9 @@ import { IconButton } from 'shared/ui/IconButton';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { InputStep } from 'shared/ui/InputStep';
 import { Title } from 'shared/ui/Title';
+import { calculatePercents } from 'shared/utils/calculateHoldersPercent';
 import { DistributionRule } from './components/DistributionRule';
 import css from './styles.module.scss';
-
-function calculatePercents(rules: IDistributionRule[]): IDistributionRule[] {
-	const totalTokens = rules.reduce((acc, curr) => acc + (curr.tokens === null ? 0 : curr.tokens), 0);
-	const calculatedDistributionRules = rules.map((rule) => {
-		return {
-			...rule,
-			percent: ((rule.tokens === null ? 0 : rule.tokens) / (totalTokens === 0 ? 1 : totalTokens)) * 100,
-		};
-	});
-	return calculatedDistributionRules;
-}
 
 interface ITabProportionalProps {
 	currentConsensus: number;

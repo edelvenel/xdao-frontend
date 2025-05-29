@@ -1,15 +1,15 @@
-import cn from 'classnames';
 import { Formik } from 'formik';
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { ICreateAddGPProposalPayload } from 'shared/api/proposals/payloads';
-import { Icon } from 'shared/icons';
 import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
 import { store } from 'shared/store';
 import { ProposalType } from 'shared/types';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
+import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -20,8 +20,10 @@ interface IAddGPFormProps {
 }
 
 export function AddGPForm({ onResponse }: IAddGPFormProps) {
-	const { dao } = store.useFormType();
+	const { dao, holders } = store.useFormType();
 	const { createProposal } = useProposals();
+
+	const navigate = useNavigate();
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
@@ -48,7 +50,7 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
-				<ProposalCreateLayout onClick={props.handleSubmit} disabled={false}>
+				<ProposalCreateLayout onSubmit={props.handleSubmit} onBack={() => navigate(-1)}>
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>
@@ -107,20 +109,20 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 									<ValidationError>{props.errors.tokenAmount}</ValidationError>
 								) : null}
 							</div>
-							{props.values.tokenAmount && props.values.walletAddress && dao && (
+							{props.values.tokenAmount && props.values.walletAddress && !props.errors.walletAddress && dao && (
 								<div className={css.block}>
 									<Title variant={'medium'} value="Update GP distribution" />
-									{dao.distributionRules.map((rule) => (
-										<div className={css.distributionRule}>
-											<div className={cn(css.item, css.wallet)}>
-												<span className={css.text}>{rule.walletAddress}</span>
-											</div>
-											<div className={cn(css.item, css.gpTokens)}>{rule.tokens}</div>
-											<div className={cn(css.item, css.percent)}>{rule.percent}%</div>
-											<Icon.Common.Arrow />
-											<div className={cn(css.item, css.percent)}>30%</div> {/*TODO: calc and replace */}
-										</div>
-									))}
+									<DistributionRules
+										holders={[
+											...holders,
+											{
+												jetton_wallet_address: props.values.walletAddress,
+												balance: String(Number(props.values.tokenAmount) * 10 ** 9),
+												owner_address: props.values.walletAddress,
+											},
+										]}
+										oldHolders={[...holders]}
+									/>
 								</div>
 							)}
 						</div>

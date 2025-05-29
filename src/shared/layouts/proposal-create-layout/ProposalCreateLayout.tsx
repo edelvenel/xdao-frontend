@@ -1,22 +1,29 @@
+import { TopContent } from 'app/navigation/components/top-content';
 import { Form } from 'formik';
 import { PropsWithChildren } from 'react';
 import { Button } from 'shared/ui/Button';
 import css from './styles.module.scss';
 
 interface IProposalCreateProps extends PropsWithChildren {
-	disabled: boolean;
-	onClick: () => void;
+	onSubmit: () => void;
+	onBack: () => void;
 }
 
-export function ProposalCreateLayout({ disabled, children, onClick }: IProposalCreateProps) {
+export function ProposalCreateLayout({ children, onBack, onSubmit }: IProposalCreateProps) {
 	return (
 		<Form className={css.layout} onSubmit={(e) => e.preventDefault()}>
 			<div className={css.form}>{children}</div>
-			<div className={css.button}>
-				<Button type="button" onClick={onClick} disabled={disabled}>
-					Create Proposal
-				</Button>
-			</div>
+
+			<TopContent>
+				<div className={css.actions}>
+					<Button variant="secondary" onClick={onBack}>
+						Back
+					</Button>
+					<Button variant="primary" onClick={onSubmit}>
+						Create
+					</Button>
+				</div>
+			</TopContent>
 		</Form>
 	);
 }

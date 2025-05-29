@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { ICreateChangeGeneralConsensusProposalPayload } from 'shared/api/proposals/payloads';
 import { Icon } from 'shared/icons';
@@ -31,6 +32,8 @@ export function ChangeGeneralConsensusForm({ onResponse }: IChangeGeneralConsens
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
 	const { createProposal } = useProposals();
 
+	const navigate = useNavigate();
+
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
 			const payload: ICreateChangeGeneralConsensusProposalPayload = {
@@ -61,7 +64,7 @@ export function ChangeGeneralConsensusForm({ onResponse }: IChangeGeneralConsens
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
-				<ProposalCreateLayout disabled={false} onClick={props.handleSubmit}>
+				<ProposalCreateLayout onBack={() => navigate(-1)} onSubmit={props.handleSubmit}>
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>

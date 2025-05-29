@@ -20,7 +20,7 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 
 	const navigate = useNavigate();
 	React.useEffect(() => {
-		setIsMenuShown(false);
+		setIsMenuShown(true);
 		setIsHeaderShown(true);
 	}, [setIsHeaderShown, setIsMenuShown]);
 	if (backButton.mount.isAvailable()) {
