@@ -3,7 +3,6 @@ import { routes } from 'app/router/routes';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
-import toast from 'react-hot-toast';
 import { Link } from 'react-router';
 import { useDaos } from 'shared/api/daos';
 import { useProposals } from 'shared/api/proposals';
@@ -23,7 +22,6 @@ import { DaoCard } from './components/DaoCard';
 import { ProposalCard } from './components/ProposalCard';
 import { SelectDao } from './components/SelectDao';
 import css from './styles.module.scss';
-import { InitialsAvatar } from '@twa-dev/mark42';
 
 export const ProfilePage = React.memo(function ProfilePage() {
 	const [isProposalsFilterOpen, setIsProposalsFilterOpen] = React.useState<boolean>(false);
@@ -40,7 +38,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const { daos, fetchDaos } = useDaos();
 	const { proposals, fetchProposals } = useProposals();
 
-	const { me, fetchMe } = store.useMe();
+	const { fetchMe } = store.useMe();
 
 	const { setIsMenuShown, setIsHeaderShown, setIsBackground } = store.useApp();
 
