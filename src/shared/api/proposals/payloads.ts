@@ -38,7 +38,6 @@ export type ICreateRemoveGPProposalPayload = {
 	jettonWalletAddressToRemove: string;
 	jettonWalletOwnerAddressToRemove: string;
 	votingDuration: number;
-	tokenAmount: number;
 };
 
 export type ICreateChangeDAONameProposalPayload = {
@@ -106,7 +105,6 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 	switch (payload.type) {
 		case ProposalType.RemoveGP: {
 			return ProposalsBuilder.buildCallJettonBurn(
-				toNano(payload.tokenAmount),
 				Address.parse(payload.jettonWalletAddressToRemove),
 				Address.parse(payload.jettonWalletOwnerAddressToRemove)
 			);
