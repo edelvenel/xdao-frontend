@@ -4,8 +4,8 @@ import { useDaos } from './useDaos';
 import { useFormType } from './useFormType';
 import { useMe } from './useMe';
 import { useNfts } from './useNfts';
-import { useWallet } from './useWallet';
 import { useTelegramData } from './useTelegramData';
+import { useWallet } from './useWallet';
 
 export const store = {
 	useApp,

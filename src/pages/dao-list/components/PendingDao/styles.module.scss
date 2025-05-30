@@ -1,0 +1,40 @@
+.pendingDao {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 12px;
+	border-radius: 32px;
+	background-color: var(--semantic-card-background);
+	overflow: hidden;
+
+	.block {
+		display: flex;
+		gap: 12px;
+		border-radius: 32px;
+		border: 1px solid var(--semantic-background-tetriary);
+		min-height: 64px;
+		background-color: var(--semantic-background-tetriary);
+
+		align-items: center;
+		justify-content: flex-start;
+		padding: 6px;
+		padding-right: 20px;
+
+		.name {
+			flex: 1;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 20px;
+			word-break: break-all;
+		}
+
+		.logo {
+			border-radius: 32px;
+			width: 50px;
+			height: 50px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+	}
+}

@@ -23,6 +23,23 @@ export type IDao = {
 	plugins: IPlugin[];
 };
 
+export type IPendingDao = {
+	name: string;
+	ownerRawAddress: string;
+};
+
+export type IPendingProposal = {
+	name: string;
+	ownerRawAddress: string;
+	type: ProposalType;
+};
+
+export type IHashedData<T> = {
+	data: T;
+	hash: string;
+	expiresAt: number;
+};
+
 export enum DaoStatus {
 	Transferable = 'transferable',
 	NonTransferable = 'non-transferable',
