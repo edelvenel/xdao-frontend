@@ -2,7 +2,7 @@ import { api, tonApi } from 'app/api';
 import { Dao, FilterEnum } from 'app/api/codegen';
 import { BalancesResponse, HoldersResponse, TokensRate } from 'app/api/types';
 import logoExample from 'assets/images/logo-example.png';
-import { DaoStatus, IDao, IHolder, IJetton, IRate } from 'shared/types';
+import { DaoStatus, IDao, IJetton, IRate } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
 	try {

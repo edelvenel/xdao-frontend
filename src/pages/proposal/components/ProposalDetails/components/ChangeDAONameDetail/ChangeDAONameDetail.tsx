@@ -19,6 +19,7 @@ interface IChangeDAONameDetailProps {
 export function ChangeDAONameDetail({ dao, votes, proposal, onVote }: IChangeDAONameDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
+
 	return (
 		<ProposalDetailLayout
 			isVotingEnabled={true}
