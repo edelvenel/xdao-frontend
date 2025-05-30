@@ -12,6 +12,7 @@ import { Modal } from 'shared/ui/Modal';
 import { SearchBlock } from 'shared/ui/SearchBlock';
 import { DAO } from './components/DAO';
 import { DAOLoader } from './components/DAOLoader';
+import { PendingDAO } from './components/PendingDao';
 import css from './styles.module.scss';
 
 export const DAOListPage = React.memo(function DAOListPage() {
@@ -20,7 +21,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	const [filter, setFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { fetchDaos, resetDaos, hasMore } = useDaos();
-	const { daos } = store.useDaos();
+	const { daos, pendingDaos } = store.useDaos();
 
 	const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 
 	React.useEffect(() => {
 		fetchDaos(searchText ?? '', filter);
-	}, []);
+	}, [fetchDaos, filter, searchText]);
 
 	const handleOnApplyFilter = React.useCallback(
 		(value: FilterEnum) => {
@@ -91,6 +92,8 @@ export const DAOListPage = React.memo(function DAOListPage() {
 						loader={<div>Loading...</div>}
 						className={css.list}
 					>
+						{pendingDaos !== null &&
+							Object.values(pendingDaos).map((dao, index) => <PendingDAO key={index} dao={dao} />)}
 						{daos.map((dao) => (
 							<DAO
 								key={dao.address}

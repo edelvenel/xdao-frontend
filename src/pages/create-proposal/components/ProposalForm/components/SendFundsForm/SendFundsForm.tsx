@@ -1,4 +1,4 @@
-import { TOKENS } from 'app/mocks/constants';
+import tonSymbol from 'assets/images/ton-symbol.png';
 import { Formik } from 'formik';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
@@ -10,7 +10,7 @@ import { ICreateSendFundsProposalPayload } from 'shared/api/proposals/payloads';
 import { Icon } from 'shared/icons';
 import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
 import { store } from 'shared/store';
-import { ProposalType } from 'shared/types';
+import { IJetton, IToken, ProposalType } from 'shared/types';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
@@ -29,6 +29,10 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 	const { daos, fetchDaos } = useDaos();
 	const { dao } = store.useFormType();
 	const { createProposal } = useProposals();
+	const [jettons, setJettons] = React.useState<IJetton[] | null>(null);
+	const [tonBalance, setTonBalance] = React.useState<number | null>(null);
+	const [tonRate, setTonRate] = React.useState<number | null>(null);
+	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
 
 	const navigate = useNavigate();
 
@@ -41,7 +45,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 				description: values.description,
 				votingDuration: Number(values.votingDuration),
 				fromDAO: values.fromDAO!,
-				token: values.token,
+				token: values.token!,
 				recipientAddress: values.recipientAddress,
 				tokenAmount: Number(values.tokenAmount),
 			};
@@ -60,6 +64,47 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 		fetchDaos();
 	}, [fetchDaos]);
 
+	React.useEffect(() => {
+		const fetchJettons = async () => {
+			if (dao) {
+				const jettons = await getDAOJettons(dao.plugins[0].address);
+				setJettons(jettons);
+			}
+		};
+
+		const fetchTonBalance = async () => {
+			if (dao) {
+				const balance = await getTONBalance(dao.plugins[0].address);
+				setTonBalance(balance);
+			}
+		};
+
+		const fetchRates = async () => {
+			const rate = await getTokenRates(['ton'], ['usd']);
+			setTonRate(rate[0].rate);
+		};
+
+		fetchJettons();
+		fetchTonBalance();
+		fetchRates();
+	}, [dao, getDAOJettons, getTONBalance, getTokenRates]);
+
+	const tokens: IToken[] = React.useMemo(() => {
+		if (jettons === null || tonBalance === null || tonRate === null) {
+			return [];
+		}
+		const tonToken: IToken = {
+			name: 'TON',
+			amount: tonBalance,
+			rate: tonRate * tonBalance,
+			imgUrl: tonSymbol,
+		};
+		const jettonsTokens: IToken[] = jettons.map((jetton) => {
+			return { name: jetton.name, amount: jetton.amount, imgUrl: jetton.imgUrl, rate: jetton.rate };
+		});
+		return [tonToken, ...jettonsTokens];
+	}, [jettons, tonBalance, tonRate]);
+
 	if (!dao) {
 		return;
 	}
@@ -68,7 +113,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 		return <ScreenLoader />;
 	}
 
-	const initialValues = getInitialValues(dao);
+	const initialValues = getInitialValues(dao, tokens);
 
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
@@ -138,7 +183,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 								<div className={css.tokenBlock}>
 									<RadioToken
 										selected={props.values.token}
-										options={TOKENS}
+										options={tokens}
 										onSelect={(value) => {
 											if (Number(props.values.tokenAmount) > value.amount) {
 												props.setValues({ ...props.values, token: value, tokenAmount: String(value.amount) });
@@ -152,13 +197,15 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 											variant={
 												props.errors.tokenAmount !== undefined && props.touched.tokenAmount ? 'error' : 'primary'
 											}
+											disabled={props.values.token === null}
 											value={props.values.tokenAmount}
 											placeholder="Enter token amount"
 											min={0}
-											max={props.values.token.amount}
-											onMaxAmount={() =>
-												props.setValues({ ...props.values, tokenAmount: String(props.values.token.amount) })
-											}
+											max={props.values.token?.amount}
+											onMaxAmount={() => {
+												console.log(props.values.token?.amount);
+												props.setValues({ ...props.values, tokenAmount: String(props.values.token?.amount) });
+											}}
 											onUpdate={(value) => props.setValues({ ...props.values, tokenAmount: value })}
 										/>
 										{props.errors.tokenAmount && props.touched.tokenAmount ? (

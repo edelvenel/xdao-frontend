@@ -1,0 +1,20 @@
+.option {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 30px;
+	padding: 9px 20px 9px 16px;
+	height: 61px;
+	background: var(--loader-background);
+	animation: l8 1s infinite;
+	border-radius: 32px;
+	color: var(--semantic-text-primary);
+
+	border-color: var(--semantic-button-notifications);
+}
+
+@keyframes l8 {
+	100% {
+		background-position: top left;
+	}
+}

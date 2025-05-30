@@ -8,14 +8,13 @@ import { store } from 'shared/store';
 import { ProposalType } from 'shared/types';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
-import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
+import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
 import { IForm, initialValues, validationSchema } from './types';
-import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 interface IRemoveGPFormProps {
 	data: ICreateRemoveGPProposalPayload | null;
 	onResponse: (value: boolean) => void;
@@ -54,7 +53,6 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 					jettonWalletAddressToRemove,
 					jettonWalletOwnerAddressToRemove,
 					votingDuration: Number(values.votingDuration),
-					tokenAmount: Number(values.tokenAmount),
 				};
 
 				try {
@@ -99,17 +97,10 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
-									options={holders ? holders.map((holder) => friendlyWallet(holder.owner_address)) : []}
+									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
 									variant={props.errors.gpToRemove !== undefined && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}
-								/>
-								<InputNumber
-									variant={props.errors.tokenAmount !== undefined && props.touched.tokenAmount ? 'error' : 'primary'}
-									value={String(props.values.tokenAmount ?? '')}
-									fieldName="Token amount"
-									placeholder="Add token amount"
-									onUpdate={(value) => props.setValues({ ...props.values, tokenAmount: value })}
 								/>
 								{props.errors.name && props.touched.name ? (
 									<ValidationError>{props.errors.name}</ValidationError>
@@ -122,9 +113,6 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								) : null}
 								{props.errors.gpToRemove && props.touched.gpToRemove ? (
 									<ValidationError>{props.errors.gpToRemove}</ValidationError>
-								) : null}
-								{props.errors.tokenAmount && props.touched.tokenAmount ? (
-									<ValidationError>{props.errors.tokenAmount}</ValidationError>
 								) : null}
 							</div>
 							{props.values.gpToRemove && dao && (
