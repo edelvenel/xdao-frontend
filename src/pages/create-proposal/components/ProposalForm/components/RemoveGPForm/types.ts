@@ -5,7 +5,6 @@ export interface IForm {
 	name: string;
 	description: string;
 	gpToRemove: string;
-	tokenAmount: string;
 	votingDuration: number | null;
 }
 
@@ -13,7 +12,6 @@ export const initialValues: IForm = {
 	name: '',
 	description: '',
 	gpToRemove: '',
-	tokenAmount: '',
 	votingDuration: null,
 };
 
@@ -27,7 +25,6 @@ export const validationSchema = yup.object().shape({
 			if (!value) return true;
 			return TonWeb.utils.Address.isValid(value);
 		}),
-	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required(''),
 	votingDuration: yup
 		.number()
 		.min(1, 'Voting duration must be at least 1 day long')
