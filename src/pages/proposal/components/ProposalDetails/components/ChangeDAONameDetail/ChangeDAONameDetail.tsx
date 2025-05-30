@@ -46,7 +46,7 @@ export function ChangeDAONameDetail({ dao, votes, proposal, onVote }: IChangeDAO
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Current name</div>
-							<div className={css.value}>NO DATA</div>
+							<div className={css.value}>{dao.name}</div>
 						</div>
 					</div>
 

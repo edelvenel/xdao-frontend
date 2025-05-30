@@ -11,7 +11,8 @@
  */
 
 import { ProposalKey, ProposalStatus } from 'shared/types';
-import { AccountData } from './types';
+import { AccountData, HoldersResponse } from './types';
+import { getJettonHolders } from 'shared/api/daos/methods';
 
 export interface Ok {
 	/** @example true */
@@ -114,6 +115,10 @@ export interface GetAccountJettonsBalancesParams {
 	tokens: string[];
 
 	/** Wallet Address */
+	accountId: string;
+}
+
+export interface GetJettonHoldersParams {
 	accountId: string;
 }
 
@@ -792,6 +797,15 @@ export class TonApi<SecurityDataType extends unknown> {
 	}
 
 	v2 = {
+		getJettonHolders: ({ accountId }: GetJettonHoldersParams, params: RequestParams = {}) => 
+			this.http.request<HoldersResponse,
+			{
+				error: string;
+			}>({
+				path: `/v2/jettons/${accountId}/holders`,
+				method: 'GET',
+				...params,
+			}),
 		/**
 		 * No description
 		 *

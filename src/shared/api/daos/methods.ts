@@ -1,8 +1,8 @@
 import { api, tonApi } from 'app/api';
 import { Dao, FilterEnum } from 'app/api/codegen';
-import { BalancesResponse, TokensRate } from 'app/api/types';
+import { BalancesResponse, HoldersResponse, TokensRate } from 'app/api/types';
 import logoExample from 'assets/images/logo-example.png';
-import { DaoStatus, IDao, IJetton, IRate } from 'shared/types';
+import { DaoStatus, IDao, IHolder, IJetton, IRate } from 'shared/types';
 
 export const getFactoryAddress = async (token: string) => {
 	try {
@@ -29,7 +29,8 @@ export const daoMapper = (dao: Dao): IDao => {
 		LPTokens: dao.total_supply,
 		social: [],
 		email: dao.jetton_metadata['email'],
-		consensus: dao.success_percentage,
+		// decimals: 2
+		consensus: dao.success_percentage / 100,
 		distributionRules: [],
 		slots: { total: 1, reserved: 0 },
 		status: DaoStatus.Transferable,
@@ -104,6 +105,10 @@ export const getJettons = async (token: string, tokens: string[], accountId: str
 		throw error;
 	}
 };
+
+export const getJettonHolders = async (jettonMaster: string): Promise<HoldersResponse> => {
+	return tonApi.v2.getJettonHolders({ accountId: jettonMaster })
+}
 
 export const getBalance = async (token: string, accountId: string): Promise<number> => {
 	try {

@@ -53,7 +53,7 @@ export function ChangeGeneralConsensusDetail({ dao, votes, proposal, onVote }: I
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New consensus</div>
-							<div className={css.value}>{proposal.data.success_percentage}%</div>
+							<div className={css.value}>{proposal.data.success_percentage/100}%</div>
 						</div>
 					</div>
 					<div className={css.block}>

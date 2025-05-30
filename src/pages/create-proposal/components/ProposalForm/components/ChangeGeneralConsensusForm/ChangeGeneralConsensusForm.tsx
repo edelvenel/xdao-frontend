@@ -41,7 +41,7 @@ export function ChangeGeneralConsensusForm({ onResponse }: IChangeGeneralConsens
 				name: values.name,
 				description: values.description,
 				votingDuration: Number(values.votingDuration),
-				currentConsensus: values.currentConsensus,
+				currentConsensus: values.currentConsensus * 100,
 			};
 
 			try {

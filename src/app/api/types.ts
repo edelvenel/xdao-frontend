@@ -58,6 +58,13 @@ export interface AccountData {
 	is_suspended: boolean;
 	is_wallet: boolean;
 }
+
+
+export interface HoldersResponse {
+	address: string;
+	owner: AccountData;
+	balance: string;
+}
 export interface ExtraBalanceEntity {
 	amount: string;
 	preview: Preview;
