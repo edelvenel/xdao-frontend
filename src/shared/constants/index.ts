@@ -4,6 +4,7 @@ export const API_URL = import.meta.env.VITE_API_URL;
 export const TON_API_URL = import.meta.env.VITE_TON_API_URL;
 export const TON_API_TOKEN = import.meta.env.VITE_TON_API_TOKEN;
 export const TOAST_DURATION = 5000;
+export const PENDING_EXPIRATION_DURATION = 20 * 60 * 1000;
 
 export const TOKENS: IOptionWithNote[] = [
 	{ id: 1, value: 'GP', note: 'only GP holders can vote' },
