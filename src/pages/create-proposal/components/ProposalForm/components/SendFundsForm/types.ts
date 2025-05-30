@@ -1,4 +1,3 @@
-import { TOKENS } from 'app/mocks/constants';
 import { IDao, IToken } from 'shared/types';
 import TonWeb from 'tonweb';
 import * as yup from 'yup';
@@ -9,18 +8,18 @@ export interface IForm {
 	votingDuration: number | null;
 	fromDAO: IDao | null;
 	recipientAddress: string;
-	token: IToken;
+	token: IToken | null;
 	tokenAmount: string;
 }
 
-export const getInitialValues = (dao: IDao): IForm => {
+export const getInitialValues = (dao: IDao, tokens: IToken[]): IForm => {
 	return {
 		name: '',
 		description: '',
 		votingDuration: null,
 		fromDAO: dao,
 		recipientAddress: '',
-		token: TOKENS[0], //TODO: replace with real tokens
+		token: tokens.length === 0 ? null : tokens[0],
 		tokenAmount: '',
 	};
 };
@@ -41,6 +40,6 @@ export const validationSchema = yup.object().shape({
 			if (!value) return true;
 			return TonWeb.utils.Address.isValid(value);
 		}),
-	token: yup.object().required(''),
+	token: yup.object().nonNullable().required(''),
 	tokenAmount: yup.number().min(0, 'Token amount cannot be negative').required(''),
 });

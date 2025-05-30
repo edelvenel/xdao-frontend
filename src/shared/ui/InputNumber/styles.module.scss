@@ -1,6 +1,6 @@
 .inputNumber {
 	flex: 1;
-	
+
 	border-radius: 50px;
 	overflow: hidden;
 	position: relative;
@@ -13,6 +13,10 @@
 
 	&.small {
 		min-height: 44px;
+	}
+
+	&.disabled {
+		opacity: 0.6;
 	}
 
 	.placeholder {
@@ -107,5 +111,9 @@
 		font-weight: 500;
 		user-select: none;
 		cursor: pointer;
+
+		&:disabled {
+			opacity: 0.6;
+		}
 	}
 }

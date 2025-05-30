@@ -16,6 +16,7 @@ interface IInputAmountProps
 export function InputNumber({
 	onMaxAmount,
 	onUpdate,
+	disabled,
 	className,
 	fieldName,
 	value,
@@ -23,7 +24,7 @@ export function InputNumber({
 	placeholder,
 	max,
 	min,
-	sizeVariant ='default',
+	sizeVariant = 'default',
 	...props
 }: IInputAmountProps) {
 	const [isFocused, setIsFocused] = React.useState<boolean>(false);
@@ -67,14 +68,14 @@ export function InputNumber({
 	);
 
 	const handleOnMaxAmount = React.useCallback(() => {
-		if (onMaxAmount) {
+		if (onMaxAmount && !disabled) {
 			hapticFeedback('press');
 			onMaxAmount();
 		}
-	}, [onMaxAmount]);
+	}, [disabled, onMaxAmount]);
 
 	return (
-		<div className={cn(css.inputNumber, css[sizeVariant], className)}>
+		<div className={cn(css.inputNumber, css[sizeVariant], disabled && css.disabled, className)}>
 			<AnimatePresence initial={false}>
 				{!isFocused && !value && (
 					<motion.div
@@ -103,12 +104,13 @@ export function InputNumber({
 					onFocus={() => setIsFocused(true)}
 					onChange={handleOnChange}
 					value={value}
+					disabled={disabled}
 					{...props}
 				/>
 			</motion.div>
 
 			{onMaxAmount && (
-				<div className={css.maxButton} onClick={handleOnMaxAmount}>
+				<div className={cn(css.maxButton, disabled && css.disabled)} onClick={handleOnMaxAmount}>
 					MAX
 				</div>
 			)}

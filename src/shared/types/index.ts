@@ -171,6 +171,7 @@ export type IJetton = {
 	amount: number;
 	imgUrl: string;
 	url: string;
+	rate: number;
 };
 
 export type IRate = {

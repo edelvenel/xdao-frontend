@@ -45,6 +45,7 @@ export const jettonMapper = (balances: BalancesResponse): IJetton[] => {
 			imgUrl: balance.jetton.image,
 			url: '', //TODO: replace with real url,
 			amount: Number(balance.balance) / 10 ** balance.jetton.decimals,
+			rate: balance.price.prices.USD,
 		};
 	});
 
