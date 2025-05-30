@@ -97,7 +97,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
-									options={holders ? holders.map((holder) => friendlyWallet(holder.owner_address)) : []}
+									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
 									variant={props.errors.gpToRemove !== undefined && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}
