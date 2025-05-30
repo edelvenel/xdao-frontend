@@ -10,6 +10,7 @@ import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
+import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -31,10 +32,6 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 			fetchHolders(token, dao.address);
 		}
 	}, [dao, fetchHolders, token]);
-
-	const listDaoGp: string[] = React.useMemo(() => {
-		return dao ? dao.distributionRules.flatMap((rule) => rule.walletAddress) : [];
-	}, [dao]);
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
@@ -102,7 +99,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.fromWalletAddress}
-									options={listDaoGp}
+									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
 									variant={
 										props.errors.fromWalletAddress !== undefined && props.touched.fromWalletAddress
 											? 'error'
@@ -113,7 +110,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 								/>
 								<Dropdown
 									placeholder="To wallet address"
-									options={listDaoGp}
+									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
 									variant={
 										props.errors.toWalletAddress !== undefined && props.touched.toWalletAddress ? 'error' : 'primary'
 									}
