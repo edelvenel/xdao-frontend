@@ -35,12 +35,12 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	}, [setIsHeaderShown, setIsMenuShown]);
 
 	React.useEffect(() => {
-		if (daos === null || daos.length > 0) {
+		if (daos === null || daos.length > 0 || pendingDaos === null || pendingDaos.length > 0) {
 			setIsBackground(false);
 		} else {
 			setIsBackground(true);
 		}
-	}, [daos, setIsBackground]);
+	}, [daos, pendingDaos, setIsBackground]);
 
 	React.useEffect(() => {
 		fetchDaos(searchText ?? '', filter);
@@ -84,6 +84,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 		<div className={css.page}>
 			<div className={css.list}>
 				{daos && daos.length === 0 && <div className={css.placeholder}>No DAOs yet</div>}
+				{pendingDaos !== null && Object.values(pendingDaos).map((dao, index) => <PendingDAO key={index} dao={dao} />)}
 				{daos && (
 					<InfiniteScroll
 						dataLength={daos.length}
@@ -92,8 +93,6 @@ export const DAOListPage = React.memo(function DAOListPage() {
 						loader={<div>Loading...</div>}
 						className={css.list}
 					>
-						{pendingDaos !== null &&
-							Object.values(pendingDaos).map((dao, index) => <PendingDAO key={index} dao={dao} />)}
 						{daos.map((dao) => (
 							<DAO
 								key={dao.address}

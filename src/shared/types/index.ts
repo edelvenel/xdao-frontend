@@ -32,6 +32,7 @@ export type IPendingProposal = {
 	name: string;
 	ownerRawAddress: string;
 	type: ProposalType;
+	description: string;
 };
 
 export type IHashedData<T> = {

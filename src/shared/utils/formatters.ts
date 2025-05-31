@@ -1,5 +1,5 @@
 import { Address } from '@ton/core';
-import { IPendingDao } from 'shared/types';
+import { IPendingDao, IPendingProposal, ProposalType } from 'shared/types';
 
 export const shortenAddress = (str: string): string => {
 	if (str.length <= 6) {
@@ -13,6 +13,31 @@ export const getDaoHash = async (daoName: string, ownerWalletAddress: string): P
 		? ownerWalletAddress
 		: Address.parseRaw(ownerWalletAddress).toString({ bounceable: false });
 	const jsonObject: IPendingDao = { name: daoName, ownerRawAddress: rawAddress };
+	const jsonString = JSON.stringify(jsonObject);
+	try {
+		const hash = await hashStringSHA256(jsonString);
+		return hash;
+	} catch (error) {
+		console.log(error);
+		return '';
+	}
+};
+
+export const getProposalHash = async (
+	name: string,
+	type: ProposalType,
+	description: string,
+	ownerAddress: string
+): Promise<string> => {
+	const rawAddressOwner = Address.isRaw(ownerAddress)
+		? ownerAddress
+		: Address.parseRaw(ownerAddress).toString({ bounceable: false });
+	const jsonObject: IPendingProposal = {
+		name: name,
+		type: type,
+		description: description,
+		ownerRawAddress: rawAddressOwner,
+	};
 	const jsonString = JSON.stringify(jsonObject);
 	try {
 		const hash = await hashStringSHA256(jsonString);
