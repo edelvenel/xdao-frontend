@@ -145,7 +145,7 @@ export function useDaos() {
 		hashedDaos[hash] = {
 			hash: hash,
 			expiresAt: Date.now() + PENDING_EXPIRATION_DURATION,
-			data: { name: daoObject.name, ownerRawAddress: daoObject.ownerRawAddress },
+			data: daoObject,
 		};
 		localStorage.setItem('pending_daos', JSON.stringify(hashedDaos));
 	};

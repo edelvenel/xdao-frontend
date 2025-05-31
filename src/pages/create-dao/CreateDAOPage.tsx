@@ -14,7 +14,6 @@ import { Button } from 'shared/ui/Button';
 import { Input } from 'shared/ui/Input';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
-import { DaoCreateLoader } from './components/DaoCreateLoader';
 import { DaoCreateResult } from './components/DaoCreateResult';
 import { TabEqual } from './components/TabEqual';
 import { TabProportional } from './components/TabProportional';
@@ -28,7 +27,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [validationSchema, setValidationSchema] = React.useState(getValidationSchema(0));
 	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
-	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
 	// const [createdDaoId, setCreatedDaoId] = React.useState<string>('');
@@ -112,7 +110,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 					consensusPercent: values.consensusPercent,
 				};
 				try {
-					setIsLoading(true);
 					await createDao(payload);
 				} catch {
 					setIsSuccess(false);
@@ -207,21 +204,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 								Increasing the consensus makes decisions harder to pass, while lowering it makes them easier.
 							</div>
 						</div>
-					</Modal>
-
-					<Modal isOpen={isLoading}>
-						<DaoCreateLoader
-							onDone={() => {
-								setIsSuccess(true);
-								setIsResultOpen(true);
-								// setCreatedDaoId(value);
-							}}
-							onTimeOut={() => {
-								setIsLoading(false);
-								setIsSuccess(false);
-								setIsResultOpen(true);
-							}}
-						/>
 					</Modal>
 
 					<Modal isOpen={isResultOpen} onClose={() => navigate(-1)} isBackgroundOn={isSuccess}>

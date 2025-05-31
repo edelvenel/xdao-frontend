@@ -1,0 +1,56 @@
+.pendingProposal {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 12px;
+	border: 1px solid var(--semantic-card-edge);
+	border-radius: 32px;
+	background-color: var(--semantic-card-background);
+	color: var(--semantic-text-primary);
+	max-width: 100%;
+
+	.block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-radius: 32px;
+		border: 1px solid var(--semantic-background-tetriary);
+		padding: 12px 20px;
+		min-height: 64px;
+		background-color: var(--semantic-background-tetriary);
+		overflow: hidden;
+
+		.label {
+			font-size: 12px;
+			font-weight: 600;
+			line-height: 16px;
+			color: var(--semantic-text-non-active);
+		}
+
+		.name {
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 21px;
+			word-break: break-all;
+		}
+
+		.value {
+			font-size: 15px;
+			font-weight: 500;
+			word-break: break-all;
+		}
+	}
+
+	.column {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.description {
+		font-size: 15px;
+		font-weight: 500;
+		word-break: break-all;
+	}
+}
