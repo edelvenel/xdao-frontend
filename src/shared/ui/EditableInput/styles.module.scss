@@ -1,31 +1,31 @@
 .editableInput {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  height: 50px;
-  padding-right: 15px;
-  overflow: hidden;
-  border-radius: 32px;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 20px;
-  color: var(--semantic-text-primary);
-  background-color: var(--semantic-background-tetriary);
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+	height: 50px;
+	padding-right: 15px;
+	overflow: hidden;
+	border-radius: 32px;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 20px;
+	color: var(--semantic-text-primary);
+	background-color: var(--semantic-background-tetriary);
 
-  .modeButton {
-    color: var(--semantic-text-secondary);
-    align-self: center;
-    user-select: none;
-    cursor: pointer;
+	.modeButton {
+		color: var(--semantic-text-accent-2);
+		align-self: center;
+		user-select: none;
+		cursor: pointer;
 
-    .confirmButton {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--semantic-text-accent-2);
-    }
-  }
+		.confirmButton {
+			font-size: 15px;
+			font-weight: 600;
+			color: var(--semantic-text-accent-2);
+		}
+	}
 
-  &::placeholder {
-    color: var(--semantic-text-placeholder);
-  }
+	&::placeholder {
+		color: var(--semantic-text-placeholder);
+	}
 }
