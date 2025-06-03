@@ -43,6 +43,7 @@ export const daoMapper = (dao: Dao): IDao => {
 export const jettonMapper = (balances: BalancesResponse): IJetton[] => {
 	const mappedJettons: IJetton[] = balances.balances.map((balance) => {
 		return {
+			address: balance.jetton.address,
 			name: balance.jetton.name,
 			imgUrl: balance.jetton.image,
 			url: '', //TODO: replace with real url,

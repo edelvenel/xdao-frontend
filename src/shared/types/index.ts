@@ -90,8 +90,7 @@ export enum DaoType {
 }
 
 export type IToken = {
-	id?: string;
-	address?: string;
+	address: string;
 	name: string;
 	imgUrl: string;
 	amount: number;
@@ -168,6 +167,7 @@ export type IPlugin = {
 };
 
 export type IJetton = {
+	address: string;
 	name: string;
 	amount: number;
 	imgUrl: string;
