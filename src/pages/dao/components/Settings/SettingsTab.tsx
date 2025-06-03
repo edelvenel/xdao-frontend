@@ -5,9 +5,11 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { IDao, ProposalType } from 'shared/types';
+import { IDao, IDistributionRule, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { TextLoader } from 'shared/ui/TextLoader';
+import { calculatePercents } from 'shared/utils/calculateHoldersPercent';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { DistributionRuleLoader } from './components/DistributionRuleLoader';
 import css from './styles.module.scss';
 
@@ -20,6 +22,7 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 	const [consensus, setConsensus] = React.useState<number | null>(dao ? dao.consensus : null);
 	const [isConsensusEdit, setIsConsensusEdit] = React.useState<boolean>(false);
 	const { setDao, setProposalType } = store.useFormType();
+	const { holders } = store.useFormType();
 
 	const navigate = useNavigate();
 
@@ -86,6 +89,15 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 		setConsensus(numberValue);
 	}, []);
 
+	const distributionRules: IDistributionRule[] = React.useMemo(() => {
+		const rules: IDistributionRule[] = holders
+			? holders.map((holder) => {
+					return { walletAddress: holder.jetton_wallet_address, tokens: Number(holder.balance) / 10 ** 9, percent: 0 };
+				})
+			: [];
+		return calculatePercents(rules);
+	}, [holders]);
+
 	return (
 		<div className={css.tab}>
 			{consensus !== null && (
@@ -125,13 +137,14 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 			<div className={css.block}>
 				<div className={css.title}>GP holders:</div>
 				{dao &&
-					dao.distributionRules.map((rule, index) => (
+					distributionRules &&
+					distributionRules.map((rule, index) => (
 						<div key={index} className={css.distributionRule}>
 							<div className={cn(css.item, css.wallet)}>
-								<div className={css.text}>{rule.walletAddress}</div>
+								<div className={css.text}>{getUserFriendlyAddress(rule.walletAddress)}</div>
 							</div>
 							<div className={cn(css.item, css.gpTokens)}>{rule.tokens}</div>
-							<div className={cn(css.item, css.percent)}>{rule.percent}%</div>
+							<div className={cn(css.item, css.percent)}>{rule.percent?.toFixed(2)}%</div>
 							<div className={cn(css.item, css.link)} onClick={() => toast.error('Unimplemented')}>
 								<Icon.Common.LittleLink />
 							</div>
@@ -140,9 +153,12 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 							</div>
 						</div>
 					))}
-				{dao && dao.distributionRules && <div className={css.placeholder}>No holders yet</div>}
+				{dao && holders && holders.length === 0 && <div className={css.placeholder}>No holders yet</div>}
+
 				{!dao && (
 					<>
+						<DistributionRuleLoader />
+						<DistributionRuleLoader />
 						<DistributionRuleLoader />
 					</>
 				)}

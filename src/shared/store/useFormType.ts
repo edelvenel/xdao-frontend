@@ -10,6 +10,7 @@ interface IFormTypeStore {
 	oldHolders: IHolder[] | null;
 	holdersOffset: number;
 	holdersHasMore: boolean;
+	resetHolders: () => void;
 	setFormData: (data: ICreateProposalPayload | null) => void;
 	setDao: (dao: IDao | null) => void;
 	setProposalType: (proposalType: ProposalType | null) => void;
@@ -25,7 +26,11 @@ export const useFormType = create<IFormTypeStore>((set, get) => ({
 	formData: null,
 	holdersOffset: 0,
 	holdersHasMore: false,
+	resetHolders: () => {
+		set({ holders: null, oldHolders: null, holdersOffset: 0, holdersHasMore: false });
+	},
 	fetchHolders: async (token: string, daoAddress: string) => {
+		const { fetchHolders } = get();
 		const { holdersOffset, oldHolders, setOldHolders } = get();
 		const { holders, hasMore } = await getDaoHolders(token, daoAddress, holdersOffset);
 
@@ -34,14 +39,22 @@ export const useFormType = create<IFormTypeStore>((set, get) => ({
 			holdersOffset: hasMore ? holdersOffset + holders.length : holdersOffset,
 			holdersHasMore: hasMore,
 		});
+
 		setOldHolders();
+		if (hasMore) {
+			fetchHolders(token, daoAddress);
+		} else {
+			set({ holdersOffset: 0, holdersHasMore: false, oldHolders: null });
+		}
 	},
 
 	setFormData: (data) => {
 		set({ formData: data });
 	},
 	setDao: (dao) => {
+		const { resetHolders } = get();
 		set({ dao });
+		resetHolders();
 	},
 	setProposalType: (proposalType) => {
 		set({ proposalType });

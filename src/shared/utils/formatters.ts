@@ -8,6 +8,11 @@ export const shortenAddress = (str: string): string => {
 	return str.slice(0, 5) + '…' + str.slice(-5);
 };
 
+export const getUserFriendlyAddress = (address: string): string => {
+	const result = Address.isFriendly(address) ? address : Address.parseRaw(address).toString({ bounceable: false });
+	return result;
+};
+
 export const getDaoHash = async (daoName: string, ownerWalletAddress: string): Promise<string> => {
 	const rawAddress = Address.isRaw(ownerWalletAddress)
 		? ownerWalletAddress
