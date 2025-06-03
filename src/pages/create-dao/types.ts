@@ -4,7 +4,6 @@ import * as yup from 'yup';
 
 export interface IForm {
 	name: string;
-	tokenName: string;
 	tokenSymbol: string;
 	walletAddresses: string[];
 	distributionRules: IDistributionRule[];
@@ -16,7 +15,6 @@ export interface IForm {
 export function getInitialValues(userAddress: string | null): IForm {
 	return {
 		name: '',
-		tokenName: '',
 		tokenSymbol: '',
 		walletAddresses: [userAddress === null ? '' : userAddress, '', ''],
 		distributionRules: [

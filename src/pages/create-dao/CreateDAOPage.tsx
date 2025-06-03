@@ -29,7 +29,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const [isOpenSetupInfoModal, setIsOpenSetupInfoModal] = React.useState<boolean>(false);
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
-	// const [createdDaoId, setCreatedDaoId] = React.useState<string>('');
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { createDao } = useDaos();
 	const { walletAddress } = store.useWallet();
@@ -87,7 +86,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 				const payload: ICreateDaoEqualPayload = {
 					type: DaoType.Equal,
 					daoName: values.name,
-					daoTokenName: values.tokenName,
 					daoTokenSymbol: values.tokenSymbol,
 					consensus: values.consensus,
 					walletAddresses: values.walletAddresses,
@@ -104,7 +102,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 				const payload: ICreateDaoProportionalPayload = {
 					type: DaoType.Proportional,
 					daoName: values.name,
-					daoTokenName: values.tokenName,
 					daoTokenSymbol: values.tokenSymbol,
 					distributionRules: values.distributionRules,
 					consensusPercent: values.consensusPercent,
@@ -148,13 +145,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 							onChange={(e) => props.setValues({ ...props.values, name: e.target.value })}
 						/>
 						<Input
-							value={props.values.tokenName}
-							variant={props.touched.tokenName && props.errors.tokenName !== undefined ? 'error' : 'primary'}
-							fieldName="DAO token name"
-							placeholder="Create DAO token name"
-							onChange={(e) => props.setValues({ ...props.values, tokenName: e.target.value })}
-						/>
-						<Input
 							value={props.values.tokenSymbol}
 							variant={props.touched.tokenSymbol && props.errors.tokenSymbol !== undefined ? 'error' : 'primary'}
 							fieldName="DAO token symbol"
@@ -162,9 +152,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 							onChange={(e) => props.setValues({ ...props.values, tokenSymbol: e.target.value })}
 						/>
 						{props.errors.name && props.touched.name ? <ValidationError>{props.errors.name}</ValidationError> : null}
-						{props.errors.tokenName && props.touched.tokenName ? (
-							<ValidationError>{props.errors.tokenName}</ValidationError>
-						) : null}
 						{props.errors.tokenSymbol && props.touched.tokenSymbol ? (
 							<ValidationError>{props.errors.tokenSymbol}</ValidationError>
 						) : null}
