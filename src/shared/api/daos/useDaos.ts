@@ -110,7 +110,7 @@ export function useDaos() {
 		}
 
 		const meta = JettonBuilder.buildOnchainMetadata({
-			name: payload.daoTokenName,
+			name: payload.daoName,
 			symbol: payload.daoTokenSymbol,
 			description: payload.daoName,
 			image: 'https://ton.org/download/ton_symbol.png',

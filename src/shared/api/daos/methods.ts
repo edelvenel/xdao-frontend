@@ -22,14 +22,15 @@ export const daoMapper = (dao: Dao): IDao => {
 	return {
 		name: dao.jetton_metadata.metadata.name,
 		logo:
-			dao.jetton_metadata['image'] && dao.jetton_metadata['image'] !== '' ? dao.jetton_metadata['image'] : logoExample,
+			dao.jetton_metadata.metadata['image'] && dao.jetton_metadata.metadata['image'] !== ''
+				? dao.jetton_metadata.metadata['image']
+				: logoExample,
 		jetton_address: dao.jetton_address,
 		address: dao.address,
 		activeProposals: 0,
 		LPTokens: dao.total_supply,
 		social: [],
 		email: dao.jetton_metadata['email'],
-		// decimals: 2
 		consensus: dao.success_percentage / 100,
 		distributionRules: [],
 		slots: { total: 1, reserved: 0 },
@@ -108,8 +109,8 @@ export const getJettons = async (token: string, tokens: string[], accountId: str
 };
 
 export const getJettonHolders = async (jettonMaster: string): Promise<HoldersResponse> => {
-	return tonApi.v2.getJettonHolders({ accountId: jettonMaster })
-}
+	return tonApi.v2.getJettonHolders({ accountId: jettonMaster });
+};
 
 export const getBalance = async (token: string, accountId: string): Promise<number> => {
 	try {
