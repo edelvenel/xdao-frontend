@@ -38,11 +38,11 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 		async (values: IForm) => {
 			if (holders !== null) {
 				const jettonWalletAddressToRemove = holders.find(
-					(holder) => holder.owner_address === values.gpToRemove
+					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.gpToRemove)
 				)?.jetton_wallet_address;
 
 				const jettonWalletOwnerAddressToRemove = holders.find(
-					(holder) => holder.owner_address === values.gpToRemove
+					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.gpToRemove)
 				)?.jetton_wallet_address;
 
 				if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove) return;
