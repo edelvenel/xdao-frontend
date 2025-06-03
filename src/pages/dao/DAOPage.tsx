@@ -22,6 +22,7 @@ export const DAOPage = React.memo(function DAOPage() {
 	const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false);
 	const [dao, setDao] = useState<IDao | undefined>(undefined);
 	const { token } = store.useAuth();
+	const { fetchHolders } = store.useFormType();
 
 	const navigate = useNavigate();
 	useBackButton();
@@ -37,7 +38,10 @@ export const DAOPage = React.memo(function DAOPage() {
 		};
 
 		fetchDao();
-	}, [id, token]);
+		if (token && id) {
+			fetchHolders(token, id);
+		}
+	}, [fetchHolders, id, token]);
 
 	const selectedTabIdx = React.useMemo(() => mapTabNumber(tab), [tab]);
 

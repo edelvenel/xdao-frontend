@@ -10,6 +10,7 @@ import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { Title } from 'shared/ui/Title';
 import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
@@ -120,7 +121,15 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 									<Title variant={'medium'} value="Update GP distribution" />
 									<DistributionRules
 										holders={
-											holders ? [...holders.filter((holder) => holder.owner_address !== props.values.gpToRemove)] : []
+											holders
+												? [
+														...holders.filter(
+															(holder) =>
+																getUserFriendlyAddress(holder.owner_address) !==
+																getUserFriendlyAddress(props.values.gpToRemove)
+														),
+													]
+												: []
 										}
 										oldHolders={holders ? [...holders] : []}
 									/>
