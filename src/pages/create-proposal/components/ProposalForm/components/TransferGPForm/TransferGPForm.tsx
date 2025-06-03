@@ -11,6 +11,7 @@ import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
 import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -37,11 +38,11 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 		async (values: IForm) => {
 			if (holders !== null) {
 				const fromJettonWalletAddress = holders.find(
-					(holder) => holder.owner_address === values.fromWalletAddress
+					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.fromWalletAddress)
 				)?.jetton_wallet_address;
 
 				const fromJettonWalletOwnerAddress = holders.find(
-					(holder) => holder.owner_address === values.fromWalletAddress
+					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.fromWalletAddress)
 				)?.jetton_wallet_address;
 
 				if (!dao?.address || !fromJettonWalletAddress || !fromJettonWalletOwnerAddress) return;
@@ -75,7 +76,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>
-								<Title variant={'medium'} value="Transfer general partner" />
+								<Title variant={'medium'} value="Transfer GP tokens" />
 								<Input
 									value={props.values.name}
 									variant={props.errors.name !== undefined && props.touched.name ? 'error' : 'primary'}
