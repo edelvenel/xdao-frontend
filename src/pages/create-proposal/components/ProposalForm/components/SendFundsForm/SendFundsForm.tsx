@@ -39,7 +39,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
 			const payload: ICreateSendFundsProposalPayload = {
-				pluginAddress: dao?.plugins[0].address ?? '',
+				pluginAddress: dao?.plugins[0].address ?? 'native',
 				type: ProposalType.SendDAOFunds,
 				name: values.name,
 				description: values.description,
@@ -94,13 +94,20 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 			return [];
 		}
 		const tonToken: IToken = {
+			address: 'native',
 			name: 'TON',
 			amount: tonBalance,
 			rate: tonRate * tonBalance,
 			imgUrl: tonSymbol,
 		};
 		const jettonsTokens: IToken[] = jettons.map((jetton) => {
-			return { name: jetton.name, amount: jetton.amount, imgUrl: jetton.imgUrl, rate: jetton.rate };
+			return {
+				address: jetton.address,
+				name: jetton.name,
+				amount: jetton.amount,
+				imgUrl: jetton.imgUrl,
+				rate: jetton.rate,
+			};
 		});
 		return [tonToken, ...jettonsTokens];
 	}, [jettons, tonBalance, tonRate]);
