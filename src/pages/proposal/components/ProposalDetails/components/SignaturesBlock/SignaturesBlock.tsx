@@ -2,8 +2,8 @@ import cn from 'classnames';
 import { Icon } from 'shared/icons';
 import { IDao, IVote } from 'shared/types';
 import { Title } from 'shared/ui/Title';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
-import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 
 interface ISignaturesBlockProps {
 	dao: IDao;
@@ -24,7 +24,7 @@ export function SignaturesBlock({ dao, votes }: ISignaturesBlockProps) {
 			{votes.map((vote) => (
 				<div className={css.block}>
 					<div className={css.column}>
-						<div className={css.value}>{friendlyWallet(vote.walletAddress)}</div>
+						<div className={css.value}>{shortenAddress(getUserFriendlyAddress(vote.walletAddress))}</div>
 					</div>
 					<div className={css.answer}>
 						<span>Yes</span>
