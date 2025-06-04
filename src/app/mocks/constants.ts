@@ -37,6 +37,7 @@ export const DAOS_MOCK: IDao[] = [
 		},
 		jetton_address: '',
 		plugins: [],
+		owner_address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786e',
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786r',
@@ -61,6 +62,7 @@ export const DAOS_MOCK: IDao[] = [
 		},
 		jetton_address: '',
 		plugins: [],
+		owner_address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786e',
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786e',
@@ -82,6 +84,7 @@ export const DAOS_MOCK: IDao[] = [
 		},
 		jetton_address: '',
 		plugins: [],
+		owner_address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094786e',
 	},
 ];
 

@@ -21,6 +21,7 @@ export type IDao = {
 		reserved: number;
 	};
 	plugins: IPlugin[];
+	owner_address: string;
 };
 
 export type IPendingDao = {
