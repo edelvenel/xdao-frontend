@@ -64,7 +64,7 @@ export function useDaos() {
 
 			if (daos !== null && hashedDaos !== null) {
 				for (const dao of daos) {
-					const hash = await getDaoHash(dao.name, dao.jetton_address);
+					const hash = await getDaoHash(dao.name, dao.owner_address);
 					delete hashedDaos[hash];
 				}
 

@@ -37,6 +37,7 @@ export const daoMapper = (dao: Dao): IDao => {
 		status: DaoStatus.Transferable,
 		description: '',
 		plugins: dao.plugins,
+		owner_address: dao.owner_address,
 	};
 };
 
