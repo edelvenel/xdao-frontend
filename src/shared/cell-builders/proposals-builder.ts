@@ -46,6 +46,7 @@ export class ProposalsBuilder extends Builder {
 	static buildCallJettonBurn(jettonWalletAddress: Address, ownerAddress: Address) {
 		return beginCell()
 			.store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_BURN))
+			// .storeCoins(amount) // TODO amount
 			.storeAddress(jettonWalletAddress)
 			.storeAddress(ownerAddress)
 			.endCell();
