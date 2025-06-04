@@ -7,19 +7,20 @@ import { IDao, IProposal, IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Copy } from 'shared/ui/Copy';
 import { Title } from 'shared/ui/Title';
+import { friendlyWallet, Wallet } from 'shared/ui/Wallet/Wallet';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
-import { friendlyWallet, Wallet } from 'shared/ui/Wallet/Wallet';
 
 interface IAddGPDetailProps {
 	dao: IDao;
 	votes: IVote[];
 	proposal: IProposal;
+	userVote: IVote | null;
 	onVote: () => void;
 }
 
-export function AddGPDetail({ votes, dao, proposal, onVote }: IAddGPDetailProps) {
+export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
@@ -42,12 +43,7 @@ export function AddGPDetail({ votes, dao, proposal, onVote }: IAddGPDetailProps)
 	}
 
 	return (
-		<ProposalDetailLayout
-			isVotingEnabled={true}
-			userVote={proposal.userVote}
-			onBack={() => navigate(-1)}
-			onVote={onVote}
-		>
+		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
 			<div className={css.page}>
 				<FormHeader
 					name={proposal.name}

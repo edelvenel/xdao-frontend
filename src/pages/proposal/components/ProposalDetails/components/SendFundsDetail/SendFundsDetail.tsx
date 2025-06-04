@@ -12,20 +12,16 @@ interface ISendFundsDetailProps {
 	dao: IDao;
 	votes: IVote[];
 	proposal: IProposal;
+	userVote: IVote | null;
 	onVote: () => void;
 }
 
-export function SendFundsDetail({ dao, votes, proposal, onVote }: ISendFundsDetailProps) {
+export function SendFundsDetail({ dao, votes, proposal, userVote, onVote }: ISendFundsDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
 	return (
-		<ProposalDetailLayout
-			isVotingEnabled={true}
-			userVote={proposal.userVote}
-			onBack={() => navigate(-1)}
-			onVote={onVote}
-		>
+		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
 			<div className={css.page}>
 				<FormHeader
 					name={proposal.name}
