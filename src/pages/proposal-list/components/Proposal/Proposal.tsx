@@ -9,6 +9,7 @@ import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
 import { Badge } from '../../../../shared/ui/Badge';
 import css from './styles.module.scss';
@@ -22,6 +23,20 @@ export function Proposal({ proposal }: IProposalProps) {
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
 	const [dao, setDao] = React.useState<IDao | null>(null);
 	const { token } = store.useAuth();
+	const { walletAddress } = store.useWallet();
+
+	const getUserVote = React.useCallback(() => {
+		if (!votes || !walletAddress) {
+			return null;
+		}
+		const vote = votes.find(
+			(vote) => getUserFriendlyAddress(vote.walletAddress) === getUserFriendlyAddress(walletAddress)
+		);
+		if (vote) {
+			return vote;
+		}
+		return null;
+	}, [votes, walletAddress]);
 
 	React.useEffect(() => {
 		const fetchVotes = async () => {
@@ -77,18 +92,18 @@ export function Proposal({ proposal }: IProposalProps) {
 					<Icon.Common.Agree />
 					<span>{agree}%</span>
 				</div>
-				{proposal.userVote === null && (
+				{getUserVote() === null && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button>Vote</Button>
 					</Link>
 				)}
-				{proposal.userVote !== null && (
+				{getUserVote() !== null && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button className={css.voted} variant="secondary">
 							<div className={css.votedIcon}>
 								<Icon.Common.Agree />
 							</div>
-							<span className={css.votedText}>{`You voted: ${proposal.userVote.label}`}</span>
+							<span className={css.votedText}>{`You voted`}</span>
 						</Button>
 					</Link>
 				)}

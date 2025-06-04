@@ -4,28 +4,24 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
+import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
-import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
 
 interface IRemoveGPDetailProps {
 	dao: IDao;
 	votes: IVote[];
 	proposal: IProposal;
+	userVote: IVote | null;
 	onVote: () => void;
 }
 
-export function RemoveGPDetail({ dao, votes, proposal, onVote }: IRemoveGPDetailProps) {
+export function RemoveGPDetail({ dao, votes, proposal, userVote, onVote }: IRemoveGPDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 	return (
-		<ProposalDetailLayout
-			isVotingEnabled={true}
-			userVote={proposal.userVote}
-			onBack={() => navigate(-1)}
-			onVote={onVote}
-		>
+		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
 			<div className={css.page}>
 				<FormHeader
 					name={proposal.name}
