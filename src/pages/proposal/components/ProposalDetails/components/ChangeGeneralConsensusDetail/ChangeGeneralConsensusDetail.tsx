@@ -4,6 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -18,10 +19,11 @@ interface IChangeGeneralConsensusDetailProps {
 export function ChangeGeneralConsensusDetail({ dao, votes, proposal, onVote }: IChangeGeneralConsensusDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
+	const userFriendlyAddress = getUserFriendlyAddress(proposal.createdBy);
 
 	return (
 		<ProposalDetailLayout
-			isVotingEnabled={false}
+			isVotingEnabled={true}
 			userVote={proposal.userVote}
 			onBack={() => navigate(-1)}
 			onVote={onVote}
@@ -46,22 +48,22 @@ export function ChangeGeneralConsensusDetail({ dao, votes, proposal, onVote }: I
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Current consensus</div>
-							<div className={css.value}>{dao.consensus / 10000}%</div>
+							<div className={css.value}>{dao.consensus}%</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New consensus</div>
-							<div className={css.value}>{proposal.data.success_percentage/100}%</div>
+							<div className={css.value}>{proposal.data.success_percentage / 100}%</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{shortenAddress(userFriendlyAddress)}</div>
 						</div>
-						<Copy text={proposal.createdBy} />
+						<Copy text={userFriendlyAddress} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
