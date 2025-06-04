@@ -32,7 +32,7 @@ export function ProposalDetailLayout({ isVotingEnabled, userVote, onVote, onBack
 						</div>
 						<div className={css.row}>
 							<span>You vote:</span>
-							<span className={css.accent}>{`yes (${userVote.impact}%)`}</span>
+							<span className={css.accent}>{`yes (${(userVote.impact / 10000000).toFixed(2)}%)`}</span>
 						</div>
 					</div>
 					<Button onClick={onBack} variant="secondary">

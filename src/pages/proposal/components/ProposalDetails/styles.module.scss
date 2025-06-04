@@ -59,7 +59,10 @@
 
 			.answer {
 				flex: 1;
+				max-width: 150px;
 				display: flex;
+				justify-content: center;
+				align-items: center;
 				gap: 4px;
 				color: var(--semantic-text-primary);
 
