@@ -50,7 +50,6 @@ const requiredWalletAddress = yup
 export function getValidationSchema(tabIdx: number) {
 	const commonFields = {
 		name: yup.string().min(2, 'DAO name is too short').max(50, 'DAO name is too long').required(''),
-		tokenName: yup.string().required(''),
 		tokenSymbol: yup.string().required(''),
 	};
 

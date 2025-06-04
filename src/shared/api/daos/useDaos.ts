@@ -91,6 +91,8 @@ export function useDaos() {
 	const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
 		if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');
 
+		console.log(1);
+
 		const factoryAddress = await getFactoryAddress(token ?? '');
 		const factoryContract = tonClient.open(DAOFactoryContract.createFromAddress(Address.parse(factoryAddress)));
 		const serviceFee = await factoryContract.getServiceFee();
