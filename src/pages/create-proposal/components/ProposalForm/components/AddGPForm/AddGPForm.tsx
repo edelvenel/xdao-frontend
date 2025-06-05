@@ -5,10 +5,11 @@ import { useProposals } from 'shared/api/proposals';
 import { ICreateAddGPProposalPayload } from 'shared/api/proposals/payloads';
 import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
 import { store } from 'shared/store';
-import { ProposalType } from 'shared/types';
+import { IHolder, ProposalType } from 'shared/types';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
@@ -24,6 +25,29 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 	const { createProposal } = useProposals();
 
 	const navigate = useNavigate();
+
+	const getHolders = React.useCallback(
+		(walletAddress: string, tokenAmount: string): IHolder[] => {
+			const userFriendlyAddress = getUserFriendlyAddress(walletAddress);
+			if (holders) {
+				const addresses = holders.map((holder) => getUserFriendlyAddress(holder.owner_address));
+				if (addresses.includes(userFriendlyAddress)) {
+					const holder = holders.find((holder) => getUserFriendlyAddress(holder.owner_address) === userFriendlyAddress);
+					if (holder) {
+						return [
+							...holders.filter((hold) => hold.owner_address !== holder.owner_address),
+							{
+								...holder,
+								balance: String(Number(holder.balance) + Number(tokenAmount) * 10 ** 9),
+							},
+						];
+					}
+				}
+			}
+			return [];
+		},
+		[holders]
+	);
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
@@ -113,14 +137,7 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 								<div className={css.block}>
 									<Title variant={'medium'} value="Update GP distribution" />
 									<DistributionRules
-										holders={holders ? [
-											...holders,
-											{
-												jetton_wallet_address: props.values.walletAddress,
-												balance: String(Number(props.values.tokenAmount) * 10 ** 9),
-												owner_address: props.values.walletAddress,
-											},
-										] : []}
+										holders={getHolders(props.values.walletAddress, props.values.tokenAmount)}
 										oldHolders={holders ? [...holders] : []}
 									/>
 								</div>

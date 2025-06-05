@@ -48,8 +48,8 @@ export function DistributionRules({ holders, oldHolders }: IDistributionRulesPro
 
 	return (
 		<div className={css.distributionRules}>
-			{distributionRules.map((rule) => (
-				<div className={css.distributionRule}>
+			{distributionRules.map((rule, index) => (
+				<div key={index} className={css.distributionRule}>
 					<div className={cn(css.item, css.wallet)}>
 						<span className={css.text}>{getFriendlyAddress(rule.walletAddress)}</span>
 					</div>
