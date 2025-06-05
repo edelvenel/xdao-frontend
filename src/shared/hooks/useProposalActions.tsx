@@ -1,7 +1,7 @@
 import { Address, Cell, toNano } from '@ton/core';
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/payloads';
-import { ElectionsBuilder } from 'shared/cell-builders/elections-builder';
+import { ElectionsBuilder } from 'shared/cell-builders';
 import { tonClient } from 'shared/smartcontracts/client';
 import { DAOJettonWallet } from 'shared/smartcontracts/DAOJettonWallet';
 import { ElectionsMaster } from 'shared/smartcontracts/ElectionsMaster';

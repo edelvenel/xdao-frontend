@@ -64,7 +64,7 @@ export function ProgressBar({
 							>{`${totalPercent - currentPercent}% left`}</motion.div>
 						)}
 					</AnimatePresence>
-					<div className={css.totalPercent}>{`${totalPercent}%`}</div>
+					<div className={css.totalPercent}>{`${totalPercent.toFixed(2)}%`}</div>
 				</div>
 			</div>
 			<AnimatePresence initial={true}>
@@ -76,7 +76,7 @@ export function ProgressBar({
 						className={css.additionalText}
 						style={{ '--dark-width': `${currentPart}%` } as CSSProperties}
 					>
-						<div className={css.additionalPercent}>{`+${additionalPercent}% ↑`}</div>
+						<div className={css.additionalPercent}>{`+${additionalPercent.toFixed(2)}% ↑`}</div>
 					</motion.div>
 				)}
 			</AnimatePresence>
