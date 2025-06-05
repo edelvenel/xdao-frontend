@@ -4,6 +4,7 @@ import React from 'react';
 import { Icon } from 'shared/icons';
 import { IHolder } from 'shared/types';
 import { calculatePercents } from 'shared/utils/calculateHoldersPercent';
+import { formatNumber } from 'shared/utils/formatters';
 import css from './styles.module.scss';
 
 interface IDistributionRulesProps {
@@ -55,15 +56,15 @@ export function DistributionRules({ holders, oldHolders }: IDistributionRulesPro
 					</div>
 					<div className={cn(css.item, css.gpTokens)}>{rule.tokens !== null ? rule.tokens / 10 ** 9 : 0}</div>
 					<div className={cn(css.item, css.percent)}>
-						{distributionRulesOld
-							.find((oldRule) => oldRule.walletAddress === rule.walletAddress)
-							?.percent?.toFixed(1) ?? 0}
+						{formatNumber(
+							distributionRulesOld.find((oldRule) => oldRule.walletAddress === rule.walletAddress)?.percent ?? 0
+						)}
 						%
 					</div>
 					<div className={css.arrow}>
 						<Icon.Common.Arrow />
 					</div>
-					<div className={cn(css.item, css.percent)}>{rule.percent?.toFixed(1)}%</div>
+					<div className={cn(css.item, css.percent)}>{formatNumber(rule.percent ?? 0)}%</div>
 				</div>
 			))}
 		</div>

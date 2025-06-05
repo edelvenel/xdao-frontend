@@ -4,7 +4,7 @@ import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { IVote } from 'shared/types';
 import { Title } from 'shared/ui/Title';
-import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { formatNumber, getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 
 interface ISignaturesBlockProps {
@@ -33,7 +33,7 @@ export function SignaturesBlock({ votes }: ISignaturesBlockProps) {
 			<div className={css.blockVote}>
 				<div className={cn(css.agree, css.vote)}>
 					<Icon.Common.Agree />
-					<span>{votes.reduce((acc, curr) => acc + getImpact(curr.impact), 0).toFixed(2)}%</span>
+					<span>{formatNumber(votes.reduce((acc, curr) => acc + getImpact(curr.impact), 0))}%</span>
 				</div>
 			</div>
 			{votes.map((vote, index) => (
@@ -43,7 +43,7 @@ export function SignaturesBlock({ votes }: ISignaturesBlockProps) {
 					</div>
 					<div className={css.answer}>
 						<span>Yes</span>
-						<div className={css.placeholder}>({getImpact(vote.impact).toFixed(2)}%)</div>
+						<div className={css.placeholder}>({formatNumber(getImpact(vote.impact))}%)</div>
 					</div>
 				</div>
 			))}

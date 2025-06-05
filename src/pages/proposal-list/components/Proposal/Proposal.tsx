@@ -8,7 +8,7 @@ import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { IProposal, IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
-import { getUserFriendlyAddress } from 'shared/utils/formatters';
+import { formatNumber, getUserFriendlyAddress } from 'shared/utils/formatters';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
 import { Badge } from '../../../../shared/ui/Badge';
 import css from './styles.module.scss';
@@ -76,7 +76,7 @@ export function Proposal({ proposal }: IProposalProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{proposal.dao.consensus.toFixed(2)}%</div>
+					<div className={css.value}>{formatNumber(proposal.dao.consensus)}%</div>
 				</div>
 
 				<div className={css.row}>
@@ -88,7 +88,7 @@ export function Proposal({ proposal }: IProposalProps) {
 			<div className={css.blockVote}>
 				<div className={css.vote}>
 					<Icon.Common.Agree />
-					<span>{agree.toFixed(2)}%</span>
+					<span>{formatNumber(agree)}%</span>
 				</div>
 				{getUserVote() === null && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>

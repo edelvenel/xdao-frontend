@@ -2,6 +2,7 @@ import { compareAsc, formatDistance } from 'date-fns';
 import React from 'react';
 import { IProposal } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
+import { formatNumber } from 'shared/utils/formatters';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
 import css from '../../styles.module.scss';
 
@@ -35,7 +36,7 @@ export function FormHeader({ proposal }: IFormHeaderProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{`${proposal.dao.consensus.toFixed(2)}%`}</div>
+					<div className={css.value}>{`${formatNumber(proposal.dao.consensus)}%`}</div>
 				</div>
 
 				<div className={css.row}>
