@@ -69,7 +69,7 @@ export function ChangeDAONameDetail({ dao, votes, proposal, userVote, onVote }: 
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

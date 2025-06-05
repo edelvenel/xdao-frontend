@@ -78,7 +78,7 @@ export function RemoveGPDetail({ dao, votes, proposal, userVote, onVote }: IRemo
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

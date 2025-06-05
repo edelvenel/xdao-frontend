@@ -75,7 +75,7 @@ export function ChangeGeneralConsensusDetail({
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

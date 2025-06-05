@@ -68,7 +68,7 @@ export function SendFundsDetail({ dao, votes, proposal, userVote, onVote }: ISen
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

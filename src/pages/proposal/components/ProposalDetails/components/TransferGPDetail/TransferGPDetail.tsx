@@ -84,7 +84,7 @@ export function TransferGPDetail({ dao, votes, proposal, userVote, onVote }: ITr
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

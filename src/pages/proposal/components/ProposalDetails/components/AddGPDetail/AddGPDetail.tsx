@@ -102,7 +102,7 @@ export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDe
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);
