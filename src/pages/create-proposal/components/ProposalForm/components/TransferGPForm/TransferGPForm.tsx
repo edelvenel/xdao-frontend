@@ -44,7 +44,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 
 				const fromJettonWalletOwnerAddress = holders.find(
 					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.fromWalletAddress)
-				)?.jetton_wallet_address;
+				)?.owner_address;
 
 				if (!dao?.address || !fromJettonWalletAddress || !fromJettonWalletOwnerAddress) return;
 
