@@ -4,7 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
-import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { formatNumber, getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -42,14 +42,14 @@ export function ChangeGeneralConsensusDetail({
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Current consensus</div>
-							<div className={css.value}>{proposal.dao.consensus.toFixed(2)}%</div>
+							<div className={css.value}>{formatNumber(proposal.dao.consensus)}%</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New consensus</div>
-							<div className={css.value}>{(proposal.data.success_percentage / 100).toFixed(2)}%</div>
+							<div className={css.value}>{formatNumber(proposal.data.success_percentage / 100)}%</div>
 						</div>
 					</div>
 					<div className={css.block}>

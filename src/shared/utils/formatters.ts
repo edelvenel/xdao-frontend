@@ -65,3 +65,11 @@ export async function hashStringSHA256(str: string): Promise<string> {
 	const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 	return hashHex;
 }
+
+export function formatNumber(value: number, fixed?: number): number {
+	if (!fixed || fixed < 0) {
+		return Number(value.toFixed(2));
+	} else {
+		return Number(value.toFixed(fixed));
+	}
+}

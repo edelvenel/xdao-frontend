@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 import { IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Title } from 'shared/ui/Title';
+import { formatNumber } from 'shared/utils/formatters';
 import css from './styles.module.scss';
 
 interface IProposalDetailProps extends PropsWithChildren {
@@ -32,7 +33,7 @@ export function ProposalDetailLayout({ isVotingEnabled, userVote, onVote, onBack
 						</div>
 						<div className={css.row}>
 							<span>You vote:</span>
-							<span className={css.accent}>{`yes (${(userVote.impact / 10000000).toFixed(2)}%)`}</span>
+							<span className={css.accent}>{`yes (${formatNumber(userVote.impact / 10000000)}%)`}</span>
 						</div>
 					</div>
 					<Button onClick={onBack} variant="secondary">

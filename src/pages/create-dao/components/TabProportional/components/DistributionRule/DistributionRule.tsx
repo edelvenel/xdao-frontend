@@ -3,6 +3,7 @@ import { Icon } from 'shared/icons';
 import { IDistributionRule } from 'shared/types';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
+import { formatNumber } from 'shared/utils/formatters';
 import css from './styles.module.scss';
 
 interface IDistributionRuleProps {
@@ -30,7 +31,7 @@ export function DistributionRule({ rule, variant = 'default', onChange, onDelete
 				sizeVariant="small"
 				onUpdate={(value) => onChange({ ...rule, tokens: Number(value) })}
 			/>
-			<div className={cn(css.item, css.percent)}>{rule.percent?.toFixed(1)}%</div>
+			<div className={cn(css.item, css.percent)}>{formatNumber(rule.percent ?? 0)}%</div>
 			<div className={cn(css.item, css.cancel)} onClick={onDelete}>
 				<Icon.Common.Cancel />
 			</div>

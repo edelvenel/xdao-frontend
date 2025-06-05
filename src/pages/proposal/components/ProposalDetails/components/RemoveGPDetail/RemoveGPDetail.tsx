@@ -4,7 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
-import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { formatNumber, getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -34,7 +34,7 @@ export function RemoveGPDetail({ votes, proposal, userVote, onVote }: IRemoveGPD
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Remove GP tokens</div>
-							<div className={css.value}>{proposal.data?.amount}</div>
+							<div className={css.value}>{formatNumber(proposal.data?.amount / 10 ** 9, 6)}</div>
 						</div>
 					</div>
 					<div className={css.block}>
