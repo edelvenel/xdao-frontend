@@ -1,9 +1,9 @@
-import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React, { JSX } from 'react';
 import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { store } from 'shared/store';
 import { IProposal, IVote, ProposalType } from 'shared/types';
 import { getUserFriendlyAddress } from 'shared/utils/formatters';
+import { ProposalPageLoader } from '../ProposalPageLoader';
 import { AddGPDetail } from './components/AddGPDetail';
 import { ChangeDAONameDetail } from './components/ChangeDAONameDetail';
 import { ChangeGPTransferStatusDetail } from './components/ChangeGPTransferStatusDetail';
@@ -55,8 +55,8 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 		setIsBackground(false);
 	}, [setIsBackground]);
 
-	if (votes === null) {
-		return <ScreenLoader />;
+	if (!votes) {
+		return <ProposalPageLoader />;
 	}
 
 	switch (proposal.type) {

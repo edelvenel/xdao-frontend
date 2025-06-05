@@ -93,6 +93,20 @@
 			align-items: center;
 			color: var(--semantic-text-accent);
 		}
+
+		.voteLoader {
+			flex: 1;
+			height: 48px;
+			border-radius: 32px;
+			background: var(--loader-background);
+			animation: l8 1s infinite;
+		}
+
+		@keyframes l8 {
+			100% {
+				background-position: top left;
+			}
+		}
 	}
 }
 

@@ -1,6 +1,5 @@
 import { routes } from 'app/router/routes';
 import { compareAsc, formatDistance } from 'date-fns';
-import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { generatePath, Link } from 'react-router';
 import { getDaoProposalVotes } from 'shared/api/proposals/methods';
@@ -53,10 +52,7 @@ export function Proposal({ proposal }: IProposalProps) {
 		fetchVotes();
 	}, [proposal.address, proposal.dao.address, token]);
 
-	if (votes === null) {
-		return <ScreenLoader />;
-	}
-	const agree = votes.reduce((acc, curr) => acc + curr.impact / 10 ** 7, 0);
+	const agree = votes?.reduce((acc, curr) => acc + curr.impact / 10 ** 7, 0);
 
 	return (
 		<div className={css.proposal}>
@@ -86,10 +82,13 @@ export function Proposal({ proposal }: IProposalProps) {
 			</div>
 
 			<div className={css.blockVote}>
-				<div className={css.vote}>
-					<Icon.Common.Agree />
-					<span>{formatNumber(agree)}%</span>
-				</div>
+				{agree !== undefined && (
+					<div className={css.vote}>
+						<Icon.Common.Agree />
+						<span>{formatNumber(agree)}%</span>
+					</div>
+				)}
+				{agree === undefined && <div className={css.voteLoader} />}
 				{getUserVote() === null && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button>Vote</Button>
