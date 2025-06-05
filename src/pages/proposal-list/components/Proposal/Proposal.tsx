@@ -3,11 +3,10 @@ import { compareAsc, formatDistance } from 'date-fns';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { generatePath, Link } from 'react-router';
-import { getDao } from 'shared/api/daos/methods';
 import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { IDao, IProposal, IVote } from 'shared/types';
+import { IProposal, IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
@@ -27,7 +26,6 @@ export function Proposal({ proposal }: IProposalProps) {
 		[proposal.endDate]
 	);
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
-	const [dao, setDao] = React.useState<IDao | null>(null);
 	const { token } = store.useAuth();
 	const { walletAddress } = store.useWallet();
 
@@ -47,24 +45,18 @@ export function Proposal({ proposal }: IProposalProps) {
 	React.useEffect(() => {
 		const fetchVotes = async () => {
 			if (token !== null) {
-				const votes = await getDaoProposalVotes(token, proposal.daoAddress, proposal.address);
+				const votes = await getDaoProposalVotes(token, proposal.dao.address, proposal.address);
 				setVotes(votes);
 			}
 		};
-		const fetchDao = async () => {
-			if (token !== null) {
-				const dao = await getDao(token, proposal.daoAddress);
-				setDao(dao);
-			}
-		};
-		fetchVotes();
-		fetchDao();
-	}, [proposal.daoAddress, proposal.address, token]);
 
-	if (votes === null || dao === null) {
+		fetchVotes();
+	}, [proposal.address, proposal.dao.address, token]);
+
+	if (votes === null) {
 		return <ScreenLoader />;
 	}
-	const agree = votes.reduce((acc, curr) => acc + curr.impact / 10000000, 0);
+	const agree = votes.reduce((acc, curr) => acc + curr.impact / 10 ** 7, 0);
 
 	return (
 		<div className={css.proposal}>
@@ -84,7 +76,7 @@ export function Proposal({ proposal }: IProposalProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{((proposal.consensus / Number(dao?.LPTokens)) * 100).toFixed(2)}%</div>
+					<div className={css.value}>{proposal.dao.consensus.toFixed(2)}%</div>
 				</div>
 
 				<div className={css.row}>

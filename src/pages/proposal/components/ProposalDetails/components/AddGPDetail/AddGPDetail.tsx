@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { proposalNameMapper } from 'shared/constants';
 import { Icon } from 'shared/icons';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
-import { IDao, IProposal, IVote } from 'shared/types';
+import { IProposal, IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Copy } from 'shared/ui/Copy';
 import { Title } from 'shared/ui/Title';
@@ -13,14 +13,13 @@ import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
 
 interface IAddGPDetailProps {
-	dao: IDao;
 	votes: IVote[];
 	proposal: IProposal;
 	userVote: IVote | null;
 	onVote: () => void;
 }
 
-export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDetailProps) {
+export function AddGPDetail({ votes, proposal, userVote, onVote }: IAddGPDetailProps) {
 	const navigate = useNavigate();
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
@@ -45,13 +44,7 @@ export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDe
 	return (
 		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
 			<div className={css.page}>
-				<FormHeader
-					name={proposal.name}
-					description={proposal.description}
-					status={proposal.status}
-					consensus={(proposal.consensus / Number(dao?.LPTokens)) * 100}
-					endDate={proposal.endDate}
-				/>
+				<FormHeader proposal={proposal} />
 
 				<div className={css.card}>
 					<div className={css.block}>
@@ -60,14 +53,6 @@ export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDe
 							<div className={css.value}>{proposalNameMapper[proposal.type]}</div>
 						</div>
 					</div>
-					{proposal.votingType && (
-						<div className={css.block}>
-							<div className={css.column}>
-								<div className={css.label}>Voting type</div>
-								<div className={css.value}>{proposal.votingType.label}</div>
-							</div>
-						</div>
-					)}
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Add GP tokens</div>
@@ -102,7 +87,7 @@ export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDe
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

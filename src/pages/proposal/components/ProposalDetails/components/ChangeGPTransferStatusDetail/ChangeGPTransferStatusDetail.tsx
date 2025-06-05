@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { useNavigate } from 'react-router';
 import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
-import { IDao, IProposal, IVote } from 'shared/types';
+import { IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
 import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
@@ -10,7 +10,6 @@ import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
 
 interface IChangeGPTransferStatusDetailProps {
-	dao: IDao;
 	votes: IVote[];
 	proposal: IProposal;
 	userVote: IVote | null;
@@ -18,7 +17,6 @@ interface IChangeGPTransferStatusDetailProps {
 }
 
 export function ChangeGPTransferStatusDetail({
-	dao,
 	votes,
 	proposal,
 	userVote,
@@ -30,13 +28,7 @@ export function ChangeGPTransferStatusDetail({
 	return (
 		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
 			<div className={css.page}>
-				<FormHeader
-					name={proposal.name}
-					description={proposal.description}
-					status={proposal.status}
-					consensus={(proposal.consensus / Number(dao?.LPTokens)) * 100}
-					endDate={proposal.endDate}
-				/>
+				<FormHeader proposal={proposal} />
 
 				<div className={css.card}>
 					<div className={css.block}>
@@ -74,7 +66,7 @@ export function ChangeGPTransferStatusDetail({
 					</div>
 				</div>
 
-				<SignaturesBlock dao={dao} votes={votes} />
+				<SignaturesBlock votes={votes} />
 			</div>
 		</ProposalDetailLayout>
 	);

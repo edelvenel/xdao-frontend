@@ -1,24 +1,39 @@
 import cn from 'classnames';
+import React from 'react';
 import { Icon } from 'shared/icons';
-import { IDao, IVote } from 'shared/types';
+import { store } from 'shared/store';
+import { IVote } from 'shared/types';
 import { Title } from 'shared/ui/Title';
 import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 
 interface ISignaturesBlockProps {
-	dao: IDao;
 	votes: IVote[];
 }
 
-export function SignaturesBlock({ dao, votes }: ISignaturesBlockProps) {
-	const impact = (Number(dao.LPTokens) / Number(dao.LPTokens)) * 100;
+export function SignaturesBlock({ votes }: ISignaturesBlockProps) {
+	const { holders } = store.useFormType();
+
+	const getImpact = React.useCallback(
+		(impact: number): number => {
+			const total = holders?.reduce((acc, curr) => acc + Number(curr.balance), 0);
+
+			if (total) {
+				return (impact / total) * 100;
+			} else {
+				return 0;
+			}
+		},
+		[holders]
+	);
+
 	return (
 		<div className={css.card}>
 			<Title value="Signatures" variant="medium" />
 			<div className={css.blockVote}>
 				<div className={cn(css.agree, css.vote)}>
 					<Icon.Common.Agree />
-					<span>{votes.reduce((acc, curr) => acc + curr.impact / 10000000, 0)}%</span>
+					<span>{votes.reduce((acc, curr) => acc + getImpact(curr.impact), 0).toFixed(2)}%</span>
 				</div>
 			</div>
 			{votes.map((vote, index) => (
@@ -28,7 +43,7 @@ export function SignaturesBlock({ dao, votes }: ISignaturesBlockProps) {
 					</div>
 					<div className={css.answer}>
 						<span>Yes</span>
-						<div className={css.placeholder}>({impact.toFixed(2)}%)</div>
+						<div className={css.placeholder}>({getImpact(vote.impact).toFixed(2)}%)</div>
 					</div>
 				</div>
 			))}
