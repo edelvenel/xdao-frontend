@@ -10,8 +10,7 @@ import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
-import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
-import { getUserFriendlyAddress } from 'shared/utils/formatters';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -114,7 +113,10 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.fromWalletAddress}
-									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
+									options={
+										holders ? [...new Set(holders.map((holder) => getUserFriendlyAddress(holder.owner_address)))] : []
+									}
+									optionLabel={(option) => shortenAddress(option)}
 									variant={
 										props.errors.fromWalletAddress !== undefined && props.touched.fromWalletAddress
 											? 'error'
@@ -128,7 +130,10 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 								/>
 								<Dropdown
 									placeholder="To wallet address"
-									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
+									options={
+										holders ? [...new Set(holders.map((holder) => getUserFriendlyAddress(holder.owner_address)))] : []
+									}
+									optionLabel={(option) => shortenAddress(option)}
 									variant={
 										props.errors.toWalletAddress !== undefined && props.touched.toWalletAddress ? 'error' : 'primary'
 									}
