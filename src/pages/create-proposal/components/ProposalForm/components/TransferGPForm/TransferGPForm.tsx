@@ -22,6 +22,7 @@ interface ITransferGPFormProps {
 }
 
 export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
+	const [holderBalance, setHolderBalance] = React.useState<number | null>(null);
 	const { dao, fetchHolders, holders } = store.useFormType();
 	const { token } = store.useAuth();
 	const { createProposal } = useProposals();
@@ -69,6 +70,19 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 		[createProposal, dao?.address, holders, onResponse]
 	);
 
+	const getHolderBalance = React.useCallback(
+		(walletAddress: string) => {
+			const holder = holders?.find(
+				(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(walletAddress)
+			);
+
+			if (holder) {
+				setHolderBalance(Number(holder.balance) / 10 ** 9);
+			}
+		},
+		[holders]
+	);
+
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
@@ -107,7 +121,10 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 											: 'primary'
 									}
 									placeholder="From wallet address"
-									onSelect={(value) => props.setValues({ ...props.values, fromWalletAddress: value })}
+									onSelect={(value) => {
+										props.setValues({ ...props.values, fromWalletAddress: value, tokenAmount: '' });
+										getHolderBalance(value);
+									}}
 								/>
 								<Dropdown
 									placeholder="To wallet address"
@@ -119,11 +136,24 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 									onSelect={(value) => props.setValues({ ...props.values, toWalletAddress: value })}
 								/>
 								<InputNumber
+									disabled={!holderBalance}
 									variant={props.errors.tokenAmount !== undefined && props.touched.tokenAmount ? 'error' : 'primary'}
 									value={String(props.values.tokenAmount ?? '')}
+									max={holderBalance ?? 0}
+									onMaxAmount={() =>
+										props.setValues({
+											...props.values,
+											tokenAmount: (holderBalance ?? 0).toString(),
+										})
+									}
 									fieldName="Token amount"
 									placeholder="Add token amount"
-									onUpdate={(value) => props.setValues({ ...props.values, tokenAmount: value })}
+									onUpdate={(value) =>
+										props.setValues({
+											...props.values,
+											tokenAmount: Number(value) > holderBalance! ? holderBalance!.toString() : value,
+										})
+									}
 								/>
 								{props.errors.name && props.touched.name ? (
 									<ValidationError>{props.errors.name}</ValidationError>
