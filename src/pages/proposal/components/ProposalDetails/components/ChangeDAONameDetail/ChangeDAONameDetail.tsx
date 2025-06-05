@@ -4,7 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
-import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -50,16 +50,16 @@ export function ChangeDAONameDetail({ dao, votes, proposal, userVote, onVote }: 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New name</div>
-							<div className={css.value}>NO DATA</div>
+							<div className={css.value}>{proposal.data.new_content?.data?.name ?? 'NO DATA'}</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{friendlyWallet(proposal.createdBy)}</div>
+							<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
 						</div>
-						<Copy text={friendlyWallet(proposal.createdBy)} />
+						<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
