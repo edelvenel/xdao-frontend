@@ -37,15 +37,15 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
 			if (holders !== null) {
-				const jettonWalletAddressToRemove = holders.find(
+				const holder = holders.find(
 					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.gpToRemove)
-				)?.jetton_wallet_address;
+				);
 
-				const jettonWalletOwnerAddressToRemove = holders.find(
-					(holder) => getUserFriendlyAddress(holder.owner_address) === getUserFriendlyAddress(values.gpToRemove)
-				)?.jetton_wallet_address;
+				const jettonWalletAddressToRemove = holder?.jetton_wallet_address;
+				const jettonWalletOwnerAddressToRemove = holder?.jetton_wallet_address;
+				const tokenAmount = holder?.balance ? parseInt(holder?.balance) : undefined;
 
-				if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove) return;
+				if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove || !tokenAmount) return;
 
 				const payload: ICreateRemoveGPProposalPayload = {
 					type: ProposalType.RemoveGP,
@@ -54,6 +54,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 					jettonWalletAddressToRemove,
 					jettonWalletOwnerAddressToRemove,
 					votingDuration: Number(values.votingDuration),
+					tokenAmount,
 				};
 
 				try {
