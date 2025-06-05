@@ -1,45 +1,41 @@
 import { compareAsc, formatDistance } from 'date-fns';
 import React from 'react';
-import { ProposalStatus } from 'shared/types';
+import { IProposal } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
 import css from '../../styles.module.scss';
 
 interface IFormHeaderProps {
-	name: string;
-	description: string;
-	status: ProposalStatus;
-	consensus: number;
-	endDate: Date;
+	proposal: IProposal;
 }
 
-export function FormHeader({ name, description, status, consensus, endDate }: IFormHeaderProps) {
+export function FormHeader({ proposal }: IFormHeaderProps) {
 	const formatDate = React.useMemo(
 		() =>
-			compareAsc(new Date(), endDate) === -1
-				? formatDistance(new Date(), endDate, { includeSeconds: false })
+			compareAsc(new Date(), proposal.endDate) === -1
+				? formatDistance(new Date(), proposal.endDate, { includeSeconds: false })
 				: 'expired',
-		[endDate]
+		[proposal.endDate]
 	);
 	return (
 		<div className={css.card}>
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Proposal name</div>
-					<div className={css.value}>{name}</div>
+					<div className={css.value}>{proposal.name}</div>
 				</div>
-				<Badge text={status} variant={getStatusVariant(status)} />
+				<Badge text={proposal.status} variant={getStatusVariant(proposal.status)} />
 			</div>
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Description</div>
-					<div className={css.description}>{description}</div>
+					<div className={css.description}>{proposal.description}</div>
 				</div>
 			</div>
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{`${consensus.toFixed(2)}%`}</div>
+					<div className={css.value}>{`${proposal.dao.consensus.toFixed(2)}%`}</div>
 				</div>
 
 				<div className={css.row}>

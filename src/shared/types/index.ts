@@ -9,7 +9,7 @@ export type IDao = {
 	name: string;
 	jetton_address: string;
 	activeProposals: number;
-	LPTokens: string;
+	totalSupply: string;
 	description?: string;
 	email?: string;
 	social: ISocial[];
@@ -108,10 +108,10 @@ export interface IProposal {
 	createdBy: string;
 	status: ProposalStatus;
 	type: ProposalType;
-	daoAddress: string;
-	votingType?: IVotingType;
-	currentVotes: number;
+	dao: IDao;
 	userVote: IUserVote | null;
+	successAmount: number;
+	currentAmount: number;
 	data: any;
 }
 
