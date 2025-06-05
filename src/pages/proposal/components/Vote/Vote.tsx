@@ -17,7 +17,7 @@ export function Vote({ currentPercent, totalPercent, voteImpact, onConfirm }: IV
 
 	return (
 		<div className={css.vote}>
-			<div className={css.infoText}>{`You reach ${currentPercent + voteImpact}% after your vote`}</div>
+			<div className={css.infoText}>{`You reach ${(currentPercent + voteImpact).toFixed(2)}% after your vote`}</div>
 			<div>
 				<ProgressBar
 					currentPercent={currentPercent}
