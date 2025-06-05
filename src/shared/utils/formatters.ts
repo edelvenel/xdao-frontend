@@ -9,8 +9,12 @@ export const shortenAddress = (str: string): string => {
 };
 
 export const getUserFriendlyAddress = (address: string): string => {
-	const result = Address.isFriendly(address) ? address : Address.parseRaw(address).toString({ bounceable: false });
-	return result;
+	try {
+		const result = Address.isFriendly(address) ? address : Address.parseRaw(address).toString({ bounceable: false });
+		return result;
+	} catch {
+		return address;
+	}
 };
 
 export const getDaoHash = async (daoName: string, ownerWalletAddress: string): Promise<string> => {
