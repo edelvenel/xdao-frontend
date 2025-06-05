@@ -21,8 +21,8 @@ export function SignaturesBlock({ dao, votes }: ISignaturesBlockProps) {
 					<span>{votes.reduce((acc, curr) => acc + curr.impact / 10000000, 0)}%</span>
 				</div>
 			</div>
-			{votes.map((vote) => (
-				<div className={cn(css.block, css.vote)}>
+			{votes.map((vote, index) => (
+				<div key={index} className={cn(css.block, css.vote)}>
 					<div className={css.column}>
 						<div className={css.value}>{shortenAddress(getUserFriendlyAddress(vote.walletAddress))}</div>
 					</div>

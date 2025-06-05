@@ -39,7 +39,7 @@ export const proposalTypeOptions = [
 	ProposalType.AddGP,
 	ProposalType.RemoveGP,
 	ProposalType.TransferGPTokens,
-	ProposalType.ChangeGPTransferStatus,
+	// ProposalType.ChangeGPTransferStatus,
 	ProposalType.ChangeGeneralConsensus,
 	ProposalType.SendDAOFunds,
 	ProposalType.ChangeDAOName,
