@@ -22,7 +22,7 @@ export function SignaturesBlock({ dao, votes }: ISignaturesBlockProps) {
 				</div>
 			</div>
 			{votes.map((vote) => (
-				<div className={css.block}>
+				<div className={cn(css.block, css.vote)}>
 					<div className={css.column}>
 						<div className={css.value}>{shortenAddress(getUserFriendlyAddress(vote.walletAddress))}</div>
 					</div>

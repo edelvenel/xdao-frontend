@@ -4,6 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -49,29 +50,31 @@ export function TransferGPDetail({ dao, votes, proposal, userVote, onVote }: ITr
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Transfer GP tokens</div>
-							<div className={css.value}>500</div>
+							<div className={css.value}>{proposal.data.transfer_data ?? 'NO DATA'}</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Transfer from</div>
-							<div className={css.value}>43fjYR48JEfkfof83436437DJfewlr8</div>
+							<div className={css.value}>
+								{shortenAddress(getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner))}
+							</div>
 						</div>
-						<Copy text="43fjYR48JEfkfof83436437DJfewlr8" />
+						<Copy text={getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Transfer to</div>
-							<div className={css.value}>dchE74r33P7ojS8MgbRCE8YcFcmgfynZjbTZ</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
-						<Copy text="TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ" />
+						<Copy text="NO DATA" />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
 						</div>
-						<Copy text={proposal.createdBy} />
+						<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

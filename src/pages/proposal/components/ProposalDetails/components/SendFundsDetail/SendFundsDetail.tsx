@@ -4,6 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -42,22 +43,22 @@ export function SendFundsDetail({ dao, votes, proposal, userVote, onVote }: ISen
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>From</div>
-							<div className={css.value}>Main DAO</div>
+							<div className={css.value}>{dao.name}</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>To</div>
-							<div className={css.value}>TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
-						<Copy text="TFoctV8P7ojS8MgbRCE8YcFcmgfynZjbTZ" />
+						<Copy text="NO DATA" />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
 						</div>
-						<Copy text={proposal.createdBy} />
+						<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

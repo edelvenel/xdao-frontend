@@ -1,4 +1,5 @@
-import { formatDistance } from 'date-fns';
+import { compareAsc, formatDistance } from 'date-fns';
+import React from 'react';
 import { ProposalStatus } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
@@ -13,8 +14,13 @@ interface IFormHeaderProps {
 }
 
 export function FormHeader({ name, description, status, consensus, endDate }: IFormHeaderProps) {
-	const formatDate = formatDistance(new Date(), endDate, { includeSeconds: false });
-
+	const formatDate = React.useMemo(
+		() =>
+			compareAsc(new Date(), endDate) === -1
+				? formatDistance(new Date(), endDate, { includeSeconds: false })
+				: 'expired',
+		[endDate]
+	);
 	return (
 		<div className={css.card}>
 			<div className={css.block}>
@@ -33,7 +39,7 @@ export function FormHeader({ name, description, status, consensus, endDate }: IF
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{`${consensus}%`}</div>
+					<div className={css.value}>{`${consensus.toFixed(2)}%`}</div>
 				</div>
 
 				<div className={css.row}>

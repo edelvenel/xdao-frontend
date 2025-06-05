@@ -7,7 +7,7 @@ import { IDao, IProposal, IVote } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Copy } from 'shared/ui/Copy';
 import { Title } from 'shared/ui/Title';
-import { friendlyWallet, Wallet } from 'shared/ui/Wallet/Wallet';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -78,17 +78,21 @@ export function AddGPDetail({ votes, dao, proposal, userVote, onVote }: IAddGPDe
 						<div className={css.column}>
 							<div className={css.label}>New GP Address</div>
 							<div className={css.value}>
-								{proposal.data.receivers[0].address ? <Wallet raw={proposal.data.receivers[0].address} /> : 'Empty'}
+								{proposal.data.receivers[0].address
+									? shortenAddress(getUserFriendlyAddress(proposal.data.receivers[0].address))
+									: 'Empty'}
 							</div>
 						</div>
-						{proposal.data.receivers[0].address && <Copy text={friendlyWallet(proposal.data.receivers[0].address)} />}
+						{proposal.data.receivers[0].address && (
+							<Copy text={getUserFriendlyAddress(proposal.data.receivers[0].address)} />
+						)}
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{friendlyWallet(proposal.createdBy)}</div>
+							<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
 						</div>
-						<Copy text={friendlyWallet(proposal.createdBy)} />
+						<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>

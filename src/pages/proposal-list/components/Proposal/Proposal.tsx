@@ -1,5 +1,5 @@
 import { routes } from 'app/router/routes';
-import { formatDistance } from 'date-fns';
+import { compareAsc, formatDistance } from 'date-fns';
 import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { generatePath, Link } from 'react-router';
@@ -19,7 +19,13 @@ interface IProposalProps {
 }
 
 export function Proposal({ proposal }: IProposalProps) {
-	const formatDate = formatDistance(new Date(), proposal.endDate, { includeSeconds: false });
+	const formatDate = React.useMemo(
+		() =>
+			compareAsc(new Date(), proposal.endDate) === -1
+				? formatDistance(new Date(), proposal.endDate, { includeSeconds: false })
+				: 'expired',
+		[proposal.endDate]
+	);
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
 	const [dao, setDao] = React.useState<IDao | null>(null);
 	const { token } = store.useAuth();
@@ -78,7 +84,7 @@ export function Proposal({ proposal }: IProposalProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{(proposal.consensus / Number(dao?.LPTokens)) * 100}%</div>
+					<div className={css.value}>{((proposal.consensus / Number(dao?.LPTokens)) * 100).toFixed(2)}%</div>
 				</div>
 
 				<div className={css.row}>
@@ -90,7 +96,7 @@ export function Proposal({ proposal }: IProposalProps) {
 			<div className={css.blockVote}>
 				<div className={css.vote}>
 					<Icon.Common.Agree />
-					<span>{agree}%</span>
+					<span>{agree.toFixed(2)}%</span>
 				</div>
 				{getUserVote() === null && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>

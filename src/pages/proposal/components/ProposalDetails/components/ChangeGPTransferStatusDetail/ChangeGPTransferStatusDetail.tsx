@@ -4,6 +4,7 @@ import { proposalNameMapper } from 'shared/constants';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { IDao, IProposal, IVote } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 import { FormHeader } from '../FormHeader';
 import { SignaturesBlock } from '../SignaturesBlock';
@@ -48,20 +49,20 @@ export function ChangeGPTransferStatusDetail({
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Current status</div>
-							<div className={css.value}>Transferable</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
 					</div>
 
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>New status</div>
-							<div className={css.value}>Non-transferable</div>
+							<div className={css.value}>NO DATA</div>
 						</div>
 					</div>
 					<div className={css.block}>
 						<div className={css.column}>
 							<div className={css.label}>Created by</div>
-							<div className={css.value}>{proposal.createdBy}</div>
+							<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
 						</div>
 						<Copy text={proposal.createdBy} />
 					</div>

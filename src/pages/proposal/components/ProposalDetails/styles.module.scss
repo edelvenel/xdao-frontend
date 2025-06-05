@@ -57,6 +57,10 @@
 			min-height: 64px;
 			background-color: var(--semantic-background-tetriary);
 
+			&.vote {
+				max-height: 64px;
+			}
+
 			.answer {
 				flex: 1;
 				max-width: 150px;
