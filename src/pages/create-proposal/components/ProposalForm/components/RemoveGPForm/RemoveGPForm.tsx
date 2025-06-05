@@ -9,8 +9,7 @@ import { ProposalType } from 'shared/types';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { Title } from 'shared/ui/Title';
-import { friendlyWallet } from 'shared/ui/Wallet/Wallet';
-import { getUserFriendlyAddress } from 'shared/utils/formatters';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
@@ -99,7 +98,10 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 								/>
 								<Dropdown
 									selected={props.values.gpToRemove}
-									options={holders ? [...new Set(holders.map((holder) => friendlyWallet(holder.owner_address)))] : []}
+									options={
+										holders ? [...new Set(holders.map((holder) => getUserFriendlyAddress(holder.owner_address)))] : []
+									}
+									optionLabel={(option) => shortenAddress(option)}
 									variant={props.errors.gpToRemove !== undefined && props.touched.gpToRemove ? 'error' : 'primary'}
 									placeholder="Select GP to remove"
 									onSelect={(value) => props.setValues({ ...props.values, gpToRemove: value })}
