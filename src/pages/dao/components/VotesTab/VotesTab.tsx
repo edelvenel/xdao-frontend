@@ -1,7 +1,9 @@
+import { routes } from 'app/router/routes';
 import { Proposal } from 'pages/proposal-list/components/Proposal';
 import { ProposalLoader } from 'pages/proposal-list/components/ProposalLoader';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
 import { store } from 'shared/store';
 import { IDao } from 'shared/types';
@@ -15,6 +17,9 @@ interface IVotesTabProps {
 export function VotesTab({ dao }: IVotesTabProps) {
 	const { proposals, fetchDaoProposals, hasMore } = useProposals();
 	const { setIsBackground } = store.useApp();
+	const { setDao } = store.useFormType();
+
+	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		if (dao) {
@@ -29,6 +34,11 @@ export function VotesTab({ dao }: IVotesTabProps) {
 			setIsBackground(false);
 		}
 	}, [proposals?.length, setIsBackground]);
+
+	const handleOnClick = React.useCallback(() => {
+		setDao(dao ?? null);
+		navigate(routes.createProposal);
+	}, [dao, navigate, setDao]);
 
 	return (
 		<div className={css.tab}>
@@ -61,7 +71,9 @@ export function VotesTab({ dao }: IVotesTabProps) {
 					<div className={css.block}>
 						<div className={css.placeholder}>No active votes</div>
 						<div className={css.button}>
-							<Button variant="primary">Create</Button>
+							<Button variant="primary" onClick={handleOnClick}>
+								Create
+							</Button>
 						</div>
 					</div>
 				)}
