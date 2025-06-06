@@ -5,7 +5,7 @@ import { generatePath, Link } from 'react-router';
 import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { IProposal, IVote } from 'shared/types';
+import { IProposal, IVote, ProposalStatus } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { formatNumber, getUserFriendlyAddress } from 'shared/utils/formatters';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
@@ -89,7 +89,7 @@ export function Proposal({ proposal }: IProposalProps) {
 					</div>
 				)}
 				{agree === undefined && <div className={css.voteLoader} />}
-				{getUserVote() === null && (
+				{getUserVote() === null && proposal.status === ProposalStatus.Active && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button>Vote</Button>
 					</Link>
@@ -101,6 +101,13 @@ export function Proposal({ proposal }: IProposalProps) {
 								<Icon.Common.Agree />
 							</div>
 							<span className={css.votedText}>{`You voted`}</span>
+						</Button>
+					</Link>
+				)}
+				{getUserVote() === null && proposal.status !== ProposalStatus.Active && (
+					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
+						<Button className={css.voted} variant="secondary">
+							Details
 						</Button>
 					</Link>
 				)}

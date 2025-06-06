@@ -1,77 +1,61 @@
 import { format } from 'date-fns';
-import { useNavigate } from 'react-router';
 import { proposalNameMapper } from 'shared/constants';
-import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
-import { IProposal, IVote } from 'shared/types';
+import { IProposal } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
 import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
-import { FormHeader } from '../FormHeader';
-import { SignaturesBlock } from '../SignaturesBlock';
 
 interface ITransferGPDetailProps {
-	votes: IVote[];
 	proposal: IProposal;
-	userVote: IVote | null;
-	onVote: () => void;
 }
 
-export function TransferGPDetail({ votes, proposal, userVote, onVote }: ITransferGPDetailProps) {
-	const navigate = useNavigate();
+export function TransferGPDetail({ proposal }: ITransferGPDetailProps) {
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
 	return (
-		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
-			<div className={css.page}>
-				<FormHeader proposal={proposal} />
+		<div className={css.card}>
+			<div className={css.block}>
+				<div className={css.column}>
+					<div className={css.label}>Proposal type</div>
+					<div className={css.value}>{proposalNameMapper[proposal.type]}</div>
+				</div>
+			</div>
 
-				<div className={css.card}>
-					<div className={css.block}>
-						<div className={css.column}>
-							<div className={css.label}>Proposal type</div>
-							<div className={css.value}>{proposalNameMapper[proposal.type]}</div>
-						</div>
-					</div>
-
-					<div className={css.block}>
-						<div className={css.column}>
-							<div className={css.label}>Transfer GP tokens</div>
-							<div className={css.value}>{proposal.data.transfer_data ?? 'NO DATA'}</div>
-						</div>
-					</div>
-					<div className={css.block}>
-						<div className={css.column}>
-							<div className={css.label}>Transfer from</div>
-							<div className={css.value}>
-								{shortenAddress(getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner))}
-							</div>
-						</div>
-						<Copy text={getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner)} />
-					</div>
-					<div className={css.block}>
-						<div className={css.column}>
-							<div className={css.label}>Transfer to</div>
-							<div className={css.value}>NO DATA</div>
-						</div>
-						<Copy text="NO DATA" />
-					</div>
-					<div className={css.block}>
-						<div className={css.column}>
-							<div className={css.label}>Created by</div>
-							<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
-						</div>
-						<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
-					</div>
-					<div className={css.block}>
-						<div className={css.column}>
-							<div className={css.label}>Created at</div>
-							<div className={css.value}>{formatedCreatedAt}</div>
-						</div>
+			<div className={css.block}>
+				<div className={css.column}>
+					<div className={css.label}>Transfer GP tokens</div>
+					<div className={css.value}>{proposal.data.transfer_data ?? 'NO DATA'}</div>
+				</div>
+			</div>
+			<div className={css.block}>
+				<div className={css.column}>
+					<div className={css.label}>Transfer from</div>
+					<div className={css.value}>
+						{shortenAddress(getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner))}
 					</div>
 				</div>
-
-				<SignaturesBlock votes={votes} />
+				<Copy text={getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner)} />
 			</div>
-		</ProposalDetailLayout>
+			<div className={css.block}>
+				<div className={css.column}>
+					<div className={css.label}>Transfer to</div>
+					<div className={css.value}>NO DATA</div>
+				</div>
+				<Copy text="NO DATA" />
+			</div>
+			<div className={css.block}>
+				<div className={css.column}>
+					<div className={css.label}>Created by</div>
+					<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
+				</div>
+				<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
+			</div>
+			<div className={css.block}>
+				<div className={css.column}>
+					<div className={css.label}>Created at</div>
+					<div className={css.value}>{formatedCreatedAt}</div>
+				</div>
+			</div>
+		</div>
 	);
 }
