@@ -8,11 +8,13 @@ export interface IForm {
 	votingDuration: number | null;
 }
 
-export const initialValues: IForm = {
-	name: '',
-	description: '',
-	gpToRemove: '',
-	votingDuration: null,
+export const getInitialValues = (walletAddress: string | null): IForm => {
+	return {
+		name: '',
+		description: '',
+		gpToRemove: walletAddress ?? '',
+		votingDuration: null,
+	};
 };
 
 export const validationSchema = yup.object().shape({
