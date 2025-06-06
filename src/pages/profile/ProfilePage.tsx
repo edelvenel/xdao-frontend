@@ -1,7 +1,6 @@
 import { FilterEnum } from 'app/api/codegen';
 import { routes } from 'app/router/routes';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ScreenLoader } from 'pages/tech/sceen-loader';
 import React from 'react';
 import { Link } from 'react-router';
 import { useDaos } from 'shared/api/daos';
@@ -61,14 +60,10 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const { isTelegramLinked, toggleTelegramLink, fetchTelegramData, linkedTelegramUsername } = useTelegramData();
 	React.useEffect(() => {
 		fetchMe();
-		fetchDaos();
-		fetchProposals();
+		fetchDaos(undefined, daosFilter);
+		fetchProposals(undefined, proposalsFilter);
 		fetchTelegramData();
-	}, [fetchDaos, fetchProposals, fetchTelegramData]);
-
-	if (daos === null) {
-		return <ScreenLoader />;
-	}
+	}, [daosFilter, fetchDaos, fetchMe, fetchProposals, fetchTelegramData, proposalsFilter]);
 
 	return (
 		<div className={css.page}>
@@ -228,18 +223,14 @@ export const ProfilePage = React.memo(function ProfilePage() {
 								exit={{ opacity: 0, height: 0, gap: 0 }}
 							>
 								<div className={css.partList}>
-									{daos
-										.filter((_, index) => index >= 2)
-										.map((dao) => (
-											<DaoCard key={dao.address} dao={dao} />
-										))}
+									{daos && daos.filter((_, index) => index >= 2).map((dao) => <DaoCard key={dao.address} dao={dao} />)}
 								</div>
 							</motion.div>
 						)}
 					</AnimatePresence>
-					{daos.length === 0 && <div className={css.placeholder}>No DAOs yet</div>}
+					{daos && daos.length === 0 && <div className={css.placeholder}>No DAOs yet</div>}
 				</div>
-				{daos.length > 3 && (
+				{daos && daos.length > 3 && (
 					<div className={css.seeMoreButton} onClick={() => setDaoShowAll(!daoShowAll)}>
 						{daoShowAll ? 'Hide' : 'See more'}
 					</div>
@@ -300,7 +291,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 			<Modal isOpen={isSelectDaoOpen} title="Select DAO for airdrop" onClose={() => setIsSelectDaoOpen(false)}>
 				<SelectDao
 					selected={selectedDaoIdx}
-					options={daos}
+					options={daos ?? []}
 					onApply={handleOnApplyDao}
 					onClose={() => setIsSelectDaoOpen(false)}
 				/>
