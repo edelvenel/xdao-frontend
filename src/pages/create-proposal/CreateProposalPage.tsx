@@ -13,7 +13,7 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 	const [formType, setFormType] = React.useState<ProposalType | null>(null);
 	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
-	const { dao, setDao, proposalType, setProposalType, formData, setFormData } = store.useFormType();
+	const { dao, setDao, proposalType, setProposalType } = store.useFormType();
 
 	const { setIsMenuShown, setIsHeaderShown } = store.useApp();
 	useBackButton();
@@ -30,10 +30,9 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 
 	const handleOnDone = React.useCallback(() => {
 		setDao(null);
-		setFormData(null);
 		setProposalType(null);
 		navigate(-1);
-	}, [navigate, setDao, setFormData, setProposalType]);
+	}, [navigate, setDao, setProposalType]);
 
 	React.useEffect(() => {
 		if (dao !== null && proposalType !== null) {
@@ -48,7 +47,6 @@ export const CreateProposalPage = React.memo(function CreateProposalPage() {
 		<div className={css.page}>
 			{formType != null && (
 				<ProposalForm
-					data={formData}
 					type={formType}
 					onResponse={(value) => {
 						setIsSuccess(value);

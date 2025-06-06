@@ -1,5 +1,4 @@
 import React, { JSX } from 'react';
-import { ICreateProposalPayload } from 'shared/api/proposals/payloads';
 import { store } from 'shared/store';
 import { ProposalType } from 'shared/types';
 import { AddGPForm } from './components/AddGPForm';
@@ -11,12 +10,11 @@ import { SendFundsForm } from './components/SendFundsForm';
 import { TransferGPForm } from './components/TransferGPForm';
 
 interface IProposalFormProps {
-	data: ICreateProposalPayload | null;
 	type: ProposalType;
 	onResponse: (value: boolean) => void;
 }
 
-export function ProposalForm({ data, type, onResponse }: IProposalFormProps): JSX.Element | null {
+export function ProposalForm({ type, onResponse }: IProposalFormProps): JSX.Element | null {
 	const { setIsBackground } = store.useApp();
 
 	React.useEffect(() => {
@@ -28,7 +26,7 @@ export function ProposalForm({ data, type, onResponse }: IProposalFormProps): JS
 			return <AddGPForm onResponse={onResponse} />;
 
 		case ProposalType.RemoveGP:
-			return <RemoveGPForm data={data?.type === ProposalType.RemoveGP ? data : null} onResponse={onResponse} />;
+			return <RemoveGPForm onResponse={onResponse} />;
 
 		case ProposalType.TransferGPTokens:
 			return <TransferGPForm onResponse={onResponse} />;

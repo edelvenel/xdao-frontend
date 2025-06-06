@@ -21,8 +21,7 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const [consensus, setConsensus] = React.useState<number | null>(dao ? dao.consensus : null);
 	const [isConsensusEdit, setIsConsensusEdit] = React.useState<boolean>(false);
-	const { setDao, setProposalType } = store.useFormType();
-	const { holders } = store.useFormType();
+	const { setDao, setProposalType, setRemovingWallet, holders } = store.useFormType();
 
 	const navigate = useNavigate();
 
@@ -57,24 +56,17 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 			if (dao && walletAddress) {
 				setDao(dao);
 				setProposalType(ProposalType.RemoveGP);
+				setRemovingWallet(walletAddress);
 				navigate(routes.createProposalForm);
 			}
 		},
-		[dao, navigate, setDao, setProposalType]
+		[dao, navigate, setDao, setProposalType, setRemovingWallet]
 	);
 
 	const handleOnAdd = React.useCallback(() => {
 		if (dao) {
 			setDao(dao);
 			setProposalType(ProposalType.AddGP);
-			navigate(routes.createProposalForm);
-		}
-	}, [dao, navigate, setDao, setProposalType]);
-
-	const handleOnChangeTransferStatus = React.useCallback(() => {
-		if (dao) {
-			setDao(dao);
-			setProposalType(ProposalType.ChangeGPTransferStatus);
 			navigate(routes.createProposalForm);
 		}
 	}, [dao, navigate, setDao, setProposalType]);
@@ -119,11 +111,11 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 					</div>
 					{!isConsensusEdit && (
 						<div className={css.textButton} onClick={() => setIsConsensusEdit(true)}>
-							Confirm
+							Edit
 						</div>
 					)}
 					{isConsensusEdit && (
-						<div className={css.confirmButton} onClick={handleOnConsensusSave}>
+						<div className={css.textButton} onClick={handleOnConsensusSave}>
 							Confirm
 						</div>
 					)}
@@ -166,9 +158,6 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 				<div className={css.actions}>
 					<Button variant="primary" onClick={handleOnAdd}>
 						Add more
-					</Button>
-					<Button variant="secondary" onClick={handleOnChangeTransferStatus}>
-						Change transfer status
 					</Button>
 				</div>
 			</div>

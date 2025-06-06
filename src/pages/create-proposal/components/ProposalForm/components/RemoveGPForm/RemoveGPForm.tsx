@@ -14,14 +14,13 @@ import { DistributionRules } from '../DistributionRules';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
-import { IForm, initialValues, validationSchema } from './types';
+import { getInitialValues, IForm, validationSchema } from './types';
 interface IRemoveGPFormProps {
-	data: ICreateRemoveGPProposalPayload | null;
 	onResponse: (value: boolean) => void;
 }
 
 export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
-	const { dao, fetchHolders, holders } = store.useFormType();
+	const { dao, fetchHolders, holders, removingWallet, setRemovingWallet } = store.useFormType();
 	const { token } = store.useAuth();
 	const { createProposal } = useProposals();
 
@@ -31,7 +30,11 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 		if (dao && token) {
 			fetchHolders(token, dao.address);
 		}
-	}, [dao, fetchHolders, token]);
+
+		return () => {
+			setRemovingWallet(null);
+		};
+	}, [dao, fetchHolders, setRemovingWallet, token]);
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
@@ -67,10 +70,20 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 		[holders, dao?.address, createProposal, onResponse]
 	);
 
+	const handleGetInitialValues = React.useCallback((): IForm => {
+		const form = getInitialValues(removingWallet);
+		return form;
+	}, [removingWallet]);
+
 	return (
-		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
+		<Formik initialValues={handleGetInitialValues()} validationSchema={validationSchema} onSubmit={handleOnSubmit}>
 			{(props) => (
-				<ProposalCreateLayout onBack={() => navigate(-1)} onSubmit={props.handleSubmit}>
+				<ProposalCreateLayout
+					onBack={() => {
+						navigate(-1);
+					}}
+					onSubmit={props.handleSubmit}
+				>
 					<div className={css.form}>
 						<div className={css.fields}>
 							<div className={css.block}>

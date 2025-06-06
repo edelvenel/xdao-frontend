@@ -1,21 +1,21 @@
 import { getDaoHolders } from 'shared/api/proposals/methods';
-import { ICreateProposalPayload } from 'shared/api/proposals/payloads';
 import { IDao, IHolder, ProposalType } from 'shared/types';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { create } from 'zustand';
 interface IFormTypeStore {
 	dao: IDao | null;
 	proposalType: ProposalType | null;
-	formData: ICreateProposalPayload | null;
+	removingWallet: string | null;
 	holders: IHolder[] | null;
 	oldHolders: IHolder[] | null;
 	holdersOffset: number;
 	holdersHasMore: boolean;
 	resetHolders: () => void;
-	setFormData: (data: ICreateProposalPayload | null) => void;
 	setDao: (dao: IDao | null) => void;
 	setProposalType: (proposalType: ProposalType | null) => void;
 	setOldHolders: () => void;
 	fetchHolders: (token: string, daoAddress: string) => Promise<void>;
+	setRemovingWallet: (walletAddress: string | null) => void;
 }
 
 export const useFormType = create<IFormTypeStore>((set, get) => ({
@@ -23,6 +23,7 @@ export const useFormType = create<IFormTypeStore>((set, get) => ({
 	holders: null,
 	oldHolders: null,
 	proposalType: null,
+	removingWallet: null,
 	formData: null,
 	holdersOffset: 0,
 	holdersHasMore: false,
@@ -47,10 +48,6 @@ export const useFormType = create<IFormTypeStore>((set, get) => ({
 			set({ holdersOffset: 0, holdersHasMore: false, oldHolders: null });
 		}
 	},
-
-	setFormData: (data) => {
-		set({ formData: data });
-	},
 	setDao: (dao) => {
 		const { resetHolders } = get();
 		set({ dao });
@@ -62,5 +59,8 @@ export const useFormType = create<IFormTypeStore>((set, get) => ({
 	setOldHolders: () => {
 		const { holders } = get();
 		set({ oldHolders: holders });
+	},
+	setRemovingWallet: (walletAddress) => {
+		set({ removingWallet: walletAddress !== null ? getUserFriendlyAddress(walletAddress) : null });
 	},
 }));
