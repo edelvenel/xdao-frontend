@@ -2,6 +2,7 @@ import { Address } from '@ton/core';
 import { IPendingDao, IPendingProposal, ProposalType } from 'shared/types';
 
 export const shortenAddress = (str: string): string => {
+	getUserFriendlyAddress(str);
 	if (str.length <= 6) {
 		return str;
 	}
