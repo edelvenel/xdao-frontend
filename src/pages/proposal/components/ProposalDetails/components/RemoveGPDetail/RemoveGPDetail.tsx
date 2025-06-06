@@ -37,7 +37,13 @@ export function RemoveGPDetail({ votes, proposal, userVote, onVote }: IRemoveGPD
 	);
 
 	return (
-		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
+		<ProposalDetailLayout
+			status={proposal.status}
+			isVotingEnabled={true}
+			userVote={userVote}
+			onBack={() => navigate(-1)}
+			onVote={onVote}
+		>
 			<div className={css.page}>
 				<FormHeader proposal={proposal} />
 

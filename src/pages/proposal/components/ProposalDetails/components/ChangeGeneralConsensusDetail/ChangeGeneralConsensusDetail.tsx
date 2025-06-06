@@ -27,7 +27,13 @@ export function ChangeGeneralConsensusDetail({
 	const userFriendlyAddress = getUserFriendlyAddress(proposal.createdBy);
 
 	return (
-		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
+		<ProposalDetailLayout
+			status={proposal.status}
+			isVotingEnabled={true}
+			userVote={userVote}
+			onBack={() => navigate(-1)}
+			onVote={onVote}
+		>
 			<div className={css.page}>
 				<FormHeader proposal={proposal} />
 

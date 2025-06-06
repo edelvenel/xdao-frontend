@@ -1,12 +1,18 @@
 import { useNavigate } from 'react-router';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
+import { ProposalStatus } from 'shared/types';
 import { Title } from 'shared/ui/Title';
 import css from './styles.module.scss';
 
 export function ProposalPageLoader() {
 	const navigate = useNavigate();
 	return (
-		<ProposalDetailLayout isVotingEnabled={true} userVote={null} onBack={() => navigate(-1)}>
+		<ProposalDetailLayout
+			status={ProposalStatus.Pending}
+			isVotingEnabled={true}
+			userVote={null}
+			onBack={() => navigate(-1)}
+		>
 			<div className={css.proposalPageLoader}>
 				<div className={css.card}>
 					<div className={css.block} />

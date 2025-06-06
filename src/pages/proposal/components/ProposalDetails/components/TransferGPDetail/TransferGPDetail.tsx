@@ -21,7 +21,13 @@ export function TransferGPDetail({ votes, proposal, userVote, onVote }: ITransfe
 	const formatedCreatedAt = format(new Date(proposal.createdAt), 'LLL dd, yyyy | HH:mm');
 
 	return (
-		<ProposalDetailLayout isVotingEnabled={true} userVote={userVote} onBack={() => navigate(-1)} onVote={onVote}>
+		<ProposalDetailLayout
+			status={proposal.status}
+			isVotingEnabled={true}
+			userVote={userVote}
+			onBack={() => navigate(-1)}
+			onVote={onVote}
+		>
 			<div className={css.page}>
 				<FormHeader proposal={proposal} />
 
