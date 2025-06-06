@@ -63,6 +63,7 @@ export class ProposalsBuilder extends Builder {
 			.storeAddress(toWalletAddress) // destination
 			.storeAddress(toWalletAddress) // response_destination
 			.storeCoins(1) // forward_amount (1 nTON to simplify job for indexers)
+			.storeBit(false)
 			.endCell();
 		return beginCell()
 			.store(this.storeOpcode(ProposalsBuilderOpCodes.CALL_JETTON_TRANSFER))
