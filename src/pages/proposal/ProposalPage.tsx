@@ -1,7 +1,7 @@
+import { useTonAddress } from '@tonconnect/ui-react';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useProposals } from 'shared/api/proposals';
-import { getDao } from 'shared/api/daos/methods';
 import { useBackButton } from 'shared/hooks/useBackButton';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
@@ -12,9 +12,7 @@ import { ProposalDetails } from './components/ProposalDetails';
 import { ProposalPageLoader } from './components/ProposalPageLoader';
 import { Vote } from './components/Vote';
 import { VoteResult } from './components/VoteResult';
-import { IDao } from 'shared/types';
 import css from './styles.module.scss';
-import { useTonAddress } from '@tonconnect/ui-react';
 
 export const ProposalPage = React.memo(function ProposalPage() {
 	const { proposals, fetchProposals, submitVote } = useProposals();
@@ -25,7 +23,6 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	const [isOnVote, setIsOnVote] = React.useState<boolean>(false);
 	const [isResultOpen, setIsResultOpen] = React.useState<boolean>(false);
 	const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
-	const [dao, setDao] = React.useState<IDao | null>(null);
 	const { holders, fetchHolders } = store.useFormType();
 	const { token } = store.useAuth();
 	useBackButton();
@@ -45,7 +42,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 		}
 
 		try {
-			fetchHolders(token, proposal?.daoAddress);
+			fetchHolders(token, proposal.dao.address);
 
 			await submitVote(proposal);
 			setIsOnVote(false);
@@ -59,26 +56,19 @@ export const ProposalPage = React.memo(function ProposalPage() {
 
 	React.useEffect(() => {
 		fetchProposals();
-		if (token && proposal?.daoAddress) {
-			fetchHolders(token, proposal.daoAddress);
-		}
 	}, [fetchProposals]);
 
 	React.useEffect(() => {
-		if (proposal && token) {
-			fetchHolders(token, proposal?.daoAddress);
+		if (token && proposal) {
+			fetchHolders(token, proposal.dao.address);
 		}
 	}, [fetchHolders, proposal, token]);
 
 	React.useEffect(() => {
-		try {
-			if (proposal?.daoAddress) {
-				getDao(token ?? '', proposal.daoAddress).then(setDao);
-			}
-		} catch (exception) {
-			console.error('Unable to get dao', exception);
+		if (proposal?.dao.address && token) {
+			fetchHolders(token, proposal.dao.address);
 		}
-	}, [proposal?.daoAddress])
+	}, [fetchHolders, proposal?.dao.address, token]);
 
 	if (proposal === undefined) {
 		return (
@@ -99,33 +89,32 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	}
 	const holderBalance = holders ? holders.find((h) => h.owner_address === address)?.balance : undefined;
 
-	const voteImpact = Number(holderBalance) / Number(dao?.LPTokens) * 100;
-
+	const voteImpact = (Number(holderBalance) / Number(proposal?.dao.totalSupply)) * 100;
 
 	return (
 		<div className={css.page}>
-			{!!proposal && <ProposalDetails proposal={proposal} setDao={setDao} onVote={() => setIsOnVote(true)} />}
+			{!!proposal && <ProposalDetails proposal={proposal} onVote={() => setIsOnVote(true)} />}
 			{proposal === null && <ProposalPageLoader />}
 
 			{!!proposal && (
-                <Modal
-                    isOpen={!!proposal && isOnVote && !!holderBalance}
-                    onClose={() => setIsOnVote(false)}
-                    titleAlign="center"
-                    title={proposal.name}
-                >
-                    <Vote
-                        currentPercent={(proposal.currentVotes / proposal.consensus) * 100}
-                        voteImpact={voteImpact}
-                        totalPercent={dao ? (proposal.consensus / Number(dao.LPTokens)) * 100 : 0}
-                        onConfirm={handleOnConfirm}
-                    />
-                </Modal>
+				<Modal
+					isOpen={!!proposal && isOnVote && !!holderBalance}
+					onClose={() => setIsOnVote(false)}
+					titleAlign="center"
+					title={proposal.name}
+				>
+					<Vote
+						currentPercent={(proposal.currentAmount / Number(proposal.dao.totalSupply) / 10 ** 9) * 100} //TODO: count
+						voteImpact={voteImpact}
+						totalPercent={proposal.dao.consensus}
+						onConfirm={handleOnConfirm}
+					/>
+				</Modal>
 			)}
 			{!!proposal && (
-                <Modal isBackgroundOn={isSuccess} isOpen={isResultOpen} onClose={() => setIsResultOpen(false)}>
-                    <VoteResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
-                </Modal>
+				<Modal isBackgroundOn={isSuccess} isOpen={isResultOpen} onClose={() => setIsResultOpen(false)}>
+					<VoteResult success={isSuccess} onDone={() => navigate(-1)} onRetry={() => setIsResultOpen(false)} />
+				</Modal>
 			)}
 		</div>
 	);

@@ -37,6 +37,7 @@ export type ICreateRemoveGPProposalPayload = {
 	description: string;
 	jettonWalletAddressToRemove: string;
 	jettonWalletOwnerAddressToRemove: string;
+	tokenAmount: number;
 	votingDuration: number;
 };
 
@@ -106,7 +107,8 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 		case ProposalType.RemoveGP: {
 			return ProposalsBuilder.buildCallJettonBurn(
 				Address.parse(payload.jettonWalletAddressToRemove),
-				Address.parse(payload.jettonWalletOwnerAddressToRemove)
+				Address.parse(payload.jettonWalletOwnerAddressToRemove),
+				payload.tokenAmount
 			);
 		}
 		case ProposalType.TransferGPTokens: {

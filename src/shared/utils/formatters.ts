@@ -9,8 +9,12 @@ export const shortenAddress = (str: string): string => {
 };
 
 export const getUserFriendlyAddress = (address: string): string => {
-	const result = Address.isFriendly(address) ? address : Address.parseRaw(address).toString({ bounceable: false });
-	return result;
+	try {
+		const result = Address.isFriendly(address) ? address : Address.parseRaw(address).toString({ bounceable: false });
+		return result;
+	} catch {
+		return address;
+	}
 };
 
 export const getDaoHash = async (daoName: string, ownerWalletAddress: string): Promise<string> => {
@@ -60,4 +64,12 @@ export async function hashStringSHA256(str: string): Promise<string> {
 	const hashArray = Array.from(new Uint8Array(hashBuffer));
 	const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 	return hashHex;
+}
+
+export function formatNumber(value: number, fixed?: number): number {
+	if (!fixed || fixed < 0) {
+		return Number(value.toFixed(2));
+	} else {
+		return Number(value.toFixed(fixed));
+	}
 }

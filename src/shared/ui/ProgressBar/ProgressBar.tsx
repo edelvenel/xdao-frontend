@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'motion/react';
 import React, { CSSProperties } from 'react';
+import { formatNumber } from 'shared/utils/formatters';
 import css from './styles.module.scss';
 
 interface IProgressBarInterface {
@@ -64,7 +65,7 @@ export function ProgressBar({
 							>{`${totalPercent - currentPercent}% left`}</motion.div>
 						)}
 					</AnimatePresence>
-					<div className={css.totalPercent}>{`${totalPercent}%`}</div>
+					<div className={css.totalPercent}>{`${formatNumber(totalPercent)}%`}</div>
 				</div>
 			</div>
 			<AnimatePresence initial={true}>
@@ -76,7 +77,7 @@ export function ProgressBar({
 						className={css.additionalText}
 						style={{ '--dark-width': `${currentPart}%` } as CSSProperties}
 					>
-						<div className={css.additionalPercent}>{`+${additionalPercent}% ↑`}</div>
+						<div className={css.additionalPercent}>{`+${formatNumber(additionalPercent)}% ↑`}</div>
 					</motion.div>
 				)}
 			</AnimatePresence>

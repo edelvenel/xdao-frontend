@@ -9,7 +9,7 @@ import { IDao, IDistributionRule, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { TextLoader } from 'shared/ui/TextLoader';
 import { calculatePercents } from 'shared/utils/calculateHoldersPercent';
-import { getUserFriendlyAddress } from 'shared/utils/formatters';
+import { formatNumber, getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import { DistributionRuleLoader } from './components/DistributionRuleLoader';
 import css from './styles.module.scss';
 
@@ -92,7 +92,7 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 	const distributionRules: IDistributionRule[] = React.useMemo(() => {
 		const rules: IDistributionRule[] = holders
 			? holders.map((holder) => {
-					return { walletAddress: holder.jetton_wallet_address, tokens: Number(holder.balance) / 10 ** 9, percent: 0 };
+					return { walletAddress: holder.owner_address, tokens: Number(holder.balance) / 10 ** 9, percent: 0 };
 				})
 			: [];
 		return calculatePercents(rules);
@@ -141,10 +141,10 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 					distributionRules.map((rule, index) => (
 						<div key={index} className={css.distributionRule}>
 							<div className={cn(css.item, css.wallet)}>
-								<div className={css.text}>{getUserFriendlyAddress(rule.walletAddress)}</div>
+								<div className={css.text}>{shortenAddress(getUserFriendlyAddress(rule.walletAddress))}</div>
 							</div>
-							<div className={cn(css.item, css.gpTokens)}>{rule.tokens}</div>
-							<div className={cn(css.item, css.percent)}>{rule.percent?.toFixed(2)}%</div>
+							<div className={cn(css.item, css.gpTokens)}>{formatNumber(rule.tokens ?? 0, 6)}</div>
+							<div className={cn(css.item, css.percent)}>{formatNumber(rule.percent ?? 0)}%</div>
 							<div className={cn(css.item, css.link)} onClick={() => toast.error('Unimplemented')}>
 								<Icon.Common.LittleLink />
 							</div>

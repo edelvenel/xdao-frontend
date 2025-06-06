@@ -2,6 +2,7 @@ import { api } from 'app/api';
 import { Proposal, Vote } from 'app/api/codegen';
 import { proposalFilterMapp, proposalTypeMapper } from 'shared/constants';
 import { IHolder, IProposal, IVote, ProposalFilter } from 'shared/types';
+import { daoMapper } from '../daos/methods';
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
@@ -10,18 +11,15 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		endDate: new Date(proposal.date_expire),
 		consensus: Number(proposal.success_amount),
 		address: proposal.address,
-		daoAddress: proposal.dao_address,
-		currentVotes: Number(proposal.current_amount),
-		createdAt: new Date(proposal.date_start), //TODO: replace with real data
+		createdAt: new Date(proposal.date_start),
 		createdBy: proposal.initiated_by_address,
 		status: proposal.status,
 		type: proposalTypeMapper[proposal.type],
 		userVote: null,
-		votingType: {
-			id: 1,
-			label: 'One wallet = one vote',
-		},
 		data: proposal.data,
+		dao: daoMapper(proposal.dao),
+		currentAmount: Number(proposal.current_amount),
+		successAmount: Number(proposal.success_amount),
 	};
 };
 

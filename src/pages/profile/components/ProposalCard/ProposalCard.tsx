@@ -2,6 +2,7 @@ import { routes } from 'app/router/routes';
 import { generatePath, Link } from 'react-router';
 import { IProposal } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
+import { getStatusVariant } from 'shared/utils/getStatusVariant';
 import css from './styles.module.scss';
 
 interface IProposalCardProps {
@@ -15,7 +16,7 @@ export function ProposalCard({ proposal }: IProposalCardProps) {
 				<div className={css.label}>Proposal name:</div>
 				<div className={css.name}>{proposal.name}</div>
 			</div>
-			<Badge text="pending" variant="blue" />
+			<Badge text={proposal.status} variant={getStatusVariant(proposal.status)} />
 		</Link>
 	);
 }

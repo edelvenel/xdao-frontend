@@ -57,9 +57,16 @@
 			min-height: 64px;
 			background-color: var(--semantic-background-tetriary);
 
+			&.vote {
+				max-height: 64px;
+			}
+
 			.answer {
 				flex: 1;
+				max-width: 150px;
 				display: flex;
+				justify-content: center;
+				align-items: center;
 				gap: 4px;
 				color: var(--semantic-text-primary);
 

@@ -28,7 +28,7 @@ export const daoMapper = (dao: Dao): IDao => {
 		jetton_address: dao.jetton_address,
 		address: dao.address,
 		activeProposals: 0,
-		LPTokens: dao.total_supply,
+		totalSupply: dao.total_supply,
 		social: [],
 		email: dao.jetton_metadata['email'],
 		consensus: dao.success_percentage / 100,
@@ -37,6 +37,7 @@ export const daoMapper = (dao: Dao): IDao => {
 		status: DaoStatus.Transferable,
 		description: '',
 		plugins: dao.plugins,
+		owner_address: dao.owner_address,
 	};
 };
 

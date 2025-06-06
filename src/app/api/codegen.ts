@@ -12,7 +12,6 @@
 
 import { ProposalKey, ProposalStatus } from 'shared/types';
 import { AccountData, HoldersResponse } from './types';
-import { getJettonHolders } from 'shared/api/daos/methods';
 
 export interface Ok {
 	/** @example true */
@@ -62,6 +61,7 @@ export interface Dao {
 	success_percentage: number;
 	total_supply: string;
 	plugins: Plugin[];
+	owner_address: string;
 }
 
 export interface Vote {
@@ -75,7 +75,7 @@ export interface Proposal {
 	name: string;
 	description: string;
 	address: string;
-	dao_address: string;
+	dao: Dao;
 	jetton_master_address: string;
 	initiated_by_address: string;
 	success_amount: string;
@@ -363,8 +363,8 @@ export class HttpClient<SecurityDataType = unknown> {
 					property instanceof Blob
 						? property
 						: typeof property === 'object' && property !== null
-						? JSON.stringify(property)
-						: `${property}`
+							? JSON.stringify(property)
+							: `${property}`
 				);
 				return formData;
 			}, new FormData()),
@@ -797,11 +797,13 @@ export class TonApi<SecurityDataType extends unknown> {
 	}
 
 	v2 = {
-		getJettonHolders: ({ accountId }: GetJettonHoldersParams, params: RequestParams = {}) => 
-			this.http.request<HoldersResponse,
-			{
-				error: string;
-			}>({
+		getJettonHolders: ({ accountId }: GetJettonHoldersParams, params: RequestParams = {}) =>
+			this.http.request<
+				HoldersResponse,
+				{
+					error: string;
+				}
+			>({
 				path: `/v2/jettons/${accountId}/holders`,
 				method: 'GET',
 				...params,

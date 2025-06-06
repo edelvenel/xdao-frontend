@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProgressBar } from 'shared/ui/ProgressBar';
 import { Slider } from 'shared/ui/Slider';
+import { formatNumber } from 'shared/utils/formatters';
 import css from './styles.module.scss';
 
 interface IVoteProps {
@@ -17,7 +18,7 @@ export function Vote({ currentPercent, totalPercent, voteImpact, onConfirm }: IV
 
 	return (
 		<div className={css.vote}>
-			<div className={css.infoText}>{`You reach ${currentPercent + voteImpact}% after your vote`}</div>
+			<div className={css.infoText}>{`You reach ${formatNumber(currentPercent + voteImpact)}% after your vote`}</div>
 			<div>
 				<ProgressBar
 					currentPercent={currentPercent}

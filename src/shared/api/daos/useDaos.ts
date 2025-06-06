@@ -64,7 +64,7 @@ export function useDaos() {
 
 			if (daos !== null && hashedDaos !== null) {
 				for (const dao of daos) {
-					const hash = await getDaoHash(dao.name, dao.jetton_address);
+					const hash = await getDaoHash(dao.name, dao.owner_address);
 					delete hashedDaos[hash];
 				}
 
@@ -90,6 +90,8 @@ export function useDaos() {
 
 	const createDao = async (payload: ICreateDaoPayload): Promise<void> => {
 		if (!isConnected || !wallet) throw new Error('Connect TON-wallet first');
+
+		console.log(1);
 
 		const factoryAddress = await getFactoryAddress(token ?? '');
 		const factoryContract = tonClient.open(DAOFactoryContract.createFromAddress(Address.parse(factoryAddress)));
