@@ -5,10 +5,11 @@ import css from './styles.module.scss';
 
 interface IDAOProps {
 	dao: IDao;
+	proposalsAmount: number;
 	onOpen: () => void;
 }
 
-export function DAO({ dao, onOpen }: IDAOProps) {
+export function DAO({ dao, proposalsAmount, onOpen }: IDAOProps) {
 	return (
 		<div className={css.dao}>
 			<div className={cn(css.block, css.header)}>
@@ -17,11 +18,7 @@ export function DAO({ dao, onOpen }: IDAOProps) {
 			</div>
 			<div className={cn(css.block, css.field)}>
 				<div className={css.name}>Active Proposals</div>
-				<div className={css.value}>{dao.activeProposals}</div>
-			</div>
-			<div className={cn(css.block, css.field)}>
-				<div className={css.name}>LP Tokens</div>
-				<div className={css.value}>{dao.totalSupply}</div>
+				<div className={css.value}>{proposalsAmount}</div>
 			</div>
 			<Button onClick={onOpen}>Open DAO</Button>
 		</div>

@@ -8,7 +8,6 @@ export type IDao = {
 	logo: string;
 	name: string;
 	jetton_address: string;
-	activeProposals: number;
 	totalSupply: string;
 	description?: string;
 	email?: string;
