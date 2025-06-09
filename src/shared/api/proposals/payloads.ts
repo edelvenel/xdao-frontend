@@ -133,7 +133,7 @@ export const proposalsBuilders = (payload: ICreateProposalPayload, pluginJettonW
 			if (payload.token.address == 'native') {
 				const amount = toNano(payload.tokenAmount); // 10 ^ decimals -> decimals for toncoin = 9 always
 				msg = beginCell()
-					.storeUint(0x10, 6) // no bounce
+					.storeUint(0x18, 6) // no bounce
 					.storeAddress(dest) // dest
 					.storeCoins(amount) // amount
 					.storeUint(0, 107)
