@@ -1,12 +1,5 @@
-import {
-	Address,
-	beginCell,
-	Cell,
-	Dictionary,
-	SendMode,
-	toNano,
-} from '@ton/ton';
-import {JettonBuilder, ProposalsBuilder} from 'shared/cell-builders';
+import { Address, beginCell, Cell, Dictionary, SendMode, toNano } from '@ton/ton';
+import { JettonBuilder, ProposalsBuilder } from 'shared/cell-builders';
 import { IDao, IToken, ProposalType } from 'shared/types';
 
 export type ICreateProposalPayload =
@@ -85,6 +78,7 @@ export type ICreateSendFundsProposalPayload = {
 	recipientAddress: string;
 	token: IToken;
 	tokenAmount: number;
+	decimals: number;
 	pluginAddress: string;
 };
 
@@ -99,7 +93,7 @@ export type ICreateTransferGPProposalPayload = {
 	toWalletAddress: string;
 };
 
-export const proposalsBuilders = (payload: ICreateProposalPayload) => {
+export const proposalsBuilders = (payload: ICreateProposalPayload, pluginJettonWallet: Address | null) => {
 	switch (payload.type) {
 		case ProposalType.RemoveGP: {
 			return ProposalsBuilder.buildCallJettonBurn(
@@ -143,24 +137,23 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 					.storeAddress(dest) // dest
 					.storeCoins(amount) // amount
 					.storeUint(0, 107)
-					.endCell()
+					.endCell();
 			} else {
-				const decimals = 9; // TODO: fetch token.decimals
-				const pluginJettonWallet = Address.parse(payload.pluginAddress) // TODO: fetch plugin's jetton wallet
-				const amount = payload.tokenAmount * Math.pow(10, decimals)
+				const amount = payload.tokenAmount * Math.pow(10, payload.token.decimals);
 				const transferBody = JettonBuilder.buildJettonTransfer({
 					amount,
 					destination: dest,
 					responseDestination: dest,
-					forwardTonAmount: 1
-				})
+					forwardTonAmount: 1,
+				});
+
 				msg = beginCell()
 					.storeUint(0x18, 6) // bounce
 					.storeAddress(pluginJettonWallet) // dest
 					.storeCoins(amount) // amount
 					.storeUint(1, 107)
 					.storeRef(transferBody)
-					.endCell()
+					.endCell();
 			}
 			return ProposalsBuilder.buildCallPlugin(
 				pluginAddr,
