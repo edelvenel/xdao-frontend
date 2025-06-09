@@ -3,13 +3,10 @@ import {
 	beginCell,
 	Cell,
 	Dictionary,
-	internal,
-	MessageRelaxed,
 	SendMode,
-	storeMessageRelaxed,
 	toNano,
 } from '@ton/ton';
-import { ProposalsBuilder } from 'shared/cell-builders';
+import {JettonBuilder, ProposalsBuilder} from 'shared/cell-builders';
 import { IDao, IToken, ProposalType } from 'shared/types';
 
 export type ICreateProposalPayload =
@@ -137,23 +134,40 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 
 		case ProposalType.SendDAOFunds: {
 			const pluginAddr = Address.parse(payload.pluginAddress);
-			let msg: MessageRelaxed;
+			let msg: Cell;
+			const dest = Address.parse(payload.recipientAddress);
 			if (payload.token.address == 'native') {
-				msg = internal({
-					to: Address.parse(payload.recipientAddress),
-					value: toNano(payload.tokenAmount),
-				});
+				const amount = toNano(payload.tokenAmount); // 10 ^ decimals -> decimals for toncoin = 9 always
+				msg = beginCell()
+					.storeUint(0x18, 6)
+					.storeAddress(dest) // dest
+					.storeCoins(amount) // amount
+					.storeUint(0, 107)
+					.endCell()
 			} else {
-				throw Error('not implemented');
+				const decimals = 9; // TODO: fetch token.decimals
+				const amount = payload.tokenAmount * Math.pow(10, decimals)
+				const transferBody = JettonBuilder.buildJettonTransfer({
+					amount,
+					destination: dest,
+					responseDestination: dest,
+					forwardTonAmount: 1
+				})
+				msg = beginCell()
+					.storeUint(0x18, 6)
+					.storeAddress(dest) // dest
+					.storeCoins(amount) // amount
+					.storeUint(1, 107)
+					.storeRef(transferBody)
+					.endCell()
 			}
-			const writer = storeMessageRelaxed(msg);
-			const internalMessage = beginCell().store(writer);
 			return ProposalsBuilder.buildCallPlugin(
 				pluginAddr,
 				beginCell()
 					.storeUint(0, 32) // simple send
-					.storeRef(internalMessage) // 1st message
+					.storeUint(0, 64) // TODO: query id
 					.storeUint(SendMode.PAY_GAS_SEPARATELY, 8)
+					.storeRef(msg) // 1st message
 					.endCell()
 			);
 		}
