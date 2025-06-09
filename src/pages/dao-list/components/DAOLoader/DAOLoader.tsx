@@ -5,7 +5,6 @@ export function DAOLoader() {
 		<div className={css.daoLoader}>
 			<div className={css.block} />
 			<div className={css.block} />
-			<div className={css.block} />
 			<div className={css.button} />
 		</div>
 	);

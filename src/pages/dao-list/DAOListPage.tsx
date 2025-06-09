@@ -45,10 +45,19 @@ export const DAOListPage = React.memo(function DAOListPage() {
 		}
 	}, [daos, pendingDaos, setIsBackground]);
 
-	React.useEffect(() => {
-		fetchDaos(searchText ?? '', filter);
+	const fetchData = React.useCallback(() => {
+		fetchDaos(searchText ?? '');
 		fetchProposals();
-	}, [fetchDaos, fetchProposals, filter, searchText]);
+	}, [fetchDaos, fetchProposals, searchText]);
+
+	React.useEffect(() => {
+		fetchData();
+		const intervalId = setInterval(() => fetchData(), 5000);
+
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [fetchData]);
 
 	const handleOnApplyFilter = React.useCallback(
 		(value: FilterEnum) => {
