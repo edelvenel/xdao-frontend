@@ -1,4 +1,5 @@
 import { Address, Cell, toNano } from '@ton/core';
+import { JettonMaster } from '@ton/ton';
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import { ICreateProposalPayload, proposalsBuilders } from 'shared/api/proposals/payloads';
 import { ElectionsBuilder } from 'shared/cell-builders';
@@ -7,7 +8,22 @@ import { DAOJettonWallet } from 'shared/smartcontracts/DAOJettonWallet';
 import { ElectionsMaster } from 'shared/smartcontracts/ElectionsMaster';
 import { Master } from 'shared/smartcontracts/Master';
 import { TonConnectSender } from 'shared/smartcontracts/sender';
-import { IHolder, IProposal } from 'shared/types';
+import { IHolder, IProposal, ProposalType } from 'shared/types';
+
+const getPluginJettonWallet = async (payload: ICreateProposalPayload): Promise<null | Address> => {
+	if (payload.type === ProposalType.SendDAOFunds) {
+		try {
+			const jettonMaster = tonClient.open(JettonMaster.create(Address.parse(payload.token.address)));
+			const pluginJettonWallet = await jettonMaster.getWalletAddress(Address.parse(payload.pluginAddress));
+			return pluginJettonWallet;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	} else {
+		return null;
+	}
+};
 
 export const useProposalActions = () => {
 	const [tonConnect] = useTonConnectUI();
@@ -26,7 +42,8 @@ export const useProposalActions = () => {
 		const jettonWalletAddress = Address.parse(holder.jetton_wallet_address);
 
 		const jettonWallet = tonClient.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
-		const body: Cell = proposalsBuilders(payload);
+
+		const body: Cell = proposalsBuilders(payload, await getPluginJettonWallet(payload));
 
 		await jettonWallet.sendBalanceNotification(
 			sender,

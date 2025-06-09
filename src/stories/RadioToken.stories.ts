@@ -24,6 +24,7 @@ export const Primary: Story = {
 			imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 			amount: 125,
 			rate: 10.0987,
+			decimals: 9,
 		},
 		options: [
 			{
@@ -32,6 +33,7 @@ export const Primary: Story = {
 				imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 				amount: 125,
 				rate: 10.0987,
+				decimals: 9,
 			},
 			{
 				address: '1',
@@ -39,6 +41,7 @@ export const Primary: Story = {
 				imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 				amount: 59,
 				rate: 3.0953,
+				decimals: 9,
 			},
 			{
 				address: '2',
@@ -46,6 +49,7 @@ export const Primary: Story = {
 				imgUrl: 'https://cryptologos.cc/logos/toncoin-ton-logo.png',
 				amount: 12,
 				rate: 8.362,
+				decimals: 9,
 			},
 		],
 	},

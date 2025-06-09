@@ -48,6 +48,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 				token: values.token!,
 				recipientAddress: values.recipientAddress,
 				tokenAmount: Number(values.tokenAmount),
+				decimals: values.token!.decimals,
 			};
 
 			try {
@@ -99,6 +100,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 			amount: tonBalance,
 			rate: tonRate * tonBalance,
 			imgUrl: tonSymbol,
+			decimals: 9,
 		};
 		const jettonsTokens: IToken[] = jettons.map((jetton) => {
 			return {
@@ -107,6 +109,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 				amount: jetton.amount,
 				imgUrl: jetton.imgUrl,
 				rate: jetton.rate,
+				decimals: jetton.decimals,
 			};
 		});
 		return [tonToken, ...jettonsTokens];
