@@ -6,6 +6,7 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { generatePath, useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos/useDaos';
+import { useProposals } from 'shared/api/proposals';
 import { store } from 'shared/store';
 import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
@@ -21,6 +22,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	const [filter, setFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const { setIsHeaderShown, setIsMenuShown, setIsBackground } = store.useApp();
 	const { fetchDaos, resetDaos, hasMore } = useDaos();
+	const { fetchProposals, proposals } = useProposals();
 	const { daos, pendingDaos } = store.useDaos();
 
 	const navigate = useNavigate();
@@ -44,7 +46,8 @@ export const DAOListPage = React.memo(function DAOListPage() {
 
 	React.useEffect(() => {
 		fetchDaos(searchText ?? '', filter);
-	}, [fetchDaos, filter, searchText]);
+		fetchProposals();
+	}, [fetchDaos, fetchProposals, filter, searchText]);
 
 	const handleOnApplyFilter = React.useCallback(
 		(value: FilterEnum) => {
@@ -97,6 +100,7 @@ export const DAOListPage = React.memo(function DAOListPage() {
 							<DAO
 								key={dao.address}
 								dao={dao}
+								proposalsAmount={proposals?.filter((proposal) => proposal.dao.address === dao.address).length ?? 0}
 								onOpen={() => navigate(generatePath(routes.dao, { id: dao.address, tab: 'overview' }))}
 							/>
 						))}

@@ -27,7 +27,6 @@ export const daoMapper = (dao: Dao): IDao => {
 				: logoExample,
 		jetton_address: dao.jetton_address,
 		address: dao.address,
-		activeProposals: 0,
 		totalSupply: dao.total_supply,
 		social: [],
 		email: dao.jetton_metadata['email'],
