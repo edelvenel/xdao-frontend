@@ -139,13 +139,14 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 			if (payload.token.address == 'native') {
 				const amount = toNano(payload.tokenAmount); // 10 ^ decimals -> decimals for toncoin = 9 always
 				msg = beginCell()
-					.storeUint(0x18, 6)
+					.storeUint(0x10, 6) // no bounce
 					.storeAddress(dest) // dest
 					.storeCoins(amount) // amount
 					.storeUint(0, 107)
 					.endCell()
 			} else {
 				const decimals = 9; // TODO: fetch token.decimals
+				const pluginJettonWallet = Address.parse(payload.pluginAddress) // TODO: fetch plugin's jetton wallet
 				const amount = payload.tokenAmount * Math.pow(10, decimals)
 				const transferBody = JettonBuilder.buildJettonTransfer({
 					amount,
@@ -154,8 +155,8 @@ export const proposalsBuilders = (payload: ICreateProposalPayload) => {
 					forwardTonAmount: 1
 				})
 				msg = beginCell()
-					.storeUint(0x18, 6)
-					.storeAddress(dest) // dest
+					.storeUint(0x18, 6) // bounce
+					.storeAddress(pluginJettonWallet) // dest
 					.storeCoins(amount) // amount
 					.storeUint(1, 107)
 					.storeRef(transferBody)
