@@ -1,11 +1,11 @@
-import { useTonConnectUI } from "@tonconnect/ui-react";
-import { useEffect, useCallback, useRef } from "react";
-import { API } from "shared/api";
-import { store } from "shared/store";
+import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useCallback, useEffect, useRef } from 'react';
+import { API } from 'shared/api';
+import { store } from 'shared/store';
 
 export const TonProof = () => {
 	const firstProofLoading = useRef<boolean>(true);
-	const { setToken } = store.useAuth();
+	const { setToken, signOut } = store.useAuth();
 	const [tonConnectUI] = useTonConnectUI();
 
 	const recreateProofPayload = useCallback(async () => {
@@ -23,27 +23,35 @@ export const TonProof = () => {
 		}
 	}, [tonConnectUI, firstProofLoading]);
 
-    useEffect(() => {
-        recreateProofPayload();
-    }, [recreateProofPayload]);
+	useEffect(() => {
+		recreateProofPayload();
+	}, [recreateProofPayload]);
 
-	useEffect(() =>
-		tonConnectUI.onStatusChange(async w => {
-			if (!w) {
-				return;
-			}
+	useEffect(
+		() =>
+			tonConnectUI.onStatusChange(async (w) => {
+				if (!w) {
+					return;
+				}
 
-			if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
-                const proof = w.connectItems.tonProof.proof;
-				let token = await API.Auth.login(w.account.address, { timestamp: proof.timestamp, domain: proof.domain.value, signature: proof.signature, payload: proof.payload, state_init: w.account.walletStateInit });
-        if (token) {
-          setToken(token.auth_token);
-        }
-			}
+				if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
+					const proof = w.connectItems.tonProof.proof;
+					const token = await API.Auth.login(w.account.address, {
+						timestamp: proof.timestamp,
+						domain: proof.domain.value,
+						signature: proof.signature,
+						payload: proof.payload,
+						state_init: w.account.walletStateInit,
+					});
+					if (token) {
+						setToken(token.auth_token);
+					} else {
+						signOut();
+					}
+				}
+			}),
+		[setToken, signOut, tonConnectUI]
+	);
 
-		}), [tonConnectUI]);
-
-
-
-  return null;
+	return null;
 };
