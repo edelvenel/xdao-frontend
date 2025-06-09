@@ -37,10 +37,19 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 		setIsMenuShown(true);
 	}, [setIsHeaderShown, setIsMenuShown]);
 
-	React.useEffect(() => {
+	const fetchData = React.useCallback(() => {
 		fetchDaos();
 		fetchProposals(searchText ?? '', filter);
 	}, [fetchDaos, fetchProposals, filter, searchText]);
+
+	React.useEffect(() => {
+		fetchData();
+		const intervalId = setInterval(() => fetchData(), 5000);
+
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [fetchData]);
 
 	React.useEffect(() => {
 		if (proposals === null || proposals.length > 0) {
