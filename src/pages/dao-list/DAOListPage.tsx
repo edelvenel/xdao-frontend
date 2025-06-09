@@ -8,6 +8,7 @@ import { generatePath, useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos/useDaos';
 import { useProposals } from 'shared/api/proposals';
 import { store } from 'shared/store';
+import { ProposalStatus } from 'shared/types';
 import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
 import { SearchBlock } from 'shared/ui/SearchBlock';
@@ -100,7 +101,11 @@ export const DAOListPage = React.memo(function DAOListPage() {
 							<DAO
 								key={dao.address}
 								dao={dao}
-								proposalsAmount={proposals?.filter((proposal) => proposal.dao.address === dao.address).length ?? 0}
+								proposalsAmount={
+									proposals?.filter(
+										(proposal) => proposal.dao.address === dao.address && proposal.status === ProposalStatus.Active
+									).length ?? 0
+								}
 								onOpen={() => navigate(generatePath(routes.dao, { id: dao.address, tab: 'overview' }))}
 							/>
 						))}
