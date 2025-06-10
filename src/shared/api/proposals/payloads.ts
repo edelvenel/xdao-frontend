@@ -141,7 +141,7 @@ export const proposalsBuilders = (payload: ICreateProposalPayload, pluginJettonW
 			} else {
 				const amount = payload.tokenAmount * Math.pow(10, payload.token.decimals);
 				const transferBody = JettonBuilder.buildJettonTransfer({
-					amount,
+					amount: toNano("0.1"),
 					destination: dest,
 					responseDestination: dest,
 					forwardTonAmount: 1,
