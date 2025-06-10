@@ -2,7 +2,7 @@ import { routes } from 'app/router/routes';
 import { compareAsc, formatDistance } from 'date-fns';
 import React from 'react';
 import { generatePath, Link } from 'react-router';
-import { getDaoProposalVotes } from 'shared/api/proposals/methods';
+import { useProposals } from 'shared/api/proposals';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
 import { IProposal, IVote, ProposalStatus } from 'shared/types';
@@ -14,9 +14,10 @@ import css from './styles.module.scss';
 
 interface IProposalProps {
 	proposal: IProposal;
+	isPending?: boolean;
 }
 
-export function Proposal({ proposal }: IProposalProps) {
+export function Proposal({ proposal, isPending = false }: IProposalProps) {
 	const formatDate = React.useMemo(
 		() =>
 			compareAsc(new Date(), proposal.endDate) === -1
@@ -27,6 +28,7 @@ export function Proposal({ proposal }: IProposalProps) {
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
 	const { token } = store.useAuth();
 	const { walletAddress } = store.useWallet();
+	const { fetchProposalVotes } = useProposals();
 
 	const getUserVote = React.useCallback(() => {
 		if (!votes || !walletAddress) {
@@ -44,13 +46,13 @@ export function Proposal({ proposal }: IProposalProps) {
 	React.useEffect(() => {
 		const fetchVotes = async () => {
 			if (token !== null) {
-				const votes = await getDaoProposalVotes(token, proposal.dao.address, proposal.address);
+				const votes = await fetchProposalVotes(token, proposal.dao.address, proposal.address);
 				setVotes(votes);
 			}
 		};
 
 		fetchVotes();
-	}, [proposal.address, proposal.dao.address, token]);
+	}, [fetchProposalVotes, proposal.address, proposal.dao.address, token]);
 
 	const agree = votes ? (votes?.reduce((acc, curr) => acc + curr.impact, 0) / proposal.dao.totalSupply) * 100 : 0;
 
@@ -61,7 +63,10 @@ export function Proposal({ proposal }: IProposalProps) {
 					<div className={css.label}>Proposal name:</div>
 					<div className={css.name}>{proposal.name}</div>
 				</div>
-				<Badge text={proposal.status} variant={getStatusVariant(proposal.status)} />
+				<Badge
+					text={isPending ? ProposalStatus.Pending : proposal.status}
+					variant={getStatusVariant(isPending ? ProposalStatus.Pending : proposal.status)}
+				/>
 			</div>
 			<div className={css.block}>
 				<div className={css.column}>
