@@ -8,7 +8,7 @@ export type IDao = {
 	logo: string;
 	name: string;
 	jetton_address: string;
-	totalSupply: string;
+	totalSupply: number;
 	description?: string;
 	email?: string;
 	social: ISocial[];
@@ -109,8 +109,6 @@ export interface IProposal {
 	status: ProposalStatus;
 	type: ProposalType;
 	dao: IDao;
-	userVote: IUserVote | null;
-	successAmount: number;
 	currentAmount: number;
 	data: any;
 }
@@ -159,7 +157,7 @@ export type IUserVote = {
 export type IHolder = {
 	jetton_wallet_address: string;
 	owner_address: string;
-	balance: string;
+	balance: number;
 };
 
 export type IPlugin = {

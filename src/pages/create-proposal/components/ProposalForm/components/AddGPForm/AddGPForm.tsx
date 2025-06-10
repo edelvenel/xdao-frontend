@@ -38,7 +38,7 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 							...holders.filter((hold) => hold.owner_address !== holder.owner_address),
 							{
 								...holder,
-								balance: String(Number(holder.balance) + Number(tokenAmount) * 10 ** 9),
+								balance: Number(holder.balance) + Number(tokenAmount),
 							},
 						];
 					}

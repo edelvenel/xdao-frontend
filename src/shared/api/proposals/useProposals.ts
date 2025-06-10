@@ -6,13 +6,14 @@ import { PENDING_EXPIRATION_DURATION } from 'shared/constants';
 import { useProposalActions } from 'shared/hooks/useProposalActions';
 import { store } from 'shared/store';
 import { IHashedData, IPendingProposal, IProposal, ProposalFilter } from 'shared/types';
-import { getProposalHash } from 'shared/utils/formatters';
-import { getDaoProposals, getProposals } from './methods';
+import { getProposalHash, getUserFriendlyAddress } from 'shared/utils/formatters';
+import { getDaoProposals, getDaoProposalVotes, getProposals } from './methods';
 import { ICreateProposalPayload } from './payloads';
 
 export function useProposals() {
 	const [proposals, setProposals] = useState<IProposal[] | null>(null);
 	const [pendingProposals, setPendingProposals] = useState<IPendingProposal[] | null>(null);
+	const [pendingVotes, setPendingVotes] = useState<string[] | null>(null);
 	const { holders } = store.useFormType();
 	const [hasMore, setHasMore] = useState(false);
 	const [currentOffset, setCurrentOffset] = useState(0);
@@ -39,6 +40,16 @@ export function useProposals() {
 		return JSON.parse(jsonString);
 	};
 
+	const getAllPendingVotes = (): string[] => {
+		const jsonString = localStorage.getItem('pending_votes');
+
+		if (jsonString === null) {
+			return [];
+		}
+
+		return JSON.parse(jsonString);
+	};
+
 	const fetchDaoProposals = useCallback(
 		async (daoAddress: string) => {
 			const { proposals, hasMore } = await getDaoProposals(token ?? '', currentOffset, daoAddress);
@@ -53,6 +64,32 @@ export function useProposals() {
 		[currentOffset, token]
 	);
 
+	const fetchProposalVotes = useCallback(
+		async (token: string, daoAddress: string, proposalAddress: string) => {
+			const votes = await getDaoProposalVotes(token, daoAddress, proposalAddress);
+
+			if (walletAddress !== null) {
+				const vote = votes.find(
+					(vote) => getUserFriendlyAddress(vote.walletAddress) === getUserFriendlyAddress(walletAddress)
+				);
+				if (vote) {
+					const votesInProcess = getAllPendingVotes().filter(
+						(pendingVote) => getUserFriendlyAddress(pendingVote) !== getUserFriendlyAddress(proposalAddress)
+					);
+					setPendingVotes([...votesInProcess]);
+					if (votesInProcess.length === 0) {
+						localStorage.removeItem('pending_votes');
+					} else {
+						localStorage.setItem('pending_votes', JSON.stringify([...votesInProcess]));
+					}
+				}
+			}
+
+			return votes;
+		},
+		[walletAddress]
+	);
+
 	const fetchProposals = useCallback(
 		async (search?: string, filter?: ProposalFilter) => {
 			const { proposals, hasMore, total } = await getProposals(
@@ -61,6 +98,9 @@ export function useProposals() {
 				filter === ProposalFilter.AllProposals ? undefined : filter,
 				search
 			);
+
+			const votesInProcess = getAllPendingVotes();
+			setPendingVotes(votesInProcess);
 
 			if (total > 100) {
 				if (hasMore) {
@@ -150,12 +190,16 @@ export function useProposals() {
 			}
 			try {
 				await makeVote(proposal, holder);
+				if (walletAddress) {
+					const pendingVotes = getAllPendingVotes();
+					localStorage.setItem('pending_votes', JSON.stringify([...pendingVotes, proposal.address]));
+				}
 			} catch (error) {
 				console.error('Unable to create proposal', error);
 				throw error;
 			}
 		},
-		[holder, makeVote]
+		[holder, makeVote, walletAddress]
 	);
 
 	const updateProposal = useCallback(async (id: string, payload: unknown): Promise<void> => {
@@ -175,8 +219,10 @@ export function useProposals() {
 		fetchProposals,
 		createProposal,
 		updateProposal,
+		fetchProposalVotes,
 		submitVote,
 		hasMore,
 		pendingProposals,
+		pendingVotes,
 	};
 }

@@ -45,7 +45,7 @@ export function RemoveGPForm({ onResponse }: IRemoveGPFormProps) {
 
 				const jettonWalletAddressToRemove = holder?.jetton_wallet_address;
 				const jettonWalletOwnerAddressToRemove = holder?.owner_address;
-				const tokenAmount = holder?.balance ? parseInt(holder?.balance) : undefined;
+				const tokenAmount = holder?.balance ? holder?.balance : undefined;
 
 				if (!dao?.address || !jettonWalletAddressToRemove || !jettonWalletOwnerAddressToRemove || !tokenAmount) return;
 

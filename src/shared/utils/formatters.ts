@@ -2,18 +2,19 @@ import { Address } from '@ton/core';
 import { IPendingDao, IPendingProposal, ProposalType } from 'shared/types';
 
 export const shortenAddress = (str: string): string => {
-	getUserFriendlyAddress(str);
-	if (str.length <= 6) {
-		return str;
+	const userFriendlyAddress = getUserFriendlyAddress(str);
+	if (userFriendlyAddress.length <= 6) {
+		return userFriendlyAddress;
 	}
-	return str.slice(0, 5) + '…' + str.slice(-5);
+	return userFriendlyAddress.slice(0, 5) + '…' + userFriendlyAddress.slice(-5);
 };
 
 export const getUserFriendlyAddress = (address: string): string => {
 	try {
 		const result = Address.isFriendly(address) ? address : Address.parseRaw(address).toString({ bounceable: false });
 		return result;
-	} catch {
+	} catch (error) {
+		console.log(error);
 		return address;
 	}
 };

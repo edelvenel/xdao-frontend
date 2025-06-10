@@ -27,14 +27,14 @@ export const daoMapper = (dao: Dao): IDao => {
 				: logoExample,
 		jetton_address: dao.jetton_address,
 		address: dao.address,
-		totalSupply: dao.total_supply,
-		social: [],
+		totalSupply: Number(dao.total_supply) / 10 ** 9,
+		social: [], //TODO: NO DATA
 		email: dao.jetton_metadata['email'],
 		consensus: dao.success_percentage / 100,
 		distributionRules: [],
 		slots: { total: 1, reserved: 0 },
-		status: DaoStatus.Transferable,
-		description: '',
+		status: DaoStatus.Transferable, // TODO: NO DATA
+		description: dao.jetton_metadata.metadata.description ?? '',
 		plugins: dao.plugins,
 		owner_address: dao.owner_address,
 	};
