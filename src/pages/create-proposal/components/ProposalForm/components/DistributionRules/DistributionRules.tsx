@@ -28,7 +28,7 @@ export function DistributionRules({ holders, oldHolders }: IDistributionRulesPro
 			holders.map((holder) => {
 				return {
 					walletAddress: holder.owner_address,
-					tokens: Number(holder.balance),
+					tokens: holder.balance,
 					percent: 0,
 				};
 			})
@@ -40,7 +40,7 @@ export function DistributionRules({ holders, oldHolders }: IDistributionRulesPro
 			oldHolders.map((holder) => {
 				return {
 					walletAddress: holder.owner_address,
-					tokens: Number(holder.balance),
+					tokens: holder.balance,
 					percent: 0,
 				};
 			})
@@ -54,7 +54,7 @@ export function DistributionRules({ holders, oldHolders }: IDistributionRulesPro
 					<div className={cn(css.item, css.wallet)}>
 						<span className={css.text}>{getFriendlyAddress(rule.walletAddress)}</span>
 					</div>
-					<div className={cn(css.item, css.gpTokens)}>{rule.tokens !== null ? rule.tokens / 10 ** 9 : 0}</div>
+					<div className={cn(css.item, css.gpTokens)}>{rule.tokens !== null ? rule.tokens : 0}</div>
 					<div className={cn(css.item, css.percent)}>
 						{formatNumber(
 							distributionRulesOld.find((oldRule) => oldRule.walletAddress === rule.walletAddress)?.percent ?? 0

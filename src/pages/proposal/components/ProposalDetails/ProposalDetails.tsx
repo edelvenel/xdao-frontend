@@ -92,13 +92,14 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 			status={proposal.status}
 			isVotingEnabled={true}
 			userVote={getUserVote()}
+			totalSupply={proposal.dao.totalSupply}
 			onBack={() => navigate(-1)}
 			onVote={onVote}
 		>
 			<div className={css.page}>
 				<FormHeader proposal={proposal} />
 				<ProposalForm proposal={proposal} votes={votes} />
-				<SignaturesBlock votes={votes} />
+				<SignaturesBlock votes={votes} totalSupply={proposal.dao.totalSupply} />
 			</div>
 		</ProposalDetailLayout>
 	);

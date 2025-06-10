@@ -52,7 +52,7 @@ export function Proposal({ proposal }: IProposalProps) {
 		fetchVotes();
 	}, [proposal.address, proposal.dao.address, token]);
 
-	const agree = votes?.reduce((acc, curr) => acc + curr.impact / 10 ** 7, 0);
+	const agree = votes ? (votes?.reduce((acc, curr) => acc + curr.impact, 0) / proposal.dao.totalSupply) * 100 : 0;
 
 	return (
 		<div className={css.proposal}>

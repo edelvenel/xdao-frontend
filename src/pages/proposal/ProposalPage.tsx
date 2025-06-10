@@ -89,7 +89,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 	}
 	const holderBalance = holders ? holders.find((h) => h.owner_address === address)?.balance : undefined;
 
-	const voteImpact = (Number(holderBalance) / Number(proposal?.dao.totalSupply)) * 100;
+	const voteImpact = ((holderBalance ?? 0) / (proposal?.dao.totalSupply ?? 1)) * 100;
 
 	return (
 		<div className={css.page}>
@@ -104,7 +104,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 					title={proposal.name}
 				>
 					<Vote
-						currentPercent={(proposal.currentAmount / Number(proposal.dao.totalSupply) / 10 ** 9) * 100} //TODO: count
+						currentPercent={(proposal.currentAmount / proposal.dao.totalSupply) * 100}
 						voteImpact={voteImpact}
 						totalPercent={proposal.dao.consensus}
 						onConfirm={handleOnConfirm}
