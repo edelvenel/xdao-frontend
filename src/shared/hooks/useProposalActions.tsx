@@ -59,7 +59,9 @@ export const useProposalActions = () => {
 		const proposalAddress = Address.parse(proposal.address);
 		const jettonWallet = tonClient.open(DAOJettonWallet.createFromAddress(jettonWalletAddress));
 		const electionsMaster = tonClient.open(ElectionsMaster.createFromAddress(proposalAddress));
-		const serviceFee: bigint = await electionsMaster.getEstimateServiceFee(BigInt(holder.balance));
+		const serviceFee: bigint = await electionsMaster.getEstimateServiceFee(toNano(holder.balance)); // TODO: fix
+
+		console.log(toNano(holder.balance), serviceFee);
 
 		await jettonWallet.sendBalanceNotification(
 			sender,
