@@ -9,6 +9,7 @@ import css from './styles.module.scss';
 interface IProposalDetailProps extends PropsWithChildren {
 	isVotingEnabled: boolean;
 	userVote: IVote | null;
+	totalSupply: number;
 	status: ProposalStatus;
 	onVote?: () => void;
 	onBack: () => void;
@@ -18,6 +19,7 @@ export function ProposalDetailLayout({
 	isVotingEnabled,
 	userVote,
 	status,
+	totalSupply,
 	onVote,
 	onBack,
 	children,
@@ -47,7 +49,7 @@ export function ProposalDetailLayout({
 						</div>
 						<div className={css.row}>
 							<span>You vote:</span>
-							<span className={css.accent}>{`yes (${formatNumber(userVote.impact / 10000000)}%)`}</span>
+							<span className={css.accent}>{`yes (${formatNumber((userVote.impact / totalSupply) * 100)}%)`}</span>
 						</div>
 					</div>
 					<Button onClick={onBack} variant="secondary">

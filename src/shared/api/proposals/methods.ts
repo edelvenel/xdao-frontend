@@ -9,24 +9,22 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		name: proposal.name,
 		description: proposal.description,
 		endDate: new Date(proposal.date_expire),
-		consensus: Number(proposal.success_amount),
+		consensus: Number(proposal.dao.success_percentage / 100),
 		address: proposal.address,
 		createdAt: new Date(proposal.date_start),
 		createdBy: proposal.initiated_by_address,
 		status: proposal.status,
 		type: proposalTypeMapper[proposal.type],
-		userVote: null,
 		data: proposal.data,
 		dao: daoMapper(proposal.dao),
-		currentAmount: Number(proposal.current_amount),
-		successAmount: Number(proposal.success_amount),
+		currentAmount: Number(proposal.current_amount) / 10 ** 9,
 	};
 };
 
 export const voteMapper = (vote: Vote): IVote => {
 	return {
 		walletAddress: vote.voter_address,
-		impact: Number(vote.amount),
+		impact: Number(vote.amount) / 10 ** 9,
 	};
 };
 
@@ -40,7 +38,10 @@ export const getDaoProposals = async (
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return { proposals: response.items.map(proposalMapper), hasMore: response.total > offset + response.items.length };
+	return {
+		proposals: response.items.map(proposalMapper),
+		hasMore: response.total > offset + response.items.length,
+	};
 };
 
 export const getProposals = async (
@@ -84,5 +85,10 @@ export const getDaoHolders = async (
 		{ format: 'json', headers: { Authorization: `Bearer ${token}` } }
 	);
 
-	return { holders: response.items, hasMore: response.total > offset + response.items.length };
+	return {
+		holders: response.items.map((item) => {
+			return { ...item, balance: Number(item.balance) / 10 ** 9 };
+		}),
+		hasMore: response.total > offset + response.items.length,
+	};
 };

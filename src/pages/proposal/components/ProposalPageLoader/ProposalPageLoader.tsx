@@ -11,6 +11,7 @@ export function ProposalPageLoader() {
 			status={ProposalStatus.Pending}
 			isVotingEnabled={true}
 			userVote={null}
+			totalSupply={0}
 			onBack={() => navigate(-1)}
 		>
 			<div className={css.proposalPageLoader}>

@@ -20,7 +20,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 	const [searchText, setSearchText] = React.useState<string | null>(null);
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
 	const [filter, setFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
-	const { proposals, fetchProposals, pendingProposals, resetProposals, hasMore } = useProposals();
+	const { proposals, pendingVotes, fetchProposals, pendingProposals, resetProposals, hasMore } = useProposals();
 	const { daos } = store.useDaos();
 	const { fetchDaos } = useDaos();
 
@@ -121,7 +121,11 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 						}
 					>
 						{proposals.map((proposal, index) => (
-							<Proposal proposal={proposal} key={index} />
+							<Proposal
+								isPending={pendingVotes?.find((address) => address === proposal.address) !== undefined}
+								proposal={proposal}
+								key={index}
+							/>
 						))}
 					</InfiniteScroll>
 				)}

@@ -84,7 +84,7 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 	const distributionRules: IDistributionRule[] = React.useMemo(() => {
 		const rules: IDistributionRule[] = holders
 			? holders.map((holder) => {
-					return { walletAddress: holder.owner_address, tokens: Number(holder.balance) / 10 ** 9, percent: 0 };
+					return { walletAddress: holder.owner_address, tokens: holder.balance, percent: 0 };
 				})
 			: [];
 		return calculatePercents(rules);
