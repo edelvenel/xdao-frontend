@@ -1,4 +1,3 @@
-import { Address } from '@ton/core';
 import cn from 'classnames';
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -7,6 +6,7 @@ import { IDao } from 'shared/types';
 import { EditableInput } from 'shared/ui/EditableInput';
 import { EditableTextarea } from 'shared/ui/EditableTextarea';
 import { TextLoader } from 'shared/ui/TextLoader';
+import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from './styles.module.scss';
 
 interface IOverviewTabProps {
@@ -15,8 +15,8 @@ interface IOverviewTabProps {
 
 export function OverviewTab({ dao }: IOverviewTabProps) {
 	const [daoName, setDaoName] = React.useState<string | null>(dao ? dao.name : null);
-	const [email, setEmail] = React.useState<string | null>(dao ? dao.email ?? '' : null);
-	const [description, setDescription] = React.useState<string | null>(dao ? dao.description ?? '' : null);
+	const [email, setEmail] = React.useState<string | null>(dao ? (dao.email ?? '') : null);
+	const [description, setDescription] = React.useState<string | null>(dao ? (dao.description ?? '') : null);
 
 	const handleOnDaoNameSave = React.useCallback(() => {
 		toast.error('Save unimplemented');
@@ -53,6 +53,13 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 		}
 	}, [dao]);
 
+	const onClickAddress = React.useCallback(() => {
+		if (dao) {
+			navigator.clipboard.writeText(getUserFriendlyAddress(dao.plugins[0].address) ?? '');
+			toast.success('Address copied');
+		}
+	}, [dao]);
+
 	return (
 		<div className={css.tab}>
 			<div className={css.card}>
@@ -67,10 +74,8 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 							</div>
 						)}
 						{dao && (
-							<div className={css.addressBlock}>
-								<span className={css.text}>
-									{dao.address && Address.parseRaw(dao.address).toString({ bounceable: true })}
-								</span>
+							<div className={css.addressBlock} onClick={onClickAddress}>
+								<span className={css.text}>{dao.plugins[0].address && shortenAddress(dao.plugins[0].address)}</span>
 							</div>
 						)}
 						{dao && (
