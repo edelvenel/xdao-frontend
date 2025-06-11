@@ -48,8 +48,8 @@ export const jettonMapper = (balances: BalancesResponse): IJetton[] => {
 			imgUrl: balance.jetton.image,
 			url: '', //TODO: replace with real url,
 			amount: Number(balance.balance) / 10 ** balance.jetton.decimals,
-			rate: balance.price.prices.USD,
 			decimals: balance.jetton.decimals,
+			symbol: balance.jetton.symbol,
 		};
 	});
 
@@ -95,7 +95,7 @@ export const getDao = async (token: string, id: string): Promise<IDao> => {
 
 export const getJettons = async (token: string, tokens: string[], accountId: string): Promise<IJetton[]> => {
 	try {
-		const response = await tonApi.v2.getAccountJettonsBalances(
+		const balances = await tonApi.v2.getAccountJettonsBalances(
 			{ accountId, tokens },
 			{
 				format: 'json',
@@ -103,7 +103,7 @@ export const getJettons = async (token: string, tokens: string[], accountId: str
 			}
 		);
 
-		return jettonMapper(response);
+		return jettonMapper(balances);
 	} catch (error) {
 		console.error(error);
 		throw error;
@@ -143,10 +143,10 @@ export const getRates = async (token: string, tokens: string[], currencies: stri
 			}
 		);
 
-		const rateArray: { currency: string; rate: number }[] = Object.entries(response.rates.TON.prices).map(
-			([currency, rate]) => ({ currency, rate })
-		);
-
+		const rateArray: { jettonSymbol: string; rate: number }[] = Object.entries(response.rates).map((entry) => ({
+			jettonSymbol: entry[0],
+			rate: entry[1].prices.USD,
+		}));
 		return rateArray;
 	} catch (error) {
 		console.error(error);

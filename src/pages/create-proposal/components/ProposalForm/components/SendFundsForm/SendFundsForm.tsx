@@ -10,7 +10,7 @@ import { ICreateSendFundsProposalPayload } from 'shared/api/proposals/payloads';
 import { Icon } from 'shared/icons';
 import { ProposalCreateLayout } from 'shared/layouts/proposal-create-layout';
 import { store } from 'shared/store';
-import { IJetton, IToken, ProposalType } from 'shared/types';
+import { IJetton, IRate, IToken, ProposalType } from 'shared/types';
 import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
@@ -31,7 +31,7 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 	const { createProposal } = useProposals();
 	const [jettons, setJettons] = React.useState<IJetton[] | null>(null);
 	const [tonBalance, setTonBalance] = React.useState<number | null>(null);
-	const [tonRate, setTonRate] = React.useState<number | null>(null);
+	const [jettonRates, setJettonRates] = React.useState<IRate[] | null>(null);
 	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
 
 	const navigate = useNavigate();
@@ -80,27 +80,38 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 			}
 		};
 
-		const fetchRates = async () => {
-			const rate = await getTokenRates(['ton'], ['usd']);
-			setTonRate(rate[0].rate);
-		};
-
 		fetchJettons();
 		fetchTonBalance();
+	}, [dao, getDAOJettons, getTONBalance]);
+
+	React.useEffect(() => {
+		const fetchRates = async () => {
+			const rates = await getTokenRates(
+				[
+					'ton',
+					...(jettons?.map((jetton) => {
+						return jetton.symbol;
+					}) ?? ''),
+				],
+				['usd']
+			);
+			setJettonRates(rates);
+		};
 		fetchRates();
-	}, [dao, getDAOJettons, getTONBalance, getTokenRates]);
+	}, [getTokenRates, jettons]);
 
 	const tokens: IToken[] = React.useMemo(() => {
-		if (jettons === null || tonBalance === null || tonRate === null) {
+		if (jettons === null || tonBalance === null || jettonRates === null) {
 			return [];
 		}
 		const tonToken: IToken = {
 			address: 'native',
 			name: 'TON',
 			amount: tonBalance,
-			rate: tonRate * tonBalance,
+			rate: jettonRates.find((rate) => rate.jettonSymbol.toUpperCase() === 'TON')?.rate ?? 0 * tonBalance,
 			imgUrl: tonSymbol,
 			decimals: 9,
+			symbol: 'ton',
 		};
 		const jettonsTokens: IToken[] = jettons.map((jetton) => {
 			return {
@@ -108,12 +119,13 @@ export function SendFundsForm({ onResponse }: ISendFundsFormProps) {
 				name: jetton.name,
 				amount: jetton.amount,
 				imgUrl: jetton.imgUrl,
-				rate: jetton.rate,
+				rate: jettonRates.find((rate) => rate.jettonSymbol.toUpperCase() === jetton.symbol.toUpperCase())?.rate ?? 0,
 				decimals: jetton.decimals,
+				symbol: jetton.symbol,
 			};
 		});
 		return [tonToken, ...jettonsTokens];
-	}, [jettons, tonBalance, tonRate]);
+	}, [jettonRates, jettons, tonBalance]);
 
 	if (!dao) {
 		return;

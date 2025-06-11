@@ -8,7 +8,7 @@ import { useDaos } from 'shared/api/daos/useDaos';
 import { useNfts } from 'shared/api/nfts';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { IDao, IJetton } from 'shared/types';
+import { IDao, IJetton, IRate } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { TextLoader } from 'shared/ui/TextLoader';
 import { JettonLoader } from './components/JettonLoader';
@@ -22,7 +22,7 @@ interface IDAOBalanceProps {
 export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 	const [jettons, setJettons] = React.useState<IJetton[] | null>(null);
 	const [tonBalance, setTonBalance] = React.useState<number | null>(null);
-	const [tonRate, setTonRate] = React.useState<number | null>(null);
+	const [jettonRates, setJettonRates] = React.useState<IRate[] | null>(null);
 	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
 	const { total } = store.useNfts();
 	const { getNfts } = useNfts();
@@ -42,11 +42,6 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 			}
 		};
 
-		const fetchRates = async () => {
-			const rate = await getTokenRates(['ton'], ['usd']);
-			setTonRate(rate[0].rate);
-		};
-
 		const fetchNfts = async () => {
 			if (dao) {
 				await getNfts(dao.plugins[0].address);
@@ -55,17 +50,46 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 
 		fetchJettons();
 		fetchTonBalance();
-		fetchRates();
 		fetchNfts();
 	}, [dao, getDAOJettons, getNfts, getTONBalance, getTokenRates]);
 
+	React.useEffect(() => {
+		const fetchRates = async () => {
+			const rates = await getTokenRates(
+				[
+					'ton',
+					...(jettons?.map((jetton) => {
+						return jetton.symbol;
+					}) ?? ''),
+				],
+				['usd']
+			);
+			setJettonRates(rates);
+		};
+
+		fetchRates();
+	}, [getTokenRates, jettons]);
+
 	const mainAccountTotal = React.useMemo(() => {
-		if (tonRate === null || tonBalance === null || jettons === null) {
+		if (jettonRates === null || tonBalance === null || jettons === null) {
 			return null;
 		} else {
-			return tonRate * tonBalance + jettons.reduce((acc, curr) => acc + curr.amount, 0);
+			const toneRate = jettonRates.find((rate) => rate.jettonSymbol.toUpperCase() === 'TON')?.rate;
+
+			if (toneRate === undefined) {
+				return null;
+			}
+
+			let jettonsSum: number = 0;
+			for (const jetton of jettons) {
+				const jettonRate =
+					jettonRates.find((rate) => rate.jettonSymbol.toUpperCase() === jetton.symbol.toUpperCase())?.rate ?? 0;
+				jettonsSum += jettonRate * jetton.amount;
+			}
+
+			return toneRate * tonBalance + jettonsSum;
 		}
-	}, [jettons, tonBalance, tonRate]);
+	}, [jettonRates, jettons, tonBalance]);
 
 	return (
 		<div className={css.tab}>
@@ -117,7 +141,7 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 				{dao &&
 					jettons &&
 					jettons.map((jetton) => (
-						<div className={css.wallet}>
+						<div key={jetton.symbol} className={css.wallet}>
 							<div className={css.info}>
 								<div className={css.logo} style={{ backgroundImage: `url(${jetton.imgUrl})` }} />
 								<div className={css.currency}>{jetton.name}</div>

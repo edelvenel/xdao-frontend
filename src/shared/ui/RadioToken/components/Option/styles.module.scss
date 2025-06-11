@@ -16,19 +16,24 @@
 	}
 
 	.leftSide {
+		flex-grow: 1;
 		display: flex;
 		gap: 8px;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
+		overflow: hidden;
 
 		.name {
 			font-size: 18px;
 			font-weight: 600;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}
 
 		.logo {
-			width: 32px;
-			height: 32px;
+			min-width: 32px;
+			min-height: 32px;
 			border-radius: 32px;
 			background-color: var(--semantic-text-placeholder);
 			background-position: center;
@@ -38,12 +43,13 @@
 	}
 
 	.numbers {
-		flex: 1;
+		flex-grow: 1;
+		min-width: 50px;
 		display: flex;
 		flex-direction: column;
 		gap: 2px;
 		text-align: right;
-
+		min-width: 100px;
 		overflow: hidden;
 
 		.amount {

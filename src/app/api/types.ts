@@ -59,7 +59,6 @@ export interface AccountData {
 	is_wallet: boolean;
 }
 
-
 export interface HoldersResponse {
 	address: string;
 	owner: AccountData;
@@ -77,10 +76,7 @@ export interface Preview {
 }
 
 export interface TokensRate {
-	rates: Rates;
-}
-export interface Rates {
-	TON: Currency;
+	rates: Record<string, Currency>;
 }
 export interface Currency {
 	prices: Prices;
