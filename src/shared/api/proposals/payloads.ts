@@ -141,7 +141,7 @@ export const proposalsBuilders = (payload: ICreateProposalPayload, pluginJettonW
 			} else {
 				const amount = payload.tokenAmount * Math.pow(10, payload.token.decimals);
 				const transferBody = JettonBuilder.buildJettonTransfer({
-					amount: toNano("0.1"),
+					amount: amount,
 					destination: dest,
 					responseDestination: dest,
 					forwardTonAmount: 1,
@@ -150,7 +150,7 @@ export const proposalsBuilders = (payload: ICreateProposalPayload, pluginJettonW
 				msg = beginCell()
 					.storeUint(0x18, 6) // bounce
 					.storeAddress(pluginJettonWallet) // dest
-					.storeCoins(amount) // amount
+					.storeCoins(toNano('0.1')) // amount
 					.storeUint(1, 107)
 					.storeRef(transferBody)
 					.endCell();
