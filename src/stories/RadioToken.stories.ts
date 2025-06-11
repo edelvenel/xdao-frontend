@@ -25,6 +25,7 @@ export const Primary: Story = {
 			amount: 125,
 			rate: 10.0987,
 			decimals: 9,
+			symbol: 'ton',
 		},
 		options: [
 			{
@@ -34,6 +35,7 @@ export const Primary: Story = {
 				amount: 125,
 				rate: 10.0987,
 				decimals: 9,
+				symbol: 'ton',
 			},
 			{
 				address: '1',
@@ -42,6 +44,7 @@ export const Primary: Story = {
 				amount: 59,
 				rate: 3.0953,
 				decimals: 9,
+				symbol: 'btc',
 			},
 			{
 				address: '2',
@@ -50,6 +53,7 @@ export const Primary: Story = {
 				amount: 12,
 				rate: 8.362,
 				decimals: 9,
+				symbol: 'usdt',
 			},
 		],
 	},

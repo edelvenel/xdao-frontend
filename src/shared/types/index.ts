@@ -96,6 +96,7 @@ export type IToken = {
 	amount: number;
 	rate: number;
 	decimals: number;
+	symbol: string;
 };
 
 export interface IProposal {
@@ -171,11 +172,11 @@ export type IJetton = {
 	amount: number;
 	imgUrl: string;
 	url: string;
-	rate: number;
 	decimals: number;
+	symbol: string;
 };
 
 export type IRate = {
-	currency: string;
+	jettonSymbol: string;
 	rate: number;
 };
