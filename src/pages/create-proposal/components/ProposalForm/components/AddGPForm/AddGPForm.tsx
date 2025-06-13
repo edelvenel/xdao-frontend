@@ -44,7 +44,14 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 					}
 				}
 			}
-			return [];
+			return [
+				...(holders ?? []),
+				{
+					owner_address: walletAddress,
+					jetton_wallet_address: walletAddress,
+					balance: Number(tokenAmount),
+				},
+			];
 		},
 		[holders]
 	);
