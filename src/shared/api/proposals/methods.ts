@@ -7,7 +7,7 @@ import { daoMapper } from '../daos/methods';
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
 		name: proposal.name,
-		description: proposal.description,
+		description: proposal.description ?? '',
 		endDate: new Date(proposal.date_expire),
 		consensus: Number(proposal.dao.success_percentage / 100),
 		address: proposal.address,
