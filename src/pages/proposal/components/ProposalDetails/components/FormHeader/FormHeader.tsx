@@ -1,6 +1,6 @@
 import { compareAsc, formatDistance } from 'date-fns';
 import React from 'react';
-import { IProposal } from 'shared/types';
+import { IProposal, ProposalStatus } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
 import { formatNumber } from 'shared/utils/formatters';
 import { getStatusVariant } from 'shared/utils/getStatusVariant';
@@ -8,9 +8,10 @@ import css from '../../styles.module.scss';
 
 interface IFormHeaderProps {
 	proposal: IProposal;
+	status: ProposalStatus;
 }
 
-export function FormHeader({ proposal }: IFormHeaderProps) {
+export function FormHeader({ proposal, status }: IFormHeaderProps) {
 	const formatDate = React.useMemo(
 		() =>
 			compareAsc(new Date(), proposal.endDate) === -1
@@ -25,7 +26,7 @@ export function FormHeader({ proposal }: IFormHeaderProps) {
 					<div className={css.label}>Proposal name</div>
 					<div className={css.value}>{proposal.name}</div>
 				</div>
-				<Badge text={proposal.status} variant={getStatusVariant(proposal.status)} />
+				<Badge text={status} variant={getStatusVariant(status)} />
 			</div>
 			<div className={css.block}>
 				<div className={css.column}>

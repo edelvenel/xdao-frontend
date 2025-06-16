@@ -15,7 +15,7 @@ interface IVotesTabProps {
 }
 
 export function VotesTab({ dao }: IVotesTabProps) {
-	const { proposals, fetchDaoProposals, hasMore } = useProposals();
+	const { proposals, pendingVotes, fetchDaoProposals, hasMore } = useProposals();
 	const { setIsBackground } = store.useApp();
 	const { setDao } = store.useFormType();
 
@@ -57,7 +57,11 @@ export function VotesTab({ dao }: IVotesTabProps) {
 						}
 					>
 						{proposals.map((proposal, index) => (
-							<Proposal proposal={proposal} key={index} />
+							<Proposal
+								isPending={pendingVotes?.find((vote) => vote.proposalAddress === proposal.address) !== undefined}
+								proposal={proposal}
+								key={index}
+							/>
 						))}
 					</InfiniteScroll>
 				)}

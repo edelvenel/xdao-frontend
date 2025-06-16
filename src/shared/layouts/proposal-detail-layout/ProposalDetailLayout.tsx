@@ -57,6 +57,23 @@ export function ProposalDetailLayout({
 					</Button>
 				</div>
 			)}
+			{status === ProposalStatus.Pending && (
+				<div className={css.voted}>
+					<div className={css.info}>
+						<div className={css.title}>
+							<Title variant="medium" value="Proposal is pending" />
+						</div>
+						<div className={css.row}>
+							<span>Reason:</span>
+							<span className={css.accent}>Wait until your voice is counted</span>
+						</div>
+					</div>
+					<Button onClick={onBack} variant="secondary">
+						Back
+					</Button>
+				</div>
+			)}
+
 			{userVote === null && status !== ProposalStatus.Active && status !== ProposalStatus.Pending && (
 				<div className={css.voted}>
 					<div className={css.info}>

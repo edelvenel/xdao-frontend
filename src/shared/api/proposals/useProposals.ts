@@ -5,15 +5,15 @@ import React, { useCallback, useState } from 'react';
 import { PENDING_EXPIRATION_DURATION } from 'shared/constants';
 import { useProposalActions } from 'shared/hooks/useProposalActions';
 import { store } from 'shared/store';
-import { IHashedData, IPendingProposal, IProposal, ProposalFilter } from 'shared/types';
-import { getProposalHash, getUserFriendlyAddress } from 'shared/utils/formatters';
+import { IHashedData, IPendingProposal, IPendingVote, IProposal, ProposalFilter } from 'shared/types';
+import { getProposalHash, getRawAddress, getUserFriendlyAddress, getVoteHash } from 'shared/utils/formatters';
 import { getDaoProposals, getDaoProposalVotes, getProposals } from './methods';
 import { ICreateProposalPayload } from './payloads';
 
 export function useProposals() {
 	const [proposals, setProposals] = useState<IProposal[] | null>(null);
 	const [pendingProposals, setPendingProposals] = useState<IPendingProposal[] | null>(null);
-	const [pendingVotes, setPendingVotes] = useState<string[] | null>(null);
+	const [pendingVotes, setPendingVotes] = useState<IPendingVote[] | null>(null);
 	const { holders } = store.useFormType();
 	const [hasMore, setHasMore] = useState(false);
 	const [currentOffset, setCurrentOffset] = useState(0);
@@ -40,11 +40,11 @@ export function useProposals() {
 		return JSON.parse(jsonString);
 	};
 
-	const getAllPendingVotes = (): string[] => {
+	const getAllPendingVotes = (): Record<string, IHashedData<IPendingVote>> => {
 		const jsonString = localStorage.getItem('pending_votes');
 
 		if (jsonString === null) {
-			return [];
+			return {};
 		}
 
 		return JSON.parse(jsonString);
@@ -53,6 +53,9 @@ export function useProposals() {
 	const fetchDaoProposals = useCallback(
 		async (daoAddress: string) => {
 			const { proposals, hasMore } = await getDaoProposals(token ?? '', currentOffset, daoAddress);
+
+			const votesInProcess = getAllPendingVotes();
+			setPendingVotes(Object.values(votesInProcess).map((vote) => vote.data));
 			if (proposals.length === 100) {
 				setCurrentOffset((prevOffset) => prevOffset + proposals.length);
 				setProposals((prev) => [...(prev ?? []), ...proposals]);
@@ -73,14 +76,24 @@ export function useProposals() {
 					(vote) => getUserFriendlyAddress(vote.walletAddress) === getUserFriendlyAddress(walletAddress)
 				);
 				if (vote) {
-					const votesInProcess = getAllPendingVotes().filter(
-						(pendingVote) => getUserFriendlyAddress(pendingVote) !== getUserFriendlyAddress(proposalAddress)
+					const votesInProcess = getAllPendingVotes();
+					const hash = await getVoteHash(proposalAddress, vote.walletAddress);
+					delete votesInProcess[hash];
+					setPendingVotes(Object.values(votesInProcess).map((vote) => vote.data));
+
+					const filteredHashedVotes = Object.values(votesInProcess).filter(
+						(vote) => compareAsc(new Date(), new Date(vote.expiresAt)) === 1
 					);
-					setPendingVotes([...votesInProcess]);
-					if (votesInProcess.length === 0) {
+
+					filteredHashedVotes.forEach((filter) => {
+						delete votesInProcess[filter.hash];
+					});
+
+					if (Object.keys(votesInProcess).length === 0) {
 						localStorage.removeItem('pending_votes');
 					} else {
-						localStorage.setItem('pending_votes', JSON.stringify([...votesInProcess]));
+						const jsonString = JSON.stringify(votesInProcess);
+						localStorage.setItem('pending_votes', jsonString);
 					}
 				}
 			}
@@ -100,7 +113,7 @@ export function useProposals() {
 			);
 
 			const votesInProcess = getAllPendingVotes();
-			setPendingVotes(votesInProcess);
+			setPendingVotes(Object.values(votesInProcess).map((vote) => vote.data));
 
 			if (total > 100) {
 				if (hasMore) {
@@ -191,11 +204,24 @@ export function useProposals() {
 			try {
 				await makeVote(proposal, holder);
 				if (walletAddress) {
-					const pendingVotes = getAllPendingVotes();
-					localStorage.setItem('pending_votes', JSON.stringify([...pendingVotes, proposal.address]));
+					const voteObject: IPendingVote = {
+						proposalAddress: getRawAddress(proposal.address),
+						voterAddress: getRawAddress(holder.owner_address),
+					};
+
+					const hash = await getVoteHash(voteObject.proposalAddress, voteObject.voterAddress);
+
+					const hashedVotes = getAllPendingVotes();
+
+					hashedVotes[hash] = {
+						hash: hash,
+						expiresAt: Date.now() + PENDING_EXPIRATION_DURATION,
+						data: voteObject,
+					};
+					localStorage.setItem('pending_votes', JSON.stringify(hashedVotes));
 				}
 			} catch (error) {
-				console.error('Unable to create proposal', error);
+				console.error('Unable to sumbit vote', error);
 				throw error;
 			}
 		},

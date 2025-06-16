@@ -35,6 +35,11 @@ export type IPendingProposal = {
 	description: string;
 };
 
+export type IPendingVote = {
+	proposalAddress: string;
+	voterAddress: string;
+};
+
 export type IHashedData<T> = {
 	data: T;
 	hash: string;

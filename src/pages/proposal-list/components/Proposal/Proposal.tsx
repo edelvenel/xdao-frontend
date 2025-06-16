@@ -51,8 +51,16 @@ export function Proposal({ proposal, isPending = false }: IProposalProps) {
 			}
 		};
 
-		fetchVotes();
-	}, [fetchProposalVotes, proposal.address, proposal.dao.address, token]);
+		if (isPending) {
+			const interval = setInterval(fetchVotes, 5000);
+
+			return () => {
+				clearInterval(interval);
+			};
+		} else {
+			fetchVotes();
+		}
+	}, [fetchProposalVotes, isPending, proposal.address, proposal.dao.address, token]);
 
 	const agree = votes ? (votes?.reduce((acc, curr) => acc + curr.impact, 0) / proposal.dao.totalSupply) * 100 : 0;
 
@@ -94,7 +102,7 @@ export function Proposal({ proposal, isPending = false }: IProposalProps) {
 					</div>
 				)}
 				{agree === undefined && <div className={css.voteLoader} />}
-				{getUserVote() === null && proposal.status === ProposalStatus.Active && (
+				{getUserVote() === null && proposal.status === ProposalStatus.Active && !isPending && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button>Vote</Button>
 					</Link>
@@ -109,7 +117,7 @@ export function Proposal({ proposal, isPending = false }: IProposalProps) {
 						</Button>
 					</Link>
 				)}
-				{getUserVote() === null && proposal.status !== ProposalStatus.Active && (
+				{getUserVote() === null && (proposal.status !== ProposalStatus.Active || isPending) && (
 					<Link to={generatePath(routes.proposal, { proposalAddress: proposal.address })} className={css.button}>
 						<Button className={css.voted} variant="secondary">
 							Details
