@@ -8,7 +8,7 @@ import { useProposals } from 'shared/api/proposals';
 import { useTelegramData } from 'shared/api/telegram-data';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { ProposalFilter } from 'shared/types';
+import { ProposalFilter, ProposalStatus } from 'shared/types';
 import { Badge } from 'shared/ui/Badge';
 import { Button } from 'shared/ui/Button';
 import { Filter } from 'shared/ui/Filter';
@@ -35,7 +35,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 	const [isChangeSuccess, setIsChangeSuccess] = React.useState<boolean>(false);
 	const [isChangeResultOpen, setIsChangeResultOpen] = React.useState<boolean>(false);
 	const { daos, fetchDaos } = useDaos();
-	const { proposals, fetchProposals } = useProposals();
+	const { proposals, pendingVotes, fetchProposals } = useProposals();
 
 	const { fetchMe } = store.useMe();
 
@@ -154,7 +154,15 @@ export const ProfilePage = React.memo(function ProfilePage() {
 							{proposals
 								.filter((_, index) => index < 2)
 								.map((proposal) => (
-									<ProposalCard key={proposal.address} proposal={proposal} />
+									<ProposalCard
+										key={proposal.address}
+										proposal={proposal}
+										status={
+											pendingVotes?.find((vote) => vote.proposalAddress === proposal.address) !== undefined
+												? ProposalStatus.Pending
+												: proposal.status
+										}
+									/>
 								))}
 						</div>
 					)}
@@ -176,7 +184,15 @@ export const ProfilePage = React.memo(function ProfilePage() {
 									{proposals
 										.filter((_, index) => index >= 2)
 										.map((proposal) => (
-											<ProposalCard key={proposal.address} proposal={proposal} />
+											<ProposalCard
+												key={proposal.address}
+												proposal={proposal}
+												status={
+													pendingVotes?.find((vote) => vote.proposalAddress === proposal.address) !== undefined
+														? ProposalStatus.Pending
+														: proposal.status
+												}
+											/>
 										))}
 								</div>
 							</motion.div>

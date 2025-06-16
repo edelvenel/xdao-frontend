@@ -122,7 +122,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 					>
 						{proposals.map((proposal, index) => (
 							<Proposal
-								isPending={pendingVotes?.find((address) => address === proposal.address) !== undefined}
+								isPending={pendingVotes?.find((vote) => vote.proposalAddress === proposal.address) !== undefined}
 								proposal={proposal}
 								key={index}
 							/>

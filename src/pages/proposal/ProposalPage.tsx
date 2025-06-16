@@ -5,6 +5,7 @@ import { useProposals } from 'shared/api/proposals';
 import { useBackButton } from 'shared/hooks/useBackButton';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
+import { ProposalStatus } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
@@ -15,7 +16,7 @@ import { VoteResult } from './components/VoteResult';
 import css from './styles.module.scss';
 
 export const ProposalPage = React.memo(function ProposalPage() {
-	const { proposals, fetchProposals, submitVote } = useProposals();
+	const { proposals, fetchProposals, submitVote, pendingVotes } = useProposals();
 	const { proposalAddress } = useParams();
 	const navigate = useNavigate();
 	const address = useTonAddress(false);
@@ -93,7 +94,17 @@ export const ProposalPage = React.memo(function ProposalPage() {
 
 	return (
 		<div className={css.page}>
-			{!!proposal && <ProposalDetails proposal={proposal} onVote={() => setIsOnVote(true)} />}
+			{!!proposal && (
+				<ProposalDetails
+					proposal={proposal}
+					status={
+						pendingVotes?.find((vote) => vote.proposalAddress === proposal.address) !== undefined
+							? ProposalStatus.Pending
+							: proposal.status
+					}
+					onVote={() => setIsOnVote(true)}
+				/>
+			)}
 			{proposal === null && <ProposalPageLoader />}
 
 			{!!proposal && (

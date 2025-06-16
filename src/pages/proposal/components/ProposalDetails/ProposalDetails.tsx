@@ -4,7 +4,7 @@ import { getDaoProposalVotes } from 'shared/api/proposals/methods';
 import { Icon } from 'shared/icons';
 import { ProposalDetailLayout } from 'shared/layouts/proposal-detail-layout';
 import { store } from 'shared/store';
-import { IProposal, IVote, ProposalType } from 'shared/types';
+import { IProposal, IVote, ProposalStatus, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { Title } from 'shared/ui/Title';
 import { getUserFriendlyAddress } from 'shared/utils/formatters';
@@ -22,10 +22,11 @@ import css from './styles.module.scss';
 
 interface IProposalDetailsProps {
 	proposal: IProposal;
+	status: ProposalStatus;
 	onVote: () => void;
 }
 
-export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JSX.Element | null {
+export function ProposalDetails({ proposal, status, onVote }: IProposalDetailsProps): JSX.Element | null {
 	const { setIsBackground } = store.useApp();
 	const [votes, setVotes] = React.useState<IVote[] | null>(null);
 	const { token } = store.useAuth();
@@ -89,7 +90,7 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 
 	return (
 		<ProposalDetailLayout
-			status={proposal.status}
+			status={status}
 			isVotingEnabled={true}
 			userVote={getUserVote()}
 			totalSupply={proposal.dao.totalSupply}
@@ -97,7 +98,7 @@ export function ProposalDetails({ proposal, onVote }: IProposalDetailsProps): JS
 			onVote={onVote}
 		>
 			<div className={css.page}>
-				<FormHeader proposal={proposal} />
+				<FormHeader proposal={proposal} status={status} />
 				<ProposalForm proposal={proposal} votes={votes} />
 				<SignaturesBlock votes={votes} totalSupply={proposal.dao.totalSupply} />
 			</div>
