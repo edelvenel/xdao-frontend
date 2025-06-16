@@ -94,18 +94,18 @@ export const ProposalPage = React.memo(function ProposalPage() {
 
 	return (
 		<div className={css.page}>
-			{!!proposal && (
+			{!!proposal && !!pendingVotes && (
 				<ProposalDetails
 					proposal={proposal}
 					status={
-						pendingVotes?.find((vote) => vote.proposalAddress === proposal.address) !== undefined
+						pendingVotes.find((vote) => vote.proposalAddress === proposal.address) !== undefined
 							? ProposalStatus.Pending
 							: proposal.status
 					}
 					onVote={() => setIsOnVote(true)}
 				/>
 			)}
-			{proposal === null && <ProposalPageLoader />}
+			{(proposal === null || pendingVotes === null) && <ProposalPageLoader />}
 
 			{!!proposal && (
 				<Modal
