@@ -76,7 +76,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 			);
 
 			if (holder) {
-				setHolderBalance(Number(holder.balance) / 10 ** 9);
+				setHolderBalance(Number(holder.balance));
 			}
 		},
 		[holders]
