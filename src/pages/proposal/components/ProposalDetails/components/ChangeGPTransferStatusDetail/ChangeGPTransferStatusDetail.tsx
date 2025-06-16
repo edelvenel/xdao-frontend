@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { proposalNameMapper } from 'shared/constants';
 import { IProposal } from 'shared/types';
 import { Copy } from 'shared/ui/Copy';
-import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 
 interface IChangeGPTransferStatusDetailProps {
@@ -37,7 +37,7 @@ export function ChangeGPTransferStatusDetail({ proposal }: IChangeGPTransferStat
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Created by</div>
-					<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
+					<div className={css.value}>{shortenAddress(proposal.createdBy)}</div>
 				</div>
 				<Copy text={proposal.createdBy} />
 			</div>

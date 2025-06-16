@@ -21,7 +21,8 @@ interface IAddGPFormProps {
 }
 
 export function AddGPForm({ onResponse }: IAddGPFormProps) {
-	const { dao, holders } = store.useFormType();
+	const { dao, holders, fetchHolders } = store.useFormType();
+	const { token } = store.useAuth();
 	const { createProposal } = useProposals();
 
 	const navigate = useNavigate();
@@ -77,6 +78,12 @@ export function AddGPForm({ onResponse }: IAddGPFormProps) {
 		},
 		[createProposal, dao?.address, onResponse]
 	);
+
+	React.useEffect(() => {
+		if (dao && token) {
+			fetchHolders(token, dao.address);
+		}
+	}, [dao, fetchHolders, token]);
 
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmit}>

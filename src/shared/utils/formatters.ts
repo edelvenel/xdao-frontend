@@ -1,12 +1,13 @@
 import { Address } from '@ton/core';
 import { IPendingDao, IPendingProposal, ProposalType } from 'shared/types';
 
-export const shortenAddress = (str: string): string => {
+export const shortenAddress = (str: string, partLength?: number): string => {
+	const length = partLength ?? 5;
 	const userFriendlyAddress = getUserFriendlyAddress(str);
 	if (userFriendlyAddress.length <= 6) {
 		return userFriendlyAddress;
 	}
-	return userFriendlyAddress.slice(0, 5) + '…' + userFriendlyAddress.slice(-5);
+	return userFriendlyAddress.slice(0, length) + '…' + userFriendlyAddress.slice(-length);
 };
 
 export const getUserFriendlyAddress = (address: string): string => {

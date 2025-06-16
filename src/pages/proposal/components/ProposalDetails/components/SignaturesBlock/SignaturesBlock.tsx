@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { Icon } from 'shared/icons';
 import { IVote } from 'shared/types';
 import { Title } from 'shared/ui/Title';
-import { formatNumber, getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { formatNumber, shortenAddress } from 'shared/utils/formatters';
 import css from '../../styles.module.scss';
 
 interface ISignaturesBlockProps {
@@ -23,7 +23,7 @@ export function SignaturesBlock({ votes, totalSupply }: ISignaturesBlockProps) {
 			{votes.map((vote, index) => (
 				<div key={index} className={cn(css.block, css.vote)}>
 					<div className={css.column}>
-						<div className={css.value}>{shortenAddress(getUserFriendlyAddress(vote.walletAddress))}</div>
+						<div className={css.value}>{shortenAddress(vote.walletAddress)}</div>
 					</div>
 					<div className={css.answer}>
 						<span>Yes</span>

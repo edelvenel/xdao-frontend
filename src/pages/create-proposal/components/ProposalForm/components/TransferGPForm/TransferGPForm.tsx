@@ -10,7 +10,7 @@ import { Dropdown } from 'shared/ui/Dropdown';
 import { Input } from 'shared/ui/Input';
 import { InputNumber } from 'shared/ui/InputNumber';
 import { Title } from 'shared/ui/Title';
-import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { ValidationError } from '../ValidationError';
 import { VotingDuration } from '../VotingDuration';
 import css from './styles.module.scss';
@@ -116,7 +116,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 									options={
 										holders ? [...new Set(holders.map((holder) => getUserFriendlyAddress(holder.owner_address)))] : []
 									}
-									optionLabel={(option) => shortenAddress(option)}
+									optionLabel={(option) => getUserFriendlyAddress(option)}
 									variant={
 										props.errors.fromWalletAddress !== undefined && props.touched.fromWalletAddress
 											? 'error'
@@ -133,7 +133,7 @@ export function TransferGPForm({ onResponse }: ITransferGPFormProps) {
 									options={
 										holders ? [...new Set(holders.map((holder) => getUserFriendlyAddress(holder.owner_address)))] : []
 									}
-									optionLabel={(option) => shortenAddress(option)}
+									optionLabel={(option) => getUserFriendlyAddress(option)}
 									variant={
 										props.errors.toWalletAddress !== undefined && props.touched.toWalletAddress ? 'error' : 'primary'
 									}

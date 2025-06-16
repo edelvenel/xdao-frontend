@@ -38,7 +38,7 @@ export function ChangeDAONameDetail({ proposal }: IChangeDAONameDetailProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Created by</div>
-					<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
+					<div className={css.value}>{shortenAddress(proposal.createdBy)}</div>
 				</div>
 				<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
 			</div>
