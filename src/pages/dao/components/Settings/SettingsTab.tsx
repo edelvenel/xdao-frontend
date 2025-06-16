@@ -9,7 +9,7 @@ import { IDao, IDistributionRule, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
 import { TextLoader } from 'shared/ui/TextLoader';
 import { calculatePercents } from 'shared/utils/calculateHoldersPercent';
-import { formatNumber, getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
+import { formatNumber, shortenAddress } from 'shared/utils/formatters';
 import { DistributionRuleLoader } from './components/DistributionRuleLoader';
 import css from './styles.module.scss';
 
@@ -133,7 +133,7 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 					distributionRules.map((rule, index) => (
 						<div key={index} className={css.distributionRule}>
 							<div className={cn(css.item, css.wallet)}>
-								<div className={css.text}>{shortenAddress(getUserFriendlyAddress(rule.walletAddress))}</div>
+								<div className={css.text}>{shortenAddress(rule.walletAddress)}</div>
 							</div>
 							<div className={cn(css.item, css.gpTokens)}>{formatNumber(rule.tokens ?? 0, 6)}</div>
 							<div className={cn(css.item, css.percent)}>{formatNumber(rule.percent ?? 0)}%</div>

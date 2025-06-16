@@ -30,9 +30,7 @@ export function TransferGPDetail({ proposal }: ITransferGPDetailProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Transfer from</div>
-					<div className={css.value}>
-						{shortenAddress(getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner))}
-					</div>
+					<div className={css.value}>{shortenAddress(proposal.data.from_jetton_wallet_owner)}</div>
 				</div>
 				<Copy text={getUserFriendlyAddress(proposal.data.from_jetton_wallet_owner)} />
 			</div>
@@ -46,7 +44,7 @@ export function TransferGPDetail({ proposal }: ITransferGPDetailProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Created by</div>
-					<div className={css.value}>{shortenAddress(getUserFriendlyAddress(proposal.createdBy))}</div>
+					<div className={css.value}>{shortenAddress(proposal.createdBy)}</div>
 				</div>
 				<Copy text={getUserFriendlyAddress(proposal.createdBy)} />
 			</div>
