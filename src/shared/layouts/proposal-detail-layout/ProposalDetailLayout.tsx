@@ -10,7 +10,7 @@ interface IProposalDetailProps extends PropsWithChildren {
 	isVotingEnabled: boolean;
 	userVote: IVote | null;
 	totalSupply: number;
-	status: ProposalStatus;
+	status: ProposalStatus | null;
 	onVote?: () => void;
 	onBack: () => void;
 }
@@ -74,7 +74,7 @@ export function ProposalDetailLayout({
 				</div>
 			)}
 
-			{userVote === null && status !== ProposalStatus.Active && status !== ProposalStatus.Pending && (
+			{userVote === null && !!status && status !== ProposalStatus.Active && status !== ProposalStatus.Pending && (
 				<div className={css.voted}>
 					<div className={css.info}>
 						<div className={css.title}>
