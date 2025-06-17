@@ -96,7 +96,9 @@ export const DAOListPage = React.memo(function DAOListPage() {
 	return (
 		<div className={css.page}>
 			<div className={css.list}>
-				{daos && daos.length === 0 && <div className={css.placeholder}>No DAOs yet</div>}
+				{daos && daos.length === 0 && (pendingDaos ? pendingDaos.length === 0 : true) && (
+					<div className={css.placeholder}>No DAOs yet</div>
+				)}
 				{pendingDaos !== null && Object.values(pendingDaos).map((dao, index) => <PendingDAO key={index} dao={dao} />)}
 				{daos && (
 					<InfiniteScroll

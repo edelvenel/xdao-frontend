@@ -103,7 +103,9 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 					</>
 				)}
 
-				{proposals && proposals.length === 0 && <div className={css.placeholder}>No active votes yet</div>}
+				{proposals && proposals.length === 0 && (pendingProposals ? pendingProposals.length === 0 : true) && (
+					<div className={css.placeholder}>No active votes yet</div>
+				)}
 				{pendingProposals &&
 					pendingProposals.map((proposal, index) => <PendingProposal key={index} proposal={proposal} />)}
 
