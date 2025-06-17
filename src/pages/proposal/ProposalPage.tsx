@@ -115,7 +115,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 					title={proposal.name}
 				>
 					<Vote
-						currentPercent={(proposal.currentAmount / proposal.dao.totalSupply) * 100}
+						currentPercent={(proposal.currentAmount / proposal.successAmount) * 100}
 						voteImpact={voteImpact / proposal.successAmount}
 						totalPercent={proposal.dao.consensus}
 						onConfirm={handleOnConfirm}
