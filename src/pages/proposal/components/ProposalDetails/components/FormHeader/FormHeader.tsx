@@ -37,7 +37,7 @@ export function FormHeader({ proposal, status }: IFormHeaderProps) {
 			<div className={css.block}>
 				<div className={css.row}>
 					<div className={css.label}>Consensus:</div>
-					<div className={css.value}>{`${formatNumber(proposal.dao.consensus)}%`}</div>
+					<div className={css.value}>{`${formatNumber(proposal.consensus)}%`}</div>
 				</div>
 
 				<div className={css.row}>
