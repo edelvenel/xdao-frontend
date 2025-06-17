@@ -106,6 +106,7 @@ export const PROPOSALS: IProposal[] = [
 		data: null,
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094789o',
@@ -121,6 +122,7 @@ export const PROPOSALS: IProposal[] = [
 		dao: DAOS_MOCK[3],
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094782w',
@@ -136,6 +138,7 @@ export const PROPOSALS: IProposal[] = [
 		dao: DAOS_MOCK[1],
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094785g',
@@ -151,6 +154,7 @@ export const PROPOSALS: IProposal[] = [
 		dao: DAOS_MOCK[1],
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094780h',
@@ -166,6 +170,7 @@ export const PROPOSALS: IProposal[] = [
 		dao: DAOS_MOCK[0],
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094781q',
@@ -181,6 +186,7 @@ export const PROPOSALS: IProposal[] = [
 		dao: DAOS_MOCK[1],
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	{
 		address: '0:110cc1f345c7e470e7177affa2f5786a4b0bc5102f72460f964f69243094788n',
@@ -196,6 +202,7 @@ export const PROPOSALS: IProposal[] = [
 		dao: DAOS_MOCK[1],
 		currentAmount: 0,
 		successAmount: 1,
+		totalSupply: 1,
 	},
 	// {
 	// 	id: '8',

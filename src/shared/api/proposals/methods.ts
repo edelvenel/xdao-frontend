@@ -10,7 +10,7 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		name: proposal.name,
 		description: proposal.description ?? '',
 		endDate: parseDate(proposal.date_expire),
-		consensus: Number(proposal.dao.success_percentage / 100),
+		consensus: Number(proposal.success_percentage) / 100,
 		address: proposal.address,
 		createdAt: parseDate(proposal.date_start),
 		createdBy: proposal.initiated_by_address,
@@ -20,6 +20,7 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		dao: daoMapper(proposal.dao),
 		currentAmount: Number(proposal.current_amount) / 10 ** 9,
 		successAmount: Number(proposal.success_amount) / 10 ** 9,
+		totalSupply: Number(proposal.total_supply) / 10 ** 9,
 	};
 };
 

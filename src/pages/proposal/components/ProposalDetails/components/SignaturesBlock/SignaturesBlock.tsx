@@ -8,17 +8,17 @@ import css from '../../styles.module.scss';
 interface ISignaturesBlockProps {
 	votes: IVote[];
 	currentAmount: number;
-	successAmount: number;
+	totalSupply: number;
 }
 
-export function SignaturesBlock({ votes, currentAmount, successAmount }: ISignaturesBlockProps) {
+export function SignaturesBlock({ votes, currentAmount, totalSupply }: ISignaturesBlockProps) {
 	return (
 		<div className={css.card}>
 			<Title value="Signatures" variant="medium" />
 			<div className={css.blockVote}>
 				<div className={cn(css.agree, css.vote)}>
 					<Icon.Common.Agree />
-					<span>{formatNumber((currentAmount / successAmount) * 100)}%</span>
+					<span>{formatNumber((currentAmount / totalSupply) * 100)}%</span>
 				</div>
 			</div>
 			{votes.map((vote, index) => (
@@ -28,7 +28,7 @@ export function SignaturesBlock({ votes, currentAmount, successAmount }: ISignat
 					</div>
 					<div className={css.answer}>
 						<span>Yes</span>
-						<div className={css.placeholder}>({formatNumber((vote.impact / successAmount) * 100)}%)</div>
+						<div className={css.placeholder}>({formatNumber((vote.impact / totalSupply) * 100)}%)</div>
 					</div>
 				</div>
 			))}
