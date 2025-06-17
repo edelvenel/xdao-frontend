@@ -62,7 +62,7 @@ export function Proposal({ proposal, isPending = false }: IProposalProps) {
 		}
 	}, [fetchProposalVotes, isPending, proposal.address, proposal.dao.address, token]);
 
-	const agree = (proposal.currentAmount / proposal.successAmount) * 100;
+	const agree = (proposal.currentAmount / proposal.totalSupply) * 100;
 
 	return (
 		<div className={css.proposal}>

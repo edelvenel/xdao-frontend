@@ -118,6 +118,7 @@ export interface IProposal {
 	currentAmount: number;
 	data: any;
 	successAmount: number;
+	totalSupply: number;
 }
 
 export enum ProposalStatus {

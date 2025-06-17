@@ -100,7 +100,7 @@ export function ProposalDetails({ proposal, status, onVote }: IProposalDetailsPr
 			<div className={css.page}>
 				<FormHeader proposal={proposal} status={status} />
 				<ProposalForm proposal={proposal} votes={votes} />
-				<SignaturesBlock votes={votes} currentAmount={proposal.currentAmount} successAmount={proposal.successAmount} />
+				<SignaturesBlock votes={votes} currentAmount={proposal.currentAmount} totalSupply={proposal.totalSupply} />
 			</div>
 		</ProposalDetailLayout>
 	);

@@ -85,6 +85,8 @@ export interface Proposal {
 	type: ProposalKey;
 	status: ProposalStatus;
 	data: any;
+	total_supply: string;
+	success_percentage: string;
 }
 
 export interface GetAllDaosParams {
