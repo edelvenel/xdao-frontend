@@ -2,16 +2,17 @@ import { api } from 'app/api';
 import { Proposal, Vote } from 'app/api/codegen';
 import { proposalFilterMapp, proposalTypeMapper } from 'shared/constants';
 import { IHolder, IProposal, IVote, ProposalFilter } from 'shared/types';
+import { parseDate } from 'shared/utils/formatters';
 import { daoMapper } from '../daos/methods';
 
 export const proposalMapper = (proposal: Proposal): IProposal => {
 	return {
 		name: proposal.name,
 		description: proposal.description ?? '',
-		endDate: new Date(proposal.date_expire),
+		endDate: parseDate(proposal.date_expire),
 		consensus: Number(proposal.dao.success_percentage / 100),
 		address: proposal.address,
-		createdAt: new Date(proposal.date_start),
+		createdAt: parseDate(proposal.date_start),
 		createdBy: proposal.initiated_by_address,
 		status: proposal.status,
 		type: proposalTypeMapper[proposal.type],
