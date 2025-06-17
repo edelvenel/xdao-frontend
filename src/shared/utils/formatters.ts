@@ -1,4 +1,5 @@
 import { Address } from '@ton/core';
+import { parse } from 'date-fns';
 import { IPendingDao, IPendingProposal, IPendingVote, ProposalType } from 'shared/types';
 
 export const shortenAddress = (str: string, partLength?: number): string => {
@@ -94,4 +95,8 @@ export function formatNumber(value: number, fixed?: number): number {
 	} else {
 		return Number(value.toFixed(fixed));
 	}
+}
+
+export function parseDate(value: string): Date {
+	return parse(value, 'yyyy-MM-dd HH:mm:ss', new Date());
 }

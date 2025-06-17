@@ -3,10 +3,10 @@ import { Header } from 'app/header';
 import { Navigation } from 'app/navigation';
 import cn from 'classnames';
 import React from 'react';
-import { store } from 'shared/store';
-import css from './styles.module.scss';
-import { AnimationPage } from './AnimationPage';
 import { useLocation } from 'react-router';
+import { store } from 'shared/store';
+import { AnimationPage } from './AnimationPage';
+import css from './styles.module.scss';
 
 export function AppLayout({ children }: IAppLayoutProps) {
 	const { pathname } = useLocation();

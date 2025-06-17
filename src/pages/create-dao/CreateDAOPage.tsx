@@ -82,7 +82,6 @@ export const CreateDAOPage = React.memo(function CreateDAOPage() {
 
 	const handleOnSubmit = React.useCallback(
 		async (values: IForm) => {
-			console.log(1);
 			if (selectedTabIdx === 0) {
 				const payload: ICreateDaoEqualPayload = {
 					type: DaoType.Equal,
