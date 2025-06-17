@@ -117,6 +117,7 @@ export interface IProposal {
 	dao: IDao;
 	currentAmount: number;
 	data: any;
+	successAmount: number;
 }
 
 export enum ProposalStatus {

@@ -18,6 +18,7 @@ export const proposalMapper = (proposal: Proposal): IProposal => {
 		data: proposal.data,
 		dao: daoMapper(proposal.dao),
 		currentAmount: Number(proposal.current_amount) / 10 ** 9,
+		successAmount: Number(proposal.success_amount) / 10 ** 9,
 	};
 };
 
