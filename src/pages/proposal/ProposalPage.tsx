@@ -71,6 +71,11 @@ export const ProposalPage = React.memo(function ProposalPage() {
 		}
 	}, [fetchHolders, proposal?.dao.address, token]);
 
+	const holderBalance = React.useMemo(
+		() => (holders ? holders.find((h) => h.owner_address === address)?.balance : undefined),
+		[address, holders]
+	);
+
 	if (proposal === undefined) {
 		return (
 			<div className={css.page}>
@@ -88,9 +93,6 @@ export const ProposalPage = React.memo(function ProposalPage() {
 			</div>
 		);
 	}
-	const holderBalance = holders ? holders.find((h) => h.owner_address === address)?.balance : undefined;
-
-	const voteImpact = ((holderBalance ?? 0) / (proposal?.dao.totalSupply ?? 1)) * 100;
 
 	return (
 		<div className={css.page}>
@@ -116,7 +118,7 @@ export const ProposalPage = React.memo(function ProposalPage() {
 				>
 					<Vote
 						currentPercent={(proposal.currentAmount / proposal.totalSupply) * 100}
-						voteImpact={voteImpact / proposal.totalSupply}
+						voteImpact={((holderBalance ?? 0) / proposal.totalSupply) * 100}
 						totalPercent={proposal.consensus}
 						onConfirm={handleOnConfirm}
 					/>
