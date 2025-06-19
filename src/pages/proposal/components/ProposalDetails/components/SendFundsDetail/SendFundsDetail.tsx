@@ -30,9 +30,9 @@ export function SendFundsDetail({ proposal }: ISendFundsDetailProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>To</div>
-					<div className={css.value}>NO DATA</div>
+					<div className={css.value}>{proposal.data?.body?.destination ?? 'NO DATA'}</div>
 				</div>
-				<Copy text="NO DATA" />
+				<Copy text={proposal.data?.body?.destination ?? 'NO DATA'} />
 			</div>
 			<div className={css.block}>
 				<div className={css.column}>
