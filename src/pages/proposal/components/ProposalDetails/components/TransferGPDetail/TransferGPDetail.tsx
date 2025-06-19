@@ -24,7 +24,9 @@ export function TransferGPDetail({ proposal }: ITransferGPDetailProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Transfer GP tokens</div>
-					<div className={css.value}>{proposal.data?.transfer_data?.amount ?? 'NO DATA'}</div>
+					<div className={css.value}>
+						{proposal.data?.transfer_data?.amount ? Number(proposal.data.transfer_data.amount) / 10 ** 9 : 'NO DATA'}
+					</div>
 				</div>
 			</div>
 			<div className={css.block}>
@@ -37,9 +39,19 @@ export function TransferGPDetail({ proposal }: ITransferGPDetailProps) {
 			<div className={css.block}>
 				<div className={css.column}>
 					<div className={css.label}>Transfer to</div>
-					<div className={css.value}>{shortenAddress(proposal.data.transfer_data?.destination) ?? 'NO DATA'}</div>
+					<div className={css.value}>
+						{proposal.data?.transfer_data?.destination
+							? shortenAddress(proposal.data.transfer_data.destination)
+							: 'NO DATA'}
+					</div>
 				</div>
-				<Copy text={getUserFriendlyAddress(proposal.data.transfer_data?.destination) ?? 'NO DATA'} />
+				<Copy
+					text={
+						proposal.data?.transfer_data?.destination
+							? getUserFriendlyAddress(proposal.data.transfer_data.destination)
+							: 'NO DATA'
+					}
+				/>
 			</div>
 			<div className={css.block}>
 				<div className={css.column}>
