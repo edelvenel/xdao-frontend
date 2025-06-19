@@ -10,6 +10,7 @@ import { store } from 'shared/store';
 import { ProposalFilter } from 'shared/types';
 import { Filter } from 'shared/ui/Filter';
 import { Modal } from 'shared/ui/Modal';
+import { getProposalFilterFromStorage } from 'shared/utils/proposalsFilter';
 import { SearchBlock } from '../../shared/ui/SearchBlock';
 import { PendingProposal } from './components/PendingProposal';
 import { Proposal } from './components/Proposal';
@@ -19,7 +20,7 @@ import css from './styles.module.scss';
 export const ProposalListPage = React.memo(function ProposalListPage() {
 	const [searchText, setSearchText] = React.useState<string | null>(null);
 	const [isFilterOpen, setIsFilterOpen] = React.useState<boolean>(false);
-	const [filter, setFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
+	const [filter, setFilter] = React.useState<ProposalFilter>(getProposalFilterFromStorage());
 	const { proposals, pendingVotes, fetchProposals, pendingProposals, resetProposals, hasMore } = useProposals();
 	const { daos } = store.useDaos();
 	const { fetchDaos } = useDaos();
@@ -75,6 +76,7 @@ export const ProposalListPage = React.memo(function ProposalListPage() {
 			resetProposals();
 			setFilter(value);
 			fetchProposals(searchText ?? '', value);
+			localStorage.setItem('proposals_filter', value);
 		},
 		[fetchProposals, resetProposals, searchText]
 	);

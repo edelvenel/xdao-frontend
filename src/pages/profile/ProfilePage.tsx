@@ -15,6 +15,7 @@ import { Filter } from 'shared/ui/Filter';
 import { IconButton } from 'shared/ui/IconButton';
 import { Modal } from 'shared/ui/Modal';
 import { Title } from 'shared/ui/Title';
+import { getProposalFilterFromStorage } from 'shared/utils/proposalsFilter';
 import { CardLoader } from './components/CardLoader';
 import { ChangeDaoResult } from './components/ChangeDaoResult';
 import { DaoCard } from './components/DaoCard';
@@ -25,7 +26,7 @@ import css from './styles.module.scss';
 export const ProfilePage = React.memo(function ProfilePage() {
 	const [isProposalsFilterOpen, setIsProposalsFilterOpen] = React.useState<boolean>(false);
 	const [isSelectDaoOpen, setIsSelectDaoOpen] = React.useState<boolean>(false);
-	const [proposalsFilter, setProposalsFilter] = React.useState<ProposalFilter>(ProposalFilter.AllProposals);
+	const [proposalsFilter, setProposalsFilter] = React.useState<ProposalFilter>(getProposalFilterFromStorage());
 	const [isDAOsFilterOpen, setIsDAOsFilterOpen] = React.useState<boolean>(false);
 	const [daosFilter, setDaosFilter] = React.useState<FilterEnum>(FilterEnum.All);
 	const [proposalShowAll, setProposalShowAll] = React.useState<boolean>(false);
@@ -64,6 +65,11 @@ export const ProfilePage = React.memo(function ProfilePage() {
 		fetchProposals(undefined, proposalsFilter);
 		fetchTelegramData();
 	}, [daosFilter, fetchDaos, fetchMe, fetchProposals, fetchTelegramData, proposalsFilter]);
+
+	const handleSetProposalsFilter = React.useCallback((value: ProposalFilter) => {
+		setProposalsFilter(value);
+		localStorage.setItem('proposals_filter', value);
+	}, []);
 
 	return (
 		<div className={css.page}>
@@ -264,7 +270,7 @@ export const ProfilePage = React.memo(function ProfilePage() {
 						}
 						return ProposalFilter.AllProposals;
 					}}
-					onApply={setProposalsFilter}
+					onApply={handleSetProposalsFilter}
 					onClose={() => setIsProposalsFilterOpen(false)}
 				/>
 			</Modal>
