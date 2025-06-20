@@ -17,7 +17,7 @@ export function Option({ selected, value, onClick }: IOptionProps) {
 			</div>
 			<div className={css.numbers}>
 				<div className={css.amount}>{value.amount}</div>
-				<div className={css.rate}>${value.rate}</div>
+				<div className={css.rate}>${value.rate * value.amount}</div>
 			</div>
 		</div>
 	);

@@ -44,6 +44,7 @@ export const jettonMapper = (balances: BalancesResponse): IJetton[] => {
 	const mappedJettons: IJetton[] = balances.balances.map((balance) => {
 		return {
 			address: balance.jetton.address,
+			jettonAddress: balance.wallet_address.address,
 			name: balance.jetton.name,
 			imgUrl: balance.jetton.image,
 			url: '', //TODO: replace with real url,
