@@ -175,6 +175,7 @@ export type IPlugin = {
 
 export type IJetton = {
 	address: string;
+	jettonAddress: string;
 	name: string;
 	amount: number;
 	imgUrl: string;
