@@ -9,7 +9,7 @@ export function CrowdfundingTab({ dao }: ICrowdfundingTabProps) {
 	return (
 		<div className={css.tab}>
 			{dao && <></>}
-			<div className={css.placeholder}>Crowdfunding is unimplemented</div>
+			<div className={css.placeholder}>Coming soon</div>
 		</div>
 	);
 }

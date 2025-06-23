@@ -49,7 +49,14 @@ export function Header() {
 				<Icon.Special.Logo />
 			</Link>
 			<div className={css.info}>
-				<div className={css.infoButton} onClick={() => toast.error('Unimplemented')}>
+				<div
+					className={css.infoButton}
+					onClick={() =>
+						toast.error('Onboarding: coming soon', {
+							icon: null,
+						})
+					}
+				>
 					<Icon.Common.Question />
 				</div>
 				<div className={css.user} onClick={handleOnAddressClick}>

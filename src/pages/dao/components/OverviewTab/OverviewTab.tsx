@@ -1,10 +1,16 @@
+import WebApp from '@twa-dev/sdk';
+import { routes } from 'app/router/routes';
 import cn from 'classnames';
 import React from 'react';
 import toast from 'react-hot-toast';
+import QRCode from 'react-qr-code';
+import { useNavigate } from 'react-router';
 import { Icon } from 'shared/icons';
-import { IDao } from 'shared/types';
+import { store } from 'shared/store';
+import { IDao, ProposalType } from 'shared/types';
 import { EditableInput } from 'shared/ui/EditableInput';
 import { EditableTextarea } from 'shared/ui/EditableTextarea';
+import { Modal } from 'shared/ui/Modal';
 import { TextLoader } from 'shared/ui/TextLoader';
 import { getUserFriendlyAddress, shortenAddress } from 'shared/utils/formatters';
 import css from './styles.module.scss';
@@ -14,14 +20,20 @@ interface IOverviewTabProps {
 }
 
 export function OverviewTab({ dao }: IOverviewTabProps) {
-	const [daoName, setDaoName] = React.useState<string | null>(dao ? dao.name : null);
-	const [email, setEmail] = React.useState<string | null>(dao ? (dao.email ?? '') : null);
-	const [description, setDescription] = React.useState<string | null>(dao ? (dao.description ?? '') : null);
+	const [email, setEmail] = React.useState<string | null>(dao ? dao.email ?? '' : null);
+	const [description, setDescription] = React.useState<string | null>(dao ? dao.description ?? '' : null);
+	const [isQROpen, setIsQROpen] = React.useState<boolean>(false);
+	const { setDao, setProposalType } = store.useFormType();
 
-	const handleOnDaoNameSave = React.useCallback(() => {
-		toast.error('Save unimplemented');
-		//TODO: post query to API
-	}, []);
+	const navigate = useNavigate();
+
+	const handleOnChangeDAOName = React.useCallback(() => {
+		if (dao) {
+			setDao(dao);
+			setProposalType(ProposalType.ChangeDAOName);
+			navigate(routes.createProposalForm);
+		}
+	}, [dao, navigate, setDao, setProposalType]);
 
 	const handleOnEmailSave = React.useCallback(() => {
 		toast.error('Save unimplemented');
@@ -33,10 +45,6 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 		//TODO: post query to API
 	}, []);
 
-	const handleOnDaoNameCancel = React.useCallback(() => {
-		setDaoName(dao?.name ?? '');
-	}, [dao?.name]);
-
 	const handleOnEmailCancel = React.useCallback(() => {
 		setEmail(dao?.email ?? '');
 	}, [dao?.email]);
@@ -47,7 +55,6 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 
 	React.useEffect(() => {
 		if (dao) {
-			setDaoName(dao.name);
 			setDescription(dao.description ?? '');
 			setEmail(dao.email ?? '');
 		}
@@ -80,10 +87,13 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 						)}
 						{dao && (
 							<>
-								<div className={css.iconBlock} onClick={() => toast.error('Unimplemented')}>
+								<div className={css.iconBlock} onClick={() => setIsQROpen(true)}>
 									<Icon.Common.Scan />
 								</div>
-								<div className={css.iconBlock} onClick={() => toast.error('Unimplemented')}>
+								<div
+									className={css.iconBlock}
+									onClick={() => WebApp.openLink(`https://tonviewer.com/${dao.plugins[0].address}`)}
+								>
 									<Icon.Common.LittleLink />
 								</div>
 							</>
@@ -100,19 +110,12 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 			<div className={css.card}>
 				<div className={css.field}>
 					<div className={css.name}>DAO name</div>
-					{daoName !== null && (
-						<EditableInput
-							value={daoName}
-							onChange={(e) => setDaoName(e.target.value)}
-							onSave={handleOnDaoNameSave}
-							onCancel={handleOnDaoNameCancel}
-						/>
-					)}
-					{daoName === null && (
-						<div>
-							<TextLoader lineHeight={50} />
+					<div className={css.editableInput}>
+						<span>{dao?.name}</span>
+						<div className={css.modeButton} onClick={handleOnChangeDAOName}>
+							Edit
 						</div>
-					)}
+					</div>
 				</div>
 				<div className={css.field}>
 					<div className={css.name}>E-mail</div>
@@ -168,6 +171,19 @@ export function OverviewTab({ dao }: IOverviewTabProps) {
 					)}
 				</div>
 			</div>
+
+			<Modal isOpen={isQROpen} onClose={() => setIsQROpen(false)} isBackgroundOn={false}>
+				{dao && (
+					<div className={css.qr}>
+						<div className={css.qrCode}>
+							<QRCode value={getUserFriendlyAddress(dao.plugins[0].address)} size={256} />
+						</div>
+						<div className={css.text} onClick={onClickAddress}>
+							{getUserFriendlyAddress(dao.plugins[0].address)}
+						</div>
+					</div>
+				)}
+			</Modal>
 		</div>
 	);
 }

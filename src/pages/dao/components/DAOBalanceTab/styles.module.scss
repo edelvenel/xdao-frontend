@@ -147,3 +147,38 @@
 	padding: 12px 16px;
 	gap: 12px;
 }
+
+.qr {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+
+	.qrCode {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 140px;
+		max-height: 140px;
+		padding: 20px;
+		background-color: var(--color-base-neutral-12);
+		border-radius: 32px;
+	}
+
+	.text {
+		display: flex;
+		padding: 12px 20px;
+		border-radius: 32px;
+		background-color: var(--semantic-card-edge);
+		align-items: center;
+		justify-content: center;
+		color: var(--semantic-text-secondary);
+		font-size: 16px;
+		font-weight: 500;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		word-break: break-all;
+	}
+}
