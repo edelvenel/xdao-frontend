@@ -111,6 +111,29 @@
 			align-items: left;
 			gap: 5px;
 
+			.editableInput {
+				display: flex;
+				justify-content: space-between;
+				gap: 15px;
+				height: 50px;
+				padding: 15px;
+				overflow: hidden;
+				border-radius: 32px;
+				font-weight: 600;
+				font-size: 15px;
+				line-height: 20px;
+				color: var(--semantic-text-secondary);
+				background-color: var(--semantic-background-tetriary);
+				align-items: center;
+
+				.modeButton {
+					color: var(--semantic-text-accent-2);
+					align-self: center;
+					user-select: none;
+					cursor: pointer;
+				}
+			}
+
 			.name {
 				font-size: 16px;
 				font-weight: 600;
@@ -153,5 +176,40 @@
 		100% {
 			background-position: top left;
 		}
+	}
+}
+
+.qr {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+
+	.qrCode {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 140px;
+		max-height: 140px;
+		padding: 20px;
+		background-color: var(--color-base-neutral-12);
+		border-radius: 32px;
+	}
+
+	.text {
+		display: flex;
+		padding: 12px 20px;
+		border-radius: 32px;
+		background-color: var(--semantic-card-edge);
+		align-items: center;
+		justify-content: center;
+		color: var(--semantic-text-secondary);
+		font-size: 16px;
+		font-weight: 500;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		word-break: break-all;
 	}
 }

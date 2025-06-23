@@ -1,7 +1,7 @@
+import WebApp from '@twa-dev/sdk';
 import { routes } from 'app/router/routes';
 import cn from 'classnames';
 import React from 'react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
@@ -20,30 +20,9 @@ interface ISettingsTabProps {
 export function SettingsTab({ dao }: ISettingsTabProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const [consensus, setConsensus] = React.useState<number | null>(dao ? dao.consensus : null);
-	const [isConsensusEdit, setIsConsensusEdit] = React.useState<boolean>(false);
 	const { setDao, setProposalType, setRemovingWallet, holders } = store.useFormType();
 
 	const navigate = useNavigate();
-
-	const handleOnConsensusSave = React.useCallback(() => {
-		setIsConsensusEdit(false);
-		toast.error('Save unimplemented');
-	}, []);
-
-	React.useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dao && ref.current && !ref.current.contains(event.target as Node) && isConsensusEdit) {
-				setIsConsensusEdit(false);
-				setConsensus(dao.consensus);
-			}
-		};
-
-		document.addEventListener('mousedown', handleClickOutside);
-
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [dao, dao?.consensus, isConsensusEdit]);
 
 	React.useEffect(() => {
 		if (dao) {
@@ -71,21 +50,19 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 		}
 	}, [dao, navigate, setDao, setProposalType]);
 
-	const handleSetConsensus = React.useCallback((value: string) => {
-		const numberValue = Number(value !== '' ? value : 0);
-		if (numberValue < 0) {
-			setConsensus(0);
-		} else if (numberValue > 100) {
-			setConsensus(100);
+	const handleOnEditConsensus = React.useCallback(() => {
+		if (dao) {
+			setDao(dao);
+			setProposalType(ProposalType.ChangeGeneralConsensus);
+			navigate(routes.createProposalForm);
 		}
-		setConsensus(numberValue);
-	}, []);
+	}, [dao, navigate, setDao, setProposalType]);
 
 	const distributionRules: IDistributionRule[] = React.useMemo(() => {
 		const rules: IDistributionRule[] = holders
 			? holders.map((holder) => {
 					return { walletAddress: holder.owner_address, tokens: holder.balance, percent: 0 };
-				})
+			  })
 			: [];
 		return calculatePercents(rules);
 	}, [holders]);
@@ -96,29 +73,12 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 				<div ref={ref} className={css.field}>
 					<div className={css.info}>
 						<div className={css.name}>Current consensus</div>
-						{!isConsensusEdit && <div className={css.value}>{consensus}%</div>}
-						{isConsensusEdit && (
-							<div className={css.inputBox}>
-								<input
-									autoFocus
-									type="number"
-									className={css.input}
-									value={consensus > 0 ? consensus : ''}
-									onChange={(e) => handleSetConsensus(e.target.value)}
-								/>
-							</div>
-						)}
+						<div className={css.value}>{consensus}%</div>
 					</div>
-					{!isConsensusEdit && (
-						<div className={css.textButton} onClick={() => setIsConsensusEdit(true)}>
-							Edit
-						</div>
-					)}
-					{isConsensusEdit && (
-						<div className={css.textButton} onClick={handleOnConsensusSave}>
-							Confirm
-						</div>
-					)}
+
+					<div className={css.textButton} onClick={handleOnEditConsensus}>
+						Edit
+					</div>
 				</div>
 			)}
 			{consensus === null && (
@@ -137,7 +97,10 @@ export function SettingsTab({ dao }: ISettingsTabProps) {
 							</div>
 							<div className={cn(css.item, css.gpTokens)}>{formatNumber(rule.tokens ?? 0, 6)}</div>
 							<div className={cn(css.item, css.percent)}>{formatNumber(rule.percent ?? 0)}%</div>
-							<div className={cn(css.item, css.link)} onClick={() => toast.error('Unimplemented')}>
+							<div
+								className={cn(css.item, css.link)}
+								onClick={() => WebApp.openLink(`https://tonviewer.com/${rule.walletAddress}`)}
+							>
 								<Icon.Common.LittleLink />
 							</div>
 							<div className={cn(css.item, css.cancel)} onClick={() => handleOnRemove(rule.walletAddress)}>

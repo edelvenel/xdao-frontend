@@ -3,14 +3,17 @@ import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { generatePath, Link } from 'react-router';
+import QRCode from 'react-qr-code';
+import { generatePath, Link, useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos/useDaos';
 import { useNfts } from 'shared/api/nfts';
 import { Icon } from 'shared/icons';
 import { store } from 'shared/store';
-import { IDao, IJetton, IRate } from 'shared/types';
+import { IDao, IJetton, IRate, ProposalType } from 'shared/types';
 import { Button } from 'shared/ui/Button';
+import { Modal } from 'shared/ui/Modal';
 import { TextLoader } from 'shared/ui/TextLoader';
+import { getUserFriendlyAddress } from 'shared/utils/formatters';
 import { JettonLoader } from './components/JettonLoader';
 import css from './styles.module.scss';
 
@@ -23,9 +26,13 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 	const [jettons, setJettons] = React.useState<IJetton[] | null>(null);
 	const [tonBalance, setTonBalance] = React.useState<number | null>(null);
 	const [jettonRates, setJettonRates] = React.useState<IRate[] | null>(null);
+	const [isQROpen, setIsQROpen] = React.useState<boolean>(false);
 	const { getDAOJettons, getTONBalance, getTokenRates } = useDaos();
 	const { total } = store.useNfts();
 	const { getNfts } = useNfts();
+	const { setDao, setProposalType } = store.useFormType();
+
+	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		const fetchJettons = async () => {
@@ -52,6 +59,14 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 		fetchTonBalance();
 		fetchNfts();
 	}, [dao, getDAOJettons, getNfts, getTONBalance, getTokenRates]);
+
+	const handleOnSend = React.useCallback(() => {
+		if (dao) {
+			setDao(dao);
+			setProposalType(ProposalType.SendDAOFunds);
+			navigate(routes.createProposalForm);
+		}
+	}, [dao, navigate, setDao, setProposalType]);
 
 	React.useEffect(() => {
 		const fetchRates = async () => {
@@ -90,6 +105,13 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 			return toneRate * tonBalance + jettonsSum;
 		}
 	}, [jettonRates, jettons, tonBalance]);
+
+	const onClickAddress = React.useCallback(() => {
+		if (dao) {
+			navigator.clipboard.writeText(getUserFriendlyAddress(dao.plugins[0].address) ?? '');
+			toast.success('Address copied');
+		}
+	}, [dao]);
 
 	return (
 		<div className={css.tab}>
@@ -170,14 +192,27 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 			</div>
 			<TopContent>
 				<div className={css.actions}>
-					<Button variant="primary" onClick={() => toast.error('Unimplemented')}>
+					<Button variant="primary" onClick={() => handleOnSend()}>
 						Send
 					</Button>
-					<Button variant="secondary" onClick={() => toast.error('Unimplemented')}>
+					<Button variant="secondary" onClick={() => setIsQROpen(true)}>
 						Receive QR
 					</Button>
 				</div>
 			</TopContent>
+
+			<Modal isOpen={isQROpen} onClose={() => setIsQROpen(false)} isBackgroundOn={false}>
+				{dao && (
+					<div className={css.qr}>
+						<div className={css.qrCode}>
+							<QRCode value={getUserFriendlyAddress(dao.plugins[0].address)} size={256} />
+						</div>
+						<div className={css.text} onClick={onClickAddress}>
+							{getUserFriendlyAddress(dao.plugins[0].address)}
+						</div>
+					</div>
+				)}
+			</Modal>
 		</div>
 	);
 }
