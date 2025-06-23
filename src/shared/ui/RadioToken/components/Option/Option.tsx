@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { NumericFormat } from 'react-number-format';
 import { IToken } from 'shared/types';
 import css from './styles.module.scss';
 
@@ -16,8 +17,19 @@ export function Option({ selected, value, onClick }: IOptionProps) {
 				<div className={css.name}>{value.name}</div>
 			</div>
 			<div className={css.numbers}>
-				<div className={css.amount}>{value.amount}</div>
-				<div className={css.rate}>${value.rate * value.amount}</div>
+				<div className={css.amount}>
+					<NumericFormat className={css.text} value={value.amount} displayType={'text'} thousandSeparator={' '} />
+				</div>
+				<div className={css.rate}>
+					$
+					<NumericFormat
+						className={css.text}
+						value={value.rate * value.amount}
+						decimalScale={2}
+						displayType={'text'}
+						thousandSeparator={' '}
+					/>
+				</div>
 			</div>
 		</div>
 	);
