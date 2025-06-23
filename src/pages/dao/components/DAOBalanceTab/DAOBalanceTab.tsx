@@ -3,6 +3,7 @@ import { TopContent } from 'app/navigation/components/top-content';
 import { routes } from 'app/router/routes';
 import React from 'react';
 import toast from 'react-hot-toast';
+import { NumericFormat } from 'react-number-format';
 import QRCode from 'react-qr-code';
 import { generatePath, Link, useNavigate } from 'react-router';
 import { useDaos } from 'shared/api/daos/useDaos';
@@ -120,7 +121,13 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 					<div className={css.title}>Main account</div>
 					<div className={css.amount}>
 						<div className={css.dollar}>$</div>
-						<span>{mainAccountTotal}</span>
+						<NumericFormat
+							className={css.text}
+							value={mainAccountTotal}
+							decimalScale={2}
+							displayType={'text'}
+							thousandSeparator={' '}
+						/>
 					</div>
 				</div>
 			)}
@@ -149,7 +156,9 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 								<Icon.Crypto.Ton />
 							</div>
 							<div className={css.currency}>TON</div>
-							<div className={css.amount}>{tonBalance}</div>
+							<div className={css.amount}>
+								<NumericFormat className={css.text} value={tonBalance} displayType={'text'} thousandSeparator={' '} />
+							</div>
 						</div>
 						<div
 							className={css.link}
@@ -167,7 +176,14 @@ export function DAOBalanceTab({ dao }: IDAOBalanceProps) {
 							<div className={css.info}>
 								<div className={css.logo} style={{ backgroundImage: `url(${jetton.imgUrl})` }} />
 								<div className={css.currency}>{jetton.name}</div>
-								<div className={css.amount}>{jetton.amount}</div>
+								<div className={css.amount}>
+									<NumericFormat
+										className={css.text}
+										value={jetton.amount}
+										displayType={'text'}
+										thousandSeparator={' '}
+									/>
+								</div>
 							</div>
 							<div
 								className={css.link}
