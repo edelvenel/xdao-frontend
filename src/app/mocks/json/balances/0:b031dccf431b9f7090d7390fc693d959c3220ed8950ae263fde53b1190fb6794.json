@@ -1,0 +1,9 @@
+{
+	"address": "0:b031dccf431b9f7090d7390fc693d959c3220ed8950ae263fde53b1190fb6794",
+	"balance": 796475939,
+	"last_activity": 1749644245,
+	"status": "active",
+	"interfaces": [],
+	"get_methods": ["get_public_key", "seqno"],
+	"is_wallet": false
+}

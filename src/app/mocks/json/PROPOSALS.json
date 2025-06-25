@@ -1,0 +1,1989 @@
+{
+	"total": 34,
+	"items": [
+		{
+			"name": "AddBread",
+			"address": "0:30e0966a59cc2588a22a3b2bd3798ea93c77abaa64491630449ad4379af9b0f8",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "1000100000000000",
+			"current_amount": "5002100000000000",
+			"total_supply": "10001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-23 09:17:55",
+			"date_expire": "2025-06-25 09:17:55",
+			"type": "MasterDAO_CallJettonMint",
+			"data": {
+				"receivers": [
+					{
+						"address": "0:5f76e2fecd65559c49bbc6c0e6c02a59f770b35413f14d32568f9d5c01ed3383",
+						"amount": "5000000000000000"
+					}
+				]
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c72410102010035000109ac867e8dc0010055a170017ddb8bfb3595567126ef1b039b00a967ddc2cd504fc534c95a3e757007b4ce0dc470de4df8200020cf4dbbd2",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp"
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "ggg",
+			"address": "0:14e556c2e2e0a85a9e51bf677ae3bd5902bd20331d44e119bcc86003626d937e",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"success_amount": "1000100000000000",
+			"current_amount": "4998900000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-22 09:27:36",
+			"date_expire": "2025-06-24 09:27:36",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"transfer_data": {
+					"amount": "10000000000000000",
+					"destination": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+					"forward_amount": "1",
+					"name": "General_TransferData",
+					"opCode": "transferData",
+					"response_destination": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8"
+				},
+				"from_jetton_wallet": "0:66139cad946457e0a59b2e866e6dbfd2743f0bb64657a68c792b7f1dbc4885fc",
+				"from_jetton_wallet_owner": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010201009800018d9cdbcc7e800cc27395b28c8afc14b365d0cdcdb7fa4e87e176c8caf4d18f256fe3b78910bf900168b39d7485d6c5ffbd2a1f65dbdf1e8e516386469ea42c5e67a97291bae7365a01009772386f26fc10000800e9a0373c692e6fb359d175f8463600e5fc868b3bc6e8b66e54420d20537fb971001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e0405b2a29c05",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp"
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Delete one GP",
+			"description": "Test",
+			"address": "0:5fdb15246d79e677cb81a7e1dece7739e591442654a3707ed7a6a60c133ca4f1",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"success_amount": "2000100000000000",
+			"current_amount": "4998900000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-22 09:22:15",
+			"date_expire": "2025-06-24 09:22:15",
+			"type": "MasterDAO_CallJettonBurn",
+			"data": {
+				"amount": "10000000000000000",
+				"address": "0:66139cad946457e0a59b2e866e6dbfd2743f0bb64657a68c792b7f1dbc4885fc"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101005100009dfacc90e872386f26fc10000800cc27395b28c8afc14b365d0cdcdb7fa4e87e176c8caf4d18f256fe3b78910bf900168b39d7485d6c5ffbd2a1f65dbdf1e8e516386469ea42c5e67a97291bae7365a0d3b07e71",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "SendHasbik",
+			"description": "jetton transfer",
+			"address": "0:0a7f7b070f904f95f5f9eee59a0be7b363e3fd9baa53c7fbdd457f9dc22d8bef",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "4998900000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-20 12:10:20",
+			"date_expire": "2025-06-22 12:10:20",
+			"type": "MasterDAO_CallPlugin",
+			"data": {
+				"plugin_address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+				"body": {
+					"message": {
+						"amount": "100000000",
+						"body": {
+							"amount": "1000000000",
+							"destination": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+							"forward_amount": "1",
+							"name": "General_JettonTransfer",
+							"opCode": "f8a7ea5",
+							"queryId": "16831226777199958203",
+							"response_destination": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8"
+						},
+						"body_flags": "1",
+						"destination": "0:d4c7f428f1abac7f2d7cea9e73a7f13df610f6a6a7345451ed4d79033b473488",
+						"flags": "24",
+						"name": "General_MessageData",
+						"opCode": "messageData"
+					},
+					"mode": "1",
+					"name": "General_SendRawMessage",
+					"opCode": "0",
+					"queryId": "0"
+				}
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c724101040100c700014b2cb6f6b6801b5e6856d977bcb5297904c964e018bfabd632d1bbdca0279be937e05a230a9e1001011a0000000000000000000000000102016862006a63fa1478d5d63f96be754f39d3f89efb087b53539a2a28f6a6bc819da39a44202faf0800000000000000000000000000010300aa0f8a7ea5e9948794050bd8bb43b9aca00800e9a0373c692e6fb359d175f8463600e5fc868b3bc6e8b66e54420d20537fb971001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e020225256e4b",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp"
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Sent money to Pavel",
+			"description": "Stilling Money",
+			"address": "0:97576913595b3ec51a9bbda01f9ada78e1fb854455015985520aaedf144aeaef",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"success_amount": "2000100000000000",
+			"current_amount": "4998900000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-20 08:08:25",
+			"date_expire": "2025-06-22 08:08:25",
+			"type": "MasterDAO_CallPlugin",
+			"data": {
+				"body": {
+					"message": {
+						"amount": "200000000",
+						"body": null,
+						"body_flags": "0",
+						"destination": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+						"flags": "16",
+						"name": "General_MessageData",
+						"opCode": "messageData"
+					},
+					"mode": "1",
+					"name": "General_SendRawMessage",
+					"opCode": "0",
+					"queryId": "0"
+				},
+				"plugin_address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010301006f00014b2cb6f6b6801b5e6856d977bcb5297904c964e018bfabd632d1bbdca0279be937e05a230a9e1001011a0000000000000000000000000102006842003a680dcf1a4b9becd6745d7e118d80397f21a2cef1ba2d9b9510834814dfee5c205f5e100000000000000000000000000000500e4c96",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Transfer 1000 tokens",
+			"description": "Pasha->Tanya",
+			"address": "0:eeabc06ca1ae16e51ed08d8fbe60ef83b4238033a03dd5495e1a50b0ced00ed4",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "5000000000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-19 16:19:21",
+			"date_expire": "2025-06-21 16:19:21",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"from_jetton_wallet_owner": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+				"transfer_data": {
+					"amount": "1000000000000",
+					"destination": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+					"forward_amount": "1",
+					"name": "General_TransferData",
+					"opCode": "transferData",
+					"response_destination": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a"
+				},
+				"from_jetton_wallet": "0:c13744eeab458d93af61300e67fc5a08eb5407e967e8f280175a940fb290c50e"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010201009600018d9cdbcc7e801826e89dd568b1b275ec2601ccff8b411d6a80fd2cfd1e5002eb5281f65218a1d001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e20100935e8d4a51000800b3e0e5f5e5cd02b9d3875111198e766ef14630127647552849b7905c42412cd500167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259a84054123fb99",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "SendDAOFunds 19",
+			"description": "test",
+			"address": "0:c2fa293f4cbda0867ebb97e892a5245ba0f0e9bfc43a1a6120771977ca007e92",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "4999000000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-19 16:03:53",
+			"date_expire": "2025-06-21 16:03:53",
+			"type": "MasterDAO_CallPlugin",
+			"data": {
+				"body": {
+					"message": {
+						"amount": "10000000",
+						"body": null,
+						"body_flags": "0",
+						"destination": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+						"flags": "16",
+						"name": "General_MessageData",
+						"opCode": "messageData"
+					},
+					"mode": "1",
+					"name": "General_SendRawMessage",
+					"opCode": "0",
+					"queryId": "0"
+				},
+				"plugin_address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010301006e00014b2cb6f6b6801b5e6856d977bcb5297904c964e018bfabd632d1bbdca0279be937e05a230a9e1001011a0000000000000000000000000102006642003a680dcf1a4b9becd6745d7e118d80397f21a2cef1ba2d9b9510834814dfee5c1cc4b40000000000000000000000000000bd2c8730",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000"
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Transfer token from pavel to tanya",
+			"address": "0:a9d2de64150703e803b60399246d2a36827303d7ab9ce28836daadb4c143cf64",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"success_amount": "2000100000000000",
+			"current_amount": "4999000000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-19 14:50:09",
+			"date_expire": "2025-06-21 14:50:09",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"transfer_data": {
+					"amount": "100000000000",
+					"destination": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+					"forward_amount": "1",
+					"name": "General_TransferData",
+					"opCode": "transferData",
+					"response_destination": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a"
+				},
+				"from_jetton_wallet": "0:c13744eeab458d93af61300e67fc5a08eb5407e967e8f280175a940fb290c50e",
+				"from_jetton_wallet_owner": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010201009600018d9cdbcc7e801826e89dd568b1b275ec2601ccff8b411d6a80fd2cfd1e5002eb5281f65218a1d001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e20100935174876e800800b3e0e5f5e5cd02b9d3875111198e766ef14630127647552849b7905c42412cd500167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259a8405ad3cdb4a",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "TransferGPTokens",
+			"description": "Test/2",
+			"address": "0:599636495c84c519f3df242b43e2874432634cf5521cb037cff24b8e4d99202d",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "0",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-18 16:42:40",
+			"date_expire": "2025-06-20 16:42:40",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"transfer_data": {
+					"amount": "16302783770018254231391",
+					"destination": "35:1b0072fe43459de3745b372a21069029bfdcb8800e9a0373c692e6fb359d175f",
+					"name": "General_TransferData",
+					"opCode": "data",
+					"queryId": "6288895523034759401",
+					"response_destination": null
+				},
+				"from_jetton_wallet": "0:5ff5206d8ef6bb9dda431f1fcbd3ccd4d0c93d1224b03f91c6a1280b15a744e4",
+				"from_jetton_wallet_owner": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a"
+			},
+			"status": "rejected",
+			"raw_data": "b5ee9c7241010201009600018d9cdbcc7e800bfea40db1ded773bb4863e3f97a799a9a1927a2449607f238d4250162b4e89c900167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259aa0100935746a528800800e9a0373c692e6fb359d175f8463600e5fc868b3bc6e8b66e54420d20537fb971001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e04056a37015b",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "SendDAOFunds",
+			"description": "Test/2",
+			"address": "0:199cae02f60fcce3d7bc12ac1901ce13f95d26effdcb1818816743bed7560b15",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "0",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-18 16:41:35",
+			"date_expire": "2025-06-20 16:41:35",
+			"type": "MasterDAO_CallPlugin",
+			"data": {
+				"plugin_address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+				"body": {
+					"destination": null,
+					"flags": "0",
+					"name": "General_SendRawMessage",
+					"opCode": "0"
+				}
+			},
+			"status": "rejected",
+			"raw_data": "b5ee9c7241010301006e00014b2cb6f6b6801b5e6856d977bcb5297904c964e018bfabd632d1bbdca0279be937e05a230a9e1001011a0000000000000000000000000102006642002cf8397d797340ae74e1d44446639d9bbc518c049d91d54a126de41710904b351cc4b40000000000000000000000000000afcac80f",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000"
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "SendDAOFunds",
+			"description": "Test",
+			"address": "0:e1f23f7e23d11ea87c219bd6a88ca57bbc2b0e4fdd90b5cfe82bf0ebfe91490a",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "5000000000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-18 16:21:55",
+			"date_expire": "2025-06-20 16:21:55",
+			"type": "MasterDAO_CallPlugin",
+			"data": {
+				"body": {
+					"destination": null,
+					"flags": "0",
+					"name": "General_SendRawMessage",
+					"opCode": "0"
+				},
+				"plugin_address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010301006e00014b2cb6f6b6801b5e6856d977bcb5297904c964e018bfabd632d1bbdca0279be937e05a230a9e1001011a0000000000000000000000000102006642002cf8397d797340ae74e1d44446639d9bbc518c049d91d54a126de41710904b351cc4b40000000000000000000000000000afcac80f",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Transfer GP Tokens",
+			"description": "500 from Tanya to Pasha",
+			"address": "0:bb9c176d0ed2a9bd91c65769d146851c7f047213a5f64f5610c2b010ad9073da",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "0",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-18 16:16:36",
+			"date_expire": "2025-06-20 16:16:36",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"from_jetton_wallet": "0:5ff5206d8ef6bb9dda431f1fcbd3ccd4d0c93d1224b03f91c6a1280b15a744e4",
+				"from_jetton_wallet_owner": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+				"transfer_data": "te6cckEBAQEATAAAk1dGpSiACADpoDc8aS5vs1nRdfhGNgDl/IaLO8botm5UQg0gU3+5cQAdNAbnjSXN9ms6Lr8IxsAcv5DRZ3jdFs3KiEGkCm/3LgQFSlEm6A=="
+			},
+			"status": "rejected",
+			"raw_data": "b5ee9c7241010201009600018d9cdbcc7e800bfea40db1ded773bb4863e3f97a799a9a1927a2449607f238d4250162b4e89c900167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259aa0100935746a528800800e9a0373c692e6fb359d175f8463600e5fc868b3bc6e8b66e54420d20537fb971001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e04056a37015b",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "TransferTokensToTanya",
+			"description": "5.000.000",
+			"address": "0:da125e327ad6180c8b350f818a98f957e682890b7e6720fd752d807b4011d70f",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "2000100000000000",
+			"current_amount": "10000000000000000",
+			"total_supply": "20001000000000000",
+			"success_percentage": 1000,
+			"date_start": "2025-06-18 13:14:13",
+			"date_expire": "2025-06-20 13:14:13",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"transfer_data": null,
+				"from_jetton_wallet": "0:c13744eeab458d93af61300e67fc5a08eb5407e967e8f280175a940fb290c50e",
+				"from_jetton_wallet_owner": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010201009800018d9cdbcc7e801826e89dd568b1b275ec2601ccff8b411d6a80fd2cfd1e5002eb5281f65218a1d001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e2010097711c37937e08000800b3e0e5f5e5cd02b9d3875111198e766ef14630127647552849b7905c42412cd500167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259a84050003bcc8",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "ChangeConsensus/3",
+			"address": "0:80bf3b0b1aa2bca0c634ea936608c72b2eaab220dd2bc830587e32a695e255a3",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "16000800000000000",
+			"current_amount": "20000000000000000",
+			"total_supply": "10000000000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-18 12:58:54",
+			"date_expire": "2025-06-20 12:58:54",
+			"type": "MasterDAO_ChangeSuccessPercentage",
+			"data": {
+				"success_percentage": "1000"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101000800000bece136750fa2eb9d7bfc",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "ChangeConsensus/2",
+			"address": "0:295ec87787f871c7c961288192abb9c3031c819b600592c4bb492c52ef703ab1",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "16000800000000000",
+			"current_amount": "0",
+			"total_supply": "10000000000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-18 12:52:04",
+			"date_expire": "2025-06-20 12:52:04",
+			"type": "MasterDAO_ChangeSuccessPercentage",
+			"data": {
+				"success_percentage": "1000"
+			},
+			"status": "rejected",
+			"raw_data": "b5ee9c7241010101000800000bece136750fa2eb9d7bfc",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "ChangeGeneralConsensus",
+			"description": "From 80 To 10",
+			"address": "0:31d82bb522c5f5e6134fea054aac97ca3066f0a21a77fd9cabba3244d5eebe28",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "16000800000000000",
+			"current_amount": "0",
+			"total_supply": "10000000000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-18 12:30:10",
+			"date_expire": "2025-06-20 12:30:10",
+			"type": "MasterDAO_ChangeSuccessPercentage",
+			"data": {
+				"success_percentage": "1000"
+			},
+			"status": "rejected",
+			"raw_data": "b5ee9c7241010101000800000bece136750fa2eb9d7bfc",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "AddPavel",
+			"address": "0:ab1fdbe1c51a7872e5f6a5ad73e078bf5d35b70c22cd4963dd64e1d90df1018d",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "8000800000000000",
+			"current_amount": "10000000000000000",
+			"total_supply": "10000000000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-18 12:25:46",
+			"date_expire": "2025-06-21 12:25:46",
+			"type": "MasterDAO_CallJettonMint",
+			"data": {
+				"receivers": [
+					{
+						"address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+						"amount": "10000000000000000"
+					}
+				]
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c72410102010035000109ac867e8dc0010055a17001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e1c8e1bc9bf040002005c0bb9f",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"address": "0:fb39e4080fb0a60689b85d141f973157bd5451304d77192f05422d30f40da0fb",
+			"dao_address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"jetton_master_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"initiated_by_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+			"success_amount": "8000000000000000",
+			"current_amount": "10000000000000000",
+			"total_supply": "10000000000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-18 12:20:23",
+			"date_expire": "2025-06-20 12:20:23",
+			"type": "MasterDAO_CallJettonMint",
+			"data": {
+				"receivers": [
+					{
+						"address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+						"amount": "1000000000000"
+					}
+				]
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c72410102010033000109ac867e8dc0010051a1700167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259a97a3529440020cb290d4e",
+			"dao": {
+				"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+				"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+				"name": "Test1806",
+				"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+						"decimals": "9",
+						"description": "Test1806",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Test1806",
+						"symbol": "Tst1806"
+					},
+					"mintable": true,
+					"total_supply": "20001000000000000",
+					"verification": "none",
+					"holders_count": 3,
+					"admin": {
+						"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 1000,
+				"total_supply": "15001000000000000",
+				"plugins": [
+					{
+						"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "RemoveHolder",
+			"address": "0:244060d26e1c14844ccfc5349ab659997ad0cf12ddb4a0f5a84952d6d3e5f6a6",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"success_amount": "799999999",
+			"current_amount": "1000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 2000,
+			"date_start": "2025-06-17 16:37:53",
+			"date_expire": "2025-06-19 16:37:53",
+			"type": "MasterDAO_CallJettonBurn",
+			"data": {
+				"address": "0:396bc20a2dec0deffb11577df68bae17d2462f4fe7d4a392a5980eec6784b062",
+				"amount": "1000000000"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101004e000097facc90e843b9aca0080072d784145bd81bdff622aefbed175c2fa48c5e9fcfa947254b301dd8cf0960c5001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e20fa35f9e0",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Remove max",
+			"address": "0:464ef98c84fec21b0f4d1e602a8f98983a5c0d2665096571876d56c07701c9cf",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "799999999",
+			"current_amount": "999999999",
+			"total_supply": "2000000000",
+			"success_percentage": 2000,
+			"date_start": "2025-06-17 16:16:54",
+			"date_expire": "2025-06-19 16:16:54",
+			"type": "MasterDAO_CallJettonBurn",
+			"data": {
+				"amount": "1",
+				"address": "0:fe2d618300fc2118e8b9a17bf10d348ad9300fc9476937a5a7a15caa6f2ffab3"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101004b000091facc90e8101801fc5ac30601f84231d17342f7e21a6915b2601f928ed26f4b4f42b954de5ff567003f4219e7d08f667892104e3c49d1ec4a7923a7d50b9ec52c40be4b299bf596eba00c2ade01",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Add Pasha",
+			"address": "0:e60051c1afcb5ae4274c34ef90d1075cc3f98b45bde269fa46c3ffbb28a8b56b",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "599999999",
+			"current_amount": "999999999",
+			"total_supply": "2000000000",
+			"success_percentage": 2000,
+			"date_start": "2025-06-17 15:52:57",
+			"date_expire": "2025-06-19 15:52:57",
+			"type": "MasterDAO_CallJettonMint",
+			"data": {
+				"receivers": [
+					{
+						"address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+						"amount": "1000000000"
+					}
+				]
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c72410102010032000109ac867e8dc001004fa17001d3406e78d25cdf66b3a2ebf08c6c01cbf90d16778dd16cdca8841a40a6ff72e10ee6b280204a170e3b",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Add Tanya",
+			"address": "0:7cf98efcbb5410b7bec416b2262a8f28890534d11a219167b76c2ce79c535d2e",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "399999999",
+			"current_amount": "999999999",
+			"total_supply": "2000000000",
+			"success_percentage": 2000,
+			"date_start": "2025-06-17 15:46:10",
+			"date_expire": "2025-06-19 15:46:10",
+			"type": "MasterDAO_CallJettonMint",
+			"data": {
+				"receivers": [
+					{
+						"address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+						"amount": "1000000000"
+					}
+				]
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c72410102010032000109ac867e8dc001004fa1700167c1cbebcb9a0573a70ea222331cecdde28c6024ec8eaa50936f20b8848259a90ee6b280200dd25d38",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Send funds",
+			"address": "0:bd4daa389e273d383f18622eea83399efaa68f108bfc39ff2725d046e168f50e",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "399999999",
+			"current_amount": "999999999",
+			"total_supply": "2000000000",
+			"success_percentage": 2000,
+			"date_start": "2025-06-17 15:38:11",
+			"date_expire": "2025-06-19 15:38:11",
+			"type": "MasterDAO_CallPlugin",
+			"data": {
+				"plugin_address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+				"body": {
+					"cell": "te6cckEBAgEAQgABEgAAAAAAAAAAAQEAaEIAN+j8R3acEo93raHuZQJAG704KdaPGlo8tqj0VVt6QvIgFbNrgAAAAAAAAAAAAAAAAAAc6RG8",
+					"name": "unknown",
+					"opCode": "0"
+				}
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010301006f00014b2cb6f6b6800b6e34fda2669296e33f3342f2719af0e2e1565c260c8bb694d2f9d92501c41ed001011a00000000000000000000000001020068420037e8fc47769c128f77ada1ee6502401bbd3829d68f1a5a3cb6a8f4555b7a42f22015b36b80000000000000000000000000000105e214",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Remove Alex ",
+			"address": "0:5d73fc0f5ab35440741636f0d19031aaddcfc7e649928e9608ecd3d4cdedfb38",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "400000000",
+			"current_amount": "1000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 2000,
+			"date_start": "2025-06-17 15:33:48",
+			"date_expire": "2025-06-19 15:33:48",
+			"type": "MasterDAO_CallJettonBurn",
+			"data": {
+				"amount": "1",
+				"address": "0:d1c7403a2d66535d39b1497cfe1d5d28cc8597cd84fb8d033fb930c044122b94"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101004b000091facc90e8101801a38e80745acca6ba736292f9fc3aba51990b2f9b09f71a067f72618088245729001bf47e23bb4e0947bbd6d0f73281200dde9c14eb478d2d1e5b547a2aadbd217920eff3a924",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp"
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Max consensus",
+			"description": "Onse",
+			"address": "0:4a70986ac68f0b3f7448da20e9fcd5c13729322fb6a4bd7f88f70a9e42e3769b",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:fd08679f423d99e2484138f12747b129e48e9f542e7b14b102f92ca66fd65bae",
+			"success_amount": "1600000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-17 15:27:30",
+			"date_expire": "2025-06-19 15:27:30",
+			"type": "MasterDAO_ChangeSuccessPercentage",
+			"data": {
+				"success_percentage": "2000"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101000800000bece136751f4270c48e20",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000"
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Transfer GP",
+			"address": "0:74481b3a9ca3af52ff44a8d6e09d3d26ce543a330125d7811c86c21c0a389ce1",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "1600000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 8000,
+			"date_start": "2025-06-17 15:11:46",
+			"date_expire": "2025-06-19 15:11:46",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"from_jetton_wallet_owner": "0:fd08679f423d99e2484138f12747b129e48e9f542e7b14b102f92ca66fd65bae",
+				"transfer_data": null,
+				"from_jetton_wallet": "0:fe2d618300fc2118e8b9a17bf10d348ad9300fc9476937a5a7a15caa6f2ffab3"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010201009500018d9cdbcc7e801fc5ac30601f84231d17342f7e21a6915b2601f928ed26f4b4f42b954de5ff567003f4219e7d08f667892104e3c49d1ec4a7923a7d50b9ec52c40be4b299bf596eba01009143b9aca00800dfa3f11dda704a3ddeb687b99409006ef4e0a75a3c6968f2daa3d1556de90bc9001bf47e23bb4e0947bbd6d0f73281200dde9c14eb478d2d1e5b547a2aadbd2179040551a0684f",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					}
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Change name ",
+			"address": "0:ad779868793276d9f2b025ed698795735834532f6fdd2a553da4f3f64214a5df",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "1600000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 15:06:27",
+			"date_expire": "2025-06-19 15:06:27",
+			"type": "MasterDAO_ChangeMetadata",
+			"data": {
+				"new_content": {
+					"data": {
+						"name": "Mmmm 17.06"
+					},
+					"type": "onchain"
+				}
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241020e01000110000108e0ee28fa01010300c00202012003040143bff082eb663b57a00192f4a6ac467288df2dfeddb9da1bee28f6521c8bebd21f1ec005020120060700500068747470733a2f2f746f6e2e6f72672f646f776e6c6f61642f746f6e5f73796d626f6c2e706e6702012008090201200a0b0141bf4546a6ffe1b79cfdd86bad3db874313dcde2fb05e6a74aa7f3552d9617c79d130c0141bf6ed4f942a7848ce2cb066b77a1128c6a1ff8c43f438a2dce24612ba9ffab8b030c0141bf5208def46f5a1d4f9dce66ab309f4a851305f166f91ef79d923ef58e34f9a2090c0141bf5d01fa5e3c06901c45046c6b2ddcea5af764fea0eed72a10d404f2312ceb247d0d0016004d6d6d6d2031372e303600040039839054b5",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none"
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Meta chage",
+			"description": "Dd",
+			"address": "0:f806b25cea098608fa3de11482933034739ccf82e734aaf0f25ddd37e99a17dc",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:fd08679f423d99e2484138f12747b129e48e9f542e7b14b102f92ca66fd65bae",
+			"success_amount": "1600000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 15:06:16",
+			"date_expire": "2025-06-19 15:06:16",
+			"type": "MasterDAO_ChangeMetadata",
+			"data": {
+				"new_content": {
+					"data": {
+						"name": "Qwerty 17.06"
+					},
+					"type": "onchain"
+				}
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241020e01000112000108e0ee28fa01010300c00202012003040143bff082eb663b57a00192f4a6ac467288df2dfeddb9da1bee28f6521c8bebd21f1ec005020120060700500068747470733a2f2f746f6e2e6f72672f646f776e6c6f61642f746f6e5f73796d626f6c2e706e6702012008090201200a0b0141bf4546a6ffe1b79cfdd86bad3db874313dcde2fb05e6a74aa7f3552d9617c79d130c0141bf6ed4f942a7848ce2cb066b77a1128c6a1ff8c43f438a2dce24612ba9ffab8b030c0141bf5208def46f5a1d4f9dce66ab309f4a851305f166f91ef79d923ef58e34f9a2090c0141bf5d01fa5e3c06901c45046c6b2ddcea5af764fea0eed72a10d404f2312ceb247d0d001a005177657274792031372e3036000400395b2ce4fb",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					}
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Transfer GP",
+			"address": "0:240e4508161c442317dadb62391656ce8d18530e031aedc729cc50c0683249be",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "1600000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 14:58:19",
+			"date_expire": "2025-06-19 14:58:19",
+			"type": "MasterDAO_CallJettonTransfer",
+			"data": {
+				"from_jetton_wallet_owner": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"transfer_data": null,
+				"from_jetton_wallet": "0:d1c7403a2d66535d39b1497cfe1d5d28cc8597cd84fb8d033fb930c044122b94"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010201009500018d9cdbcc7e801a38e80745acca6ba736292f9fc3aba51990b2f9b09f71a067f72618088245729001bf47e23bb4e0947bbd6d0f73281200dde9c14eb478d2d1e5b547a2aadbd2179201009143b9aca00801fa10cf3e847b33c4908271e24e8f6253c91d3ea85cf6296205f2594cdfacb75d003f4219e7d08f667892104e3c49d1ec4a7923a7d50b9ec52c40be4b299bf596eb8405a7843c52",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Change con",
+			"address": "0:78ba429ad4557856f91ddd13dd7e429ffc8c6ca3ce66757ac6c1f405f6a79529",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "2000000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 14:51:13",
+			"date_expire": "2025-06-19 14:51:13",
+			"type": "MasterDAO_ChangeSuccessPercentage",
+			"data": {
+				"success_percentage": "8000"
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241010101000800000bece136757d0224cc2cc6",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none"
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Consensus",
+			"address": "0:a35d2701803d52fc70194d0bc28f1dca095e9289104e7cf49212caf83a237ded",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "2000000000",
+			"current_amount": "0",
+			"total_supply": "2000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 14:44:30",
+			"date_expire": "2025-06-19 14:44:30",
+			"type": "MasterDAO_ChangeSuccessPercentage",
+			"data": {
+				"success_percentage": "7000"
+			},
+			"status": "rejected",
+			"raw_data": "b5ee9c7241010101000800000bece136756d62c7ae2f98",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000"
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Change nameee",
+			"address": "0:3e281e011fd91af47a658f72549fb5f199adeef3cd6c24e9b1ef572c8153fc67",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "2000000000",
+			"current_amount": "2000000000",
+			"total_supply": "2000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 14:39:39",
+			"date_expire": "2025-06-19 14:39:39",
+			"type": "MasterDAO_ChangeMetadata",
+			"data": {
+				"new_content": {
+					"data": {
+						"name": "M/a 17.06"
+					},
+					"type": "onchain"
+				}
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241020e0100010f000108e0ee28fa01010300c00202012003040143bff082eb663b57a00192f4a6ac467288df2dfeddb9da1bee28f6521c8bebd21f1ec005020120060700500068747470733a2f2f746f6e2e6f72672f646f776e6c6f61642f746f6e5f73796d626f6c2e706e6702012008090201200a0b0141bf4546a6ffe1b79cfdd86bad3db874313dcde2fb05e6a74aa7f3552d9617c79d130c0141bf6ed4f942a7848ce2cb066b77a1128c6a1ff8c43f438a2dce24612ba9ffab8b030c0141bf5208def46f5a1d4f9dce66ab309f4a851305f166f91ef79d923ef58e34f9a2090c0141bf5d01fa5e3c06901c45046c6b2ddcea5af764fea0eed72a10d404f2312ceb247d0d0014004d2f612031372e30360004003986b3b46c",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					}
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Change name",
+			"address": "0:9327e7211d0f1d979ad832d02d302745d95242b7564c0da8ac2710420b05fb39",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "2000000000",
+			"current_amount": "2000000000",
+			"total_supply": "1000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 14:34:58",
+			"date_expire": "2025-06-19 14:34:58",
+			"type": "MasterDAO_ChangeMetadata",
+			"data": {
+				"new_content": {
+					"data": {
+						"name": "A/m 17.06"
+					},
+					"type": "onchain"
+				}
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c7241020e0100010f000108e0ee28fa01010300c00202012003040143bff082eb663b57a00192f4a6ac467288df2dfeddb9da1bee28f6521c8bebd21f1ec005020120060700500068747470733a2f2f746f6e2e6f72672f646f776e6c6f61642f746f6e5f73796d626f6c2e706e6702012008090201200a0b0141bf4546a6ffe1b79cfdd86bad3db874313dcde2fb05e6a74aa7f3552d9617c79d130c0141bf6ed4f942a7848ce2cb066b77a1128c6a1ff8c43f438a2dce24612ba9ffab8b030c0141bf5208def46f5a1d4f9dce66ab309f4a851305f166f91ef79d923ef58e34f9a2090c0141bf5d01fa5e3c06901c45046c6b2ddcea5af764fea0eed72a10d404f2312ceb247d0d001400412f6d2031372e303600040039e1b0a0d6",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					},
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000"
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		},
+		{
+			"name": "Add max 17.06",
+			"address": "0:cf25914c43ebaf372d001ff32bfc9402f223af15d20b0c9b2a19c7ad05a2da53",
+			"dao_address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"jetton_master_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"initiated_by_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"success_amount": "1000000000",
+			"current_amount": "1000000000",
+			"total_supply": "1000000000",
+			"success_percentage": 10000,
+			"date_start": "2025-06-17 14:30:22",
+			"date_expire": "2025-06-19 14:30:22",
+			"type": "MasterDAO_CallJettonMint",
+			"data": {
+				"receivers": [
+					{
+						"address": "0:fd08679f423d99e2484138f12747b129e48e9f542e7b14b102f92ca66fd65bae",
+						"amount": "1000000000"
+					}
+				]
+			},
+			"status": "executed",
+			"raw_data": "b5ee9c72410102010032000109ac867e8dc001004fa17003f4219e7d08f667892104e3c49d1ec4a7923a7d50b9ec52c40be4b299bf596eb90ee6b280202d60b432",
+			"dao": {
+				"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+				"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+				"name": "Mmmm 17.06",
+				"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+				"jetton_metadata": {
+					"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+					"metadata": {
+						"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+						"decimals": "9",
+						"description": "Mmmm 17.06",
+						"image": "https://ton.org/download/ton_symbol.png",
+						"name": "Mmmm 17.06",
+						"symbol": "Mmmm 17.06"
+					},
+					"mintable": true,
+					"total_supply": "2000000000",
+					"verification": "none",
+					"holders_count": 2,
+					"admin": {
+						"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+						"is_scam": false,
+						"is_wallet": false
+					}
+				},
+				"success_percentage": 2000,
+				"total_supply": "2000000000",
+				"plugins": [
+					{
+						"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+						"type": "walletV4"
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,21 @@
+{
+	"balances": [
+		{
+			"balance": "1000000000",
+			"wallet_address": {
+				"address": "0:6054e3c43bf79efe6756cad2a90aea2e63bea56d4b1a53b1eb6ce1079e477c13",
+				"is_scam": false,
+				"is_wallet": false
+			},
+			"jetton": {
+				"address": "0:14c925bb6f6dd08d6076bba5b2605827eaac17266c926f4bcc54610d55a1b812",
+				"name": "Hasbik Coin",
+				"symbol": "HSBc",
+				"decimals": 9,
+				"image": "https://cache.tonapi.io/imgproxy/gUVxkix9IeUjXxmK6xOn7Em6SNhHQ7_hF-mY0xB1SPY/rs:fill:200:200:1/g:no/aHR0cHM6Ly9zcnY0LmltZ29ubGluZS5jb20udWEvZG93bmxvYWQucGhwP2ZpbGU9cmVzdWx0X2ltZy9pbWdvbmxpbmUtY29tLXVhLVRyYW5zcGFyZW50LWJhY2tnci1pSWVFWURiU2I5RjIucG5n.webp",
+				"verification": "none",
+				"score": 0
+			}
+		}
+	]
+}

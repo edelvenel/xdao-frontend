@@ -1,0 +1,20 @@
+{
+	"total": 3,
+	"items": [
+		{
+			"jetton_wallet_address": "0:66139cad946457e0a59b2e866e6dbfd2743f0bb64657a68c792b7f1dbc4885fc",
+			"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+			"balance": "10000000000000000"
+		},
+		{
+			"jetton_wallet_address": "0:5ff5206d8ef6bb9dda431f1fcbd3ccd4d0c93d1224b03f91c6a1280b15a744e4",
+			"owner_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"balance": "5002100000000000"
+		},
+		{
+			"jetton_wallet_address": "0:c13744eeab458d93af61300e67fc5a08eb5407e967e8f280175a940fb290c50e",
+			"owner_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"balance": "4998900000000000"
+		}
+	]
+}

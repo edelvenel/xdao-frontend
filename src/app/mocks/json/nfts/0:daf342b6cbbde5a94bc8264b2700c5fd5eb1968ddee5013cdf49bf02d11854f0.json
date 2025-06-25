@@ -1,0 +1,57 @@
+{
+	"nft_items": [
+		{
+			"address": "0:E93E7D444180608B8520C00DC664383A387356FB6E16FDDF99DBE5E1415A574B",
+			"index": 58,
+			"owner": {
+				"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+				"name": "Ton foundation",
+				"is_scam": true,
+				"icon": "https://ton.org/logo.png",
+				"is_wallet": true
+			},
+			"collection": {
+				"address": "0:E93E7D444180608B8520C00DC664383A387356FB6E16FDDF99DBE5E1415A574B",
+				"name": "TON Diamonds",
+				"description": "Best collection in TON network"
+			},
+			"verified": true,
+			"metadata": {},
+			"sale": {
+				"address": "0:10C1073837B93FDAAD594284CE8B8EFF7B9CF25427440EB2FC682762E1471365",
+				"market": {
+					"address": "0:10C1073837B93FDAAD594284CE8B8EFF7B9CF25427440EB2FC682762E1471365",
+					"name": "Ton foundation",
+					"is_scam": true,
+					"icon": "https://ton.org/logo.png",
+					"is_wallet": true
+				},
+				"owner": {
+					"address": "0:10C1073837B93FDAAD594284CE8B8EFF7B9CF25427440EB2FC682762E1471365",
+					"name": "Ton foundation",
+					"is_scam": true,
+					"icon": "https://ton.org/logo.png",
+					"is_wallet": true
+				},
+				"price": {
+					"currency_type": "jetton",
+					"value": "123000000000",
+					"decimals": 9,
+					"token_name": "TON",
+					"verification": "whitelist",
+					"image": "https://cache.tonapi.io/images/jetton.jpg",
+					"jetton": "0:0BB5A9F69043EEBDDA5AD2E946EB953242BD8F603FE795D90698CEEC6BFC60A0"
+				}
+			},
+			"previews": [
+				{
+					"resolution": "100x100",
+					"url": "https://site.com/pic1.jpg"
+				}
+			],
+			"dns": "crypto.ton",
+			"include_cnft": false,
+			"trust": "whitelist"
+		}
+	]
+}

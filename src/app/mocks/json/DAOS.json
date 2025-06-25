@@ -1,0 +1,141 @@
+{
+	"total": 4,
+	"items": [
+		{
+			"address": "0:f5672852c667363eb8e566580df2085e17bb789ed6ec37f426eb1cd290deb00f",
+			"owner_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"name": "NewDAO_10",
+			"jetton_address": "0:3642f554d9f2de49a7ba000588d84488d3ebf05c21f65bb89f8bd9722f4e1f9f",
+			"jetton_metadata": {
+				"admin": {
+					"address": "0:f5672852c667363eb8e566580df2085e17bb789ed6ec37f426eb1cd290deb00f",
+					"is_scam": false,
+					"is_wallet": false
+				},
+				"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+				"metadata": {
+					"address": "0:3642f554d9f2de49a7ba000588d84488d3ebf05c21f65bb89f8bd9722f4e1f9f",
+					"decimals": "9",
+					"description": "NewDAO_10",
+					"image": "https://ton.org/download/ton_symbol.png",
+					"name": "NewDAO_10",
+					"symbol": "Symbol_10"
+				},
+				"mintable": true,
+				"total_supply": "2000000000",
+				"verification": "none",
+				"holders_count": 2
+			},
+			"success_percentage": 5000,
+			"total_supply": "2000000000",
+			"plugins": [
+				{
+					"address": "0:852bf37ee803e86f65d214d357917059bf47dd6e97ebb683851b718e4eab7fd3",
+					"type": "unknown"
+				}
+			]
+		},
+		{
+			"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+			"owner_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+			"name": "Test1806",
+			"jetton_address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+			"jetton_metadata": {
+				"verification": "none",
+				"holders_count": 3,
+				"admin": {
+					"address": "0:a42998372735ccc94acdede17a8b7da58023bb7e5837422cd1bd40748c7fa9ef",
+					"is_scam": false,
+					"is_wallet": false
+				},
+				"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+				"metadata": {
+					"address": "0:f7455a3fed776e09bf34ab89331756834b3838182e8d07a615a0aef4618747dc",
+					"decimals": "9",
+					"description": "Test1806",
+					"image": "https://ton.org/download/ton_symbol.png",
+					"name": "Test1806",
+					"symbol": "Tst1806"
+				},
+				"mintable": true,
+				"total_supply": "20001000000000000"
+			},
+			"success_percentage": 1000,
+			"total_supply": "15001000000000000",
+			"plugins": [
+				{
+					"address": "0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0",
+					"type": "walletV4"
+				}
+			]
+		},
+		{
+			"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+			"owner_address": "0:6fd1f88eed38251eef5b43dcca0480377a7053ad1e34b4796d51e8aab6f485e4",
+			"name": "Mmmm 17.06",
+			"jetton_address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+			"jetton_metadata": {
+				"holders_count": 2,
+				"admin": {
+					"address": "0:04ba0ea60d7837d6ec247400bcf5ebd5f1265c734abf079375712f458a1e1586",
+					"is_scam": false,
+					"is_wallet": false
+				},
+				"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+				"metadata": {
+					"address": "0:d08adadf0c08fc371ab81cbe607c94d38839430e264089db6e768959b59d8034",
+					"decimals": "9",
+					"description": "Mmmm 17.06",
+					"image": "https://ton.org/download/ton_symbol.png",
+					"name": "Mmmm 17.06",
+					"symbol": "Mmmm 17.06"
+				},
+				"mintable": true,
+				"total_supply": "2000000000",
+				"verification": "none"
+			},
+			"success_percentage": 2000,
+			"total_supply": "2000000000",
+			"plugins": [
+				{
+					"address": "0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6",
+					"type": "walletV4"
+				}
+			]
+		},
+		{
+			"address": "0:d4d159bdef6cb1f92eaee5760dfef6b92a5f7ca04f8554064fe372b46184ecf9",
+			"owner_address": "0:59f072faf2e6815ce9c3a8888cc73b3778a318093b23aa9424dbc82e2120966a",
+			"name": "NewMasterDAO_10",
+			"jetton_address": "0:ac105fcdb16b029587a154bde2d12ba82d36c8edc7503cda60e0f8bbeeee7c5d",
+			"jetton_metadata": {
+				"admin": {
+					"address": "0:d4d159bdef6cb1f92eaee5760dfef6b92a5f7ca04f8554064fe372b46184ecf9",
+					"is_scam": false,
+					"is_wallet": false
+				},
+				"preview": "https://cache.tonapi.io/imgproxy/h8JZDvTl0VTaAfJCu03t6b7FxXlNPIjXrvZl2x3JFN8/rs:fill:200:200:1/g:no/aHR0cHM6Ly90b24ub3JnL2Rvd25sb2FkL3Rvbl9zeW1ib2wucG5n.webp",
+				"metadata": {
+					"address": "0:ac105fcdb16b029587a154bde2d12ba82d36c8edc7503cda60e0f8bbeeee7c5d",
+					"decimals": "9",
+					"description": "NewMasterDAO_10",
+					"image": "https://ton.org/download/ton_symbol.png",
+					"name": "NewMasterDAO_10",
+					"symbol": "Symbol_10"
+				},
+				"mintable": true,
+				"total_supply": "2000000000",
+				"verification": "none",
+				"holders_count": 2
+			},
+			"success_percentage": 5000,
+			"total_supply": "2000000000",
+			"plugins": [
+				{
+					"address": "0:b031dccf431b9f7090d7390fc693d959c3220ed8950ae263fde53b1190fb6794",
+					"type": "walletV4"
+				}
+			]
+		}
+	]
+}

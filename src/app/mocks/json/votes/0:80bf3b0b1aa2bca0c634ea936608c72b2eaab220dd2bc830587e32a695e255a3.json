@@ -1,0 +1,17 @@
+{
+	"total": 2,
+	"items": [
+		{
+			"proposal_address": "0:80bf3b0b1aa2bca0c634ea936608c72b2eaab220dd2bc830587e32a695e255a3",
+			"voter_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"amount": "10000000000000000",
+			"date_create": "2025-06-18 13:11:00"
+		},
+		{
+			"proposal_address": "0:80bf3b0b1aa2bca0c634ea936608c72b2eaab220dd2bc830587e32a695e255a3",
+			"voter_address": "0:5a2ce75d2175b17fef4a87d976f7c7a39458e191a7a90b1799ea5ca46eb9cd96",
+			"amount": "10000000000000000",
+			"date_create": "2025-06-18 13:03:13"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"total": 1,
+	"items": [
+		{
+			"proposal_address": "0:e1f23f7e23d11ea87c219bd6a88ca57bbc2b0e4fdd90b5cfe82bf0ebfe91490a",
+			"voter_address": "0:74d01b9e349737d9ace8bafc231b0072fe43459de3745b372a21069029bfdcb8",
+			"amount": "5000000000000000",
+			"date_create": "2025-06-19 14:44:38"
+		}
+	]
+}

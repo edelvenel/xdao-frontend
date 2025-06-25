@@ -1,0 +1,11 @@
+import balance_01 from './0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6.json';
+import balance_02 from './0:852bf37ee803e86f65d214d357917059bf47dd6e97ebb683851b718e4eab7fd3.json';
+import balance_03 from './0:b031dccf431b9f7090d7390fc693d959c3220ed8950ae263fde53b1190fb6794.json';
+import balance_04 from './0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0.json';
+
+export const balances = {
+	'0:5b71a7ed133494b719f99a17938cd787170ab2e130645db4a697cec9280e20f6': balance_01,
+	'0:852bf37ee803e86f65d214d357917059bf47dd6e97ebb683851b718e4eab7fd3': balance_02,
+	'0:b031dccf431b9f7090d7390fc693d959c3220ed8950ae263fde53b1190fb6794': balance_03,
+	'0:daf342b6cbbde5a94bc8264b2700c5fd5eb1968ddee5013cdf49bf02d11854f0': balance_04,
+};
